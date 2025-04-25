@@ -47,6 +47,8 @@ class McpServerChart {
     const chartTypeMapping: { [key: string]: string } = {
       generate_line_chart: "line",
       generate_column_chart: "column",
+      generate_area_chart: "area",
+      generate_pie_chart: "pie",
       // 可以继续添加其他图表类型映射
       // ...
     };
@@ -106,8 +108,6 @@ class McpServerChart {
               title: { type: "string" },
               axisXTitle: { type: "string" },
               axisYTitle: { type: "string" },
-              width: { type: "number" },
-              height: { type: "number" },
             },
             required: ["data"],
           },
@@ -135,12 +135,62 @@ class McpServerChart {
               title: { type: "string" },
               axisXTitle: { type: "string" },
               axisYTitle: { type: "string" },
-              width: { type: "number" },
-              height: { type: "number" },
             },
             required: ["data"],
           },
         },
+        {
+          name: "generate_pie_chart",
+          description: "Generate a pie chart using gpt-vis",
+          inputSchema: {
+            type: "object",
+            properties: {
+              data: {
+                type: "array",
+                items: {
+                  type: "object",
+                  properties: {
+                    category: { type: "string" },
+                    value: { type: "string" },
+                    group: { type: "string" },
+                  },
+                  required: ["category", "value"],
+                },
+              },
+              innerRadius: { type: "number" },
+              title: { type: "string" },
+              axisXTitle: { type: "string" },
+              axisYTitle: { type: "string" },
+            },
+            required: ["data"],
+          },
+        },
+        {
+          name: "generate_area_chart",
+          description: "Generate a area chart using gpt-vis",
+          inputSchema: {
+            type: "object",
+            properties: {
+              data: {
+                type: "array",
+                items: {
+                  type: "object",
+                  properties: {
+                    time: { type: "string" },
+                    value: { type: "string" },
+                  },
+                  required: ["time", "value"],
+                },
+              },
+              stack: { type: "boolean" },
+              title: { type: "string" },
+              axisXTitle: { type: "string" },
+              axisYTitle: { type: "string" },
+            },
+            required: ["data"],
+          },
+        },
+
         // 添加更多图表类型定义...
       ],
     }));
@@ -149,6 +199,8 @@ class McpServerChart {
       switch (request.params.name) {
         case "generate_line_chart":
         case "generate_column_chart":
+        case "generate_pie_chart":
+        case "generate_area_chart":
           return await this.handleGenerateChart(request);
         default:
           throw new McpError(

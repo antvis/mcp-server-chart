@@ -8,14 +8,13 @@ import {
   McpError,
 } from "@modelcontextprotocol/sdk/types.js";
 
-
-class GptVisChartServer {
+class McpServerChart {
   private server: Server;
 
   constructor() {
     this.server = new Server(
       {
-        name: "gpt-vis-chart-server",
+        name: "mcp-server-chart",
         version: "1.0.0",
       },
       {
@@ -44,6 +43,47 @@ class GptVisChartServer {
     });
   }
 
+  private async handleGenerateChart(request: any) {
+    const chartTypeMapping: { [key: string]: string } = {
+      generate_line_chart: "line",
+      generate_column_chart: "column",
+      // 可以继续添加其他图表类型映射
+      // ...
+    };
+    const action = request.params.name;
+    const chartType = chartTypeMapping[action];
+
+    if (!chartType) {
+      throw new McpError(ErrorCode.MethodNotFound, `Unknown tool: ${action}`);
+    }
+
+    try {
+      const config: any = request.params.arguments;
+      const newConfig = {
+        type: chartType,
+        ...config,
+      };
+      const response = await this.generateChartUrl(newConfig);
+      const url = response.data.resultObj;
+      return {
+        content: [
+          {
+            type: "text",
+            text: url,
+          },
+        ],
+      };
+    } catch (error: any) {
+      if (error instanceof McpError) {
+        throw error;
+      }
+      throw new McpError(
+        ErrorCode.InternalError,
+        `Failed to generate chart: ${error?.message || "Unknown error"}`
+      );
+    }
+  }
+
   private setupToolHandlers() {
     this.server.setRequestHandler(ListToolsRequestSchema, async () => ({
       tools: [
@@ -58,8 +98,8 @@ class GptVisChartServer {
                 items: {
                   type: "object",
                   properties: {
-                    time:  {type: "string"},
-                    value: {type: "string"}
+                    time: { type: "string" },
+                    value: { type: "string" },
                   },
                 },
               },
@@ -83,15 +123,15 @@ class GptVisChartServer {
                 items: {
                   type: "object",
                   properties: {
-                    category:  {type: "string"},
-                    value: {type: "string"},
-                    group: {type: "string"}
+                    category: { type: "string" },
+                    value: { type: "string" },
+                    group: { type: "string" },
                   },
                   required: ["category", "value"],
                 },
               },
               group: { type: "boolean" },
-              stack: { type: "boolean"},
+              stack: { type: "boolean" },
               title: { type: "string" },
               axisXTitle: { type: "string" },
               axisYTitle: { type: "string" },
@@ -101,65 +141,15 @@ class GptVisChartServer {
             required: ["data"],
           },
         },
+        // 添加更多图表类型定义...
       ],
     }));
 
     this.server.setRequestHandler(CallToolRequestSchema, async (request) => {
       switch (request.params.name) {
-        case "generate_line_chart": {
-          try {
-            const config:any = request.params.arguments;
-            const newConfig = {
-              type: 'line',
-              ...config,
-            }
-            const response = await this.generateChartUrl(newConfig);
-            const url = response.data.resultObj;
-            return {
-              content: [
-                {
-                  type: "text",
-                  text: url,
-                },
-              ],
-            };
-          } catch (error: any) {
-            if (error instanceof McpError) {
-              throw error;
-            }
-            throw new McpError(
-              ErrorCode.InternalError,
-              `Failed to generate chart: ${error?.message || "Unknown error"}`
-            );
-          }
-        }
-        case "generate_column_chart": {
-          try {
-            const config:any = request.params.arguments;
-            const newConfig = {
-              type: 'column',
-              ...config,
-            }
-            const response = await this.generateChartUrl(newConfig);
-            const url = response.data.resultObj;
-            return {
-              content: [
-                {
-                  type: "text",
-                  text: url,
-                },
-              ],
-            };
-          } catch (error: any) {
-            if (error instanceof McpError) {
-              throw error;
-            }
-            throw new McpError(
-              ErrorCode.InternalError,
-              `Failed to generate chart: ${error?.message || "Unknown error"}`
-            );
-          }
-        }
+        case "generate_line_chart":
+        case "generate_column_chart":
+          return await this.handleGenerateChart(request);
         default:
           throw new McpError(
             ErrorCode.MethodNotFound,
@@ -176,5 +166,5 @@ class GptVisChartServer {
   }
 }
 
-const server = new GptVisChartServer();
+const server = new McpServerChart();
 server.run().catch(console.error);

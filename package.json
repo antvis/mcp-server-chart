@@ -1,0 +1,32 @@
+{
+  "name": "@antv/mcp-server-chart",
+  "description": "A Model Context Protocol server for generating charts using antvGptVis",
+  "version": "1.0.0",
+  "main": "build/index.js",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "start": "node build/index.js"
+  },
+  "keywords": [
+    "antv",
+    "mcp",
+    "data-visualization",
+    "chart"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/antvis/mcp-server-chart"
+  },
+  "author": "XinyueDu",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^22.14.1",
+    "ts-node": "^10.9.2",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.8.3",
+    "@modelcontextprotocol/sdk": "^1.7.0",
+    "axios": "^1.8.4",
+    "zod": "^3.24.2"
+  }
+}

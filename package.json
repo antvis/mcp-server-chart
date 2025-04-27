@@ -8,6 +8,9 @@
     "build": "tsc",
     "start": "npx @modelcontextprotocol/inspector node build/index.js"
   },
+  "bin": {
+    "mcp-server-chart": "./build/index.js"
+  },
   "keywords": [
     "antv",
     "mcp",

@@ -35,6 +35,36 @@ Start the MCP server:
 npm run start
 ```
 
+To use with Claude Desktop, add the server config:
+
+
+```json
+{
+  "mcpServers": {
+    "quickchart-server": {
+      "command": "node",
+      "args": ["/path/to/mcp-server-chart/build/index.js"]
+    }
+  }
+}
+```
+
+or
+
+```json
+{
+  "mcpServers": {
+    "quickchart-server": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@antv/mcp-server-chart"
+      ]
+    }
+  }
+}
+```
+
 
 ## 📄 License
 

@@ -14,8 +14,27 @@ Now 4 charts supported.
 - `generate_pie_chart` - Generate a pie chart URL.
 - `generate_area_chart` - Generate a area chart URL.
 
+## 🤖 Usage
 
-## 🔨 Getting Started
+To use with Claude Desktop, add the server config:
+
+
+```json
+{
+  "mcpServers": {
+    "quickchart-server": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@antv/mcp-server-chart"
+      ]
+    }
+  }
+}
+```
+
+
+## 🔨 Development
 
 Install dependencies:
 
@@ -33,36 +52,6 @@ Start the MCP server:
 
 ```bash
 npm run start
-```
-
-To use with Claude Desktop, add the server config:
-
-
-```json
-{
-  "mcpServers": {
-    "quickchart-server": {
-      "command": "node",
-      "args": ["/path/to/mcp-server-chart/build/index.js"]
-    }
-  }
-}
-```
-
-or
-
-```json
-{
-  "mcpServers": {
-    "quickchart-server": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "@antv/mcp-server-chart"
-      ]
-    }
-  }
-}
 ```
 
 

@@ -99,6 +99,7 @@ const Tools = [
           type: 'number',
           description:
             'Set the pie chart as a donut chart. Set the value to 0.6 to enable it.',
+          default: 0,
         },
         ...BaseConfig,
       },
@@ -193,7 +194,6 @@ class McpServerChart {
         generate_column_chart: 'column',
         generate_area_chart: 'area',
         generate_pie_chart: 'pie',
-        // ...
       } as any;
 
       const type = ChartTypeMapping[request.params.name];

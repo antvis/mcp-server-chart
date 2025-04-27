@@ -30,8 +30,6 @@
   "devDependencies": {
     "@modelcontextprotocol/inspector": "^0.10.2",
     "@types/node": "^22.14.1",
-    "ts-node": "^10.9.2",
-    "ts-node-dev": "^2.0.0",
     "typescript": "^5.8.3"
   }
 }

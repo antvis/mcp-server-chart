@@ -16,125 +16,125 @@ const BaseConfig = {
 
 const Tools = [
   {
-    name: 'generate_line_chart',
+    name: "generate_line_chart",
     description:
       "Generate a line chart to show trends over time, such as the ratio of Apple computer sales to Apple's profits changed from 2000 to 2016.",
     inputSchema: {
-      type: 'object',
+      type: "object",
       properties: {
         data: {
-          type: 'array',
+          type: "array",
           items: {
-            type: 'object',
+            type: "objec",
             properties: {
-              time: { type: 'string' },
-              value: { type: 'number' },
+              time: { type: "string" },
+              value: { type: "number" },
             },
           },
           description:
-            'Data for line chart, such as, [{time: string, value: string}].',
+            "Data for line chart, such as, [{time: string, value: string}].",
         },
         ...BaseConfig,
       },
-      required: ['data'],
+      required: ["data"],
     },
   },
   {
-    name: 'generate_column_chart',
+    name: "generate_column_chart",
     description:
-      'Generate a column chart, which are best for comparing categorical data, such as when values are close, column charts are preferable because our eyes are better at judging height than other visual elements like area or angles.',
+      "Generate a column chart, which are best for comparing categorical data, such as when values are close, column charts are preferable because our eyes are better at judging height than other visual elements like area or angles.",
     inputSchema: {
-      type: 'object',
+      type: "object",
       properties: {
         data: {
-          type: 'array',
+          type: "array",
           items: {
-            type: 'object',
+            type: "object",
             properties: {
-              category: { type: 'string' },
-              value: { type: 'number' },
-              group: { type: 'string' },
+              category: { type: "string" },
+              value: { type: "number" },
+              group: { type: "string" },
             },
-            required: ['category', 'value'],
+            required: ["category", "value"],
           },
           description:
-            'data for column chart, such as, [{category: string; value: number; group?: string}].',
+            "data for column chart, such as, [{category: string; value: number; group?: string}].",
         },
         group: {
-          type: 'boolean',
+          type: "boolean",
           description:
             "grouping is enabled. column charts require a 'group' field in the data.",
         },
         stack: {
-          type: 'boolean',
+          type: "boolean",
           description:
             "stacking is enabled. column charts require a 'group' field in the data.",
         },
         ...BaseConfig,
       },
-      required: ['data'],
+      required: ["data"],
     },
   },
   {
-    name: 'generate_pie_chart',
+    name: "generate_pie_chart",
     description:
-      'Generate a pie chart to show the proportion of parts, such as market share and budget allocation.',
+      "Generate a pie chart to show the proportion of parts, such as market share and budget allocation.",
     inputSchema: {
-      type: 'object',
+      type: "object",
       properties: {
         data: {
-          type: 'array',
+          type: "array",
           items: {
-            type: 'object',
+            type: "object",
             properties: {
-              category: { type: 'string' },
-              value: { type: 'number' },
+              category: { type: "string" },
+              value: { type: "number" },
             },
-            required: ['category', 'value'],
+            required: ["category", "value"],
           },
           description:
-            'data for pie chart, (such as, [{category: string; value: number }])',
+            "data for pie chart, (such as, [{category: string; value: number }])",
         },
         innerRadius: {
-          type: 'number',
+          type: "number",
           description:
-            'Set the pie chart as a donut chart. Set the value to 0.6 to enable it.',
+            "Set the pie chart as a donut chart. Set the value to 0.6 to enable it.",
           default: 0,
         },
         ...BaseConfig,
       },
-      required: ['data'],
+      required: ["data"],
     },
   },
   {
-    name: 'generate_area_chart',
+    name: "generate_area_chart",
     description:
       "Generate a area chart to show data trends under continuous independent variables and observe the overall data trend, such as displacement = velocity (average or instantaneous) × time: s = v × t. If the x-axis is time (t) and the y-axis is velocity (v) at each moment, an area chart allows you to observe the trend of velocity over time and infer the distance traveled by the area's size.",
     inputSchema: {
-      type: 'object',
+      type: "object",
       properties: {
         data: {
-          type: 'array',
+          type: "array",
           items: {
-            type: 'object',
+            type: "object",
             properties: {
-              time: { type: 'string' },
-              value: { type: 'number' },
-              group: { type: 'string' },
+              time: { type: "string" },
+              value: { type: "number" },
+              group: { type: "string" },
             },
-            required: ['time', 'value'],
+            required: ["time", "value"],
           },
           description:
-            'data for pie chart, such as, [{time: string; value: number }].',
+            "data for pie chart, such as, [{time: string; value: number }].",
         },
         stack: {
-          type: 'boolean',
+          type: "boolean",
           description:
             "stacking is enabled. column charts require a 'group' field in the data.",
         },
         ...BaseConfig,
       },
-      required: ['data'],
+      required: ["data"],
     },
   },
 ];
@@ -151,7 +151,7 @@ async function generateChartUrl(type: string, options: any): Promise<any> {
     ...options,
   }, {
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
   });
 
@@ -190,10 +190,10 @@ class McpServerChart {
 
     this.server.setRequestHandler(CallToolRequestSchema, async (request) => {
       const ChartTypeMapping = {
-        generate_line_chart: 'line',
-        generate_column_chart: 'column',
-        generate_area_chart: 'area',
-        generate_pie_chart: 'pie',
+        generate_line_chart: "line",
+        generate_column_chart: "column",
+        generate_area_chart: "area",
+        generate_pie_chart: "pie",
       } as any;
 
       const type = ChartTypeMapping[request.params.name];
@@ -211,7 +211,7 @@ class McpServerChart {
         return {
           content: [
             {
-              type: 'text',
+              type: "text",
               text: url,
             },
           ],
@@ -220,7 +220,7 @@ class McpServerChart {
         if (error instanceof McpError) throw error;
         throw new McpError(
           ErrorCode.InternalError,
-          `Failed to generate chart: ${error?.message || 'Unknown error.'}`
+          `Failed to generate chart: ${error?.message || "Unknown error."}`
         );
       }
     });

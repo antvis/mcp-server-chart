@@ -8,6 +8,8 @@ import {
   McpError,
 } from "@modelcontextprotocol/sdk/types.js";
 
+import { tools } from "./tools.js";
+
 class McpServerChart {
   private server: Server;
 
@@ -88,111 +90,7 @@ class McpServerChart {
 
   private setupToolHandlers() {
     this.server.setRequestHandler(ListToolsRequestSchema, async () => ({
-      tools: [
-        {
-          name: "generate_line_chart",
-          description: "Generate a line chart using gpt-vis",
-          inputSchema: {
-            type: "object",
-            properties: {
-              data: {
-                type: "array",
-                items: {
-                  type: "object",
-                  properties: {
-                    time: { type: "string" },
-                    value: { type: "string" },
-                  },
-                },
-              },
-              title: { type: "string" },
-              axisXTitle: { type: "string" },
-              axisYTitle: { type: "string" },
-            },
-            required: ["data"],
-          },
-        },
-        {
-          name: "generate_column_chart",
-          description: "Generate a column chart using gpt-vis",
-          inputSchema: {
-            type: "object",
-            properties: {
-              data: {
-                type: "array",
-                items: {
-                  type: "object",
-                  properties: {
-                    category: { type: "string" },
-                    value: { type: "string" },
-                    group: { type: "string" },
-                  },
-                  required: ["category", "value"],
-                },
-              },
-              group: { type: "boolean" },
-              stack: { type: "boolean" },
-              title: { type: "string" },
-              axisXTitle: { type: "string" },
-              axisYTitle: { type: "string" },
-            },
-            required: ["data"],
-          },
-        },
-        {
-          name: "generate_pie_chart",
-          description: "Generate a pie chart using gpt-vis",
-          inputSchema: {
-            type: "object",
-            properties: {
-              data: {
-                type: "array",
-                items: {
-                  type: "object",
-                  properties: {
-                    category: { type: "string" },
-                    value: { type: "string" },
-                    group: { type: "string" },
-                  },
-                  required: ["category", "value"],
-                },
-              },
-              innerRadius: { type: "number" },
-              title: { type: "string" },
-              axisXTitle: { type: "string" },
-              axisYTitle: { type: "string" },
-            },
-            required: ["data"],
-          },
-        },
-        {
-          name: "generate_area_chart",
-          description: "Generate a area chart using gpt-vis",
-          inputSchema: {
-            type: "object",
-            properties: {
-              data: {
-                type: "array",
-                items: {
-                  type: "object",
-                  properties: {
-                    time: { type: "string" },
-                    value: { type: "string" },
-                  },
-                  required: ["time", "value"],
-                },
-              },
-              stack: { type: "boolean" },
-              title: { type: "string" },
-              axisXTitle: { type: "string" },
-              axisYTitle: { type: "string" },
-            },
-            required: ["data"],
-          },
-        },
-
-        // 添加更多图表类型定义...
-      ],
+      tools: tools
     }));
 
     this.server.setRequestHandler(CallToolRequestSchema, async (request) => {

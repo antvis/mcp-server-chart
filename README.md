@@ -1,6 +1,6 @@
-# mcp-server-chart MCP Server
+# MCP Server Chart 
 
-A Model Context Protocol server for generating charts using @antvis.
+A Model Context Protocol server for generating charts using antvis[https://github.com/antvis/mcp-server-chart].
 
 This is a TypeScript-based MCP server that provides chart generation capabilities. It allows you to create various types of charts through MCP tools.
 
@@ -9,6 +9,9 @@ This is a TypeScript-based MCP server that provides chart generation capabilitie
 
 ### Tools 
 - `generate_line_chart` - Generate a line chart URL 
+- `generate_column_chart` - Generate a column chart URL 
+- `generate_pie_chart` - Generate a pie chart URL 
+- `generate_area_chart` - Generate a area chart URL 
 
 
 ## Supported Chart

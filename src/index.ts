@@ -26,7 +26,7 @@ const Tools = [
         data: {
           type: "array",
           items: {
-            type: "objec",
+            type: "object",
             properties: {
               time: { type: "string" },
               value: { type: "number" },

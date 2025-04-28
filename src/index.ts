@@ -353,6 +353,128 @@ const Tools = [
       required: ["data"],
     },
   },
+  {
+    name: "generate_mind_map_chart",
+    description:
+      "Generate a mind map chart to organizes and presents information in a hierarchical structure with branches radiating from a central topic, such as a diagram showing the relationship between a main topic and its sub - topics.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        data: {
+          type: "object",
+          properties: {
+            name: { type: "string" },
+            children: {
+              type: "array",
+              item: {
+                $ref: "#"
+              },
+            },
+          },
+          required: ["name", "children"],
+          description:
+            "Data for mind map chart, such as, { name: 'main topic', children: [{ name: 'topic 1'. children: [name:'sub topic 1-1']}",
+        },
+        ...BaseConfig,
+      },
+      required: ["data"],
+    },
+  },
+  {
+    name: "generate_network_graph_chart",
+    description:
+      "Generate a network graph chart to show relationships (edges) between entities (nodes), such as, relationships between people in social networks.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        data: {
+          type: "object",
+          properties: {
+            nodes: {
+              type: "array",
+              item: {
+                name: { type: "string" },
+              },
+            },
+            edges: {
+              type: "array",
+              item: {
+                name: { type: "string" },
+                source: { type: "string" },
+                target: { type: "string" },
+              },
+            },
+          },
+          required: ["nodes", "edges"],
+          description:
+            "Data for network graph chart, such as, {nodes: [{ name: 'node1' }, { name: 'node2' }],edges: [{source: 'node1': target: 'node2', name: 'edge1' }]}",
+        },
+        ...BaseConfig,
+      },
+      required: ["data"],
+    },
+  },
+  {
+    name: "generate_flow_diagram_chart",
+    description:
+      "Generate a flow diagram chart to show the steps and decision points of a process or system.such as scenarios requiring linear process presentation.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        data: {
+          type: "object",
+          properties: {
+            nodes: {
+              type: "array",
+              item: {
+                name: { type: "string" },
+              },
+            },
+            edges: {
+              type: "array",
+              item: {
+                name: { type: "string" },
+                source: { type: "string" },
+                target: { type: "string" },
+              },
+            },
+          },
+          required: ["nodes", "edges"],
+          description:
+            "Data for flow diagram chart, such as, {nodes: [{ name: 'node1' }, { name: 'node2' }],edges: [{source: 'node1': target: 'node2', name: 'edge1' }]}",
+        },
+        ...BaseConfig,
+      },
+      required: ["data"],
+    },
+  },
+  {
+    name: "generate_fishbone_diagram_chart",
+    description:
+      "Generate a fishbone diagram chart to uses a fish skeleton - like structure to display the causes or effects of a core problem, with the problem as the fish head and the causes/effects as the fish bones. It suits problems that can be split into multiple related factors",
+      inputSchema: {
+        type: "object",
+        properties: {
+          data: {
+            type: "object",
+            properties: {
+              name: { type: "string" },
+              children: {
+                type: "array",
+                item: {
+                  $ref: "#"
+                },
+              },
+            },
+            required: ["name", "children"],
+            description:
+              "Data for fishbone diagram chart , such as, { name: 'main topic', children: [{ name: 'topic 1'. children: [name:'sub topic 1-1']}",
+          },
+          ...BaseConfig,
+        },
+        required: ["data"],
+      },
+  }
 ];
 
 /**
@@ -420,7 +542,11 @@ class McpServerChart {
         generate_word_cloud_chart: "word-cloud",
         generate_radar_chart: "radar",
         generate_treemap_chart: "treemap",
-        generate_dual_axis_chart: "dual-axis",
+        generate_dual_axes_chart: "dual-axes",
+        generate_mind_map_chart: "mind-map",
+        generate_network_graph_chart: "network-graph",
+        generate_flow_diagram_chart: "flow-diagram",
+        generate_fishbone_diagram_chart: "fishbone-diagram",
       } as any;
 
       const type = ChartTypeMapping[request.params.name];

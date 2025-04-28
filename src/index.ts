@@ -356,7 +356,7 @@ const Tools = [
   {
     name: "generate_mind_map",
     description:
-      "Generate a mind map chart to organizes and presents information in a hierarchical structure with branches radiating from a central topic, such as, a diagram showing the relationship between a main topic and its sub - topics.",
+      "Generate a mind map chart to organizes and presents information in a hierarchical structure with branches radiating from a central topic, such as, a diagram showing the relationship between a main topic and its subtopics.",
     inputSchema: {
       type: "object",
       properties: {
@@ -417,7 +417,7 @@ const Tools = [
   {
     name: "generate_flow_diagram",
     description:
-      "Generate a flow diagram chart to show the steps and decision points of a process or system. such as, scenarios requiring linear process presentation.",
+      "Generate a flow diagram chart to show the steps and decision points of a process or system, such as, scenarios requiring linear process presentation.",
     inputSchema: {
       type: "object",
       properties: {
@@ -441,7 +441,7 @@ const Tools = [
           },
           required: ["nodes", "edges"],
           description:
-            "Data for flow diagram chart, such as, { nodes: [{ name: 'node1' }, { name: 'node2' }],edges: [{source: 'node1': target: 'node2', name: 'edge1' }] }",
+            "Data for flow diagram chart, such as, { nodes: [{ name: 'node1' }, { name: 'node2' }], edges: [{source: 'node1': target: 'node2', name: 'edge1' }] }",
         },
         ...BaseConfig,
       },
@@ -451,7 +451,7 @@ const Tools = [
   {
     name: "generate_fishbone_diagram",
     description:
-      "Generate a fishbone diagram chart to uses a fish skeleton - like structure to display the causes or effects of a core problem, with the problem as the fish head and the causes/effects as the fish bones. It suits problems that can be split into multiple related factors.",
+      "Generate a fishbone diagram chart to uses a fish skeleton, like structure to display the causes or effects of a core problem, with the problem as the fish head and the causes/effects as the fish bones. It suits problems that can be split into multiple related factors.",
     inputSchema: {
       type: "object",
       properties: {
@@ -468,7 +468,7 @@ const Tools = [
           },
           required: ["name"],
           description:
-            "Data for fishbone diagram chart , such as, { name: 'main topic', children: [{ name: 'topic 1', children: [name:'sub topic 1-1'] }",
+            "Data for fishbone diagram chart , such as, { name: 'main topic', children: [{ name: 'topic 1', children: [{ name:'sub topic 1-1' }] }",
         },
         ...BaseConfig,
       },

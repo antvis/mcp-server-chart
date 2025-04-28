@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import { Server } from "@modelcontextprotocol/sdk/server/index.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import axios from "axios";
@@ -165,7 +166,7 @@ class McpServerChart {
     this.server = new Server(
       {
         name: "mcp-server-chart",
-        version: "0.1.0",
+        version: "0.2.1",
       },
       {
         capabilities: {

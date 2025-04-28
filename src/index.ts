@@ -323,19 +323,10 @@ const Tools = [
     inputSchema: {
       type: "object",
       properties: {
-        width: {
-          type: "number",
-          description: "Set the width of chart, default is 600.",
-        },
-        height: {
-          type: "number",
-          description: "Set the height of chart, default is 400.",
-        },
-        title: { type: "string", description: "Set the title of chart." },
-        axisXTitle: {
-          type: "string",
-          description: "Set the x-axis title of chart.",
-        },
+        width: BaseConfig.width,
+        height: BaseConfig.height,
+        title: BaseConfig.title,
+        axisXTitle: BaseConfig.axisXTitle,
         categories: {
           type: "array",
           items: {

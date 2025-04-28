@@ -139,7 +139,7 @@ const Tools = [
             required: ["time", "value"],
           },
           description:
-            "Data for pie chart, such as, [{ time: '2018'; value: 99.9 }].",
+            "Data for pie chart, such as, [{ time: '2018', value: 99.9 }].",
         },
         stack: {
           type: "boolean",
@@ -170,7 +170,7 @@ const Tools = [
             required: ["category", "value"],
           },
           description:
-            "Data for bar chart, such as, [{ category: '分类一'; value: 10 }].",
+            "Data for bar chart, such as, [{ category: '分类一', value: 10 }].",
         },
         group: {
           type: "boolean",
@@ -211,7 +211,7 @@ const Tools = [
   {
     name: "generate_scatter_chart",
     description:
-      "Generate a scatter chart to show the relationship between two variables, helps discover their relationship or trends, such as, the strength of correlation, data distribution patterns, etc.",
+      "Generate a scatter chart to show the relationship between two variables, helps discover their relationship or trends, such as, the strength of correlation, data distribution patterns.",
     inputSchema: {
       type: "object",
       properties: {
@@ -373,7 +373,7 @@ const Tools = [
           },
           required: ["name"],
           description:
-            "Data for mind map chart, such as, { name: 'main topic', children: [{ name: 'topic 1', children: [name:'sub topic 1-1'] }",
+            "Data for mind map chart, such as, { name: 'main topic', children: [{ name: 'topic 1', children: [{ name:'subtopic 1-1' }] }",
         },
         ...BaseConfig,
       },
@@ -407,7 +407,7 @@ const Tools = [
           },
           required: ["nodes", "edges"],
           description:
-            "Data for network graph chart, such as, { nodes: [{ name: 'node1' }, { name: 'node2' }], edges: [{ source: 'node1': target: 'node2', name: 'edge1' }] }",
+            "Data for network graph chart, such as, { nodes: [{ name: 'node1' }, { name: 'node2' }], edges: [{ source: 'node1', target: 'node2', name: 'edge1' }] }",
         },
         ...BaseConfig,
       },
@@ -441,7 +441,7 @@ const Tools = [
           },
           required: ["nodes", "edges"],
           description:
-            "Data for flow diagram chart, such as, { nodes: [{ name: 'node1' }, { name: 'node2' }], edges: [{source: 'node1': target: 'node2', name: 'edge1' }] }",
+            "Data for flow diagram chart, such as, { nodes: [{ name: 'node1' }, { name: 'node2' }], edges: [{ source: 'node1', target: 'node2', name: 'edge1' }] }",
         },
         ...BaseConfig,
       },
@@ -468,7 +468,7 @@ const Tools = [
           },
           required: ["name"],
           description:
-            "Data for fishbone diagram chart , such as, { name: 'main topic', children: [{ name: 'topic 1', children: [{ name:'sub topic 1-1' }] }",
+            "Data for fishbone diagram chart , such as, { name: 'main topic', children: [{ name: 'topic 1', children: [{ name:'subtopic 1-1' }] }",
         },
         ...BaseConfig,
       },

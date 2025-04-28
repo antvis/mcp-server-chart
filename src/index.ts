@@ -64,12 +64,12 @@ const Tools = [
         group: {
           type: "boolean",
           description:
-            "Grouping is enabled. column charts require a 'group' field in the data.",
+            "Whether grouping is enabled. column charts require a 'group' field in the data.",
         },
         stack: {
           type: "boolean",
           description:
-            "Stacking is enabled. column charts require a 'group' field in the data.",
+            "Whether stacking is enabled. column charts require a 'stack' field in the data.",
         },
         ...BaseConfig,
       },
@@ -131,7 +131,7 @@ const Tools = [
         stack: {
           type: "boolean",
           description:
-            "Stacking is enabled. column charts require a 'group' field in the data.",
+            "Whether stacking is enabled. column charts require a 'stack' field in the data.",
         },
         ...BaseConfig,
       },
@@ -162,12 +162,12 @@ const Tools = [
         group: {
           type: "boolean",
           description:
-            "Group is enabled. column charts require a 'group' field in the data.",
+            "Whether grouping is enabled. column charts require a 'group' field in the data.",
         },
         stack: {
           type: "boolean",
           description:
-            "Stacking is enabled. column charts require a 'group' field in the data.",
+            "Whether stacking is enabled. column charts require a 'stack' field in the data.",
         },
         ...BaseConfig,
       },

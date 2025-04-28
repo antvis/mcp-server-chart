@@ -468,7 +468,7 @@ const Tools = [
           },
           required: ["name"],
           description:
-            "Data for fishbone diagram chart , such as, { name: 'main topic', children: [{ name: 'topic 1', children: [{ name:'subtopic 1-1' }] }",
+            "Data for fishbone diagram chart , such as, { name: 'main topic', children: [{ name: 'topic 1', children: [{ name: 'subtopic 1-1' }] }",
         },
         ...BaseConfig,
       },

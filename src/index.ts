@@ -309,7 +309,7 @@ const Tools = [
             required: ["name", "value"],
           },
           description:
-            "Data for treemap chart, such as, [{ name: 'Design', value: 70, children: [] }].",
+            "Data for treemap chart, such as, [{ name: 'Design', value: 70, children: [{ name: 'Tech', value: 20 }] }].",
         },
         ...BaseConfig,
       },

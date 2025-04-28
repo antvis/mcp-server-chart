@@ -59,17 +59,17 @@ const Tools = [
             required: ["category", "value"],
           },
           description:
-            "data for column chart, such as, [{category: string; value: number; group?: string}].",
+            "Data for column chart, such as, [{category: string; value: number; group?: string}].",
         },
         group: {
           type: "boolean",
           description:
-            "grouping is enabled. column charts require a 'group' field in the data.",
+            "Grouping is enabled. column charts require a 'group' field in the data.",
         },
         stack: {
           type: "boolean",
           description:
-            "stacking is enabled. column charts require a 'group' field in the data.",
+            "Stacking is enabled. column charts require a 'group' field in the data.",
         },
         ...BaseConfig,
       },
@@ -94,7 +94,7 @@ const Tools = [
             required: ["category", "value"],
           },
           description:
-            "data for pie chart, (such as, [{category: string; value: number }])",
+            "Data for pie chart, (such as, [{category: string; value: number }])",
         },
         innerRadius: {
           type: "number",
@@ -126,12 +126,12 @@ const Tools = [
             required: ["time", "value"],
           },
           description:
-            "data for pie chart, such as, [{time: string; value: number }].",
+            "Data for pie chart, such as, [{time: string; value: number }].",
         },
         stack: {
           type: "boolean",
           description:
-            "stacking is enabled. column charts require a 'group' field in the data.",
+            "Stacking is enabled. column charts require a 'group' field in the data.",
         },
         ...BaseConfig,
       },

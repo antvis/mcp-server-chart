@@ -316,6 +316,52 @@ const Tools = [
       required: ["data"],
     },
   },
+  {
+    name: "generate_dual_axes_chart",
+    description:
+      "Generate a dual axes chart which is a combination chart that integrates two different chart types, typically combining a bar chart with a line chart to display both the trend and comparison of data, such as, the trend of sales and profit over time.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        width: {
+          type: "number",
+          description: "Set the width of chart, default is 600.",
+        },
+        height: {
+          type: "number",
+          description: "Set the height of chart, default is 400.",
+        },
+        title: { type: "string", description: "Set the title of chart." },
+        axisXTitle: {
+          type: "string",
+          description: "Set the x-axis title of chart.",
+        },
+        categories: {
+          type: "array",
+          items: {
+            type: "string",
+          },
+          description:
+            "Categories for dual axes chart, such as, ['2015', '2016', '2017'].",
+        },
+        series: {
+          type: "array",
+          items: {
+            type: "object",
+            properties: {
+              name: { type: "string" },
+              type: { type: "string" },
+              axisYTitle: {
+                type: "string",
+                description: "Set the y-axis title of the chart series.",
+              },
+            },
+          },
+        },
+      },
+      required: ["data"],
+    },
+  },
 ];
 
 /**
@@ -383,6 +429,7 @@ class McpServerChart {
         generate_word_cloud_chart: "word-cloud",
         generate_radar_chart: "radar",
         generate_treemap_chart: "treemap",
+        generate_dual_axis_chart: "dual-axis",
       } as any;
 
       const type = ChartTypeMapping[request.params.name];

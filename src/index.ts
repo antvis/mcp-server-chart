@@ -33,7 +33,7 @@ const Tools = [
             },
           },
           description:
-            "Data for line chart, such as, [{time: string, value: string}].",
+            "Data for line chart, such as, [{time: '2015', value: '23'}].",
         },
         ...BaseConfig,
       },
@@ -59,17 +59,17 @@ const Tools = [
             required: ["category", "value"],
           },
           description:
-            "data for column chart, such as, [{category: string; value: number; group?: string}].",
+            "Data for column chart, such as, [{category: '北京' value: 825; group: '油车'}].",
         },
         group: {
           type: "boolean",
           description:
-            "grouping is enabled. column charts require a 'group' field in the data.",
+            "Grouping is enabled. column charts require a 'group' field in the data.",
         },
         stack: {
           type: "boolean",
           description:
-            "stacking is enabled. column charts require a 'group' field in the data.",
+            "Stacking is enabled. column charts require a 'group' field in the data.",
         },
         ...BaseConfig,
       },
@@ -94,7 +94,7 @@ const Tools = [
             required: ["category", "value"],
           },
           description:
-            "data for pie chart, (such as, [{category: string; value: number }])",
+            "Data for pie chart, (such as, [{category: '分类一', value: 27 }])",
         },
         innerRadius: {
           type: "number",
@@ -126,18 +126,126 @@ const Tools = [
             required: ["time", "value"],
           },
           description:
-            "data for pie chart, such as, [{time: string; value: number }].",
+            "Data for pie chart, such as, [{time: '2018'; value: 99.9 }].",
         },
         stack: {
           type: "boolean",
           description:
-            "stacking is enabled. column charts require a 'group' field in the data.",
+            "Stacking is enabled. column charts require a 'group' field in the data.",
         },
         ...BaseConfig,
       },
       required: ["data"],
     },
   },
+  {
+    name: "generate_bar_chart",
+    description:
+      "Generate a bar chart to show data for numerical comparisons among different categories, such as comparing categorical data and for horizontal comparisons.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        data: {
+          type: "array",
+          items: {
+            type: "object",
+            properties: {
+              category: { type: "string" },
+              value: { type: "number" },
+              group: { type: "string" },
+            },
+            required: ["category", "value"],
+          },
+          description:
+            "Data for bar chart, such as, [{category: '分类一'; value: 10 }].",
+        },
+        group: {
+          type: "boolean",
+          description:
+            "Group is enabled. column charts require a 'group' field in the data.",
+        },
+        stack: {
+          type: "boolean",
+          description:
+            "Stacking is enabled. column charts require a 'group' field in the data.",
+        },
+        ...BaseConfig,
+      },
+      required: ["data"],
+    },
+  },
+  {
+    name: "generate_histogram_chart",
+    description:
+      "Generate a histogram chart to show the frequency of data points within a certain range. It can observe data distribution, such as normal and skewed distributions, and identify data concentration areas and extreme points.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        data: {
+          type: "array",
+          description: "Data for bar chart, such as, [78, 88, 60, 100, 95].",
+        },
+        binNumber: {
+          type: "number",
+          description: "Number of intervals to define the number of intervals in a histogram.",
+        },
+        ...BaseConfig,
+      },
+      required: ["data"],
+    },
+  },
+  {
+    name: "generate_scatter_chart",
+    description:
+      "Generate a scatter chart to show the relationship between two variables, helps discover their relationship or trends, such as the strength of correlation, data distribution patterns, etc.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        data: {
+          type: "array",
+          items: {
+            type: "object",
+            item: {
+              properties: {
+                x: { type: "number" },
+                y: { type: "number" },
+              },
+              required: ["x", "y"],
+            }
+          },
+          description: "Data for scatter chart, such as, [{ x: 10, y: 15 }].",
+        },
+        ...BaseConfig,
+      },
+      required: ["data"],
+    },
+  },
+  {
+    name: "generate_word_cloud_chart",
+    description:
+      "Generate a word cloud chart to show word frequency or weight through text size variation, such as, analyzing common words in social media, reviews, or feedback.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        data: {
+          type: "array",
+          items: {
+            type: "object",
+            item: {
+              properties: {
+                value: { type: "string" },
+                text: { type: "string" },
+              },
+              required: ["value", "text"],
+            }
+          },
+          description: "Data for word cloud chart, such as, [{ value: '4.272', text: '形成' }].",
+        },
+        ...BaseConfig,
+      },
+      required: ["data"],
+    },
+  }
 ];
 
 /**
@@ -195,6 +303,11 @@ class McpServerChart {
         generate_column_chart: "column",
         generate_area_chart: "area",
         generate_pie_chart: "pie",
+        generate_bar_chart: "bar",
+        generate_histogram_chart: "histogram",
+        generate_scatter_chart: "scatter",
+        generate_word_cloud_chart: "word-cloud"
+
       } as any;
 
       const type = ChartTypeMapping[request.params.name];

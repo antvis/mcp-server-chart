@@ -287,6 +287,35 @@ const Tools = [
       required: ["data"],
     },
   },
+  {
+    name: "generate_treemap_chart",
+    description:
+      "Generate a treemap chart to display hierarchical data and can intuitively show comparisons between items at the same level, such as, show disk space usage with treemap.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        data: {
+          type: "array",
+          items: {
+            type: "object",
+            properties: {
+              name: { type: "string" },
+              value: { type: "number" },
+              children: {
+                type: "array",
+                items: { $ref: "#" },
+              },
+            },
+            required: ["name", "value"],
+          },
+          description:
+            "Data for treemap chart, such as, [{ name: 'Design', value: 70, children: [] }].",
+        },
+        ...BaseConfig,
+      },
+      required: ["data"],
+    },
+  },
 ];
 
 /**
@@ -353,6 +382,7 @@ class McpServerChart {
         generate_scatter_chart: "scatter",
         generate_word_cloud_chart: "word-cloud",
         generate_radar_chart: "radar",
+        generate_treemap_chart: "treemap",
       } as any;
 
       const type = ChartTypeMapping[request.params.name];

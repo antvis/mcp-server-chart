@@ -354,7 +354,7 @@ const Tools = [
     },
   },
   {
-    name: "generate_mind_map_chart",
+    name: "generate_mind_map",
     description:
       "Generate a mind map chart to organizes and presents information in a hierarchical structure with branches radiating from a central topic, such as a diagram showing the relationship between a main topic and its sub - topics.",
     inputSchema: {
@@ -381,7 +381,7 @@ const Tools = [
     },
   },
   {
-    name: "generate_network_graph_chart",
+    name: "generate_network_graph",
     description:
       "Generate a network graph chart to show relationships (edges) between entities (nodes), such as, relationships between people in social networks.",
     inputSchema: {
@@ -415,7 +415,7 @@ const Tools = [
     },
   },
   {
-    name: "generate_flow_diagram_chart",
+    name: "generate_flow_diagram",
     description:
       "Generate a flow diagram chart to show the steps and decision points of a process or system.such as scenarios requiring linear process presentation.",
     inputSchema: {
@@ -449,7 +449,7 @@ const Tools = [
     },
   },
   {
-    name: "generate_fishbone_diagram_chart",
+    name: "generate_fishbone_diagram",
     description:
       "Generate a fishbone diagram chart to uses a fish skeleton - like structure to display the causes or effects of a core problem, with the problem as the fish head and the causes/effects as the fish bones. It suits problems that can be split into multiple related factors",
     inputSchema: {
@@ -543,10 +543,10 @@ class McpServerChart {
         generate_radar_chart: "radar",
         generate_treemap_chart: "treemap",
         generate_dual_axes_chart: "dual-axes",
-        generate_mind_map_chart: "mind-map",
-        generate_network_graph_chart: "network-graph",
-        generate_flow_diagram_chart: "flow-diagram",
-        generate_fishbone_diagram_chart: "fishbone-diagram",
+        generate_mind_map: "mind-map",
+        generate_network_graph: "network-graph",
+        generate_flow_diagram: "flow-diagram",
+        generate_fishbone_diagram: "fishbone-diagram",
       } as any;
 
       const type = ChartTypeMapping[request.params.name];

@@ -367,13 +367,13 @@ const Tools = [
             children: {
               type: "array",
               item: {
-                $ref: "#"
+                $ref: "#",
               },
             },
           },
-          required: ["name", "children"],
+          required: ["name"],
           description:
-            "Data for mind map chart, such as, { name: 'main topic', children: [{ name: 'topic 1'. children: [name:'sub topic 1-1']}",
+            "Data for mind map chart, such as, { name: 'main topic', children: [{ name: 'topic 1'. children: [name:'sub topic 1-1'] }",
         },
         ...BaseConfig,
       },
@@ -407,7 +407,7 @@ const Tools = [
           },
           required: ["nodes", "edges"],
           description:
-            "Data for network graph chart, such as, {nodes: [{ name: 'node1' }, { name: 'node2' }],edges: [{source: 'node1': target: 'node2', name: 'edge1' }]}",
+            "Data for network graph chart, such as, { nodes: [{ name: 'node1' }, { name: 'node2' }],edges: [{ source: 'node1': target: 'node2', name: 'edge1' }] }",
         },
         ...BaseConfig,
       },
@@ -441,7 +441,7 @@ const Tools = [
           },
           required: ["nodes", "edges"],
           description:
-            "Data for flow diagram chart, such as, {nodes: [{ name: 'node1' }, { name: 'node2' }],edges: [{source: 'node1': target: 'node2', name: 'edge1' }]}",
+            "Data for flow diagram chart, such as, { nodes: [{ name: 'node1' }, { name: 'node2' }],edges: [{source: 'node1': target: 'node2', name: 'edge1' }] }",
         },
         ...BaseConfig,
       },
@@ -452,29 +452,29 @@ const Tools = [
     name: "generate_fishbone_diagram_chart",
     description:
       "Generate a fishbone diagram chart to uses a fish skeleton - like structure to display the causes or effects of a core problem, with the problem as the fish head and the causes/effects as the fish bones. It suits problems that can be split into multiple related factors",
-      inputSchema: {
-        type: "object",
-        properties: {
-          data: {
-            type: "object",
-            properties: {
-              name: { type: "string" },
-              children: {
-                type: "array",
-                item: {
-                  $ref: "#"
-                },
+    inputSchema: {
+      type: "object",
+      properties: {
+        data: {
+          type: "object",
+          properties: {
+            name: { type: "string" },
+            children: {
+              type: "array",
+              item: {
+                $ref: "#",
               },
             },
-            required: ["name", "children"],
-            description:
-              "Data for fishbone diagram chart , such as, { name: 'main topic', children: [{ name: 'topic 1'. children: [name:'sub topic 1-1']}",
           },
-          ...BaseConfig,
+          required: ["name"],
+          description:
+            "Data for fishbone diagram chart , such as, { name: 'main topic', children: [{ name: 'topic 1'. children: [name:'sub topic 1-1'] }",
         },
-        required: ["data"],
+        ...BaseConfig,
       },
-  }
+      required: ["data"],
+    },
+  },
 ];
 
 /**

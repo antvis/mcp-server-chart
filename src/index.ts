@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 import { Server } from "@modelcontextprotocol/sdk/server/index.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
-import axios from "axios";
-import axiosRetry from 'axios-retry';
+import axios, { type AxiosError } from "axios";
+import axiosRetry from "axios-retry";
 import {
   CallToolRequestSchema,
   ErrorCode,
@@ -502,9 +502,13 @@ async function generateChartUrl(type: string, options: any): Promise<any> {
   );
 
   if (!response.data.success) {
-    axiosRetry(axios, { retries: 2 });
+    axiosRetry(axios, { 
+      retries: 2, 
+      retryCondition: (error: AxiosError) => {
+      return !!error.message;
+    }});
   }
-  
+
   return response.data.resultObj;
 }
 

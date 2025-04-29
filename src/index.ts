@@ -2,6 +2,7 @@
 import { Server } from "@modelcontextprotocol/sdk/server/index.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import axios from "axios";
+import axiosRetry from 'axios-retry';
 import {
   CallToolRequestSchema,
   ErrorCode,
@@ -13,10 +14,12 @@ const BaseConfig = {
   width: {
     type: "number",
     description: "Set the width of chart, default is 600.",
+    default: 600
   },
   height: {
     type: "number",
     description: "Set the height of chart, default is 400.",
+    default: 400
   },
   title: { type: "string", description: "Set the title of chart." },
   axisXTitle: { type: "string", description: "Set the x-axis title of chart." },
@@ -484,6 +487,7 @@ const Tools = [
  */
 async function generateChartUrl(type: string, options: any): Promise<any> {
   const url = "https://antv-studio.alipay.com/api/gpt-vis";
+
   const response = await axios.post(
     url,
     {
@@ -497,6 +501,10 @@ async function generateChartUrl(type: string, options: any): Promise<any> {
     },
   );
 
+  if (!response.data.success) {
+    axiosRetry(axios, { retries: 2 });
+  }
+  
   return response.data.resultObj;
 }
 

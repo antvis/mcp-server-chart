@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import { Server } from "@modelcontextprotocol/sdk/server/index.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
-import axios, { type AxiosError } from "axios";
+import axios from "axios";
 import axiosRetry from "axios-retry";
 import {
   CallToolRequestSchema,
@@ -9,6 +9,15 @@ import {
   ListToolsRequestSchema,
   McpError,
 } from "@modelcontextprotocol/sdk/types.js";
+
+axiosRetry(axios, {
+  retries: 2,
+  validateResponse: (response) => {
+    // when status is 200 and success is true, pass
+    // or else retry
+    return response.status === 200 && response.data.success;
+  },
+});
 
 const BaseConfig = {
   width: {
@@ -500,14 +509,6 @@ async function generateChartUrl(type: string, options: any): Promise<any> {
       },
     },
   );
-
-  if (!response.data.success) {
-    axiosRetry(axios, { 
-      retries: 2, 
-      retryCondition: (error: AxiosError) => {
-      return !!error.message;
-    }});
-  }
 
   return response.data.resultObj;
 }

@@ -13,7 +13,7 @@ This is a TypeScript-based MCP server that provides chart generation capabilitie
 
 Now 15+ charts supported.
 
-<img width="640" height="350" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ZlzKQKoJzsYAAAAAAAAAAAAAemJ7AQ/fmt.webp" />
+<img width="640" height="350" alt="mcp-server-chart preview" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ZlzKQKoJzsYAAAAAAAAAAAAAemJ7AQ/fmt.webp" />
 
 - `generate_area_chart` - Generate a `area` chart, and return an image URL.
 - `generate_bar_chart` - Generate a `bar` chart, and return an image URL.

@@ -2,7 +2,9 @@
 
 A Model Context Protocol server for generating charts using [AntV](https://github.com/antvis/).
 
-<img alt="MCP Server Chart" src="https://glama.ai/mcp/servers/@antvis/mcp-server-chart/badge" />
+<a href="https://glama.ai/mcp/servers/@antvis/mcp-server-chart">
+  <img width="380" height="200" src="https://glama.ai/mcp/servers/@antvis/mcp-server-chart/badge" />
+</a>
 
 This is a TypeScript-based MCP server that provides chart generation capabilities. It allows you to create various types of charts through MCP tools.
 
@@ -10,6 +12,8 @@ This is a TypeScript-based MCP server that provides chart generation capabilitie
 ## ✨ Features
 
 Now 15+ charts supported.
+
+<img width="640" height="350" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ZlzKQKoJzsYAAAAAAAAAAAAAemJ7AQ/fmt.webp" />
 
 - `generate_area_chart` - Generate a `area` chart, and return an image URL.
 - `generate_bar_chart` - Generate a `bar` chart, and return an image URL.

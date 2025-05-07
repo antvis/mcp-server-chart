@@ -211,7 +211,7 @@ const Tools = [
           items: {
             type: "number"
           },
-          description: "Data for histogram chart, such as, [ 78, 88, 60, 100, 95 ].",
+          description: "Data for histogram chart, such as, [78, 88, 60, 100, 95].",
         },
         binNumber: {
           type: "number",

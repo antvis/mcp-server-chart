@@ -208,6 +208,9 @@ const Tools = [
       properties: {
         data: {
           type: "array",
+          items: {
+            type: "number"
+          },
           description: "Data for bar chart, such as, [ 78, 88, 60, 100, 95 ].",
         },
         binNumber: {
@@ -352,8 +355,13 @@ const Tools = [
           items: {
             type: "object",
             properties: {
-              name: { type: "string" },
               type: { type: "string" },
+              data: { 
+                type: "array", 
+                items : {
+                  type: "number"
+                }
+              },
               axisYTitle: {
                 type: "string",
                 description: "Set the y-axis title of the chart series.",
@@ -378,7 +386,7 @@ const Tools = [
             name: { type: "string" },
             children: {
               type: "array",
-              item: {
+              items: {
                 $ref: "#",
               },
             },
@@ -404,13 +412,13 @@ const Tools = [
           properties: {
             nodes: {
               type: "array",
-              item: {
+              items: {
                 name: { type: "string" },
               },
             },
             edges: {
               type: "array",
-              item: {
+              items: {
                 name: { type: "string" },
                 source: { type: "string" },
                 target: { type: "string" },
@@ -438,13 +446,13 @@ const Tools = [
           properties: {
             nodes: {
               type: "array",
-              item: {
+              items: {
                 name: { type: "string" },
               },
             },
             edges: {
               type: "array",
-              item: {
+              items: {
                 name: { type: "string" },
                 source: { type: "string" },
                 target: { type: "string" },
@@ -473,7 +481,7 @@ const Tools = [
             name: { type: "string" },
             children: {
               type: "array",
-              item: {
+              items: {
                 $ref: "#",
               },
             },
@@ -520,7 +528,7 @@ class McpServerChart {
     this.server = new Server(
       {
         name: "mcp-server-chart",
-        version: "0.2.2",
+        version: "0.2.3",
       },
       {
         capabilities: {

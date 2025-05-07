@@ -211,7 +211,7 @@ const Tools = [
           items: {
             type: "number"
           },
-          description: "Data for bar chart, such as, [ 78, 88, 60, 100, 95 ].",
+          description: "Data for histogram chart, such as, [ 78, 88, 60, 100, 95 ].",
         },
         binNumber: {
           type: "number",
@@ -355,12 +355,13 @@ const Tools = [
           items: {
             type: "object",
             properties: {
-              type: { type: "string" },
+              type: { type: "string",  description: "The optional values for 'type' are 'column' or 'line' " },
               data: { 
                 type: "array", 
                 items : {
                   type: "number"
-                }
+                },
+                description: "When type is column, the data represents quantities and its values should be greater than 1, such as [91.9, 99.1, 101.6, 114.4, 121]. When type is line, the data represents ratios and its values should be less than 1, such as [0.055, 0.06, 0.062, 0.07, 0.075]."
               },
               axisYTitle: {
                 type: "string",

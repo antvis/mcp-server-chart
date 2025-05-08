@@ -127,7 +127,9 @@ const Tools = [
             "Set the pie chart as a donut chart. Set the value to 0.6 to enable it.",
           default: 0,
         },
-        ...BaseConfig,
+        width: BaseConfig.width,
+        height: BaseConfig.height,
+        title: BaseConfig.title,
       },
       required: ["data"],
     },
@@ -209,9 +211,10 @@ const Tools = [
         data: {
           type: "array",
           items: {
-            type: "number"
+            type: "number",
           },
-          description: "Data for histogram chart, such as, [78, 88, 60, 100, 95].",
+          description:
+            "Data for histogram chart, such as, [78, 88, 60, 100, 95].",
         },
         binNumber: {
           type: "number",
@@ -271,7 +274,9 @@ const Tools = [
           description:
             "Data for word cloud chart, such as, [{ value: '4.272', text: '形成' }].",
         },
-        ...BaseConfig,
+        width: BaseConfig.width,
+        height: BaseConfig.height,
+        title: BaseConfig.title,
       },
       required: ["data"],
     },
@@ -297,7 +302,9 @@ const Tools = [
           description:
             "Data for radar chart, such as, [{ name: 'Design', value: 70 }].",
         },
-        ...BaseConfig,
+        width: BaseConfig.width,
+        height: BaseConfig.height,
+        title: BaseConfig.title,
       },
       required: ["data"],
     },
@@ -326,7 +333,9 @@ const Tools = [
           description:
             "Data for treemap chart, such as, [{ name: 'Design', value: 70, children: [{ name: 'Tech', value: 20 }] }].",
         },
-        ...BaseConfig,
+        width: BaseConfig.width,
+        height: BaseConfig.height,
+        title: BaseConfig.title,
       },
       required: ["data"],
     },
@@ -355,13 +364,17 @@ const Tools = [
           items: {
             type: "object",
             properties: {
-              type: { type: "string",  description: "The optional value can be 'column' or 'line'." },
-              data: { 
-                type: "array", 
-                items : {
-                  type: "number"
+              type: {
+                type: "string",
+                description: "The optional value can be 'column' or 'line'.",
+              },
+              data: {
+                type: "array",
+                items: {
+                  type: "number",
                 },
-                description: "When type is column, the data represents quantities, such as [91.9, 99.1, 101.6, 114.4, 121]. When type is line, the data represents ratios and its values are recommended to be less than 1, such as [0.055, 0.06, 0.062, 0.07, 0.075]."
+                description:
+                  "When type is column, the data represents quantities, such as [91.9, 99.1, 101.6, 114.4, 121]. When type is line, the data represents ratios and its values are recommended to be less than 1, such as [0.055, 0.06, 0.062, 0.07, 0.075].",
               },
               axisYTitle: {
                 type: "string",
@@ -369,9 +382,10 @@ const Tools = [
               },
             },
           },
+          required: ["type", "data", "axisYTitle"],
         },
       },
-      required: ["data"],
+      required: ["categories", "series"],
     },
   },
   {
@@ -387,16 +401,16 @@ const Tools = [
             name: { type: "string" },
             children: {
               type: "array",
-              items: {
-                $ref: "#",
-              },
+              items: { $ref: "#" },
             },
           },
           required: ["name"],
           description:
             "Data for mind map chart, such as, { name: 'main topic', children: [{ name: 'topic 1', children: [{ name:'subtopic 1-1' }] }",
         },
-        ...BaseConfig,
+        width: BaseConfig.width,
+        height: BaseConfig.height,
+        title: BaseConfig.title,
       },
       required: ["data"],
     },
@@ -430,7 +444,9 @@ const Tools = [
           description:
             "Data for network graph chart, such as, { nodes: [{ name: 'node1' }, { name: 'node2' }], edges: [{ source: 'node1', target: 'node2', name: 'edge1' }] }",
         },
-        ...BaseConfig,
+        width: BaseConfig.width,
+        height: BaseConfig.height,
+        title: BaseConfig.title,
       },
       required: ["data"],
     },
@@ -464,7 +480,9 @@ const Tools = [
           description:
             "Data for flow diagram chart, such as, { nodes: [{ name: 'node1' }, { name: 'node2' }], edges: [{ source: 'node1', target: 'node2', name: 'edge1' }] }",
         },
-        ...BaseConfig,
+        width: BaseConfig.width,
+        height: BaseConfig.height,
+        title: BaseConfig.title,
       },
       required: ["data"],
     },
@@ -482,16 +500,16 @@ const Tools = [
             name: { type: "string" },
             children: {
               type: "array",
-              items: {
-                $ref: "#",
-              },
+              items: { $ref: "#" },
             },
           },
           required: ["name"],
           description:
             "Data for fishbone diagram chart , such as, { name: 'main topic', children: [{ name: 'topic 1', children: [{ name: 'subtopic 1-1' }] }",
         },
-        ...BaseConfig,
+        width: BaseConfig.width,
+        height: BaseConfig.height,
+        title: BaseConfig.title,
       },
       required: ["data"],
     },
@@ -511,6 +529,7 @@ async function generateChartUrl(type: string, options: any): Promise<any> {
     {
       type,
       ...options,
+      key: 'mcp-server-chart'
     },
     {
       headers: {

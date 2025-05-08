@@ -529,7 +529,7 @@ async function generateChartUrl(type: string, options: any): Promise<any> {
     {
       type,
       ...options,
-      key: 'mcp-server-chart'
+      source: 'mcp-server-chart'
     },
     {
       headers: {

@@ -548,7 +548,7 @@ class McpServerChart {
     this.server = new Server(
       {
         name: "mcp-server-chart",
-        version: "0.2.3",
+        version: "0.2.4",
       },
       {
         capabilities: {

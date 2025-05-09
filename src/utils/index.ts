@@ -1,0 +1,1 @@
+export { generateChartUrl } from "./generateChartUrl";

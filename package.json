@@ -34,7 +34,9 @@
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.7.0",
     "axios": "^1.8.4",
-    "axios-retry": "^4.5.0"
+    "axios-retry": "^4.5.0",
+    "zod": "^3.24.4",
+    "zod-to-json-schema": "^3.24.5"
   },
   "devDependencies": {
     "@modelcontextprotocol/inspector": "^0.10.2",

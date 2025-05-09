@@ -3,14 +3,12 @@
   "description": "Generate a word cloud chart to show word frequency or weight through text size variation, such as, analyzing common words in social media, reviews, or feedback.",
   "inputSchema": {
     "$schema": "http://json-schema.org/draft-07/schema#",
-    "additionalProperties": false,
     "type": "object",
     "properties": {
       "data": {
         "type": "array",
         "items": {
           "type": "object",
-          "additionalProperties": false,
           "properties": {
             "value": { "type": "string" },
             "text": { "type": "string" }

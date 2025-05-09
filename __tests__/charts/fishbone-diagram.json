@@ -3,12 +3,10 @@
   "description": "Generate a fishbone diagram chart to uses a fish skeleton, like structure to display the causes or effects of a core problem, with the problem as the fish head and the causes/effects as the fish bones. It suits problems that can be split into multiple related factors.",
   "inputSchema": {
     "$schema": "http://json-schema.org/draft-07/schema#",
-    "additionalProperties": false,
     "type": "object",
     "properties": {
       "data": {
         "type": "object",
-        "additionalProperties": false,
         "properties": {
           "name": { "type": "string" },
           "children": {
@@ -23,7 +21,6 @@
                   }
                 }
               },
-              "additionalProperties": false,
               "required": ["name"],
               "type": "object"
             }

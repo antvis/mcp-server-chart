@@ -3,18 +3,15 @@
   "description": "Generate a mind map chart to organizes and presents information in a hierarchical structure with branches radiating from a central topic, such as, a diagram showing the relationship between a main topic and its subtopics.",
   "inputSchema": {
     "$schema": "http://json-schema.org/draft-07/schema#",
-    "additionalProperties": false,
     "type": "object",
     "properties": {
       "data": {
         "type": "object",
-        "additionalProperties": false,
         "properties": {
           "name": { "type": "string" },
           "children": {
             "type": "array",
             "items": {
-              "additionalProperties": false,
               "properties": {
                 "children": {
                   "items": {

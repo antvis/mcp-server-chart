@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { zodToJsonSchema } from "zod-to-json-schema";
+import { zodToJsonSchema } from "../utils";
 import { BaseConfigSchema, EdgeSchema, NodeSchema } from "./base";
 
 // Flow diagram input schema

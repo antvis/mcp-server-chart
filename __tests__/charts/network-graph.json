@@ -3,12 +3,10 @@
   "description": "Generate a network graph chart to show relationships (edges) between entities (nodes), such as, relationships between people in social networks.",
   "inputSchema": {
     "$schema": "http://json-schema.org/draft-07/schema#",
-    "additionalProperties": false,
     "type": "object",
     "properties": {
       "data": {
         "type": "object",
-        "additionalProperties": false,
         "properties": {
           "nodes": {
             "type": "array",
@@ -16,7 +14,6 @@
               "properties": {
                 "name": { "type": "string" }
               },
-              "additionalProperties": false,
               "required": ["name"],
               "type": "object"
             }
@@ -29,8 +26,6 @@
                 "source": { "type": "string" },
                 "target": { "type": "string" }
               },
-
-              "additionalProperties": false,
               "required": ["source", "target", "name"],
               "type": "object"
             }

@@ -3,14 +3,12 @@
   "description": "Generate a bar chart to show data for numerical comparisons among different categories, such as, comparing categorical data and for horizontal comparisons.",
   "inputSchema": {
     "$schema": "http://json-schema.org/draft-07/schema#",
-    "additionalProperties": false,
     "type": "object",
     "properties": {
       "data": {
         "type": "array",
         "items": {
           "type": "object",
-          "additionalProperties": false,
           "properties": {
             "category": { "type": "string" },
             "value": { "type": "number" },

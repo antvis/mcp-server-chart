@@ -3,14 +3,12 @@
   "description": "Generate a treemap chart to display hierarchical data and can intuitively show comparisons between items at the same level, such as, show disk space usage with treemap.",
   "inputSchema": {
     "$schema": "http://json-schema.org/draft-07/schema#",
-    "additionalProperties": false,
     "type": "object",
     "properties": {
       "data": {
         "type": "array",
         "items": {
           "type": "object",
-          "additionalProperties": false,
           "properties": {
             "name": { "type": "string" },
             "value": { "type": "number" },

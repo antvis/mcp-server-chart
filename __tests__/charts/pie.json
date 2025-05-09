@@ -3,14 +3,12 @@
   "description": "Generate a pie chart to show the proportion of parts, such as, market share and budget allocation.",
   "inputSchema": {
     "$schema": "http://json-schema.org/draft-07/schema#",
-    "additionalProperties": false,
     "type": "object",
     "properties": {
       "data": {
         "type": "array",
         "items": {
           "type": "object",
-          "additionalProperties": false,
           "properties": {
             "category": { "type": "string" },
             "value": { "type": "number" }

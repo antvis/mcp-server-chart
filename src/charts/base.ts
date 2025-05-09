@@ -1,18 +1,38 @@
 import { z } from "zod";
 
-// Define Zod schemas for base configuration
+// Define Zod schemas for base configuration properties
+export const WidthSchema = z
+  .number()
+  .default(600)
+  .describe("Set the width of chart, default is 600.");
+
+export const HeightSchema = z
+  .number()
+  .default(400)
+  .describe("Set the height of chart, default is 400.");
+
+export const TitleSchema = z
+  .string()
+  .optional()
+  .describe("Set the title of chart.");
+
+export const AxisXTitleSchema = z
+  .string()
+  .optional()
+  .describe("Set the x-axis title of chart.");
+
+export const AxisYTitleSchema = z
+  .string()
+  .optional()
+  .describe("Set the y-axis title of chart.");
+
+// Combine all schemas into BaseConfigSchema
 export const BaseConfigSchema = {
-  width: z
-    .number()
-    .default(600)
-    .describe("Set the width of chart, default is 600."),
-  height: z
-    .number()
-    .default(400)
-    .describe("Set the height of chart, default is 400."),
-  title: z.string().optional().describe("Set the title of chart."),
-  axisXTitle: z.string().optional().describe("Set the x-axis title of chart."),
-  axisYTitle: z.string().optional().describe("Set the y-axis title of chart."),
+  width: WidthSchema,
+  height: HeightSchema,
+  title: TitleSchema,
+  axisXTitle: AxisXTitleSchema,
+  axisYTitle: AxisYTitleSchema,
 };
 
 export const NodeSchema = z.object({

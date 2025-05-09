@@ -62,13 +62,12 @@ export class McpServerChart {
         const schema = Charts[chartType].schema;
 
         if (schema) {
-          try {
-            // Validate the arguments against the schema
-            schema.parse(args);
-          } catch (validationError: any) {
+          // Use safeParse instead of parse and try-catch
+          const result = schema.safeParse(args);
+          if (!result.success) {
             throw new McpError(
               ErrorCode.InvalidParams,
-              `Invalid parameters: ${validationError.message}`,
+              `Invalid parameters: ${result.error.message}`,
             );
           }
         }

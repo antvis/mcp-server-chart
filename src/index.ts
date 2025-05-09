@@ -19,6 +19,21 @@ axiosRetry(axios, {
   },
 });
 
+/**
+ * Get the VIS API key from environment variables.
+ */
+function getApiKey() {
+  // For open-source user, will be free forever.
+  const apiKey = process.env.VIS_API_KEY || "vis-api-key-for-open-source";
+  if (!apiKey) {
+    console.error("environment variable <VIS_API_KEY> is not set.");
+    process.exit(1);
+  }
+  return apiKey;
+}
+
+const VIS_API_KEY = getApiKey();
+
 const BaseConfig = {
   width: {
     type: "number",
@@ -529,7 +544,8 @@ async function generateChartUrl(type: string, options: any): Promise<any> {
     {
       type,
       ...options,
-      source: 'mcp-server-chart'
+      source: "mcp-server-chart",
+      VIS_API_KEY,
     },
     {
       headers: {
@@ -548,7 +564,7 @@ class McpServerChart {
     this.server = new Server(
       {
         name: "mcp-server-chart",
-        version: "0.2.4",
+        version: "0.3.0",
       },
       {
         capabilities: {
@@ -623,7 +639,7 @@ class McpServerChart {
   async run() {
     const transport = new StdioServerTransport();
     await this.server.connect(transport);
-    console.error("MCP SERVER CHART running on stdio");
+    console.error("MCP-SERVER-CHART running on stdio.");
   }
 }
 

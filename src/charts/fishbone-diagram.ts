@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { zodToJsonSchema } from "zod-to-json-schema";
-import { BaseConfigSchema } from "../base";
+import { BaseConfigSchema } from "./base";
 
 // Fishbone node schema
 const FishboneNodeSchema: z.ZodType<any> = z.lazy(() =>

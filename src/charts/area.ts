@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { zodToJsonSchema } from "zod-to-json-schema";
-import { BaseConfigSchema } from "../base";
+import { BaseConfigSchema } from "./base";
 
 // Area chart data schema
 const AreaChartDataSchema = z.object({

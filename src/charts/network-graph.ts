@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { zodToJsonSchema } from "zod-to-json-schema";
-import { BaseConfigSchema, EdgeSchema, NodeSchema } from "../base";
+import { BaseConfigSchema, EdgeSchema, NodeSchema } from "./base";
 
 // Network graph input schema
 export const NetworkGraphInputSchema = z.object({

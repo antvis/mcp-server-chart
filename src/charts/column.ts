@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { zodToJsonSchema } from "zod-to-json-schema";
-import { BaseConfigSchema } from "../base";
+import { BaseConfigSchema } from "./base";
 
 // Column chart data schema
 const ColumnChartDataSchema = z.object({

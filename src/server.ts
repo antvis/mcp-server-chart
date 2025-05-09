@@ -6,7 +6,7 @@ import {
   McpError,
 } from "@modelcontextprotocol/sdk/types.js";
 import { ChartTypeMapping } from "./types";
-import { SchemaMap, ChartTools } from "./schemas";
+import { SchemaMap, ChartTools } from "./charts";
 import { generateChartUrl } from "./utils";
 import { startStdioMcpServer } from "./services";
 

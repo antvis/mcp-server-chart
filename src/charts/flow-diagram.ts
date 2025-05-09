@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { zodToJsonSchema } from "zod-to-json-schema";
-import { BaseConfigSchema, EdgeSchema, NodeSchema } from "../base";
+import { BaseConfigSchema, EdgeSchema, NodeSchema } from "./base";
 
 // Flow diagram input schema
 export const FlowDiagramInputSchema = z.object({

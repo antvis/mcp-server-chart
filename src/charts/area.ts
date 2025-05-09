@@ -3,16 +3,16 @@ import { zodToJsonSchema } from "zod-to-json-schema";
 import { BaseConfigSchema } from "./base";
 
 // Area chart data schema
-const AreaChartDataSchema = z.object({
+const data = z.object({
   time: z.string(),
   value: z.number(),
   group: z.string().optional(),
 });
 
 // Area chart input schema
-export const AreaChartInputSchema = z.object({
+const schema = z.object({
   data: z
-    .array(AreaChartDataSchema)
+    .array(data)
     .describe("Data for area chart, such as, [{ time: '2018', value: 99.9 }]."),
   stack: z
     .boolean()
@@ -28,9 +28,14 @@ export const AreaChartInputSchema = z.object({
 });
 
 // Area chart tool descriptor
-export const AreaChartTool = {
+const tool = {
   name: "generate_area_chart",
   description:
     "Generate a area chart to show data trends under continuous independent variables and observe the overall data trend, such as, displacement = velocity (average or instantaneous) × time: s = v × t. If the x-axis is time (t) and the y-axis is velocity (v) at each moment, an area chart allows you to observe the trend of velocity over time and infer the distance traveled by the area's size.",
-  inputSchema: zodToJsonSchema(AreaChartInputSchema),
+  inputSchema: zodToJsonSchema(schema),
+};
+
+export const area = {
+  schema,
+  tool,
 };

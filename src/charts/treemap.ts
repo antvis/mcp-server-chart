@@ -12,7 +12,7 @@ const TreeNodeSchema: z.ZodType<any> = z.lazy(() =>
 );
 
 // Treemap chart input schema
-export const TreemapChartInputSchema = z.object({
+const schema = z.object({
   data: z
     .array(TreeNodeSchema)
     .describe(
@@ -24,9 +24,14 @@ export const TreemapChartInputSchema = z.object({
 });
 
 // Treemap chart tool descriptor
-export const TreemapChartTool = {
+const tool = {
   name: "generate_treemap_chart",
   description:
     "Generate a treemap chart to display hierarchical data and can intuitively show comparisons between items at the same level, such as, show disk space usage with treemap.",
-  inputSchema: zodToJsonSchema(TreemapChartInputSchema),
+  inputSchema: zodToJsonSchema(schema),
+};
+
+export const treemap = {
+  schema,
+  tool,
 }; 

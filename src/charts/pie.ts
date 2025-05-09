@@ -3,15 +3,15 @@ import { zodToJsonSchema } from "zod-to-json-schema";
 import { BaseConfigSchema } from "./base";
 
 // Pie chart data schema
-const PieChartDataSchema = z.object({
+const data = z.object({
   category: z.string(),
   value: z.number(),
 });
 
 // Pie chart input schema
-export const PieChartInputSchema = z.object({
+const schema = z.object({
   data: z
-    .array(PieChartDataSchema)
+    .array(data)
     .describe(
       "Data for pie chart, (such as, [{ category: '分类一', value: 27 }])",
     ),
@@ -27,9 +27,14 @@ export const PieChartInputSchema = z.object({
 });
 
 // Pie chart tool descriptor
-export const PieChartTool = {
+const tool = {
   name: "generate_pie_chart",
   description:
     "Generate a pie chart to show the proportion of parts, such as, market share and budget allocation.",
-  inputSchema: zodToJsonSchema(PieChartInputSchema),
+  inputSchema: zodToJsonSchema(schema),
+};
+
+export const pie = {
+  schema,
+  tool,
 }; 

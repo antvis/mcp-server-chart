@@ -3,16 +3,16 @@ import { zodToJsonSchema } from "zod-to-json-schema";
 import { BaseConfigSchema } from "./base";
 
 // Line chart data schema
-const LineChartDataSchema = z.object({
+const data = z.object({
   time: z.string(),
   value: z.number(),
   group: z.string().optional(),
 });
 
 // Line chart input schema
-export const LineChartInputSchema = z.object({
+const schema = z.object({
   data: z
-    .array(LineChartDataSchema)
+    .array(data)
     .describe("Data for line chart, such as, [{ time: '2015', value: 23 }]."),
   stack: z
     .boolean()
@@ -28,9 +28,14 @@ export const LineChartInputSchema = z.object({
 });
 
 // Line chart tool descriptor
-export const LineChartTool = {
+const tool = {
   name: "generate_line_chart",
   description:
     "Generate a line chart to show trends over time, such as, the ratio of Apple computer sales to Apple's profits changed from 2000 to 2016.",
-  inputSchema: zodToJsonSchema(LineChartInputSchema),
+  inputSchema: zodToJsonSchema(schema),
+};
+
+export const line = {
+  schema,
+  tool,
 };

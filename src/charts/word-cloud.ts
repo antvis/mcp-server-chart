@@ -3,15 +3,15 @@ import { zodToJsonSchema } from "zod-to-json-schema";
 import { BaseConfigSchema } from "./base";
 
 // Word cloud data schema
-const WordCloudChartDataSchema = z.object({
+const data = z.object({
   text: z.string(),
   value: z.string(),
 });
 
 // Word cloud input schema
-export const WordCloudChartInputSchema = z.object({
+const schema = z.object({
   data: z
-    .array(WordCloudChartDataSchema)
+    .array(data)
     .describe(
       "Data for word cloud chart, such as, [{ value: '4.272', text: '形成' }].",
     ),
@@ -21,9 +21,14 @@ export const WordCloudChartInputSchema = z.object({
 });
 
 // Word cloud tool descriptor
-export const WordCloudChartTool = {
+const tool = {
   name: "generate_word_cloud_chart",
   description:
     "Generate a word cloud chart to show word frequency or weight through text size variation, such as, analyzing common words in social media, reviews, or feedback.",
-  inputSchema: zodToJsonSchema(WordCloudChartInputSchema),
+  inputSchema: zodToJsonSchema(schema),
+};
+
+export const wordCloud = {
+  schema,
+  tool,
 };

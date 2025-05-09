@@ -5,8 +5,8 @@ import {
   ListToolsRequestSchema,
   McpError,
 } from "@modelcontextprotocol/sdk/types.js";
-import { ChartTypeMapping } from "./types";
-import { SchemaMap, ChartTools } from "./charts";
+import { ChartTypeMapping } from "./consts";
+import * as Charts from "./charts";
 import { generateChartUrl } from "./utils";
 import { startStdioMcpServer } from "./services";
 
@@ -40,7 +40,7 @@ export class McpServerChart {
 
   private setupToolHandlers() {
     this.server.setRequestHandler(ListToolsRequestSchema, async () => ({
-      tools: ChartTools,
+      tools: Object.values(Charts).map((chart) => chart.tool),
     }));
 
     this.server.setRequestHandler(CallToolRequestSchema, async (request) => {
@@ -59,7 +59,7 @@ export class McpServerChart {
         const args = request.params.arguments || {};
 
         // Select the appropriate schema based on the chart type
-        const schema = SchemaMap[chartType];
+        const schema = Charts[chartType].schema;
 
         if (schema) {
           try {

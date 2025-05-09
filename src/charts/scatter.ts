@@ -3,15 +3,15 @@ import { zodToJsonSchema } from "zod-to-json-schema";
 import { BaseConfigSchema } from "./base";
 
 // Scatter chart data schema
-const ScatterChartDataSchema = z.object({
+const data = z.object({
   x: z.number(),
   y: z.number(),
 });
 
 // Scatter chart input schema
-export const ScatterChartInputSchema = z.object({
+const schema = z.object({
   data: z
-    .array(ScatterChartDataSchema)
+    .array(data)
     .describe("Data for scatter chart, such as, [{ x: 10, y: 15 }]."),
   width: BaseConfigSchema.width.optional(),
   height: BaseConfigSchema.height.optional(),
@@ -21,9 +21,14 @@ export const ScatterChartInputSchema = z.object({
 });
 
 // Scatter chart tool descriptor
-export const ScatterChartTool = {
+const tool = {
   name: "generate_scatter_chart",
   description:
     "Generate a scatter chart to show the relationship between two variables, helps discover their relationship or trends, such as, the strength of correlation, data distribution patterns.",
-  inputSchema: zodToJsonSchema(ScatterChartInputSchema),
+  inputSchema: zodToJsonSchema(schema),
+};
+
+export const scatter = {
+  schema,
+  tool,
 }; 

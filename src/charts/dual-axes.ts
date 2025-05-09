@@ -16,7 +16,7 @@ const DualAxesSeriesSchema = z.object({
 });
 
 // Dual axes chart input schema
-export const DualAxesChartInputSchema = z.object({
+const schema = z.object({
   categories: z
     .array(z.string())
     .describe(
@@ -30,9 +30,14 @@ export const DualAxesChartInputSchema = z.object({
 });
 
 // Dual axes chart tool descriptor
-export const DualAxesChartTool = {
+const tool = {
   name: "generate_dual_axes_chart",
   description:
     "Generate a dual axes chart which is a combination chart that integrates two different chart types, typically combining a bar chart with a line chart to display both the trend and comparison of data, such as, the trend of sales and profit over time.",
-  inputSchema: zodToJsonSchema(DualAxesChartInputSchema),
+  inputSchema: zodToJsonSchema(schema),
+};
+
+export const dualAxes = {
+  schema,
+  tool,
 };

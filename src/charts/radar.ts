@@ -3,16 +3,16 @@ import { zodToJsonSchema } from "zod-to-json-schema";
 import { BaseConfigSchema } from "./base";
 
 // Radar chart data schema
-const RadarChartDataSchema = z.object({
+const data = z.object({
   name: z.string(),
   value: z.number(),
   group: z.string().optional(),
 });
 
 // Radar chart input schema
-export const RadarChartInputSchema = z.object({
+const schema = z.object({
   data: z
-    .array(RadarChartDataSchema)
+    .array(data)
     .describe(
       "Data for radar chart, such as, [{ name: 'Design', value: 70 }].",
     ),
@@ -22,9 +22,14 @@ export const RadarChartInputSchema = z.object({
 });
 
 // Radar chart tool descriptor
-export const RadarChartTool = {
+const tool = {
   name: "generate_radar_chart",
   description:
     "Generate a radar chart to display multidimensional data (four dimensions or more), such as, evaluate Huawei and Apple phones in terms of five dimensions: ease of use, functionality, camera, benchmark scores, and battery life.",
-  inputSchema: zodToJsonSchema(RadarChartInputSchema),
+  inputSchema: zodToJsonSchema(schema),
+};
+
+export const radar = {
+  schema,
+  tool,
 }; 

@@ -3,16 +3,16 @@ import { zodToJsonSchema } from "zod-to-json-schema";
 import { BaseConfigSchema } from "./base";
 
 // Bar chart data schema
-const BarChartDataSchema = z.object({
+const data = z.object({
   category: z.string(),
   value: z.number(),
   group: z.string().optional(),
 });
 
 // Bar chart input schema
-export const BarChartInputSchema = z.object({
+const schema = z.object({
   data: z
-    .array(BarChartDataSchema)
+    .array(data)
     .describe(
       "Data for bar chart, such as, [{ category: '分类一', value: 10 }].",
     ),
@@ -36,9 +36,14 @@ export const BarChartInputSchema = z.object({
 });
 
 // Bar chart tool descriptor
-export const BarChartTool = {
+const tool = {
   name: "generate_bar_chart",
   description:
     "Generate a bar chart to show data for numerical comparisons among different categories, such as, comparing categorical data and for horizontal comparisons.",
-  inputSchema: zodToJsonSchema(BarChartInputSchema),
+  inputSchema: zodToJsonSchema(schema),
+};
+
+export const bar = {
+  schema,
+  tool,
 };

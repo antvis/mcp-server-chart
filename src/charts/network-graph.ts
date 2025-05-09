@@ -3,7 +3,7 @@ import { zodToJsonSchema } from "zod-to-json-schema";
 import { BaseConfigSchema, EdgeSchema, NodeSchema } from "./base";
 
 // Network graph input schema
-export const NetworkGraphInputSchema = z.object({
+const schema = z.object({
   data: z
     .object({
       nodes: z.array(NodeSchema),
@@ -18,9 +18,14 @@ export const NetworkGraphInputSchema = z.object({
 });
 
 // Network graph tool descriptor
-export const NetworkGraphChartTool = {
+const tool = {
   name: "generate_network_graph",
   description:
     "Generate a network graph chart to show relationships (edges) between entities (nodes), such as, relationships between people in social networks.",
-  inputSchema: zodToJsonSchema(NetworkGraphInputSchema),
+  inputSchema: zodToJsonSchema(schema),
+};
+
+export const networkGraph = {
+  schema,
+  tool,
 };

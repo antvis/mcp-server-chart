@@ -3,16 +3,16 @@ import { zodToJsonSchema } from "zod-to-json-schema";
 import { BaseConfigSchema } from "./base";
 
 // Column chart data schema
-const ColumnChartDataSchema = z.object({
+const data = z.object({
   category: z.string(),
   value: z.number(),
   group: z.string().optional(),
 });
 
 // Column chart input schema
-export const ColumnChartInputSchema = z.object({
+const schema = z.object({
   data: z
-    .array(ColumnChartDataSchema)
+    .array(data)
     .describe(
       "Data for column chart, such as, [{ category: '北京' value: 825; group: '油车' }].",
     ),
@@ -36,9 +36,14 @@ export const ColumnChartInputSchema = z.object({
 });
 
 // Column chart tool descriptor
-export const ColumnChartTool = {
+const tool = {
   name: "generate_column_chart",
   description:
     "Generate a column chart, which are best for comparing categorical data, such as, when values are close, column charts are preferable because our eyes are better at judging height than other visual elements like area or angles.",
-  inputSchema: zodToJsonSchema(ColumnChartInputSchema),
+  inputSchema: zodToJsonSchema(schema),
+};
+
+export const column = {
+  schema,
+  tool,
 };

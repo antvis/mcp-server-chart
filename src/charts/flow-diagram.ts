@@ -3,7 +3,7 @@ import { zodToJsonSchema } from "zod-to-json-schema";
 import { BaseConfigSchema, EdgeSchema, NodeSchema } from "./base";
 
 // Flow diagram input schema
-export const FlowDiagramInputSchema = z.object({
+const schema = z.object({
   data: z
     .object({
       nodes: z.array(NodeSchema),
@@ -18,9 +18,14 @@ export const FlowDiagramInputSchema = z.object({
 });
 
 // Flow diagram tool descriptor
-export const FlowDiagramChartTool = {
+const tool = {
   name: "generate_flow_diagram",
   description:
     "Generate a flow diagram chart to show the steps and decision points of a process or system, such as, scenarios requiring linear process presentation.",
-  inputSchema: zodToJsonSchema(FlowDiagramInputSchema),
+  inputSchema: zodToJsonSchema(schema),
+};
+
+export const flowDiagram = {
+  schema,
+  tool,
 };

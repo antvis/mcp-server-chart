@@ -3,7 +3,7 @@ import { zodToJsonSchema } from "zod-to-json-schema";
 import { BaseConfigSchema } from "./base";
 
 // Histogram chart input schema
-export const HistogramChartInputSchema = z.object({
+const schema = z.object({
   data: z
     .array(z.number())
     .describe("Data for histogram chart, such as, [78, 88, 60, 100, 95]."),
@@ -21,9 +21,14 @@ export const HistogramChartInputSchema = z.object({
 });
 
 // Histogram chart tool descriptor
-export const HistogramChartTool = {
+const tool = {
   name: "generate_histogram_chart",
   description:
     "Generate a histogram chart to show the frequency of data points within a certain range. It can observe data distribution, such as, normal and skewed distributions, and identify data concentration areas and extreme points.",
-  inputSchema: zodToJsonSchema(HistogramChartInputSchema),
+  inputSchema: zodToJsonSchema(schema),
+};
+
+export const histogram = {
+  schema,
+  tool,
 }; 

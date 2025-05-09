@@ -6,8 +6,7 @@ import {
   McpError,
 } from "@modelcontextprotocol/sdk/types.js";
 import { ChartTypeMapping } from "./types";
-import { SchemaMap } from "./schemas";
-import { Tools } from "./tools";
+import { SchemaMap, ChartTools } from "./schemas";
 import { generateChartUrl } from "./utils";
 import { startStdioMcpServer } from "./services";
 
@@ -41,7 +40,7 @@ export class McpServerChart {
 
   private setupToolHandlers() {
     this.server.setRequestHandler(ListToolsRequestSchema, async () => ({
-      tools: Tools,
+      tools: ChartTools,
     }));
 
     this.server.setRequestHandler(CallToolRequestSchema, async (request) => {
@@ -96,6 +95,5 @@ export class McpServerChart {
 
   async runStdioServer() {
     await startStdioMcpServer(this.server);
-    console.error("MCP SERVER CHART running on stdio");
   }
 }

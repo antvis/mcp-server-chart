@@ -26,13 +26,11 @@ function getApiKey() {
   // For open-source user, will be free forever.
   const apiKey = process.env.VIS_API_KEY || "vis-api-key-for-open-source";
   if (!apiKey) {
-    console.error("environment variable <VIS_API_KEY> is not set.");
+    console.error("MCP-SERVER-CHART environment variable <VIS_API_KEY> is not set.");
     process.exit(1);
   }
   return apiKey;
 }
-
-const VIS_API_KEY = getApiKey();
 
 const BaseConfig = {
   width: {
@@ -545,7 +543,7 @@ async function generateChartUrl(type: string, options: any): Promise<any> {
       type,
       ...options,
       source: "mcp-server-chart",
-      VIS_API_KEY,
+      VIS_API_KEY: getApiKey(),
     },
     {
       headers: {

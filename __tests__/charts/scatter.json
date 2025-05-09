@@ -1,0 +1,38 @@
+{
+  "name": "generate_scatter_chart",
+  "description": "Generate a scatter chart to show the relationship between two variables, helps discover their relationship or trends, such as, the strength of correlation, data distribution patterns.",
+  "inputSchema": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "additionalProperties": false,
+    "type": "object",
+    "properties": {
+      "data": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "x": { "type": "number" },
+            "y": { "type": "number" }
+          },
+          "required": ["x", "y"]
+        },
+        "description": "Data for scatter chart, such as, [{ x: 10, y: 15 }]."
+      },
+      "width": {
+        "type": "number",
+        "description": "Set the width of chart, default is 600.",
+        "default": 600
+      },
+      "height": {
+        "type": "number",
+        "description": "Set the height of chart, default is 400.",
+        "default": 400
+      },
+      "title": { "type": "string", "description": "Set the title of chart." },
+      "axisXTitle": { "type": "string", "description": "Set the x-axis title of chart." },
+      "axisYTitle": { "type": "string", "description": "Set the y-axis title of chart." }
+    },
+    "required": ["data"]
+  }
+} 

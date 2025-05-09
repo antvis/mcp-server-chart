@@ -6,7 +6,6 @@ import { BaseConfigSchema } from "./base";
 const data = z.object({
   time: z.string(),
   value: z.number(),
-  group: z.string().optional(),
 });
 
 // Line chart input schema

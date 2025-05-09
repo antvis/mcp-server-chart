@@ -1,0 +1,36 @@
+{
+  "name": "generate_word_cloud_chart",
+  "description": "Generate a word cloud chart to show word frequency or weight through text size variation, such as, analyzing common words in social media, reviews, or feedback.",
+  "inputSchema": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "additionalProperties": false,
+    "type": "object",
+    "properties": {
+      "data": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "value": { "type": "string" },
+            "text": { "type": "string" }
+          },
+          "required": ["text", "value"]
+        },
+        "description": "Data for word cloud chart, such as, [{ value: '4.272', text: '形成' }]."
+      },
+      "width": {
+        "type": "number",
+        "description": "Set the width of chart, default is 600.",
+        "default": 600
+      },
+      "height": {
+        "type": "number",
+        "description": "Set the height of chart, default is 400.",
+        "default": 400
+      },
+      "title": { "type": "string", "description": "Set the title of chart." }
+    },
+    "required": ["data"]
+  }
+}

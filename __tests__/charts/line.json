@@ -1,0 +1,48 @@
+{
+  "name": "generate_line_chart",
+  "description": "Generate a line chart to show trends over time, such as, the ratio of Apple computer sales to Apple's profits changed from 2000 to 2016.",
+  "inputSchema": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "additionalProperties": false,
+    "type": "object",
+    "properties": {
+      "data": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "time": { "type": "string" },
+            "value": { "type": "number" }
+          },
+          "required": ["time", "value"]
+        },
+        "description": "Data for line chart, such as, [{ time: '2015', value: 23 }]."
+      },
+      "stack": {
+        "type": "boolean",
+        "description": "Whether stacking is enabled. When enabled, line charts require a 'group' field in the data."
+      },
+      "width": {
+        "type": "number",
+        "description": "Set the width of chart, default is 600.",
+        "default": 600
+      },
+      "height": {
+        "type": "number",
+        "description": "Set the height of chart, default is 400.",
+        "default": 400
+      },
+      "title": { "type": "string", "description": "Set the title of chart." },
+      "axisXTitle": {
+        "type": "string",
+        "description": "Set the x-axis title of chart."
+      },
+      "axisYTitle": {
+        "type": "string",
+        "description": "Set the y-axis title of chart."
+      }
+    },
+    "required": ["data"]
+  }
+}

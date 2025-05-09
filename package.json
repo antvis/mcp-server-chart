@@ -8,7 +8,8 @@
     "build": "tsc",
     "start": "npx @modelcontextprotocol/inspector node build/index.js",
     "prepare": "npm run build",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "test": "vitest"
   },
   "bin": {
     "mcp-server-chart": "./build/index.js"
@@ -41,6 +42,7 @@
   "devDependencies": {
     "@modelcontextprotocol/inspector": "^0.10.2",
     "@types/node": "^22.14.1",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "vitest": "^3.1.3"
   }
 }

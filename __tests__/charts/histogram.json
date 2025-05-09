@@ -1,0 +1,36 @@
+{
+  "name": "generate_histogram_chart",
+  "description": "Generate a histogram chart to show the frequency of data points within a certain range. It can observe data distribution, such as, normal and skewed distributions, and identify data concentration areas and extreme points.",
+  "inputSchema": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "additionalProperties": false,
+    "type": "object",
+    "properties": {
+      "data": {
+        "type": "array",
+        "items": {
+          "type": "number"
+        },
+        "description": "Data for histogram chart, such as, [78, 88, 60, 100, 95]."
+      },
+      "binNumber": {
+        "type": "number",
+        "description": "Number of intervals to define the number of intervals in a histogram."
+      },
+      "width": {
+        "type": "number",
+        "description": "Set the width of chart, default is 600.",
+        "default": 600
+      },
+      "height": {
+        "type": "number",
+        "description": "Set the height of chart, default is 400.",
+        "default": 400
+      },
+      "title": { "type": "string", "description": "Set the title of chart." },
+      "axisXTitle": { "type": "string", "description": "Set the x-axis title of chart." },
+      "axisYTitle": { "type": "string", "description": "Set the y-axis title of chart." }
+    },
+    "required": ["data"]
+  }
+} 

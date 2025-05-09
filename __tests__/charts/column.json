@@ -1,0 +1,47 @@
+{
+  "name": "generate_column_chart",
+  "description": "Generate a column chart, which are best for comparing categorical data, such as, when values are close, column charts are preferable because our eyes are better at judging height than other visual elements like area or angles.",
+  "inputSchema": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "additionalProperties": false,
+    "type": "object",
+    "properties": {
+      "data": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "category": { "type": "string" },
+            "value": { "type": "number" },
+            "group": { "type": "string" }
+          },
+          "required": ["category", "value"]
+        },
+        "description": "Data for column chart, such as, [{ category: '北京' value: 825; group: '油车' }]."
+      },
+      "group": {
+        "type": "boolean",
+        "description": "Whether grouping is enabled. When enabled, column charts require a 'group' field in the data."
+      },
+      "stack": {
+        "type": "boolean",
+        "description": "Whether stacking is enabled. When enabled, column charts require a 'group' field in the data."
+      },
+      "width": {
+        "type": "number",
+        "description": "Set the width of chart, default is 600.",
+        "default": 600
+      },
+      "height": {
+        "type": "number",
+        "description": "Set the height of chart, default is 400.",
+        "default": 400
+      },
+      "title": { "type": "string", "description": "Set the title of chart." },
+      "axisXTitle": { "type": "string", "description": "Set the x-axis title of chart." },
+      "axisYTitle": { "type": "string", "description": "Set the y-axis title of chart." }
+    },
+    "required": ["data"]
+  }
+} 

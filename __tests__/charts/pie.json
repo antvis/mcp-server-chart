@@ -1,0 +1,41 @@
+{
+  "name": "generate_pie_chart",
+  "description": "Generate a pie chart to show the proportion of parts, such as, market share and budget allocation.",
+  "inputSchema": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "additionalProperties": false,
+    "type": "object",
+    "properties": {
+      "data": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "category": { "type": "string" },
+            "value": { "type": "number" }
+          },
+          "required": ["category", "value"]
+        },
+        "description": "Data for pie chart, (such as, [{ category: '分类一', value: 27 }])"
+      },
+      "innerRadius": {
+        "type": "number",
+        "description": "Set the pie chart as a donut chart. Set the value to 0.6 to enable it.",
+        "default": 0
+      },
+      "width": {
+        "type": "number",
+        "description": "Set the width of chart, default is 600.",
+        "default": 600
+      },
+      "height": {
+        "type": "number",
+        "description": "Set the height of chart, default is 400.",
+        "default": 400
+      },
+      "title": { "type": "string", "description": "Set the title of chart." }
+    },
+    "required": ["data"]
+  }
+} 

@@ -1,0 +1,49 @@
+{
+  "name": "generate_fishbone_diagram",
+  "description": "Generate a fishbone diagram chart to uses a fish skeleton, like structure to display the causes or effects of a core problem, with the problem as the fish head and the causes/effects as the fish bones. It suits problems that can be split into multiple related factors.",
+  "inputSchema": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "additionalProperties": false,
+    "type": "object",
+    "properties": {
+      "data": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "name": { "type": "string" },
+          "children": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "name": { "type": "string" },
+                "children": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/properties/data/properties/children/items"
+                  }
+                }
+              },
+              "additionalProperties": false,
+              "required": ["name"],
+              "type": "object"
+            }
+          }
+        },
+        "required": ["name"],
+        "description": "Data for fishbone diagram chart, such as, { name: 'main topic', children: [{ name: 'topic 1', children: [{ name: 'subtopic 1-1' }] }"
+      },
+      "width": {
+        "type": "number",
+        "description": "Set the width of chart, default is 600.",
+        "default": 600
+      },
+      "height": {
+        "type": "number",
+        "description": "Set the height of chart, default is 400.",
+        "default": 400
+      },
+      "title": { "type": "string", "description": "Set the title of chart." }
+    },
+    "required": ["data"]
+  }
+}

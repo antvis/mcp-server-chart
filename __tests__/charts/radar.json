@@ -1,0 +1,37 @@
+{
+  "name": "generate_radar_chart",
+  "description": "Generate a radar chart to display multidimensional data (four dimensions or more), such as, evaluate Huawei and Apple phones in terms of five dimensions: ease of use, functionality, camera, benchmark scores, and battery life.",
+  "inputSchema": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "additionalProperties": false,
+    "type": "object",
+    "properties": {
+      "data": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "name": { "type": "string" },
+            "value": { "type": "number" },
+            "group": { "type": "string" }
+          },
+          "required": ["name", "value"]
+        },
+        "description": "Data for radar chart, such as, [{ name: 'Design', value: 70 }]."
+      },
+      "width": {
+        "type": "number",
+        "description": "Set the width of chart, default is 600.",
+        "default": 600
+      },
+      "height": {
+        "type": "number",
+        "description": "Set the height of chart, default is 400.",
+        "default": 400
+      },
+      "title": { "type": "string", "description": "Set the title of chart." }
+    },
+    "required": ["data"]
+  }
+} 

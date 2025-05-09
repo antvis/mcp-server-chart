@@ -3,3 +3,6 @@ build/
 *.log
 .env*
 package-lock.json
+pnpm-lock.yaml
+bun.lockb
+yarn.lock

@@ -1,8 +1,33 @@
-node_modules/
-build/
+# Logs
+logs
 *.log
-.env*
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+yarn.lock
+
+# Sys
+.DS_Store
+.idea
+
+# Node
+node_modules/
+
+# Build
+dist
+lib
+esm
+build
+
+# Test
+coverage
+
+# Editor
+.vscode
+.histor
+
+# Package
 package-lock.json
 pnpm-lock.yaml
-bun.lockb
-yarn.lock
+bun.lock

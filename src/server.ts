@@ -6,9 +6,8 @@ import {
   McpError,
 } from "@modelcontextprotocol/sdk/types.js";
 import * as Charts from "./charts";
-import { ChartTypeMapping } from "./consts";
 import { startStdioMcpServer } from "./services";
-import { generateChartUrl } from "./utils";
+import { ChartTypeMapping, generateChartUrl } from "./utils";
 
 /**
  * MCP Server implementation for chart generation
@@ -20,7 +19,7 @@ export class McpServerChart {
     this.server = new Server(
       {
         name: "mcp-server-chart",
-        version: "0.2.4",
+        version: "0.2.5",
       },
       {
         capabilities: {

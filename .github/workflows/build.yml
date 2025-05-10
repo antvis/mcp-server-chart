@@ -24,9 +24,3 @@ jobs:
           npm install
           npm run build
           npx vitest --watch=false
-
-      - name: Update coverall
-        if: ${{ success() }}
-        uses: coverallsapp/github-action@master
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}

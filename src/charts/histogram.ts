@@ -1,6 +1,12 @@
 import { z } from "zod";
 import { zodToJsonSchema } from "../utils";
-import { BaseConfigSchema } from "./base";
+import {
+  WidthSchema,
+  HeightSchema,
+  AxisXTitleSchema,
+  AxisYTitleSchema,
+  TitleSchema,
+} from "./base";
 
 // Histogram chart input schema
 const schema = z.object({
@@ -13,11 +19,11 @@ const schema = z.object({
     .describe(
       "Number of intervals to define the number of intervals in a histogram.",
     ),
-  width: BaseConfigSchema.width.optional(),
-  height: BaseConfigSchema.height.optional(),
-  title: BaseConfigSchema.title,
-  axisXTitle: BaseConfigSchema.axisXTitle,
-  axisYTitle: BaseConfigSchema.axisYTitle,
+  width: WidthSchema.optional(),
+  height: HeightSchema.optional(),
+  title: TitleSchema,
+  axisXTitle: AxisXTitleSchema,
+  axisYTitle: AxisYTitleSchema,
 });
 
 // Histogram chart tool descriptor

@@ -1,6 +1,12 @@
 import { z } from "zod";
 import { zodToJsonSchema } from "../utils";
-import { BaseConfigSchema, EdgeSchema, NodeSchema } from "./base";
+import {
+  WidthSchema,
+  HeightSchema,
+  NodeSchema,
+  EdgeSchema,
+  TitleSchema,
+} from "./base";
 
 // Flow diagram input schema
 const schema = z.object({
@@ -10,11 +16,11 @@ const schema = z.object({
       edges: z.array(EdgeSchema),
     })
     .describe(
-      "Data for flow diagram chart, such as, { nodes: [{ name: 'node1' }, { name: 'node2' }], edges: [{ source: 'node1', target: 'node2', name: 'edge1' }] }",
+      "Data for flow diagram chart, such as, { nodes: [{ name: 'node1' }, { name: 'node2' }], edges: [{ source: 'node1', target: 'node2', name: 'edge1' }] }.",
     ),
-  width: BaseConfigSchema.width.optional(),
-  height: BaseConfigSchema.height.optional(),
-  title: BaseConfigSchema.title,
+  width: WidthSchema.optional(),
+  height: HeightSchema.optional(),
+  title: TitleSchema,
 });
 
 // Flow diagram tool descriptor

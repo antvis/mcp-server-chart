@@ -1,6 +1,12 @@
 import { z } from "zod";
 import { zodToJsonSchema } from "../utils";
-import { BaseConfigSchema } from "./base";
+import {
+  WidthSchema,
+  HeightSchema,
+  AxisXTitleSchema,
+  AxisYTitleSchema,
+  TitleSchema,
+} from "./base";
 
 // Scatter chart data schema
 const data = z.object({
@@ -13,11 +19,11 @@ const schema = z.object({
   data: z
     .array(data)
     .describe("Data for scatter chart, such as, [{ x: 10, y: 15 }]."),
-  width: BaseConfigSchema.width.optional(),
-  height: BaseConfigSchema.height.optional(),
-  title: BaseConfigSchema.title,
-  axisXTitle: BaseConfigSchema.axisXTitle,
-  axisYTitle: BaseConfigSchema.axisYTitle,
+  width: WidthSchema.optional(),
+  height: HeightSchema.optional(),
+  title: TitleSchema,
+  axisXTitle: AxisXTitleSchema,
+  axisYTitle: AxisYTitleSchema,
 });
 
 // Scatter chart tool descriptor

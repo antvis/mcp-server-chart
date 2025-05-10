@@ -1,6 +1,12 @@
 import { z } from "zod";
 import { zodToJsonSchema } from "../utils";
-import { BaseConfigSchema, EdgeSchema, NodeSchema } from "./base";
+import {
+  WidthSchema,
+  HeightSchema,
+  NodeSchema,
+  EdgeSchema,
+  TitleSchema,
+} from "./base";
 
 // Network graph input schema
 const schema = z.object({
@@ -12,9 +18,9 @@ const schema = z.object({
     .describe(
       "Data for network graph chart, such as, { nodes: [{ name: 'node1' }, { name: 'node2' }], edges: [{ source: 'node1', target: 'node2', name: 'edge1' }] }",
     ),
-  width: BaseConfigSchema.width.optional(),
-  height: BaseConfigSchema.height.optional(),
-  title: BaseConfigSchema.title,
+  width: WidthSchema.optional(),
+  height: HeightSchema.optional(),
+  title: TitleSchema,
 });
 
 // Network graph tool descriptor

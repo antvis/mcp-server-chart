@@ -15,7 +15,7 @@
           },
           "required": ["category", "value"]
         },
-        "description": "Data for pie chart, (such as, [{ category: '分类一', value: 27 }])"
+        "description": "Data for pie chart, such as, [{ category: '分类一', value: 27 }]."
       },
       "innerRadius": {
         "type": "number",

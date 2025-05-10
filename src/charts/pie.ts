@@ -1,6 +1,10 @@
 import { z } from "zod";
 import { zodToJsonSchema } from "../utils";
-import { BaseConfigSchema } from "./base";
+import {
+  WidthSchema,
+  HeightSchema,
+  TitleSchema,
+} from "./base";
 
 // Pie chart data schema
 const data = z.object({
@@ -13,7 +17,7 @@ const schema = z.object({
   data: z
     .array(data)
     .describe(
-      "Data for pie chart, (such as, [{ category: '分类一', value: 27 }])",
+      "Data for pie chart, such as, [{ category: '分类一', value: 27 }].",
     ),
   innerRadius: z
     .number()
@@ -21,9 +25,9 @@ const schema = z.object({
     .describe(
       "Set the pie chart as a donut chart. Set the value to 0.6 to enable it.",
     ),
-  width: BaseConfigSchema.width.optional(),
-  height: BaseConfigSchema.height.optional(),
-  title: BaseConfigSchema.title,
+  width: WidthSchema.optional(),
+  height: HeightSchema.optional(),
+  title: TitleSchema,
 });
 
 // Pie chart tool descriptor

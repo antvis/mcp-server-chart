@@ -32,7 +32,7 @@
           }
         },
         "required": ["nodes", "edges"],
-        "description": "Data for flow diagram chart, such as, { nodes: [{ name: 'node1' }, { name: 'node2' }], edges: [{ source: 'node1', target: 'node2', name: 'edge1' }] }"
+        "description": "Data for flow diagram chart, such as, { nodes: [{ name: 'node1' }, { name: 'node2' }], edges: [{ source: 'node1', target: 'node2', name: 'edge1' }] }."
       },
       "width": {
         "type": "number",

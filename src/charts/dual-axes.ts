@@ -1,6 +1,11 @@
 import { z } from "zod";
 import { zodToJsonSchema } from "../utils";
-import { BaseConfigSchema } from "./base";
+import {
+  WidthSchema,
+  HeightSchema,
+  AxisXTitleSchema,
+  TitleSchema,
+} from "./base";
 
 // Dual axes series schema
 const DualAxesSeriesSchema = z.object({
@@ -23,10 +28,10 @@ const schema = z.object({
       "Categories for dual axes chart, such as, ['2015', '2016', '2017'].",
     ),
   series: z.array(DualAxesSeriesSchema),
-  width: BaseConfigSchema.width.optional(),
-  height: BaseConfigSchema.height.optional(),
-  title: BaseConfigSchema.title,
-  axisXTitle: BaseConfigSchema.axisXTitle,
+  width: WidthSchema.optional(),
+  height: HeightSchema.optional(),
+  title: TitleSchema,
+  axisXTitle: AxisXTitleSchema,
 });
 
 // Dual axes chart tool descriptor

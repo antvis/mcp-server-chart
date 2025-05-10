@@ -1,6 +1,10 @@
 import { z } from "zod";
 import { zodToJsonSchema } from "../utils";
-import { BaseConfigSchema } from "./base";
+import {
+  WidthSchema,
+  HeightSchema,
+  TitleSchema,
+} from "./base";
 
 // Fishbone node schema
 const FishboneNodeSchema: z.ZodType<any> = z.lazy(() =>
@@ -13,11 +17,11 @@ const FishboneNodeSchema: z.ZodType<any> = z.lazy(() =>
 // Fishbone diagram input schema
 const schema = z.object({
   data: FishboneNodeSchema.describe(
-    "Data for fishbone diagram chart, such as, { name: 'main topic', children: [{ name: 'topic 1', children: [{ name: 'subtopic 1-1' }] }",
+    "Data for fishbone diagram chart, such as, { name: 'main topic', children: [{ name: 'topic 1', children: [{ name: 'subtopic 1-1' }] }.",
   ),
-  width: BaseConfigSchema.width.optional(),
-  height: BaseConfigSchema.height.optional(),
-  title: BaseConfigSchema.title,
+  width: WidthSchema.optional(),
+  height: HeightSchema.optional(),
+  title: TitleSchema,
 });
 
 // Fishbone diagram tool descriptor

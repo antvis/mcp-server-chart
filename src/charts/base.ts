@@ -26,15 +26,6 @@ export const AxisYTitleSchema = z
   .optional()
   .describe("Set the y-axis title of chart.");
 
-// Combine all schemas into BaseConfigSchema
-export const BaseConfigSchema = {
-  width: WidthSchema,
-  height: HeightSchema,
-  title: TitleSchema,
-  axisXTitle: AxisXTitleSchema,
-  axisYTitle: AxisYTitleSchema,
-};
-
 export const NodeSchema = z.object({
   name: z.string(),
 });

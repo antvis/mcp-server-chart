@@ -1,6 +1,10 @@
 import { z } from "zod";
 import { zodToJsonSchema } from "../utils";
-import { BaseConfigSchema } from "./base";
+import {
+  WidthSchema,
+  HeightSchema,
+  TitleSchema,
+} from "./base";
 
 // Radar chart data schema
 const data = z.object({
@@ -16,9 +20,9 @@ const schema = z.object({
     .describe(
       "Data for radar chart, such as, [{ name: 'Design', value: 70 }].",
     ),
-  width: BaseConfigSchema.width.optional(),
-  height: BaseConfigSchema.height.optional(),
-  title: BaseConfigSchema.title,
+  width: WidthSchema.optional(),
+  height: HeightSchema.optional(),
+  title: TitleSchema,
 });
 
 // Radar chart tool descriptor

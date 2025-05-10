@@ -1,6 +1,12 @@
 import { z } from "zod";
 import { zodToJsonSchema } from "../utils";
-import { BaseConfigSchema } from "./base";
+import {
+  WidthSchema,
+  HeightSchema,
+  AxisXTitleSchema,
+  AxisYTitleSchema,
+  TitleSchema,
+} from "./base";
 
 // Area chart data schema
 const data = z.object({
@@ -20,11 +26,11 @@ const schema = z.object({
     .describe(
       "Whether stacking is enabled. When enabled, area charts require a 'group' field in the data.",
     ),
-  width: BaseConfigSchema.width.optional(),
-  height: BaseConfigSchema.height.optional(),
-  title: BaseConfigSchema.title,
-  axisXTitle: BaseConfigSchema.axisXTitle,
-  axisYTitle: BaseConfigSchema.axisYTitle,
+  width: WidthSchema.optional(),
+  height: HeightSchema.optional(),
+  title: TitleSchema,
+  axisXTitle: AxisXTitleSchema,
+  axisYTitle: AxisYTitleSchema,
 });
 
 // Area chart tool descriptor

@@ -1,6 +1,10 @@
 import { z } from "zod";
 import { zodToJsonSchema } from "../utils";
-import { BaseConfigSchema } from "./base";
+import {
+  WidthSchema,
+  HeightSchema,
+  TitleSchema,
+} from "./base";
 
 // Word cloud data schema
 const data = z.object({
@@ -15,9 +19,9 @@ const schema = z.object({
     .describe(
       "Data for word cloud chart, such as, [{ value: '4.272', text: '形成' }].",
     ),
-  width: BaseConfigSchema.width.optional(),
-  height: BaseConfigSchema.height.optional(),
-  title: BaseConfigSchema.title,
+  width: WidthSchema.optional(),
+  height: HeightSchema.optional(),
+  title: TitleSchema,
 });
 
 // Word cloud tool descriptor

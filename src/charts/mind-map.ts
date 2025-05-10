@@ -1,6 +1,12 @@
 import { z } from "zod";
 import { zodToJsonSchema } from "../utils";
-import { BaseConfigSchema } from "./base";
+import {
+  WidthSchema,
+  HeightSchema,
+  AxisXTitleSchema,
+  AxisYTitleSchema,
+  TitleSchema,
+} from "./base";
 
 // Mind map node schema
 const MindMapNodeSchema: z.ZodType<any> = z.lazy(() =>
@@ -13,11 +19,11 @@ const MindMapNodeSchema: z.ZodType<any> = z.lazy(() =>
 // Mind map chart input schema
 const schema = z.object({
   data: MindMapNodeSchema.describe(
-    "Data for mind map chart, such as, { name: 'main topic', children: [{ name: 'topic 1', children: [{ name:'subtopic 1-1' }] }",
+    "Data for mind map chart, such as, { name: 'main topic', children: [{ name: 'topic 1', children: [{ name:'subtopic 1-1' }] }.",
   ),
-  width: BaseConfigSchema.width.optional(),
-  height: BaseConfigSchema.height.optional(),
-  title: BaseConfigSchema.title,
+  width: WidthSchema.optional(),
+  height: HeightSchema.optional(),
+  title: TitleSchema,
 });
 
 // Mind map chart tool descriptor

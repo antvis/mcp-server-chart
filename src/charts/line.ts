@@ -1,6 +1,12 @@
 import { z } from "zod";
 import { zodToJsonSchema } from "../utils";
-import { BaseConfigSchema } from "./base";
+import {
+  WidthSchema,
+  HeightSchema,
+  AxisXTitleSchema,
+  AxisYTitleSchema,
+  TitleSchema,
+} from "./base";
 
 // Line chart data schema
 const data = z.object({
@@ -19,11 +25,11 @@ const schema = z.object({
     .describe(
       "Whether stacking is enabled. When enabled, line charts require a 'group' field in the data.",
     ),
-  width: BaseConfigSchema.width.optional(),
-  height: BaseConfigSchema.height.optional(),
-  title: BaseConfigSchema.title,
-  axisXTitle: BaseConfigSchema.axisXTitle,
-  axisYTitle: BaseConfigSchema.axisYTitle,
+  width: WidthSchema.optional(),
+  height: HeightSchema.optional(),
+  title: TitleSchema,
+  axisXTitle: AxisXTitleSchema,
+  axisYTitle: AxisYTitleSchema,
 });
 
 // Line chart tool descriptor

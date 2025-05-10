@@ -1,11 +1,11 @@
 import { z } from "zod";
 import { zodToJsonSchema } from "../utils";
 import {
-  WidthSchema,
-  HeightSchema,
   AxisXTitleSchema,
   AxisYTitleSchema,
+  HeightSchema,
   TitleSchema,
+  WidthSchema,
 } from "./base";
 
 // Line chart data schema

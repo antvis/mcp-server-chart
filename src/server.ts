@@ -5,10 +5,10 @@ import {
   ListToolsRequestSchema,
   McpError,
 } from "@modelcontextprotocol/sdk/types.js";
-import { ChartTypeMapping } from "./consts";
 import * as Charts from "./charts";
-import { generateChartUrl } from "./utils";
+import { ChartTypeMapping } from "./consts";
 import { startStdioMcpServer } from "./services";
+import { generateChartUrl } from "./utils";
 
 /**
  * MCP Server implementation for chart generation
@@ -82,6 +82,7 @@ export class McpServerChart {
             },
           ],
         };
+        // biome-ignore lint/suspicious/noExplicitAny: <explanation>
       } catch (error: any) {
         if (error instanceof McpError) throw error;
         throw new McpError(

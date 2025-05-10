@@ -1,11 +1,11 @@
 import { z } from "zod";
 import { zodToJsonSchema } from "../utils";
 import {
-  WidthSchema,
-  HeightSchema,
   AxisXTitleSchema,
   AxisYTitleSchema,
+  HeightSchema,
   TitleSchema,
+  WidthSchema,
 } from "./base";
 
 // Histogram chart input schema
@@ -38,4 +38,4 @@ const tool = {
 export const histogram = {
   schema,
   tool,
-}; 
+};

@@ -1,11 +1,9 @@
 import { z } from "zod";
 import { zodToJsonSchema } from "../utils";
-import {
-  WidthSchema,
-  HeightSchema,
-} from "./base";
+import { HeightSchema, WidthSchema } from "./base";
 
 // Fishbone node schema
+// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 const FishboneNodeSchema: z.ZodType<any> = z.lazy(() =>
   z.object({
     name: z.string(),

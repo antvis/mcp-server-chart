@@ -15,10 +15,14 @@
         "description": "Set the height of chart, default is 400.",
         "default": 400
       },
-      "title": { "type": "string", "default": "", "description": "Set the title of chart." },
+      "title": {
+        "type": "string",
+        "default": "",
+        "description": "Set the title of chart."
+      },
       "axisXTitle": {
         "type": "string",
-        "default": "", 
+        "default": "",
         "description": "Set the x-axis title of chart."
       },
       "categories": {
@@ -47,7 +51,7 @@
             },
             "axisYTitle": {
               "type": "string",
-              "default": "", 
+              "default": "",
               "description": "Set the y-axis title of the chart series."
             }
           },

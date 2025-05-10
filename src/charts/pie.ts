@@ -1,10 +1,6 @@
 import { z } from "zod";
 import { zodToJsonSchema } from "../utils";
-import {
-  WidthSchema,
-  HeightSchema,
-  TitleSchema,
-} from "./base";
+import { HeightSchema, TitleSchema, WidthSchema } from "./base";
 
 // Pie chart data schema
 const data = z.object({
@@ -41,4 +37,4 @@ const tool = {
 export const pie = {
   schema,
   tool,
-}; 
+};

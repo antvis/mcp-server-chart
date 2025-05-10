@@ -7,22 +7,22 @@
   "scripts": {
     "build": "rimraf build && tsc && tsc-alias -p tsconfig.json",
     "start": "npx @modelcontextprotocol/inspector node build/index.js",
-    "prepare": "npm run build",
+    "prepare": "husky && npm run build",
     "prepublishOnly": "npm run build",
     "test": "vitest"
+  },
+  "lint-staged": {
+    "*.{ts,js,json}": [
+      "biome check --write",
+      "biome format --write",
+      "biome lint"
+    ]
   },
   "bin": {
     "mcp-server-chart": "./build/index.js"
   },
-  "files": [
-    "build"
-  ],
-  "keywords": [
-    "antv",
-    "mcp",
-    "data-visualization",
-    "chart"
-  ],
+  "files": ["build"],
+  "keywords": ["antv", "mcp", "data-visualization", "chart"],
   "repository": {
     "type": "git",
     "url": "https://github.com/antvis/mcp-server-chart"
@@ -40,8 +40,11 @@
     "zod-to-json-schema": "^3.24.5"
   },
   "devDependencies": {
+    "@biomejs/biome": "1.9.4",
     "@modelcontextprotocol/inspector": "^0.10.2",
     "@types/node": "^22.14.1",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.5.2",
     "rimraf": "^6.0.1",
     "tsc-alias": "^1.8.16",
     "typescript": "^5.8.3",

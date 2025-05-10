@@ -20,6 +20,7 @@ axiosRetry(axios, {
  */
 export async function generateChartUrl(
   type: string,
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   options: Record<string, any>,
 ): Promise<string> {
   const url = "https://antv-studio.alipay.com/api/gpt-vis";

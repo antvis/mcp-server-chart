@@ -1,10 +1,10 @@
 import { z } from "zod";
 import { zodToJsonSchema } from "../utils";
 import {
-  WidthSchema,
-  HeightSchema,
   AxisXTitleSchema,
+  HeightSchema,
   TitleSchema,
+  WidthSchema,
 } from "./base";
 
 // Dual axes series schema
@@ -17,7 +17,11 @@ const DualAxesSeriesSchema = z.object({
     .describe(
       "When type is column, the data represents quantities, such as [91.9, 99.1, 101.6, 114.4, 121]. When type is line, the data represents ratios and its values are recommended to be less than 1, such as [0.055, 0.06, 0.062, 0.07, 0.075].",
     ),
-  axisYTitle: z.string().default("").describe("Set the y-axis title of the chart series.").optional(),
+  axisYTitle: z
+    .string()
+    .default("")
+    .describe("Set the y-axis title of the chart series.")
+    .optional(),
 });
 
 // Dual axes chart input schema

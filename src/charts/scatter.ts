@@ -1,11 +1,11 @@
 import { z } from "zod";
 import { zodToJsonSchema } from "../utils";
 import {
-  WidthSchema,
-  HeightSchema,
   AxisXTitleSchema,
   AxisYTitleSchema,
+  HeightSchema,
   TitleSchema,
+  WidthSchema,
 } from "./base";
 
 // Scatter chart data schema
@@ -37,4 +37,4 @@ const tool = {
 export const scatter = {
   schema,
   tool,
-}; 
+};

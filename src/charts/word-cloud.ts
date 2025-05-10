@@ -1,10 +1,6 @@
 import { z } from "zod";
 import { zodToJsonSchema } from "../utils";
-import {
-  WidthSchema,
-  HeightSchema,
-  TitleSchema,
-} from "./base";
+import { HeightSchema, TitleSchema, WidthSchema } from "./base";
 
 // Word cloud data schema
 const data = z.object({

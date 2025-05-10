@@ -28,8 +28,12 @@
         "description": "Set the height of chart, default is 400.",
         "default": 400
       },
-      "title": { "type": "string", "default": "", "description": "Set the title of chart." }
+      "title": {
+        "type": "string",
+        "default": "",
+        "description": "Set the title of chart."
+      }
     },
     "required": ["data"]
   }
-} 
+}

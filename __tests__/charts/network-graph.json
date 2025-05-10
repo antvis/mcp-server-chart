@@ -22,11 +22,11 @@
             "type": "array",
             "items": {
               "properties": {
-                "name": { "type": "string" },
+                "name": { "type": "string", "default": "" },
                 "source": { "type": "string" },
                 "target": { "type": "string" }
               },
-              "required": ["source", "target", "name"],
+              "required": ["source", "target"],
               "type": "object"
             }
           }
@@ -43,8 +43,7 @@
         "type": "number",
         "description": "Set the height of chart, default is 400.",
         "default": 400
-      },
-      "title": { "type": "string", "description": "Set the title of chart." }
+      }
     },
     "required": ["data"]
   }

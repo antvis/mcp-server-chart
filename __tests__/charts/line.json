@@ -19,6 +19,7 @@
       },
       "stack": {
         "type": "boolean",
+        "default": false,
         "description": "Whether stacking is enabled. When enabled, line charts require a 'group' field in the data."
       },
       "width": {
@@ -31,13 +32,15 @@
         "description": "Set the height of chart, default is 400.",
         "default": 400
       },
-      "title": { "type": "string", "description": "Set the title of chart." },
+      "title": { "type": "string", "default": "", "description": "Set the title of chart." },
       "axisXTitle": {
         "type": "string",
+        "default": "", 
         "description": "Set the x-axis title of chart."
       },
       "axisYTitle": {
         "type": "string",
+        "default": "", 
         "description": "Set the y-axis title of chart."
       }
     },

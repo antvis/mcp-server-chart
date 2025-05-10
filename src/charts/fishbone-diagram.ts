@@ -3,7 +3,6 @@ import { zodToJsonSchema } from "../utils";
 import {
   WidthSchema,
   HeightSchema,
-  TitleSchema,
 } from "./base";
 
 // Fishbone node schema
@@ -19,9 +18,8 @@ const schema = z.object({
   data: FishboneNodeSchema.describe(
     "Data for fishbone diagram chart, such as, { name: 'main topic', children: [{ name: 'topic 1', children: [{ name: 'subtopic 1-1' }] }.",
   ),
-  width: WidthSchema.optional(),
-  height: HeightSchema.optional(),
-  title: TitleSchema,
+  width: WidthSchema,
+  height: HeightSchema,
 });
 
 // Fishbone diagram tool descriptor

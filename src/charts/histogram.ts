@@ -14,13 +14,14 @@ const schema = z.object({
     .array(z.number())
     .describe("Data for histogram chart, such as, [78, 88, 60, 100, 95]."),
   binNumber: z
-    .number()
+    .union([z.number(), z.undefined(), z.null()])
     .optional()
+    .default(null)
     .describe(
       "Number of intervals to define the number of intervals in a histogram.",
     ),
-  width: WidthSchema.optional(),
-  height: HeightSchema.optional(),
+  width: WidthSchema,
+  height: HeightSchema,
   title: TitleSchema,
   axisXTitle: AxisXTitleSchema,
   axisYTitle: AxisYTitleSchema,

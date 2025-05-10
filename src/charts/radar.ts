@@ -20,8 +20,8 @@ const schema = z.object({
     .describe(
       "Data for radar chart, such as, [{ name: 'Design', value: 70 }].",
     ),
-  width: WidthSchema.optional(),
-  height: HeightSchema.optional(),
+  width: WidthSchema,
+  height: HeightSchema,
   title: TitleSchema,
 });
 

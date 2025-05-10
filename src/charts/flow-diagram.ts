@@ -5,7 +5,6 @@ import {
   HeightSchema,
   NodeSchema,
   EdgeSchema,
-  TitleSchema,
 } from "./base";
 
 // Flow diagram input schema
@@ -18,9 +17,8 @@ const schema = z.object({
     .describe(
       "Data for flow diagram chart, such as, { nodes: [{ name: 'node1' }, { name: 'node2' }], edges: [{ source: 'node1', target: 'node2', name: 'edge1' }] }.",
     ),
-  width: WidthSchema.optional(),
-  height: HeightSchema.optional(),
-  title: TitleSchema,
+  width: WidthSchema,
+  height: HeightSchema,
 });
 
 // Flow diagram tool descriptor

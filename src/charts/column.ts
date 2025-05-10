@@ -25,17 +25,19 @@ const schema = z.object({
   group: z
     .boolean()
     .optional()
+    .default(true)
     .describe(
-      "Whether grouping is enabled. When enabled, column charts require a 'group' field in the data.",
+      "Whether grouping is enabled. When enabled, column charts require a 'group' field in the data. When `group` is true, `stack` should be false.",
     ),
   stack: z
     .boolean()
     .optional()
+    .default(false)
     .describe(
-      "Whether stacking is enabled. When enabled, column charts require a 'group' field in the data.",
+      "Whether stacking is enabled. When enabled, column charts require a 'group' field in the data. When `stack` is true, `group` should be false.",
     ),
-  width: WidthSchema.optional(),
-  height: HeightSchema.optional(),
+  width: WidthSchema,
+  height: HeightSchema,
   title: TitleSchema,
   axisXTitle: AxisXTitleSchema,
   axisYTitle: AxisYTitleSchema,

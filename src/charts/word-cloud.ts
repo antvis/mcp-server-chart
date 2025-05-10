@@ -9,7 +9,7 @@ import {
 // Word cloud data schema
 const data = z.object({
   text: z.string(),
-  value: z.string(),
+  value: z.number(),
 });
 
 // Word cloud input schema
@@ -19,8 +19,8 @@ const schema = z.object({
     .describe(
       "Data for word cloud chart, such as, [{ value: '4.272', text: '形成' }].",
     ),
-  width: WidthSchema.optional(),
-  height: HeightSchema.optional(),
+  width: WidthSchema,
+  height: HeightSchema,
   title: TitleSchema,
 });
 

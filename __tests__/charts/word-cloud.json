@@ -10,7 +10,7 @@
         "items": {
           "type": "object",
           "properties": {
-            "value": { "type": "string" },
+            "value": { "type": "number" },
             "text": { "type": "string" }
           },
           "required": ["text", "value"]
@@ -27,7 +27,7 @@
         "description": "Set the height of chart, default is 400.",
         "default": 400
       },
-      "title": { "type": "string", "description": "Set the title of chart." }
+      "title": { "type": "string", "default": "", "description": "Set the title of chart." }
     },
     "required": ["data"]
   }

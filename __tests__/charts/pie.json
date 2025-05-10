@@ -19,7 +19,7 @@
       },
       "innerRadius": {
         "type": "number",
-        "description": "Set the pie chart as a donut chart. Set the value to 0.6 to enable it.",
+        "description": "Set the innerRadius of pie chart, the value between 0 and 1. Set the pie chart as a donut chart. Set the value to 0.6 or number in [0 ,1] to enable it.",
         "default": 0
       },
       "width": {
@@ -32,7 +32,7 @@
         "description": "Set the height of chart, default is 400.",
         "default": 400
       },
-      "title": { "type": "string", "description": "Set the title of chart." }
+      "title": { "type": "string", "default": "", "description": "Set the title of chart." }
     },
     "required": ["data"]
   }

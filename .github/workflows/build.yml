@@ -19,9 +19,10 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Run CI
+      - name: Run Continuous Integration
         run: |
           npm install
+          npm run build
           npm test --watch=false
 
       - name: Update coverall

@@ -23,10 +23,10 @@ const schema = z.object({
     .number()
     .default(0)
     .describe(
-      "Set the pie chart as a donut chart. Set the value to 0.6 to enable it.",
+      "Set the innerRadius of pie chart, the value between 0 and 1. Set the pie chart as a donut chart. Set the value to 0.6 or number in [0 ,1] to enable it.",
     ),
-  width: WidthSchema.optional(),
-  height: HeightSchema.optional(),
+  width: WidthSchema,
+  height: HeightSchema,
   title: TitleSchema,
 });
 

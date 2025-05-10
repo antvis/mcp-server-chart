@@ -20,11 +20,13 @@
       },
       "group": {
         "type": "boolean",
-        "description": "Whether grouping is enabled. When enabled, column charts require a 'group' field in the data."
+        "default": true,
+        "description": "Whether grouping is enabled. When enabled, column charts require a 'group' field in the data. When `group` is true, `stack` should be false."
       },
       "stack": {
         "type": "boolean",
-        "description": "Whether stacking is enabled. When enabled, column charts require a 'group' field in the data."
+        "default": false,
+        "description": "Whether stacking is enabled. When enabled, column charts require a 'group' field in the data. When `stack` is true, `group` should be false."
       },
       "width": {
         "type": "number",
@@ -36,9 +38,9 @@
         "description": "Set the height of chart, default is 400.",
         "default": 400
       },
-      "title": { "type": "string", "description": "Set the title of chart." },
-      "axisXTitle": { "type": "string", "description": "Set the x-axis title of chart." },
-      "axisYTitle": { "type": "string", "description": "Set the y-axis title of chart." }
+      "title": { "type": "string", "default": "", "description": "Set the title of chart." },
+      "axisXTitle": { "type": "string", "default": "", "description": "Set the x-axis title of chart." },
+      "axisYTitle": { "type": "string", "default": "", "description": "Set the y-axis title of chart." }
     },
     "required": ["data"]
   }

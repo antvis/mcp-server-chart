@@ -23,11 +23,12 @@ const schema = z.object({
   stack: z
     .boolean()
     .optional()
+    .default(false)
     .describe(
       "Whether stacking is enabled. When enabled, area charts require a 'group' field in the data.",
     ),
-  width: WidthSchema.optional(),
-  height: HeightSchema.optional(),
+  width: WidthSchema,
+  height: HeightSchema,
   title: TitleSchema,
   axisXTitle: AxisXTitleSchema,
   axisYTitle: AxisYTitleSchema,

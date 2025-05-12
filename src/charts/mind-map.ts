@@ -6,7 +6,7 @@ import { HeightSchema, WidthSchema } from "./base";
 // biome-ignore lint/suspicious/noExplicitAny: <explanation>
 const MindMapNodeSchema: z.ZodType<any> = z.lazy(() =>
   z.object({
-    name: z.string().min(1),
+    name: z.string(),
     children: z.array(MindMapNodeSchema).optional(),
   }),
 );

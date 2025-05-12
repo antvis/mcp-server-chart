@@ -13,7 +13,7 @@
             "minItems": 1,
             "items": {
               "properties": {
-                "name": { "type": "string", "minLength": 1 }
+                "name": { "type": "string" }
               },
               "required": ["name"],
               "type": "object"

@@ -6,7 +6,9 @@ import { EdgeSchema, HeightSchema, NodeSchema, WidthSchema } from "./base";
 const schema = z.object({
   data: z
     .object({
-      nodes: z.array(NodeSchema).nonempty("At least one node is required."),
+      nodes: z
+        .array(NodeSchema)
+        .nonempty({ message: "At least one node is required." }),
       edges: z.array(EdgeSchema),
     })
     .describe(

@@ -30,8 +30,11 @@ const schema = z.object({
     .array(z.string())
     .describe(
       "Categories for dual axes chart, such as, ['2015', '2016', '2017'].",
-    ),
-  series: z.array(DualAxesSeriesSchema),
+    )
+    .nonempty({ message: "Categories cannot be empty." }),
+  series: z
+    .array(DualAxesSeriesSchema)
+    .nonempty({ message: "Series cannot be empty." }),
   width: WidthSchema,
   height: HeightSchema,
   title: TitleSchema,

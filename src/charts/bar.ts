@@ -21,7 +21,8 @@ const schema = z.object({
     .array(data)
     .describe(
       "Data for bar chart, such as, [{ category: '分类一', value: 10 }].",
-    ),
+    )
+    .nonempty({ message: "Data cannot be empty." }),
   group: z
     .boolean()
     .optional()

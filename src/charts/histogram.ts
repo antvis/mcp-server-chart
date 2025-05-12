@@ -12,7 +12,8 @@ import {
 const schema = z.object({
   data: z
     .array(z.number())
-    .describe("Data for histogram chart, such as, [78, 88, 60, 100, 95]."),
+    .describe("Data for histogram chart, such as, [78, 88, 60, 100, 95].")
+    .nonempty({ message: "Data cannot be empty." }),
   binNumber: z
     .union([z.number(), z.undefined(), z.null()])
     .optional()

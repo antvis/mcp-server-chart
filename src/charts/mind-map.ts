@@ -1,6 +1,5 @@
 import { z } from "zod";
 import { zodToJsonSchema } from "../utils";
-import { nonEmptyObject } from "../utils";
 import { HeightSchema, WidthSchema } from "./base";
 
 // Mind map node schema
@@ -14,10 +13,8 @@ const MindMapNodeSchema: z.ZodType<any> = z.lazy(() =>
 
 // Mind map chart input schema
 const schema = z.object({
-  data: nonEmptyObject(
-    MindMapNodeSchema.describe(
-      "Data for mind map chart, such as, { name: 'main topic', children: [{ name: 'topic 1', children: [{ name:'subtopic 1-1' }] }.",
-    ),
+  data: MindMapNodeSchema.describe(
+    "Data for mind map chart, such as, { name: 'main topic', children: [{ name: 'topic 1', children: [{ name:'subtopic 1-1' }] }.",
   ),
   width: WidthSchema,
   height: HeightSchema,

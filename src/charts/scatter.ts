@@ -19,7 +19,7 @@ const schema = z.object({
   data: z
     .array(data)
     .describe("Data for scatter chart, such as, [{ x: 10, y: 15 }].")
-    .nonempty({ message: "Data cannot be empty." }),
+    .nonempty({ message: "Scatter chart data cannot be empty." }),
   width: WidthSchema,
   height: HeightSchema,
   title: TitleSchema,

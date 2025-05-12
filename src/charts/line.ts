@@ -19,7 +19,7 @@ const schema = z.object({
   data: z
     .array(data)
     .describe("Data for line chart, such as, [{ time: '2015', value: 23 }].")
-    .nonempty({ message: "Data cannot be empty." }),
+    .nonempty({ message: "line chart data cannot be empty." }),
   stack: z
     .boolean()
     .optional()

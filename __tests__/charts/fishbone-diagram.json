@@ -8,12 +8,12 @@
       "data": {
         "type": "object",
         "properties": {
-          "name": { "type": "string" },
+          "name": { "type": "string", "minLength": 1 },
           "children": {
             "type": "array",
             "items": {
               "properties": {
-                "name": { "type": "string" },
+                "name": { "type": "string", "minLength": 1 },
                 "children": {
                   "type": "array",
                   "items": {

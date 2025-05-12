@@ -6,7 +6,7 @@ import { HeightSchema, WidthSchema } from "./base";
 // biome-ignore lint/suspicious/noExplicitAny: <explanation>
 const FishboneNodeSchema: z.ZodType<any> = z.lazy(() =>
   z.object({
-    name: z.string(),
+    name: z.string().min(1),
     children: z.array(FishboneNodeSchema).optional(),
   }),
 );

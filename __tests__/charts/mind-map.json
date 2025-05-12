@@ -8,7 +8,7 @@
       "data": {
         "type": "object",
         "properties": {
-          "name": { "type": "string" },
+          "name": { "type": "string", "minLength": 1 },
           "children": {
             "type": "array",
             "items": {
@@ -20,7 +20,8 @@
                   "type": "array"
                 },
                 "name": {
-                  "type": "string"
+                  "type": "string",
+                  "minLength": 1
                 }
               },
               "required": ["name"],

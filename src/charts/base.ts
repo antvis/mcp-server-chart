@@ -32,7 +32,7 @@ export const AxisYTitleSchema = z
   .describe("Set the y-axis title of chart.");
 
 export const NodeSchema = z.object({
-  name: z.string(),
+  name: z.string().min(1),
 });
 
 export const EdgeSchema = z.object({

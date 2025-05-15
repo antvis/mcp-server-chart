@@ -34,27 +34,35 @@ Now 15+ charts supported.
 
 ## 🤖 Usage
 
-To use with `Desktop APP`, such as Claude, VSCode, Cline, Cherry Studio, and so on, add the  MCP server config below. On Mac Desktop PC:
+To use with `Desktop APP`, such as Claude, VSCode, Cline, Cherry Studio, and so on, add the  MCP server config below. On Mac system:
 
 ```json
 {
   "mcpServers": {
     "mcp-server-chart": {
       "command": "npx",
-      "args": [ "-y", "@antv/mcp-server-chart" ]
+      "args": [
+        "-y",
+        "@antv/mcp-server-chart"
+      ]
     }
   }
 }
 ```
 
-On Window Desktop PC:
+On Window system:
 
 ```json
 {
   "mcpServers": {
-    "mcp-server-chart": {
-      "command": "cmd",
-      "args": [ "/c", "npx", "-y", "@antv/mcp-server-chart" ]
+    "mcp-server-chart": {
+      "command": "cmd",
+      "args": [
+        "/c",
+        "npx",
+        "-y",
+        "@antv/mcp-server-chart"
+      ]
     }
   }
 }
@@ -72,9 +80,12 @@ Also, you can use it on [aliyun](https://bailian.console.aliyun.com/?tab=mcp#/mc
   "mcpServers": {
     "mcp-server-chart": {
       "command": "npx",
-      "args": [ "-y", "@antv/mcp-server-chart" ],
+      "args": [
+        "-y",
+        "@antv/mcp-server-chart"
+      ],
       "env": {
-        "VIS_REQUEST_SERVER":"<YOUR_VIS_REQUEST_SERVER>"
+        "VIS_REQUEST_SERVER": "<YOUR_VIS_REQUEST_SERVER>"
       }
     }
   }

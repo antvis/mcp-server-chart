@@ -1,5 +1,6 @@
 import axios from "axios";
 import axiosRetry from "axios-retry";
+import { getVisRequestServer } from "./env";
 
 // Configure axios with retry logic
 axiosRetry(axios, {
@@ -23,7 +24,7 @@ export async function generateChartUrl(
   // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   options: Record<string, any>,
 ): Promise<string> {
-  const url = "https://antv-studio.alipay.com/api/gpt-vis";
+  const url = getVisRequestServer();
 
   const response = await axios.post(
     url,

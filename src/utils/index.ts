@@ -1,3 +1,3 @@
 export { ChartTypeMapping } from "./constants";
-export { generateChartUrl } from "./generateChartUrl";
-export { zodToJsonSchema } from "./zodToJsonSchema";
+export { generateChartUrl } from "./generate";
+export { zodToJsonSchema } from "./schema";

@@ -52,6 +52,30 @@ To use with Claude Desktop, add the server config:
 ```
 
 
+## 📠 Private Deployment
+
+`MCP Server Chart` provides a free chart generation service by default. For users with a need for private deployment, they can try using `VIS_REQUEST_SERVER` to customize their own chart generation service.
+
+```json
+{
+  "mcpServers": {
+    "mcp-server-chart": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@antv/mcp-server-chart"
+      ],
+      "env": {
+        "VIS_REQUEST_SERVER":"<YOUR_VIS_REQUEST_SERVER>"
+      }
+    }
+  }
+}
+```
+
+You can use AntV's project [GPT-Vis-SSR](https://github.com/antvis/GPT-Vis/tree/main/bindings/gpt-vis-ssr) to deploy an HTTP service in a private environment, and then pass the URL address through env `VIS_REQUEST_SERVER`.
+
+
 ## 🔨 Development
 
 Install dependencies:

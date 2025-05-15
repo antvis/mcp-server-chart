@@ -72,10 +72,7 @@ Also, you can use it on [aliyun](https://bailian.console.aliyun.com/?tab=mcp#/mc
   "mcpServers": {
     "mcp-server-chart": {
       "command": "npx",
-      "args": [
-        "-y",
-        "@antv/mcp-server-chart"
-      ],
+      "args": [ "-y", "@antv/mcp-server-chart" ],
       "env": {
         "VIS_REQUEST_SERVER":"<YOUR_VIS_REQUEST_SERVER>"
       }

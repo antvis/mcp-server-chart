@@ -34,22 +34,33 @@ Now 15+ charts supported.
 
 ## 🤖 Usage
 
-To use with Claude Desktop, add the server config:
-
+To use with `Desktop APP`, such as Claude, VSCode, Cline, Cherry Studio, and so on, add the  MCP server config below. On Mac Desktop PC:
 
 ```json
 {
   "mcpServers": {
     "mcp-server-chart": {
       "command": "npx",
-      "args": [
-        "-y",
-        "@antv/mcp-server-chart"
-      ]
+      "args": [ "-y", "@antv/mcp-server-chart" ]
     }
   }
 }
 ```
+
+On Window Desktop PC:
+
+```json
+{
+  "mcpServers": {
+    "mcp-server-chart": {
+      "command": "cmd",
+      "args": [ "/c", "npx", "-y", "@antv/mcp-server-chart" ]
+    }
+  }
+}
+```
+
+Use in `Bailian`, go to [MCP Market](https://bailian.console.aliyun.com/?tab=mcp#/mcp-market), and search `AntV`, then use it. Also, you can use it on [modelscope](https://www.modelscope.cn/mcp/servers/@antvis/mcp-server-chart), [glama.ai](https://glama.ai/mcp/servers/@antvis/mcp-server-chart), [smithery.ai](https://smithery.ai/server/@antvis/mcp-server-chart) or others with HTTP, SSE Protocol.
 
 
 ## 📠 Private Deployment

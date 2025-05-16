@@ -5,7 +5,8 @@
   "main": "build/index.js",
   "type": "module",
   "scripts": {
-    "build": "rimraf build && tsc && tsc-alias -p tsconfig.json",
+    "prebuild": "rm -rf build/*",
+    "build": "tsc && tsc-alias -p tsconfig.json",
     "start": "npx @modelcontextprotocol/inspector node build/index.js",
     "prepare": "husky && npm run build",
     "prepublishOnly": "npm run build",
@@ -45,7 +46,6 @@
     "@types/node": "^22.14.1",
     "husky": "^9.1.7",
     "lint-staged": "^15.5.2",
-    "rimraf": "^6.0.1",
     "tsc-alias": "^1.8.16",
     "typescript": "^5.8.3",
     "vitest": "^3.1.3"

@@ -34,7 +34,7 @@ Now 15+ charts supported.
 
 ## 🤖 Usage
 
-To use with `Desktop APP`, such as Claude, VSCode, Cline, Cherry Studio, and so on, add the  MCP server config below. On Mac system:
+To use with `Desktop APP`, such as Claude, VSCode, [Cline](https://cline.bot/mcp-marketplace), Cherry Studio, and so on, add the  MCP server config below. On Mac system:
 
 ```json
 {
@@ -68,22 +68,38 @@ On Window system:
 }
 ```
 
-### Run with SSE transport
+Also, you can use it on [aliyun](https://bailian.console.aliyun.com/?tab=mcp#/mcp-market/detail/antv-visualization-chart), [modelscope](https://www.modelscope.cn/mcp/servers/@antvis/mcp-server-chart), [glama.ai](https://glama.ai/mcp/servers/@antvis/mcp-server-chart), [smithery.ai](https://smithery.ai/server/@antvis/mcp-server-chart) or others with HTTP, SSE Protocol.
 
-install the package globally:
+
+## Run with SSE transport
+
+Install the package globally.
 
 ```bash
 npm install -g @antv/mcp-server-chart
 ```
 
-run the server:
+Run the server with `sse` transport.
 
 ```bash
-mcp-server-chart --transport sse --port 1122 --endpoint /sse
+mcp-server-chart --transport sse
 ```
 
+Then you can use the `http://localhost:1122/sse` with `SSE` transport.
 
-Also, you can use it on [aliyun](https://bailian.console.aliyun.com/?tab=mcp#/mcp-market/detail/antv-visualization-chart), [modelscope](https://www.modelscope.cn/mcp/servers/@antvis/mcp-server-chart), [glama.ai](https://glama.ai/mcp/servers/@antvis/mcp-server-chart), [smithery.ai](https://smithery.ai/server/@antvis/mcp-server-chart) or others with HTTP, SSE Protocol.
+
+## CLI Options
+
+You can also use the following CLI options when running the MCP server. Command options by run cli with `-h`.
+
+```plain
+MCP Server Chart CLI
+Options:
+  --transport, -t  Specify the transport protocol: "stdio" or "sse" (default: "stdio")
+  --port, -p       Specify the port for SSE transport (default: 1122)
+  --endpoint, -e   Specify the endpoint for SSE transport (default: "/sse")
+  --help, -h       Show this help message
+```
 
 
 ## 📠 Private Deployment
@@ -110,6 +126,7 @@ Also, you can use it on [aliyun](https://bailian.console.aliyun.com/?tab=mcp#/mc
 You can use AntV's project [GPT-Vis-SSR](https://github.com/antvis/GPT-Vis/tree/main/bindings/gpt-vis-ssr) to deploy an HTTP service in a private environment, and then pass the URL address through env `VIS_REQUEST_SERVER`.
 
 
+
 ## 🔨 Development
 
 Install dependencies:
@@ -130,15 +147,6 @@ Start the MCP server:
 npm run start
 ```
 
-### CLI Options
-```
-MCP Server Chart CLI
-Options:
-  --transport, -t  Specify the transport protocol: "stdio" or "sse" (default: "stdio")
-  --port, -p       Specify the port for SSE transport (default: 1122)
-  --endpoint, -e   Specify the endpoint for SSE transport (default: "/sse")
-  --help, -h       Show this help message
-```
 
 ## 📄 License
 

@@ -19,7 +19,7 @@ export class McpServerChart {
     this.server = new Server(
       {
         name: "mcp-server-chart",
-        version: "0.2.6",
+        version: "0.3.0",
       },
       {
         capabilities: {

@@ -126,7 +126,6 @@ Options:
 You can use AntV's project [GPT-Vis-SSR](https://github.com/antvis/GPT-Vis/tree/main/bindings/gpt-vis-ssr) to deploy an HTTP service in a private environment, and then pass the URL address through env `VIS_REQUEST_SERVER`.
 
 
-
 ## 🔨 Development
 
 Install dependencies:

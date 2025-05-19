@@ -24,8 +24,7 @@ export const startSSEMcpServer = async (
     }
 
     if (req.method === "OPTIONS") {
-      res.writeHead(204);
-      res.end();
+      res.writeHead(204).end();
       return;
     }
 
@@ -41,7 +40,6 @@ export const startSSEMcpServer = async (
 
     if (req.method === "GET" && req.url === "/ping") {
       res.writeHead(200).end("pong");
-
       return;
     }
 

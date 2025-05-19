@@ -68,6 +68,21 @@ On Window system:
 }
 ```
 
+### run with sse transport
+
+install the package globally:
+
+```bash
+npm install -g @antv/mcp-server-chart
+```
+
+run the server:
+
+```bash
+mcp-server-chart --transport sse --port 1122 --endpoint /sse
+```
+
+
 Also, you can use it on [aliyun](https://bailian.console.aliyun.com/?tab=mcp#/mcp-market/detail/antv-visualization-chart), [modelscope](https://www.modelscope.cn/mcp/servers/@antvis/mcp-server-chart), [glama.ai](https://glama.ai/mcp/servers/@antvis/mcp-server-chart), [smithery.ai](https://smithery.ai/server/@antvis/mcp-server-chart) or others with HTTP, SSE Protocol.
 
 
@@ -115,6 +130,31 @@ Start the MCP server:
 npm run start
 ```
 
+### CLI Options
+
+You can also use the following CLI options when running the MCP server:
+
+```bash
+# Start in stdio mode (default)
+npx @antv/mcp-server-chart --transport=stdio
+
+# Start in SSE mode
+npx @antv/mcp-server-chart --transport=sse
+
+# Customize SSE port and endpoint
+npx @antv/mcp-server-chart --transport=sse --port=1122 --endpoint=/sse
+
+# Show help information
+npx @antv/mcp-server-chart --help
+```
+
+Short form options are also supported:
+
+```bash
+npx @antv/mcp-server-chart -t sse
+npx @antv/mcp-server-chart -t sse -p 1122 -e /mcp-sse
+npx @antv/mcp-server-chart -h
+```
 
 ## 📄 License
 

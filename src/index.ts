@@ -13,7 +13,7 @@ const { values } = parseArgs({
     port: {
       type: "string",
       short: "p",
-      default: "8080",
+      default: "9528",
     },
     endpoint: {
       type: "string",
@@ -34,7 +34,7 @@ MCP Server Chart CLI
 
 Options:
   --mode, -m     Specify the mode: "stdio" or "sse" (default: "stdio")
-  --port, -p     Specify the port for SSE mode (default: 8080)
+  --port, -p     Specify the port for SSE mode (default: 9528)
   --endpoint, -e Specify the endpoint for SSE mode (default: "/sse")
   --help, -h     Show this help message
   `);
@@ -44,15 +44,12 @@ Options:
 const server = new McpServerChart();
 
 // Run in the specified mode
-const mode = values.mode?.toLowerCase();
-if (mode === "stdio") {
-  server.runStdioServer().catch(console.error);
-} else if (mode === "sse") {
+const mode = values.mode.toLowerCase();
+if (mode === "sse") {
   // Default to SSE mode
   const port = Number.parseInt(values.port as string, 10);
   const endpoint = values.endpoint as string;
   server.runSSEServer(endpoint, port).catch(console.error);
 } else {
-  console.error("Invalid mode:", mode);
-  process.exit(1);
+  server.runStdioServer().catch(console.error);
 }

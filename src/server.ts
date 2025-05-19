@@ -96,7 +96,7 @@ export class McpServerChart {
     await startStdioMcpServer(this.server);
   }
 
-  async runSSEServer(endpoint = "/sse", port = 8080) {
+  async runSSEServer(endpoint = "/sse", port = 9528) {
     await startSSEMcpServer(this.server, endpoint, port);
   }
 }

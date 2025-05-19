@@ -5,7 +5,7 @@ import { SSEServerTransport } from "@modelcontextprotocol/sdk/server/sse.js";
 export const startSSEMcpServer = async (
   server: Server,
   endpoint = "/sse",
-  port = 8080,
+  port = 9528,
 ): Promise<void> => {
   const activeTransports: Record<string, SSEServerTransport> = {};
 

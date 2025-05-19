@@ -124,8 +124,17 @@ export const startSSEMcpServer = async (
   process.on("SIGTERM", cleanup); // kill command
 
   httpServer.listen(port, () => {
+    // Format the URLs as clickable links in the terminal
+    const serverUrl = `http://localhost:${port}${endpoint}`;
+    const healthUrl = `http://localhost:${port}/health`;
+    const pingUrl = `http://localhost:${port}/ping`;
+
+    // Use ANSI escape codes to make the URLs clickable in most modern terminals
     console.error(
-      `MCP Server Chart running on SSE at port ${port} with endpoint ${endpoint}`,
+      `MCP Server Chart running on SSE at:\n\u001B[4m${serverUrl}\u001B[0m`,
     );
+    console.error("\nTest endpoints:");
+    console.error(`• Health check: \u001B[4m${healthUrl}\u001B[0m`);
+    console.error(`• Ping test: \u001B[4m${pingUrl}\u001B[0m`);
   });
 };

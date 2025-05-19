@@ -6,7 +6,7 @@ import {
   McpError,
 } from "@modelcontextprotocol/sdk/types.js";
 import * as Charts from "./charts";
-import { startStdioMcpServer } from "./services";
+import { startSSEMcpServer, startStdioMcpServer } from "./services";
 import { ChartTypeMapping, generateChartUrl } from "./utils";
 
 /**
@@ -94,5 +94,9 @@ export class McpServerChart {
 
   async runStdioServer() {
     await startStdioMcpServer(this.server);
+  }
+
+  async runSSEServer(endpoint = "/sse", port = 8080) {
+    await startSSEMcpServer(this.server, endpoint, port);
   }
 }

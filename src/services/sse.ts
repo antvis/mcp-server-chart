@@ -126,6 +126,8 @@ export const startSSEMcpServer = async (
   process.on("SIGTERM", cleanup); // kill command
 
   httpServer.listen(port, () => {
-    console.log(`SSE server listening on port ${port} at ${endpoint}`);
+    console.error(
+      `MCP Server Chart running on SSE at port ${port} with endpoint ${endpoint}`,
+    );
   });
 };

@@ -68,7 +68,7 @@ On Window system:
 }
 ```
 
-### run with sse transport
+### Run with SSE transport
 
 install the package globally:
 

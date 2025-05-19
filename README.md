@@ -131,29 +131,13 @@ npm run start
 ```
 
 ### CLI Options
-
-You can also use the following CLI options when running the MCP server:
-
-```bash
-# Start in stdio mode (default)
-npx @antv/mcp-server-chart --transport=stdio
-
-# Start in SSE mode
-npx @antv/mcp-server-chart --transport=sse
-
-# Customize SSE port and endpoint
-npx @antv/mcp-server-chart --transport=sse --port=1122 --endpoint=/sse
-
-# Show help information
-npx @antv/mcp-server-chart --help
 ```
-
-Short form options are also supported:
-
-```bash
-npx @antv/mcp-server-chart -t sse
-npx @antv/mcp-server-chart -t sse -p 1122 -e /mcp-sse
-npx @antv/mcp-server-chart -h
+MCP Server Chart CLI
+Options:
+  --transport, -t  Specify the transport protocol: "stdio" or "sse" (default: "stdio")
+  --port, -p       Specify the port for SSE transport (default: 1122)
+  --endpoint, -e   Specify the endpoint for SSE transport (default: "/sse")
+  --help, -h       Show this help message
 ```
 
 ## 📄 License

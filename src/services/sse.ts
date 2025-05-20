@@ -130,11 +130,11 @@ export const startSSEMcpServer = async (
     const pingUrl = `http://localhost:${port}/ping`;
 
     // Use ANSI escape codes to make the URLs clickable in most modern terminals
-    console.error(
-      `MCP Server Chart running on SSE at:\n\u001B[4m${serverUrl}\u001B[0m`,
+    console.log(
+      `MCP Server Chart running on SSE at: \x1b[32m\u001B[4m${serverUrl}\u001B[0m\x1b[0m`,
     );
-    console.error("\nTest endpoints:");
-    console.error(`• Health check: \u001B[4m${healthUrl}\u001B[0m`);
-    console.error(`• Ping test: \u001B[4m${pingUrl}\u001B[0m`);
+    console.log("\nTest endpoints:");
+    console.log(`• Health check: \u001B[4m${healthUrl}\u001B[0m`);
+    console.log(`• Ping test: \u001B[4m${pingUrl}\u001B[0m`);
   });
 };

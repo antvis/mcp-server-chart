@@ -1,6 +1,10 @@
 #!/usr/bin/env node
 import { parseArgs } from "node:util";
-import { McpServerChart } from "./server";
+import {
+  runHTTPStreamableServer,
+  runSSEServer,
+  runStdioServer,
+} from "./server";
 
 // Parse command line arguments
 const { values } = parseArgs({
@@ -33,22 +37,24 @@ if (values.help) {
 MCP Server Chart CLI
 
 Options:
-  --transport, -t  Specify the transport protocol: "stdio" or "sse" (default: "stdio")
-  --port, -p       Specify the port for SSE transport (default: 1122)
-  --endpoint, -e   Specify the endpoint for SSE transport (default: "/sse")
+  --transport, -t  Specify the transport protocol: "stdio" or "sse" or "streamable" (default: "stdio")
+  --port, -p       Specify the port for SSE or streamable transport (default: 1122)
+  --endpoint, -e   Specify the endpoint for SSE or streamable transport (default: "/sse")
   --help, -h       Show this help message
   `);
   process.exit(0);
 }
-
-const server = new McpServerChart();
 
 // Run in the specified transport mode
 const transport = values.transport.toLowerCase();
 if (transport === "sse") {
   const port = Number.parseInt(values.port as string, 10);
   const endpoint = values.endpoint as string;
-  server.runSSEServer(endpoint, port).catch(console.error);
+  runSSEServer(endpoint, port).catch(console.error);
+} else if (transport === "streamable") {
+  const port = Number.parseInt(values.port as string, 10);
+  const endpoint = values.endpoint as string;
+  runHTTPStreamableServer(endpoint, port).catch(console.error);
 } else {
-  server.runStdioServer().catch(console.error);
+  runStdioServer().catch(console.error);
 }

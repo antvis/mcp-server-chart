@@ -5,7 +5,7 @@ import { SSEServerTransport } from "@modelcontextprotocol/sdk/server/sse.js";
 export const startSSEMcpServer = async (
   server: Server,
   endpoint = "/sse",
-  port = 9528,
+  port = 1122,
 ): Promise<void> => {
   const activeTransports: Record<string, SSEServerTransport> = {};
 
@@ -114,6 +114,12 @@ export const startSSEMcpServer = async (
   // clean up server when process exit
   const cleanup = () => {
     console.log("\nClosing SSE server...");
+    // close all active transports
+    for (const transport of Object.values(activeTransports)) {
+      transport.close();
+    }
+
+    server.close();
     httpServer.close(() => {
       console.log("SSE server closed");
       process.exit(0);

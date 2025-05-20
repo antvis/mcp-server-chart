@@ -71,7 +71,7 @@ On Window system:
 Also, you can use it on [aliyun](https://bailian.console.aliyun.com/?tab=mcp#/mcp-market/detail/antv-visualization-chart), [modelscope](https://www.modelscope.cn/mcp/servers/@antvis/mcp-server-chart), [glama.ai](https://glama.ai/mcp/servers/@antvis/mcp-server-chart), [smithery.ai](https://smithery.ai/server/@antvis/mcp-server-chart) or others with HTTP, SSE Protocol.
 
 
-## Run with SSE transport
+## Run with SSE or Streamable transport
 
 Install the package globally.
 
@@ -79,13 +79,19 @@ Install the package globally.
 npm install -g @antv/mcp-server-chart
 ```
 
-Run the server with `sse` transport.
+Run the server with your preferred transport option:
 
 ```bash
+# For SSE transport (default endpoint: /sse)
 mcp-server-chart --transport sse
+
+# For Streamable transport with custom endpoint
+mcp-server-chart --transport streamable --endpoint /mcp
 ```
 
-Then you can use the `http://localhost:1122/sse` with `SSE` transport.
+Then you can access the server at:
+- SSE transport: `http://localhost:1122/sse`
+- Streamable transport: `http://localhost:1122/mcp`
 
 
 ## CLI Options
@@ -95,9 +101,9 @@ You can also use the following CLI options when running the MCP server. Command 
 ```plain
 MCP Server Chart CLI
 Options:
-  --transport, -t  Specify the transport protocol: "stdio" or "sse" (default: "stdio")
-  --port, -p       Specify the port for SSE transport (default: 1122)
-  --endpoint, -e   Specify the endpoint for SSE transport (default: "/sse")
+  --transport, -t  Specify the transport protocol: "stdio" or "sse" or "streamable" (default: "stdio")
+  --port, -p       Specify the port for SSE or streamable transport (default: 1122)
+  --endpoint, -e   Specify the endpoint for SSE or streamable transport (default: "/sse")
   --help, -h       Show this help message
 ```
 

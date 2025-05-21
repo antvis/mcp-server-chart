@@ -1,6 +1,7 @@
-import http from "node:http";
+import type { IncomingMessage, ServerResponse } from "node:http";
 import type { Server } from "@modelcontextprotocol/sdk/server/index.js";
 import { SSEServerTransport } from "@modelcontextprotocol/sdk/server/sse.js";
+import { type RequestHandlers, createBaseHttpServer } from "../utils";
 
 export const startSSEMcpServer = async (
   server: Server,
@@ -9,44 +10,20 @@ export const startSSEMcpServer = async (
 ): Promise<void> => {
   const activeTransports: Record<string, SSEServerTransport> = {};
 
-  const httpServer = http.createServer(async (req, res) => {
-    if (req.headers.origin) {
-      try {
-        const origin = new URL(req.headers.origin);
-
-        res.setHeader("Access-Control-Allow-Origin", origin.origin);
-        res.setHeader("Access-Control-Allow-Credentials", "true");
-        res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
-        res.setHeader("Access-Control-Allow-Headers", "*");
-      } catch (error) {
-        console.error("Error parsing origin:", error);
-      }
-    }
-
-    if (req.method === "OPTIONS") {
-      res.writeHead(204).end();
-      return;
-    }
-
+  // Define the request handler for SSE-specific logic
+  const handleRequest: RequestHandlers["handleRequest"] = async (
+    req: IncomingMessage,
+    res: ServerResponse,
+  ) => {
     if (!req.url) {
       res.writeHead(400).end("No URL");
       return;
     }
 
-    if (req.method === "GET" && req.url === "/health") {
-      res.writeHead(200, { "Content-Type": "text/plain" }).end("OK");
-      return;
-    }
+    const reqUrl = new URL(req.url, "http://localhost");
 
-    if (req.method === "GET" && req.url === "/ping") {
-      res.writeHead(200).end("pong");
-      return;
-    }
-
-    if (
-      req.method === "GET" &&
-      new URL(req.url, "http://localhost").pathname === endpoint
-    ) {
+    // Handle GET requests to the SSE endpoint
+    if (req.method === "GET" && reqUrl.pathname === endpoint) {
       const transport = new SSEServerTransport("/messages", res);
 
       activeTransports[transport.sessionId] = transport;
@@ -84,6 +61,7 @@ export const startSSEMcpServer = async (
       return;
     }
 
+    // Handle POST requests to the messages endpoint
     if (req.method === "POST" && req.url?.startsWith("/messages")) {
       const sessionId = new URL(
         req.url,
@@ -92,7 +70,6 @@ export const startSSEMcpServer = async (
 
       if (!sessionId) {
         res.writeHead(400).end("No sessionId");
-
         return;
       }
 
@@ -101,46 +78,30 @@ export const startSSEMcpServer = async (
 
       if (!activeTransport) {
         res.writeHead(400).end("No active transport");
-
         return;
       }
 
       await activeTransport.handlePostMessage(req, res);
-
       return;
     }
-  });
 
-  // clean up server when process exit
+    // If we reach here, no handler matched
+    res.writeHead(404).end("Not found");
+  };
+
+  // Custom cleanup for SSE server
   const cleanup = () => {
-    console.log("\nClosing SSE server...");
-    // close all active transports
+    // Close all active transports
     for (const transport of Object.values(activeTransports)) {
       transport.close();
     }
-
     server.close();
-    httpServer.close(() => {
-      console.log("SSE server closed");
-      process.exit(0);
-    });
   };
 
-  process.on("SIGINT", cleanup); // Ctrl+C
-  process.on("SIGTERM", cleanup); // kill command
-
-  httpServer.listen(port, () => {
-    // Format the URLs as clickable links in the terminal
-    const serverUrl = `http://localhost:${port}${endpoint}`;
-    const healthUrl = `http://localhost:${port}/health`;
-    const pingUrl = `http://localhost:${port}/ping`;
-
-    // Use ANSI escape codes to make the URLs clickable in most modern terminals
-    console.log(
-      `MCP Server Chart running on SSE at: \x1b[32m\u001B[4m${serverUrl}\u001B[0m\x1b[0m`,
-    );
-    console.log("\nTest endpoints:");
-    console.log(`• Health check: \u001B[4m${healthUrl}\u001B[0m`);
-    console.log(`• Ping test: \u001B[4m${pingUrl}\u001B[0m`);
+  // Create the HTTP server using our factory
+  createBaseHttpServer(port, endpoint, {
+    handleRequest,
+    cleanup,
+    serverType: "SSE Server",
   });
 };

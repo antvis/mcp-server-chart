@@ -1,5 +1,6 @@
 /**
  * This is a copy of the InMemoryEventStore from the typescript-sdk.
+ * reference: https://github.com/modelcontextprotocol/typescript-sdk/blob/main/src/examples/shared/inMemoryEventStore.ts
  */
 
 import type { EventStore } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
@@ -12,8 +13,33 @@ import type { JSONRPCMessage } from "@modelcontextprotocol/sdk/types.js";
  * see more details: https://modelcontextprotocol.io/specification/2025-03-26/basic/transports#resumability-and-redelivery.
  */
 export class InMemoryEventStore implements EventStore {
-  private events: Map<string, { message: JSONRPCMessage; streamId: string }> =
+  private events: Map<string, { streamId: string; message: JSONRPCMessage }> =
     new Map();
+
+  /**
+   * Generates a unique event ID for a given stream ID
+   */
+  private generateEventId(streamId: string): string {
+    return `${streamId}_${Date.now()}_${Math.random().toString(36).substring(2, 10)}`;
+  }
+
+  /**
+   * Extracts the stream ID from an event ID
+   */
+  private getStreamIdFromEventId(eventId: string): string {
+    const parts = eventId.split("_");
+    return parts.length > 0 ? parts[0] : "";
+  }
+
+  /**
+   * Stores an event with a generated event ID
+   * Implements EventStore.storeEvent
+   */
+  async storeEvent(streamId: string, message: JSONRPCMessage): Promise<string> {
+    const eventId = this.generateEventId(streamId);
+    this.events.set(eventId, { streamId, message });
+    return eventId;
+  }
 
   /**
    * Replays events that occurred after a specific event ID
@@ -44,7 +70,7 @@ export class InMemoryEventStore implements EventStore {
 
     for (const [
       eventId,
-      { message, streamId: eventStreamId },
+      { streamId: eventStreamId, message },
     ] of sortedEvents) {
       // Only include events from the same stream
       if (eventStreamId !== streamId) {
@@ -62,30 +88,5 @@ export class InMemoryEventStore implements EventStore {
       }
     }
     return streamId;
-  }
-
-  /**
-   * Stores an event with a generated event ID
-   * Implements EventStore.storeEvent
-   */
-  async storeEvent(streamId: string, message: JSONRPCMessage): Promise<string> {
-    const eventId = this.generateEventId(streamId);
-    this.events.set(eventId, { message, streamId });
-    return eventId;
-  }
-
-  /**
-   * Generates a unique event ID for a given stream ID
-   */
-  private generateEventId(streamId: string): string {
-    return `${streamId}_${Date.now()}_${Math.random().toString(36).substring(2, 10)}`;
-  }
-
-  /**
-   * Extracts the stream ID from an event ID
-   */
-  private getStreamIdFromEventId(eventId: string): string {
-    const parts = eventId.split("_");
-    return parts.length > 0 ? parts[0] : "";
   }
 }

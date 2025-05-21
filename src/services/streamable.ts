@@ -1,13 +1,17 @@
-import http from "node:http";
+import { randomUUID } from "node:crypto";
+import type { IncomingMessage, ServerResponse } from "node:http";
 import type { Server } from "@modelcontextprotocol/sdk/server/index.js";
 import {
   type EventStore,
   StreamableHTTPServerTransport,
 } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
 import { isInitializeRequest } from "@modelcontextprotocol/sdk/types.js";
-import { InMemoryEventStore } from "../utils";
-
-import { randomUUID } from "node:crypto";
+import {
+  InMemoryEventStore,
+  type RequestHandlers,
+  createBaseHttpServer,
+  getBody,
+} from "../utils";
 
 export const startHTTPStreamableServer = async (
   createServer: () => Server,
@@ -23,44 +27,20 @@ export const startHTTPStreamableServer = async (
     }
   > = {};
 
-  const httpServer = http.createServer(async (req, res) => {
-    if (req.headers.origin) {
-      try {
-        const origin = new URL(req.headers.origin);
-
-        res.setHeader("Access-Control-Allow-Origin", origin.origin);
-        res.setHeader("Access-Control-Allow-Credentials", "true");
-        res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
-        res.setHeader("Access-Control-Allow-Headers", "*");
-      } catch (error) {
-        console.error("Error parsing origin:", error);
-      }
-    }
-
-    if (req.method === "OPTIONS") {
-      res.writeHead(204).end();
-      return;
-    }
-
-    if (req.method === "GET" && req.url === "/health") {
-      res.writeHead(200, { "Content-Type": "text/plain" }).end("OK");
-      return;
-    }
-
-    if (req.method === "GET" && req.url === "/ping") {
-      res.writeHead(200).end("pong");
-      return;
-    }
-
+  // Define the request handler for streamable-specific logic
+  const handleRequest: RequestHandlers["handleRequest"] = async (
+    req: IncomingMessage,
+    res: ServerResponse,
+  ) => {
     if (!req.url) {
       res.writeHead(400).end("No URL");
       return;
     }
 
-    if (
-      req.method === "POST" &&
-      new URL(req.url, "http://localhost").pathname === endpoint
-    ) {
+    const reqUrl = new URL(req.url, "http://localhost");
+
+    // Handle POST requests to endpoint
+    if (req.method === "POST" && reqUrl.pathname === endpoint) {
       try {
         const sessionId = Array.isArray(req.headers["mcp-session-id"])
           ? req.headers["mcp-session-id"][0]
@@ -159,10 +139,8 @@ export const startHTTPStreamableServer = async (
       return;
     }
 
-    if (
-      req.method === "GET" &&
-      new URL(req.url, "http://localhost").pathname === endpoint
-    ) {
+    // Handle GET requests to endpoint
+    if (req.method === "GET" && reqUrl.pathname === endpoint) {
       const sessionId = req.headers["mcp-session-id"] as string | undefined;
       const activeTransport:
         | {
@@ -192,10 +170,8 @@ export const startHTTPStreamableServer = async (
       return;
     }
 
-    if (
-      req.method === "DELETE" &&
-      new URL(req.url, "http://localhost").pathname === endpoint
-    ) {
+    // Handle DELETE requests to endpoint
+    if (req.method === "DELETE" && reqUrl.pathname === endpoint) {
       console.log("received delete request");
       const sessionId = req.headers["mcp-session-id"] as string | undefined;
       if (!sessionId) {
@@ -205,7 +181,7 @@ export const startHTTPStreamableServer = async (
 
       console.log("received delete request for session", sessionId);
 
-      const transport = activeTransports[sessionId].transport;
+      const transport = activeTransports[sessionId]?.transport;
       if (!transport) {
         res.writeHead(400).end("No active transport");
         return;
@@ -220,49 +196,23 @@ export const startHTTPStreamableServer = async (
 
       return;
     }
-  });
 
+    // If we reach here, no handler matched
+    res.writeHead(404).end("Not found");
+  };
+
+  // Custom cleanup for streamable server
   const cleanup = () => {
-    console.log("\nClosing Streamable server...");
     for (const { server, transport } of Object.values(activeTransports)) {
       transport.close();
       server.close();
     }
-
-    httpServer.close(() => {
-      console.log("Streamable server closed");
-      process.exit(0);
-    });
   };
 
-  process.on("SIGINT", cleanup); // Ctrl+C
-  process.on("SIGTERM", cleanup); // kill command
-
-  httpServer.listen(port, () => {
-    const serverUrl = `http://localhost:${port}${endpoint}`;
-    const healthUrl = `http://localhost:${port}/health`;
-    const pingUrl = `http://localhost:${port}/ping`;
-
-    console.log(
-      `Streamable server running on: \x1b[32m\u001B[4m${serverUrl}\u001B[0m\x1b[0m`,
-    );
-    console.log("\nTest endpoints:");
-    console.log(`• Health check: \u001B[4m${healthUrl}\u001B[0m`);
-    console.log(`• Ping test: \u001B[4m${pingUrl}\u001B[0m`);
+  // Create the HTTP server using our factory
+  createBaseHttpServer(port, endpoint, {
+    handleRequest,
+    cleanup,
+    serverType: "HTTP Streamable Server",
   });
 };
-
-function getBody(request: http.IncomingMessage) {
-  return new Promise((resolve) => {
-    const bodyParts: Buffer[] = [];
-    let body: string;
-    request
-      .on("data", (chunk) => {
-        bodyParts.push(chunk);
-      })
-      .on("end", () => {
-        body = Buffer.concat(bodyParts).toString();
-        resolve(JSON.parse(body));
-      });
-  });
-}

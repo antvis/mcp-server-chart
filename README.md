@@ -71,7 +71,7 @@ On Window system:
 Also, you can use it on [aliyun](https://bailian.console.aliyun.com/?tab=mcp#/mcp-market/detail/antv-visualization-chart), [modelscope](https://www.modelscope.cn/mcp/servers/@antvis/mcp-server-chart), [glama.ai](https://glama.ai/mcp/servers/@antvis/mcp-server-chart), [smithery.ai](https://smithery.ai/server/@antvis/mcp-server-chart) or others with HTTP, SSE Protocol.
 
 
-## Run with SSE or Streamable transport
+## 🚰 Run with SSE or Streamable transport
 
 Install the package globally.
 
@@ -94,7 +94,7 @@ Then you can access the server at:
 - Streamable transport: `http://localhost:1122/mcp`
 
 
-## CLI Options
+## 🎮 CLI Options
 
 You can also use the following CLI options when running the MCP server. Command options by run cli with `-h`.
 

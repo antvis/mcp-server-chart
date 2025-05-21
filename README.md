@@ -86,7 +86,7 @@ Run the server with your preferred transport option:
 mcp-server-chart --transport sse
 
 # For Streamable transport with custom endpoint
-mcp-server-chart --transport streamable --endpoint /mcp
+mcp-server-chart --transport streamable
 ```
 
 Then you can access the server at:
@@ -100,10 +100,13 @@ You can also use the following CLI options when running the MCP server. Command 
 
 ```plain
 MCP Server Chart CLI
+
 Options:
-  --transport, -t  Specify the transport protocol: "stdio" or "sse" or "streamable" (default: "stdio")
+  --transport, -t  Specify the transport protocol: "stdio", "sse", or "streamable" (default: "stdio")
   --port, -p       Specify the port for SSE or streamable transport (default: 1122)
-  --endpoint, -e   Specify the endpoint for SSE or streamable transport (default: "/sse")
+  --endpoint, -e   Specify the endpoint for the transport:
+                   - For SSE: default is "/sse"
+                   - For streamable: default is "/mcp"
   --help, -h       Show this help message
 ```
 

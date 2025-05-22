@@ -36,7 +36,6 @@
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.11.4",
     "axios": "^1.9.0",
-    "axios-retry": "^4.5.0",
     "zod": "^3.25.16",
     "zod-to-json-schema": "^3.24.5"
   },

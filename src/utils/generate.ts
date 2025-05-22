@@ -1,16 +1,5 @@
 import axios from "axios";
-import axiosRetry from "axios-retry";
 import { getVisRequestServer } from "./env";
-
-// Configure axios with retry logic
-axiosRetry(axios, {
-  retries: 2,
-  validateResponse: (response) => {
-    // when status is 200 and success is true, pass
-    // or else retry
-    return response.status === 200 && response.data.success;
-  },
-});
 
 /**
  * Generate a chart URL using the provided configuration.

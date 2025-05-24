@@ -4,6 +4,7 @@ import {
   AxisXTitleSchema,
   AxisYTitleSchema,
   HeightSchema,
+  ThemeSchema,
   TitleSchema,
   WidthSchema,
 } from "./base";
@@ -20,6 +21,7 @@ const schema = z.object({
     .array(data)
     .describe("Data for scatter chart, such as, [{ x: 10, y: 15 }].")
     .nonempty({ message: "Scatter chart data cannot be empty." }),
+  theme: ThemeSchema,
   width: WidthSchema,
   height: HeightSchema,
   title: TitleSchema,

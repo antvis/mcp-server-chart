@@ -29,6 +29,12 @@
         "default": false,
         "description": "Whether stacking is enabled. When enabled, column charts require a 'group' field in the data. When `stack` is true, `group` should be false."
       },
+      "theme": {
+        "default": "default",
+        "description": "Set the theme for the chart, optional, default is 'default'.",
+        "enum": ["default", "academy"],
+        "type": "string"
+      },
       "width": {
         "type": "number",
         "description": "Set the width of chart, default is 600.",

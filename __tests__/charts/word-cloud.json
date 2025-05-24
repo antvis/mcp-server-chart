@@ -18,6 +18,12 @@
         },
         "description": "Data for word cloud chart, such as, [{ value: '4.272', text: '形成' }]."
       },
+      "theme": {
+        "default": "default",
+        "description": "Set the theme for the chart, optional, default is 'default'.",
+        "enum": ["default", "academy"],
+        "type": "string"
+      },
       "width": {
         "type": "number",
         "description": "Set the width of chart, default is 600.",

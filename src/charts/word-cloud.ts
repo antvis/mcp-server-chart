@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { zodToJsonSchema } from "../utils";
-import { HeightSchema, TitleSchema, WidthSchema } from "./base";
+import { HeightSchema, ThemeSchema, TitleSchema, WidthSchema } from "./base";
 
 // Word cloud data schema
 const data = z.object({
@@ -16,6 +16,7 @@ const schema = z.object({
       "Data for word cloud chart, such as, [{ value: '4.272', text: '形成' }].",
     )
     .nonempty({ message: "Word cloud chart data cannot be empty." }),
+  theme: ThemeSchema,
   width: WidthSchema,
   height: HeightSchema,
   title: TitleSchema,

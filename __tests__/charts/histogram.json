@@ -28,6 +28,12 @@
         "default": null,
         "description": "Number of intervals to define the number of intervals in a histogram."
       },
+      "theme": {
+        "default": "default",
+        "description": "Set the theme for the chart, optional, default is 'default'.",
+        "enum": ["default", "academy"],
+        "type": "string"
+      },
       "width": {
         "type": "number",
         "description": "Set the width of chart, default is 600.",

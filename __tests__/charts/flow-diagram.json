@@ -35,6 +35,12 @@
         "required": ["nodes", "edges"],
         "description": "Data for flow diagram chart, such as, { nodes: [{ name: 'node1' }, { name: 'node2' }], edges: [{ source: 'node1', target: 'node2', name: 'edge1' }] }."
       },
+      "theme": {
+        "default": "default",
+        "description": "Set the theme for the chart, optional, default is 'default'.",
+        "enum": ["default", "academy"],
+        "type": "string"
+      },
       "width": {
         "type": "number",
         "description": "Set the width of chart, default is 600.",

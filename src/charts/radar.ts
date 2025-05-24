@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { zodToJsonSchema } from "../utils";
-import { HeightSchema, TitleSchema, WidthSchema } from "./base";
+import { HeightSchema, ThemeSchema, TitleSchema, WidthSchema } from "./base";
 
 // Radar chart data schema
 const data = z.object({
@@ -15,6 +15,7 @@ const schema = z.object({
     .array(data)
     .describe("Data for radar chart, such as, [{ name: 'Design', value: 70 }].")
     .nonempty({ message: "Radar chart data cannot be empty." }),
+  theme: ThemeSchema,
   width: WidthSchema,
   height: HeightSchema,
   title: TitleSchema,

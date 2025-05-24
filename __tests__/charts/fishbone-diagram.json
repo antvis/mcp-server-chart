@@ -29,6 +29,12 @@
         "required": ["name"],
         "description": "Data for fishbone diagram chart, such as, { name: 'main topic', children: [{ name: 'topic 1', children: [{ name: 'subtopic 1-1' }] }."
       },
+      "theme": {
+        "default": "default",
+        "description": "Set the theme for the chart, optional, default is 'default'.",
+        "enum": ["default", "academy"],
+        "type": "string"
+      },
       "width": {
         "type": "number",
         "description": "Set the width of chart, default is 600.",

@@ -4,6 +4,7 @@ import {
   AxisXTitleSchema,
   AxisYTitleSchema,
   HeightSchema,
+  ThemeSchema,
   TitleSchema,
   WidthSchema,
 } from "./base";
@@ -27,6 +28,7 @@ const schema = z.object({
     .describe(
       "Whether stacking is enabled. When enabled, line charts require a 'group' field in the data.",
     ),
+  theme: ThemeSchema,
   width: WidthSchema,
   height: HeightSchema,
   title: TitleSchema,

@@ -4,6 +4,7 @@ import {
   AxisXTitleSchema,
   AxisYTitleSchema,
   HeightSchema,
+  ThemeSchema,
   TitleSchema,
   WidthSchema,
 } from "./base";
@@ -21,6 +22,7 @@ const schema = z.object({
     .describe(
       "Number of intervals to define the number of intervals in a histogram.",
     ),
+  theme: ThemeSchema,
   width: WidthSchema,
   height: HeightSchema,
   title: TitleSchema,

@@ -3,6 +3,7 @@ import { zodToJsonSchema } from "../utils";
 import {
   AxisXTitleSchema,
   HeightSchema,
+  ThemeSchema,
   TitleSchema,
   WidthSchema,
 } from "./base";
@@ -35,6 +36,7 @@ const schema = z.object({
   series: z
     .array(DualAxesSeriesSchema)
     .nonempty({ message: "Dual axes chart series cannot be empty." }),
+  theme: ThemeSchema,
   width: WidthSchema,
   height: HeightSchema,
   title: TitleSchema,

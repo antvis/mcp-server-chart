@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { zodToJsonSchema } from "../utils";
-import { HeightSchema, WidthSchema } from "./base";
+import { HeightSchema, ThemeSchema, WidthSchema } from "./base";
 
 // Fishbone node schema
 // biome-ignore lint/suspicious/noExplicitAny: <explanation>
@@ -16,6 +16,7 @@ const schema = z.object({
   data: FishboneNodeSchema.describe(
     "Data for fishbone diagram chart, such as, { name: 'main topic', children: [{ name: 'topic 1', children: [{ name: 'subtopic 1-1' }] }.",
   ),
+  theme: ThemeSchema,
   width: WidthSchema,
   height: HeightSchema,
 });

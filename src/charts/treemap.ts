@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { zodToJsonSchema } from "../utils";
-import { HeightSchema, TitleSchema, WidthSchema } from "./base";
+import { HeightSchema, ThemeSchema, TitleSchema, WidthSchema } from "./base";
 
 // Define recursive schema for hierarchical data
 // biome-ignore lint/suspicious/noExplicitAny: <explanation>
@@ -20,6 +20,7 @@ const schema = z.object({
       "Data for treemap chart, such as, [{ name: 'Design', value: 70, children: [{ name: 'Tech', value: 20 }] }].",
     )
     .nonempty({ message: "Treemap chart data cannot be empty." }),
+  theme: ThemeSchema,
   width: WidthSchema,
   height: HeightSchema,
   title: TitleSchema,

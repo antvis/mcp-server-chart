@@ -22,7 +22,7 @@ const DualAxesSeriesSchema = z.object({
     .string()
     .default("")
     .describe(
-      "Set the y-axis title of the chart series, such as, axisYTitle: '销售额' ",
+      "Set the y-axis title of the chart series, such as, axisYTitle: '销售额'.",
     )
     .optional(),
 });
@@ -38,7 +38,7 @@ const schema = z.object({
   series: z
     .array(DualAxesSeriesSchema)
     .describe(
-      "Series for dual axes chart, such as, [{ type: 'column', data: [91.9, 99.1, 101.6, 114.4, 121],axisYTitle: '销售额' }, { type: 'line', data: [0.055, 0.06, 0.062, 0.07, 0.075], 'axisYTitle': '利润率' }]",
+      "Series for dual axes chart, such as, [{ type: 'column', data: [91.9, 99.1, 101.6, 114.4, 121],axisYTitle: '销售额' }, { type: 'line', data: [0.055, 0.06, 0.062, 0.07, 0.075], 'axisYTitle': '利润率' }].",
     )
     .nonempty({ message: "Dual axes chart series cannot be empty." }),
   theme: ThemeSchema,

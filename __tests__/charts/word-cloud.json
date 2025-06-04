@@ -16,7 +16,7 @@
           },
           "required": ["text", "value"]
         },
-        "description": "Data for word cloud chart, such as, [{ value: '4.272', text: '形成' }]."
+        "description": "Data for word cloud chart, such as, [{ value: 4.272, text: '形成' }]."
       },
       "theme": {
         "default": "default",

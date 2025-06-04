@@ -21,7 +21,7 @@ const schema = z.object({
   data: z
     .array(data)
     .describe(
-      "Data for column chart, such as, [{ category: '北京' value: 825; group: '油车' }].",
+      "Data for column chart, such as, [{ category: '北京', value: 825, group: '油车' }].",
     )
     .nonempty({ message: "Column chart data cannot be empty." }),
   group: z

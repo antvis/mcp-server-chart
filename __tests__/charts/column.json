@@ -17,7 +17,7 @@
           },
           "required": ["category", "value"]
         },
-        "description": "Data for column chart, such as, [{ category: '北京' value: 825; group: '油车' }]."
+        "description": "Data for column chart, such as, [{ category: '北京', value: 825, group: '油车' }]."
       },
       "group": {
         "type": "boolean",

@@ -1,5 +1,9 @@
 import { z } from "zod";
 import { zodToJsonSchema } from "../utils";
+import {
+  type MindMapAndFishBoneOption,
+  validatedMindMapFishBoneSchema,
+} from "../utils/valid";
 import { HeightSchema, ThemeSchema, WidthSchema } from "./base";
 
 // Mind map node schema
@@ -12,14 +16,22 @@ const MindMapNodeSchema: z.ZodType<any> = z.lazy(() =>
 );
 
 // Mind map chart input schema
-const schema = z.object({
-  data: MindMapNodeSchema.describe(
-    "Data for mind map chart, such as, { name: 'main topic', children: [{ name: 'topic 1', children: [{ name:'subtopic 1-1' }] }.",
-  ),
-  theme: ThemeSchema,
-  width: WidthSchema,
-  height: HeightSchema,
-});
+const schema = z
+  .object({
+    data: MindMapNodeSchema.describe(
+      "Data for mind map chart, such as, { name: 'main topic', children: [{ name: 'topic 1', children: [{ name:'subtopic 1-1' }] }.",
+    ),
+    theme: ThemeSchema,
+    width: WidthSchema,
+    height: HeightSchema,
+  })
+  .refine(
+    (data) => validatedMindMapFishBoneSchema(data as MindMapAndFishBoneOption),
+    {
+      message: "Invalid parameters: node name is not unique.",
+      path: ["data"],
+    },
+  );
 
 // Mind map chart tool descriptor
 const tool = {

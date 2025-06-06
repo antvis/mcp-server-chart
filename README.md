@@ -34,7 +34,7 @@ Now 15+ charts supported.
 
 ## 🤖 Usage
 
-To use with `Desktop APP`, such as Claude, VSCode,cursor, [Cline](https://cline.bot/mcp-marketplace), Cherry Studio, and so on, add the  MCP server config below. On Mac system:
+To use with `Desktop APP`, such as Claude, VSCode,Cursor, [Cline](https://cline.bot/mcp-marketplace), Cherry Studio, and so on, add the  MCP server config below. On Mac system:
 
 ```json
 {

@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { zodToJsonSchema } from "../utils";
+import { validatedMindMapFishBoneSchema } from "../utils/valid";
 import { HeightSchema, ThemeSchema, WidthSchema } from "./base";
 
 // Fishbone node schema
@@ -12,14 +13,19 @@ const FishboneNodeSchema: z.ZodType<any> = z.lazy(() =>
 );
 
 // Fishbone diagram input schema
-const schema = z.object({
-  data: FishboneNodeSchema.describe(
-    "Data for fishbone diagram chart, such as, { name: 'main topic', children: [{ name: 'topic 1', children: [{ name: 'subtopic 1-1' }] }.",
-  ),
-  theme: ThemeSchema,
-  width: WidthSchema,
-  height: HeightSchema,
-});
+const schema = z
+  .object({
+    data: FishboneNodeSchema.describe(
+      "Data for fishbone diagram chart, such as, { name: 'main topic', children: [{ name: 'topic 1', children: [{ name: 'subtopic 1-1' }] }.",
+    ),
+    theme: ThemeSchema,
+    width: WidthSchema,
+    height: HeightSchema,
+  })
+  .refine((data) => validatedMindMapFishBoneSchema(data), {
+    message: "Invalid parameters: node name is not unique.",
+    path: ["data"],
+  });
 
 // Fishbone diagram tool descriptor
 const tool = {

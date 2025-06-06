@@ -12,7 +12,6 @@ import {
   startStdioMcpServer,
 } from "./services";
 import { ChartTypeMapping, generateChartUrl } from "./utils";
-
 /**
  * Creates and configures an MCP server for chart generation.
  */
@@ -69,6 +68,7 @@ function setupToolHandlers(server: Server): void {
       if (schema) {
         // Use safeParse instead of parse and try-catch.
         const result = schema.safeParse(args);
+
         if (!result.success) {
           throw new McpError(
             ErrorCode.InvalidParams,
@@ -77,7 +77,17 @@ function setupToolHandlers(server: Server): void {
         }
       }
 
-      const url = await generateChartUrl(chartType, args);
+      const res = await generateChartUrl(chartType, args);
+
+      // 出图接口报错
+      if (!res.success) {
+        throw new McpError(
+          ErrorCode.InvalidParams,
+          `Invalid parameters: ${res.errorMessage}`,
+        );
+      }
+
+      const url = res.resultObj;
 
       return {
         content: [

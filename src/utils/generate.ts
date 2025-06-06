@@ -12,7 +12,11 @@ export async function generateChartUrl(
   type: string,
   // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   options: Record<string, any>,
-): Promise<unknown> {
+): Promise<{
+  resultObj?: string;
+  success: boolean;
+  errorMessage: string;
+}> {
   const url = getVisRequestServer();
 
   const response = await axios.post(

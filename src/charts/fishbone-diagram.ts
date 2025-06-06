@@ -1,6 +1,9 @@
 import { z } from "zod";
 import { zodToJsonSchema } from "../utils";
-import { validatedMindMapFishBoneSchema } from "../utils/valid";
+import {
+  type MindMapAndFishBoneOption,
+  validatedMindMapFishBoneSchema,
+} from "../utils/valid";
 import { HeightSchema, ThemeSchema, WidthSchema } from "./base";
 
 // Fishbone node schema
@@ -22,10 +25,13 @@ const schema = z
     width: WidthSchema,
     height: HeightSchema,
   })
-  .refine((data) => validatedMindMapFishBoneSchema(data), {
-    message: "Invalid parameters: node name is not unique.",
-    path: ["data"],
-  });
+  .refine(
+    (data) => validatedMindMapFishBoneSchema(data as MindMapAndFishBoneOption),
+    {
+      message: "Invalid parameters: node name is not unique.",
+      path: ["data"],
+    },
+  );
 
 // Fishbone diagram tool descriptor
 const tool = {

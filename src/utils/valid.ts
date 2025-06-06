@@ -1,6 +1,6 @@
 import { ErrorCode, McpError } from "@modelcontextprotocol/sdk/types.js";
 
-interface FlowAndNetWorkOption {
+export interface FlowAndNetWorkOption {
   data: {
     nodes: Array<{ name: string }>;
     edges: Array<{ name: string; source: string; target: string }>;
@@ -10,11 +10,11 @@ interface FlowAndNetWorkOption {
   height: number;
 }
 
-interface DataNode {
+export interface DataNode {
   name: string;
   children: Array<{ name: string }>;
 }
-interface MindMapAndFishBoneOption {
+export interface MindMapAndFishBoneOption {
   data: DataNode;
   theme: "default" | "academy";
   width: number;

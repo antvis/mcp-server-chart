@@ -79,7 +79,7 @@ function setupToolHandlers(server: Server): void {
 
       const res = await generateChartUrl(chartType, args);
 
-      // 出图接口报错
+      // generateChartUrl API error.
       if (!res.success) {
         throw new McpError(
           ErrorCode.InvalidParams,

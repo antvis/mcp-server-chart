@@ -1,5 +1,4 @@
 import { ErrorCode, McpError } from "@modelcontextprotocol/sdk/types.js";
-
 export interface FlowAndNetWorkOption {
   data: {
     nodes: Array<{ name: string }>;
@@ -9,7 +8,6 @@ export interface FlowAndNetWorkOption {
   width: number;
   height: number;
 }
-
 export interface DataNode {
   name: string;
   children: Array<{ name: string }>;
@@ -20,7 +18,11 @@ export interface MindMapAndFishBoneOption {
   width: number;
   height: number;
 }
-
+/**
+ * validatedFlowNetWorkSchema
+ * @param data
+ * @returns boolean
+ */
 export const validatedFlowNetWorkSchema = (data: FlowAndNetWorkOption) => {
   const nodeNames = new Set(data.data.nodes.map((node) => node.name));
   const errors: string[] = [];
@@ -58,6 +60,12 @@ export const validatedFlowNetWorkSchema = (data: FlowAndNetWorkOption) => {
   }
   return !(errors.length > 0);
 };
+
+/**
+ * validatedMindMapFishBoneSchema
+ * @param data
+ * @returns boolean
+ */
 
 export const validatedMindMapFishBoneSchema = (
   data: MindMapAndFishBoneOption,

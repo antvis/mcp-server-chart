@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { zodToJsonSchema } from "../utils";
+import { TreeData, validatedTreeDataSchema } from "../utils/validator";
 import { HeightSchema, ThemeSchema, TitleSchema, WidthSchema } from "./base";
 
 // Define recursive schema for hierarchical data

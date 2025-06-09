@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { zodToJsonSchema } from "../utils";
-import { validatedFlowNetWorkSchema } from "../utils/valid";
+import { validatedNodeEdgeDataSchema } from "../utils/validator";
 import {
   EdgeSchema,
   HeightSchema,
@@ -10,26 +10,25 @@ import {
 } from "./base";
 
 // Flow diagram input schema
-const schema = z
-  .object({
-    data: z
-      .object({
-        nodes: z
-          .array(NodeSchema)
-          .nonempty({ message: "At least one node is required." }),
-        edges: z.array(EdgeSchema),
-      })
-      .describe(
-        "Data for flow diagram chart, such as, { nodes: [{ name: 'node1' }, { name: 'node2' }], edges: [{ source: 'node1', target: 'node2', name: 'edge1' }] }.",
-      ),
-    theme: ThemeSchema,
-    width: WidthSchema,
-    height: HeightSchema,
-  })
-  .refine((data) => validatedFlowNetWorkSchema(data), {
-    message: "Invalid parameters",
-    path: ["data", "edges"],
-  });
+const schema = z.object({
+  data: z
+    .object({
+      nodes: z
+        .array(NodeSchema)
+        .nonempty({ message: "At least one node is required." }),
+      edges: z.array(EdgeSchema),
+    })
+    .describe(
+      "Data for flow diagram chart, such as, { nodes: [{ name: 'node1' }, { name: 'node2' }], edges: [{ source: 'node1', target: 'node2', name: 'edge1' }] }.",
+    )
+    .refine((data) => validatedNodeEdgeDataSchema(data), {
+      message: "Invalid parameters",
+      path: ["data", "edges"],
+    }),
+  theme: ThemeSchema,
+  width: WidthSchema,
+  height: HeightSchema,
+});
 
 // Flow diagram tool descriptor
 const tool = {

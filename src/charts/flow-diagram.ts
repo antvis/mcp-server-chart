@@ -21,7 +21,7 @@ const schema = z.object({
     .describe(
       "Data for flow diagram chart, such as, { nodes: [{ name: 'node1' }, { name: 'node2' }], edges: [{ source: 'node1', target: 'node2', name: 'edge1' }] }.",
     )
-    .refine((data) => validatedNodeEdgeDataSchema(data), {
+    .refine(validatedNodeEdgeDataSchema, {
       message: "Invalid parameters",
       path: ["data", "edges"],
     }),

@@ -16,7 +16,7 @@ const MindMapNodeSchema: z.ZodType<any> = z.lazy(() =>
 const schema = z.object({
   data: MindMapNodeSchema.describe(
     "Data for mind map chart, such as, { name: 'main topic', children: [{ name: 'topic 1', children: [{ name:'subtopic 1-1' }] }.",
-  ).refine((data) => validatedTreeDataSchema(data), {
+  ).refine(validatedTreeDataSchema, {
     message: "Invalid parameters: node name is not unique.",
     path: ["data"],
   }),

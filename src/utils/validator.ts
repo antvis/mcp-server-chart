@@ -1,4 +1,9 @@
-import { ErrorCode, McpError } from "@modelcontextprotocol/sdk/types.js";
+export class ValidateError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = "ValidateError";
+  }
+}
 
 export interface NodeEdgeData {
   nodes: Array<{ name: string }>;
@@ -12,7 +17,9 @@ export interface TreeData {
 }
 
 /**
- * validatedNodeEdgeDataSchema
+ * Valid node name is unique.
+ * Valid edge source and target are existing in nodes.
+ * Valid edge source edge target pair are unique.
  * @param data
  * @returns boolean
  */
@@ -23,8 +30,7 @@ export const validatedNodeEdgeDataSchema = (data: NodeEdgeData) => {
   // 1. valid node name is unique
   for (const node of data.nodes) {
     if (uniqueNodeNames.has(node.name)) {
-      throw new McpError(
-        ErrorCode.InvalidParams,
+      throw new ValidateError(
         `Invalid parameters: nodes name '${node.name}' is not unique.`,
       );
     }
@@ -34,14 +40,12 @@ export const validatedNodeEdgeDataSchema = (data: NodeEdgeData) => {
   // 2. valid edge source and target are existing in nodes
   for (const edge of data.edges) {
     if (!nodeNames.has(edge.source)) {
-      throw new McpError(
-        ErrorCode.InvalidParams,
+      throw new ValidateError(
         `Invalid parameters: source '${edge.source}' does not exist in nodes.`,
       );
     }
     if (!nodeNames.has(edge.target)) {
-      throw new McpError(
-        ErrorCode.InvalidParams,
+      throw new ValidateError(
         `Invalid parameters: target '${edge.target}' does not exist in nodes.`,
       );
     }
@@ -52,8 +56,7 @@ export const validatedNodeEdgeDataSchema = (data: NodeEdgeData) => {
   for (const edge of data.edges) {
     const pair = `${edge.source}-${edge.target}`;
     if (edgePairs.has(pair)) {
-      throw new McpError(
-        ErrorCode.InvalidParams,
+      throw new ValidateError(
         `Invalid parameters: edge pair '${pair}' is not unique.`,
       );
     }
@@ -64,7 +67,7 @@ export const validatedNodeEdgeDataSchema = (data: NodeEdgeData) => {
 };
 
 /**
- * validatedTreeDataSchema
+ * Valid TreeData name is unique.
  * @param data
  * @returns boolean
  */
@@ -76,8 +79,7 @@ export const validatedTreeDataSchema = (data: TreeData) => {
   // valid node name is unique
   const checkUniqueness = (currentNode: TreeData) => {
     if (names.has(currentNode.name)) {
-      throw new McpError(
-        ErrorCode.InvalidParams,
+      throw new ValidateError(
         `Invalid parameters: node name '${currentNode.name}' is not unique.`,
       );
     }

@@ -1,4 +1,3 @@
-import { ErrorCode, McpError } from "@modelcontextprotocol/sdk/types.js";
 import axios from "axios";
 import { getVisRequestServer } from "./env";
 
@@ -13,7 +12,7 @@ export async function generateChartUrl(
   type: string,
   // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   options: Record<string, any>,
-): Promise<string | undefined> {
+): Promise<string> {
   const url = getVisRequestServer();
 
   const response = await axios.post(

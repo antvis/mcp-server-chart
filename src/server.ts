@@ -1,9 +1,7 @@
 import { Server } from "@modelcontextprotocol/sdk/server/index.js";
 import {
   CallToolRequestSchema,
-  ErrorCode,
   ListToolsRequestSchema,
-  McpError,
 } from "@modelcontextprotocol/sdk/types.js";
 import * as Charts from "./charts";
 import {
@@ -13,6 +11,7 @@ import {
 } from "./services";
 import { ChartTypeMapping, generateChartUrl } from "./utils";
 import { ValidateError } from "./utils/validator";
+import { callTool } from "./utils/callTool";
 
 /**
  * Creates and configures an MCP server for chart generation.
@@ -21,7 +20,7 @@ export function createServer(): Server {
   const server = new Server(
     {
       name: "mcp-server-chart",
-      version: "0.4.1",
+      version: "0.5.0",
     },
     {
       capabilities: {
@@ -50,54 +49,7 @@ function setupToolHandlers(server: Server): void {
   }));
 
   server.setRequestHandler(CallToolRequestSchema, async (request) => {
-    const chartType =
-      ChartTypeMapping[request.params.name as keyof typeof ChartTypeMapping];
-
-    if (!chartType) {
-      throw new McpError(
-        ErrorCode.MethodNotFound,
-        `Unknown tool: ${request.params.name}.`,
-      );
-    }
-
-    try {
-      // Validate input using Zod before sending to API.
-      const args = request.params.arguments || {};
-
-      // Select the appropriate schema based on the chart type.
-      const schema = Charts[chartType].schema;
-
-      if (schema) {
-        // Use safeParse instead of parse and try-catch.
-        const result = schema.safeParse(args);
-        if (!result.success) {
-          throw new ValidateError(
-            `Invalid parameters: ${result.error.message}`,
-          );
-        }
-      }
-
-      const url = await generateChartUrl(chartType, args);
-
-      return {
-        content: [
-          {
-            type: "text",
-            text: url,
-          },
-        ],
-      };
-      // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-    } catch (error: any) {
-      if (error instanceof McpError) throw error;
-      if (error instanceof ValidateError) {
-        throw new McpError(ErrorCode.InvalidParams, error.message);
-      }
-      throw new McpError(
-        ErrorCode.InternalError,
-        `Failed to generate chart: ${error?.message || "Unknown error."}`,
-      );
-    }
+    return await callTool(request.params.name, request.params.arguments);
   });
 }
 

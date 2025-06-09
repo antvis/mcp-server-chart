@@ -1,9 +1,12 @@
 {
   "name": "@antv/mcp-server-chart",
   "description": "A Model Context Protocol server for generating charts using AntV, This is a TypeScript-based MCP server that provides chart generation capabilities. It allows you to create various types of charts through MCP tools.",
-  "version": "0.4.1",
+  "version": "0.5.0",
   "main": "build/index.js",
   "type": "module",
+  "exports": {
+    "./sdk": "./build/sdk.js"
+  },
   "scripts": {
     "prebuild": "rm -rf build/*",
     "build": "tsc && tsc-alias -p tsconfig.json",

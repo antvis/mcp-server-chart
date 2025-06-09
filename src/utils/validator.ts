@@ -1,3 +1,6 @@
+/**
+ * The Error class for validation errors in zod.
+ */
 export class ValidateError extends Error {
   constructor(message: string) {
     super(message);
@@ -5,12 +8,12 @@ export class ValidateError extends Error {
   }
 }
 
-export interface NodeEdgeData {
+interface NodeEdgeData {
   nodes: Array<{ name: string }>;
   edges: Array<{ name: string; source: string; target: string }>;
 }
 
-export interface TreeData {
+interface TreeData {
   name: string;
   value: number;
   children: Array<{ name: string }>;
@@ -31,7 +34,7 @@ export const validatedNodeEdgeDataSchema = (data: NodeEdgeData) => {
   for (const node of data.nodes) {
     if (uniqueNodeNames.has(node.name)) {
       throw new ValidateError(
-        `Invalid parameters: nodes name '${node.name}' is not unique.`,
+        `Invalid parameters: node's name '${node.name}' should be unique.`,
       );
     }
     uniqueNodeNames.add(node.name);
@@ -41,12 +44,12 @@ export const validatedNodeEdgeDataSchema = (data: NodeEdgeData) => {
   for (const edge of data.edges) {
     if (!nodeNames.has(edge.source)) {
       throw new ValidateError(
-        `Invalid parameters: source '${edge.source}' does not exist in nodes.`,
+        `Invalid parameters: edge's source '${edge.source}' should exist in nodes.`,
       );
     }
     if (!nodeNames.has(edge.target)) {
       throw new ValidateError(
-        `Invalid parameters: target '${edge.target}' does not exist in nodes.`,
+        `Invalid parameters: edge's target '${edge.target}' should exist in nodes.`,
       );
     }
   }
@@ -57,7 +60,7 @@ export const validatedNodeEdgeDataSchema = (data: NodeEdgeData) => {
     const pair = `${edge.source}-${edge.target}`;
     if (edgePairs.has(pair)) {
       throw new ValidateError(
-        `Invalid parameters: edge pair '${pair}' is not unique.`,
+        `Invalid parameters: edge pair '${pair}' should be unique.`,
       );
     }
     edgePairs.add(pair);
@@ -80,7 +83,7 @@ export const validatedTreeDataSchema = (data: TreeData) => {
   const checkUniqueness = (currentNode: TreeData) => {
     if (names.has(currentNode.name)) {
       throw new ValidateError(
-        `Invalid parameters: node name '${currentNode.name}' is not unique.`,
+        `Invalid parameters: node's name '${currentNode.name}' should be unique.`,
       );
     }
     names.add(currentNode.name);

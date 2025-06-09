@@ -9,8 +9,6 @@ import {
   startSSEMcpServer,
   startStdioMcpServer,
 } from "./services";
-import { ChartTypeMapping, generateChartUrl } from "./utils";
-import { ValidateError } from "./utils/validator";
 import { callTool } from "./utils/callTool";
 
 /**

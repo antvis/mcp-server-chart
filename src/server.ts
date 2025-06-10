@@ -6,6 +6,7 @@ import {
   McpError,
 } from "@modelcontextprotocol/sdk/types.js";
 import * as Charts from "./charts";
+import { config } from "./config";
 import {
   startHTTPStreamableServer,
   startSSEMcpServer,
@@ -110,7 +111,7 @@ export async function runStdioServer(): Promise<void> {
  * Runs the server with SSE transport.
  */
 export async function runSSEServer(
-  endpoint = "/sse",
+  endpoint = `${config.BASE_ENDPOINT}/sse`,
   port = 1122,
 ): Promise<void> {
   const server = createServer();

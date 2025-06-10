@@ -1,11 +1,12 @@
 import type { IncomingMessage, ServerResponse } from "node:http";
 import type { Server } from "@modelcontextprotocol/sdk/server/index.js";
 import { SSEServerTransport } from "@modelcontextprotocol/sdk/server/sse.js";
+import { config } from "../config";
 import { type RequestHandlers, createBaseHttpServer } from "../utils";
 
 export const startSSEMcpServer = async (
   server: Server,
-  endpoint = "/sse",
+  endpoint = `${config.BASE_ENDPOINT}/sse`,
   port = 1122,
 ): Promise<void> => {
   const activeTransports: Record<string, SSEServerTransport> = {};
@@ -24,7 +25,10 @@ export const startSSEMcpServer = async (
 
     // Handle GET requests to the SSE endpoint
     if (req.method === "GET" && reqUrl.pathname === endpoint) {
-      const transport = new SSEServerTransport("/messages", res);
+      const transport = new SSEServerTransport(
+        `${config.BASE_ENDPOINT}/messages`,
+        res,
+      );
 
       activeTransports[transport.sessionId] = transport;
 
@@ -62,7 +66,10 @@ export const startSSEMcpServer = async (
     }
 
     // Handle POST requests to the messages endpoint
-    if (req.method === "POST" && req.url?.startsWith("/messages")) {
+    if (
+      req.method === "POST" &&
+      req.url?.startsWith(`${config.BASE_ENDPOINT}/messages`)
+    ) {
       const sessionId = new URL(
         req.url,
         "https://example.com",

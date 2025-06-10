@@ -1,5 +1,6 @@
 import http from "node:http";
 import type { IncomingMessage, ServerResponse } from "node:http";
+import { config } from "../config";
 
 /**
  * Interface for request handlers that will be passed to the server factory
@@ -51,12 +52,12 @@ function handleCommonEndpoints(
     return true;
   }
 
-  if (req.method === "GET" && req.url === "/health") {
+  if (req.method === "GET" && req.url === `${config.BASE_ENDPOINT}/health`) {
     res.writeHead(200, { "Content-Type": "text/plain" }).end("OK");
     return true;
   }
 
-  if (req.method === "GET" && req.url === "/ping") {
+  if (req.method === "GET" && req.url === `${config.BASE_ENDPOINT}/ping`) {
     res.writeHead(200).end("pong");
     return true;
   }
@@ -96,8 +97,8 @@ function logServerStartup(
   endpoint: string,
 ): void {
   const serverUrl = `http://localhost:${port}${endpoint}`;
-  const healthUrl = `http://localhost:${port}/health`;
-  const pingUrl = `http://localhost:${port}/ping`;
+  const healthUrl = `http://localhost:${port}${config.BASE_ENDPOINT}/health`;
+  const pingUrl = `http://localhost:${port}${config.BASE_ENDPOINT}/ping`;
 
   console.log(
     `${serverType} running on: \x1b[32m\u001B[4m${serverUrl}\u001B[0m\x1b[0m`,

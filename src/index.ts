@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import { parseArgs } from "node:util";
+import { config } from "./config";
 import {
   runHTTPStreamableServer,
   runSSEServer,
@@ -53,7 +54,7 @@ const transport = values.transport.toLowerCase();
 if (transport === "sse") {
   const port = Number.parseInt(values.port as string, 10);
   // Use provided endpoint or default to "/sse" for SSE
-  const endpoint = values.endpoint || "/sse";
+  const endpoint = values.endpoint || `${config.BASE_ENDPOINT}/sse`;
   runSSEServer(endpoint, port).catch(console.error);
 } else if (transport === "streamable") {
   const port = Number.parseInt(values.port as string, 10);

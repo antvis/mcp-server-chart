@@ -10,6 +10,7 @@ const CHART_TYPE_MAP = {
   generate_bar_chart: "bar",
   generate_column_chart: "column",
   generate_pie_chart: "pie",
+  generate_line_chart: "line",
   generate_histogram_chart: "histogram",
   generate_scatter_chart: "scatter",
   generate_word_cloud_chart: "word-cloud",

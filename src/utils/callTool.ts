@@ -1,4 +1,5 @@
 import { ErrorCode, McpError } from "@modelcontextprotocol/sdk/types.js";
+import { z } from "zod";
 import * as Charts from "../charts";
 import { generateChartUrl } from "./generate";
 import { ValidateError } from "./validator";
@@ -41,7 +42,7 @@ export async function callTool(tool: string, args: object = {}) {
 
     if (schema) {
       // Use safeParse instead of parse and try-catch.
-      const result = schema.safeParse(args);
+      const result = z.object(schema).safeParse(args);
       if (!result.success) {
         throw new McpError(
           ErrorCode.InvalidParams,
@@ -63,7 +64,8 @@ export async function callTool(tool: string, args: object = {}) {
     // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   } catch (error: any) {
     if (error instanceof McpError) throw error;
-    if (error instanceof ValidateError) throw new McpError(ErrorCode.InvalidParams, error.message);
+    if (error instanceof ValidateError)
+      throw new McpError(ErrorCode.InvalidParams, error.message);
     throw new McpError(
       ErrorCode.InternalError,
       `Failed to generate chart: ${error?.message || "Unknown error."}`,

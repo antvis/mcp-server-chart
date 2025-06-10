@@ -9,7 +9,7 @@ const data = z.object({
 });
 
 // Pie chart input schema
-const schema = z.object({
+const schema = {
   data: z
     .array(data)
     .describe(
@@ -26,7 +26,7 @@ const schema = z.object({
   width: WidthSchema,
   height: HeightSchema,
   title: TitleSchema,
-});
+};
 
 // Pie chart tool descriptor
 const tool = {

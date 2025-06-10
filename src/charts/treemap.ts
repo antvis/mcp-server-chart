@@ -13,7 +13,7 @@ const TreeNodeSchema: z.ZodType<any> = z.lazy(() =>
 );
 
 // Treemap chart input schema
-const schema = z.object({
+const schema = {
   data: z
     .array(TreeNodeSchema)
     .describe(
@@ -24,7 +24,7 @@ const schema = z.object({
   width: WidthSchema,
   height: HeightSchema,
   title: TitleSchema,
-});
+};
 
 // Treemap chart tool descriptor
 const tool = {

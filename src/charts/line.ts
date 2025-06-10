@@ -16,7 +16,7 @@ const data = z.object({
 });
 
 // Line chart input schema
-const schema = z.object({
+const schema = {
   data: z
     .array(data)
     .describe("Data for line chart, such as, [{ time: '2015', value: 23 }].")
@@ -34,7 +34,7 @@ const schema = z.object({
   title: TitleSchema,
   axisXTitle: AxisXTitleSchema,
   axisYTitle: AxisYTitleSchema,
-});
+};
 
 // Line chart tool descriptor
 const tool = {

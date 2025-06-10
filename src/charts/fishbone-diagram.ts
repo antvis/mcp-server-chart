@@ -13,7 +13,7 @@ const FishboneNodeSchema: z.ZodType<any> = z.lazy(() =>
 );
 
 // Fishbone diagram input schema
-const schema = z.object({
+const schema = {
   data: FishboneNodeSchema.describe(
     "Data for fishbone diagram chart, such as, { name: 'main topic', children: [{ name: 'topic 1', children: [{ name: 'subtopic 1-1' }] }.",
   ).refine(validatedTreeDataSchema, {
@@ -23,7 +23,7 @@ const schema = z.object({
   theme: ThemeSchema,
   width: WidthSchema,
   height: HeightSchema,
-});
+};
 
 // Fishbone diagram tool descriptor
 const tool = {

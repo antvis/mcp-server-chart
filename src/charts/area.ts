@@ -17,7 +17,7 @@ const data = z.object({
 });
 
 // Area chart input schema
-const schema = z.object({
+const schema = {
   data: z
     .array(data)
     .describe("Data for area chart, such as, [{ time: '2018', value: 99.9 }].")
@@ -35,7 +35,7 @@ const schema = z.object({
   title: TitleSchema,
   axisXTitle: AxisXTitleSchema,
   axisYTitle: AxisYTitleSchema,
-});
+};
 
 // Area chart tool descriptor
 const tool = {

@@ -10,7 +10,7 @@ import {
 } from "./base";
 
 // Histogram chart input schema
-const schema = z.object({
+const schema = {
   data: z
     .array(z.number())
     .describe("Data for histogram chart, such as, [78, 88, 60, 100, 95].")
@@ -28,7 +28,7 @@ const schema = z.object({
   title: TitleSchema,
   axisXTitle: AxisXTitleSchema,
   axisYTitle: AxisYTitleSchema,
-});
+};
 
 // Histogram chart tool descriptor
 const tool = {

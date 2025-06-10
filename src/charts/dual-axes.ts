@@ -28,7 +28,7 @@ const DualAxesSeriesSchema = z.object({
 });
 
 // Dual axes chart input schema
-const schema = z.object({
+const schema = {
   categories: z
     .array(z.string())
     .describe(
@@ -46,7 +46,7 @@ const schema = z.object({
   height: HeightSchema,
   title: TitleSchema,
   axisXTitle: AxisXTitleSchema,
-});
+};
 
 // Dual axes chart tool descriptor
 const tool = {

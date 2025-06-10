@@ -9,7 +9,7 @@ const data = z.object({
 });
 
 // Word cloud input schema
-const schema = z.object({
+const schema = {
   data: z
     .array(data)
     .describe(
@@ -20,7 +20,7 @@ const schema = z.object({
   width: WidthSchema,
   height: HeightSchema,
   title: TitleSchema,
-});
+};
 
 // Word cloud tool descriptor
 const tool = {

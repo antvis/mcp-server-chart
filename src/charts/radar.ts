@@ -10,7 +10,7 @@ const data = z.object({
 });
 
 // Radar chart input schema
-const schema = z.object({
+const schema = {
   data: z
     .array(data)
     .describe("Data for radar chart, such as, [{ name: 'Design', value: 70 }].")
@@ -19,7 +19,7 @@ const schema = z.object({
   width: WidthSchema,
   height: HeightSchema,
   title: TitleSchema,
-});
+};
 
 // Radar chart tool descriptor
 const tool = {

@@ -17,7 +17,7 @@ const data = z.object({
 });
 
 // Column chart input schema
-const schema = z.object({
+const schema = {
   data: z
     .array(data)
     .describe(
@@ -44,7 +44,7 @@ const schema = z.object({
   title: TitleSchema,
   axisXTitle: AxisXTitleSchema,
   axisYTitle: AxisYTitleSchema,
-});
+};
 
 // Column chart tool descriptor
 const tool = {

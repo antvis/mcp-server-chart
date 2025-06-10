@@ -16,7 +16,7 @@ const data = z.object({
 });
 
 // Scatter chart input schema
-const schema = z.object({
+const schema = {
   data: z
     .array(data)
     .describe("Data for scatter chart, such as, [{ x: 10, y: 15 }].")
@@ -27,7 +27,7 @@ const schema = z.object({
   title: TitleSchema,
   axisXTitle: AxisXTitleSchema,
   axisYTitle: AxisYTitleSchema,
-});
+};
 
 // Scatter chart tool descriptor
 const tool = {

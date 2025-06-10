@@ -13,7 +13,7 @@ const MindMapNodeSchema: z.ZodType<any> = z.lazy(() =>
 );
 
 // Mind map chart input schema
-const schema = z.object({
+const schema = {
   data: MindMapNodeSchema.describe(
     "Data for mind map chart, such as, { name: 'main topic', children: [{ name: 'topic 1', children: [{ name:'subtopic 1-1' }] }.",
   ).refine(validatedTreeDataSchema, {
@@ -23,7 +23,7 @@ const schema = z.object({
   theme: ThemeSchema,
   width: WidthSchema,
   height: HeightSchema,
-});
+};
 
 // Mind map chart tool descriptor
 const tool = {

@@ -10,7 +10,7 @@ import {
 } from "./base";
 
 // Network graph input schema
-const schema = z.object({
+const schema = {
   data: z
     .object({
       nodes: z
@@ -29,7 +29,7 @@ const schema = z.object({
   theme: ThemeSchema,
   width: WidthSchema,
   height: HeightSchema,
-});
+};
 
 // Network graph tool descriptor
 const tool = {

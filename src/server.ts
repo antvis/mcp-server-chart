@@ -18,7 +18,7 @@ export function createServer(): Server {
   const server = new Server(
     {
       name: "mcp-server-chart",
-      version: "0.5.0",
+      version: "0.5.1",
     },
     {
       capabilities: {

@@ -1,11 +1,10 @@
 import { z } from "zod";
 import { zodToJsonSchema } from "../utils";
-import { validatedTreeDataSchema } from "../utils/validator";
+import { type TreeDataType, validatedTreeDataSchema } from "../utils/validator";
 import { HeightSchema, ThemeSchema, WidthSchema } from "./base";
 
 // Fishbone node schema
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-const FishboneNodeSchema: z.ZodType<any> = z.lazy(() =>
+const FishboneNodeSchema: z.ZodType<TreeDataType> = z.lazy(() =>
   z.object({
     name: z.string(),
     children: z.array(FishboneNodeSchema).optional(),

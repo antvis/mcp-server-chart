@@ -8,16 +8,17 @@ export class ValidateError extends Error {
   }
 }
 
-interface NodeEdgeData {
+// Node and Edge Graph Data Types, recursively defined for validation.
+export type NodeEdgeDataType = {
   nodes: Array<{ name: string }>;
   edges: Array<{ name: string; source: string; target: string }>;
-}
+};
 
-interface TreeData {
+// Treemap Graph Data Type, recursively defined for validation.
+export type TreeDataType = {
   name: string;
-  value: number;
-  children: Array<{ name: string }>;
-}
+  children?: TreeDataType[];
+};
 
 /**
  * Valid node name is unique.
@@ -26,7 +27,7 @@ interface TreeData {
  * @param data
  * @returns boolean
  */
-export const validatedNodeEdgeDataSchema = (data: NodeEdgeData) => {
+export const validatedNodeEdgeDataSchema = (data: NodeEdgeDataType) => {
   const nodeNames = new Set(data.nodes.map((node) => node.name));
   const uniqueNodeNames = new Set();
 
@@ -74,13 +75,12 @@ export const validatedNodeEdgeDataSchema = (data: NodeEdgeData) => {
  * @param data
  * @returns boolean
  */
-
-export const validatedTreeDataSchema = (data: TreeData) => {
+export const validatedTreeDataSchema = (data: TreeDataType) => {
   const node = data;
   const names = new Set<string>();
 
   // valid node name is unique
-  const checkUniqueness = (currentNode: TreeData) => {
+  const checkUniqueness = (currentNode: TreeDataType) => {
     if (names.has(currentNode.name)) {
       throw new ValidateError(
         `Invalid parameters: node's name '${currentNode.name}' should be unique.`,
@@ -90,7 +90,7 @@ export const validatedTreeDataSchema = (data: TreeData) => {
     if (currentNode.children) {
       for (let i = 0; i < currentNode.children.length; i++) {
         const child = currentNode.children[i];
-        checkUniqueness(child as TreeData);
+        checkUniqueness(child as TreeDataType);
       }
     }
   };

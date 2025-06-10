@@ -2,6 +2,7 @@
   "name": "@antv/mcp-server-chart",
   "description": "A Model Context Protocol server for generating charts using AntV, This is a TypeScript-based MCP server that provides chart generation capabilities. It allows you to create various types of charts through MCP tools.",
   "version": "0.5.3",
+  "type": "module",
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "exports": {
@@ -25,8 +26,15 @@
   "bin": {
     "mcp-server-chart": "./build/index.js"
   },
-  "files": ["build"],
-  "keywords": ["antv", "mcp", "data-visualization", "chart"],
+  "files": [
+    "build"
+  ],
+  "keywords": [
+    "antv",
+    "mcp",
+    "data-visualization",
+    "chart"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/antvis/mcp-server-chart"
@@ -37,10 +45,21 @@
   },
   "license": "MIT",
   "dependencies": {
+    "@antv/g2-ssr": "^0.1.0",
+    "@antv/g6-ssr": "^0.0.16",
+    "@antv/gpt-vis": "^0.4.0",
     "@modelcontextprotocol/sdk": "^1.11.4",
-    "axios": "^1.9.0",
+    "canvas": "^2.11.2",
+    "d3-color": "^3.1.0",
+    "d3-interpolate": "^3.0.1",
+    "d3-scale": "^4.0.2",
     "zod": "^3.25.16",
     "zod-to-json-schema": "^3.24.5"
+  },
+  "overrides": {
+    "d3-color": "^3.1.0",
+    "d3-interpolate": "^3.0.1",
+    "d3-scale": "^4.0.2"
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
@@ -49,6 +68,7 @@
     "husky": "^9.1.7",
     "lint-staged": "^15.5.2",
     "tsc-alias": "^1.8.16",
+    "tsx": "^4.19.4",
     "typescript": "^5.8.3",
     "vitest": "^3.1.4"
   }

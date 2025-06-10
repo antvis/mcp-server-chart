@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import * as actualCharts from "../src/charts";
-import * as expectedCharts from "./charts";
+import * as expectedCharts from ".";
+import * as actualCharts from "../../src/charts";
 
 describe("charts schema check", () => {
   // Get the chart names from the rightCharts module

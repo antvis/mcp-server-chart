@@ -4,7 +4,7 @@
   "inputSchema": {
     "type": "object",
     "properties": {
-      "data": {
+      "percent": {
         "type": "number",
         "minimum": 0,
         "maximum": 1,
@@ -38,7 +38,7 @@
         "description": "Set the title of chart."
       }
     },
-    "required": ["data"],
+    "required": ["percent"],
     "$schema": "http://json-schema.org/draft-07/schema#"
   }
 }

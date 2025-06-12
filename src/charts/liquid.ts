@@ -3,7 +3,7 @@ import { zodToJsonSchema } from "../utils";
 import { HeightSchema, ThemeSchema, TitleSchema, WidthSchema } from "./base";
 
 const schema = {
-  data: z
+  percent: z
     .number()
     .describe(
       "The percentage value to display in the liquid chart, should be a number between 0 and 1, where 1 represents 100%. For example, 0.75 represents 75%.",

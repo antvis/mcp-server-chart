@@ -24,6 +24,7 @@ describe("sdk API", () => {
       "organization-chart",
       "pie",
       "radar",
+      "sankey",
       "scatter",
       "treemap",
       "word-cloud",

@@ -1,0 +1,58 @@
+{
+  "name": "generate_sankey_chart",
+  "description": "Generate a sankey chart to visualize the flow of data between different stages or categories, such as, the user journey from landing on a page to completing a purchase.",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string"
+            },
+            "target": {
+              "type": "string"
+            },
+            "value": {
+              "type": "number"
+            }
+          },
+          "required": ["source", "target", "value"]
+        },
+        "minItems": 1,
+        "description": "Date for sankey chart, such as, [{ source: 'Landing Page', target: 'Product Page', value: 50000 }, { source: 'Product Page', target: 'Add to Cart', value: 35000 }, { source: 'Add to Cart', target: 'Checkout', value: 25000 }, { source: 'Checkout', target: 'Payment', value: 15000 }, { source: 'Payment', target: 'Purchase Completed', value: 8000 }]."
+      },
+      "nodeAlign": {
+        "type": "string",
+        "enum": ["left", "right", "justify", "center"],
+        "default": "center",
+        "description": "Alignment of nodes in the sankey chart, such as, 'left', 'right', 'justify', or 'center'."
+      },
+      "theme": {
+        "type": "string",
+        "enum": ["default", "academy"],
+        "default": "default",
+        "description": "Set the theme for the chart, optional, default is 'default'."
+      },
+      "width": {
+        "type": "number",
+        "default": 600,
+        "description": "Set the width of chart, default is 600."
+      },
+      "height": {
+        "type": "number",
+        "default": 400,
+        "description": "Set the height of chart, default is 400."
+      },
+      "title": {
+        "type": "string",
+        "default": "",
+        "description": "Set the title of chart."
+      }
+    },
+    "required": ["data"],
+    "$schema": "http://json-schema.org/draft-07/schema#"
+  }
+}

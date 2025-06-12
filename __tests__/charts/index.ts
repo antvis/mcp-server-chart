@@ -13,6 +13,7 @@ export { default as "network-graph" } from "./network-graph.json";
 export { default as "organization-chart" } from "./organization-chart.json";
 export { default as pie } from "./pie.json";
 export { default as radar } from "./radar.json";
+export { default as sankey } from "./sankey.json";
 export { default as scatter } from "./scatter.json";
 export { default as treemap } from "./treemap.json";
 export { default as "word-cloud" } from "./word-cloud.json";

@@ -16,6 +16,7 @@ export { networkGraph as "network-graph" } from "./network-graph";
 export { organizationChart as "organization-chart" } from "./organization-chart";
 export { pie } from "./pie";
 export { radar } from "./radar";
+export { sankey } from "./sankey";
 export { scatter } from "./scatter";
 export { treemap } from "./treemap";
 export { wordCloud as "word-cloud" } from "./word-cloud";

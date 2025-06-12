@@ -9,10 +9,10 @@ describe("charts schema check", () => {
   // Create a separate test case for each chart
   for (const chartName of chartNames) {
     it(`should check schema for ${chartName} chart`, () => {
-      const schema = actualCharts[chartName].tool.inputSchema;
+      const schema = actualCharts[chartName].tool;
       const rightChart = expectedCharts[chartName];
 
-      expect(schema).toEqual(rightChart.inputSchema);
+      expect(schema).toEqual(rightChart);
     });
   }
 });

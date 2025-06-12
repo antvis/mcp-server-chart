@@ -1,4 +1,4 @@
-import { afterEach, describe, expect, it } from "vitest";
+import { describe, expect, it } from "vitest";
 import * as API from "../src/sdk";
 
 describe("sdk API", () => {
@@ -12,18 +12,21 @@ describe("sdk API", () => {
       "area",
       "bar",
       "column",
+      "dual-axes",
       "fishbone-diagram",
       "flow-diagram",
+      "funnel",
       "histogram",
       "line",
+      "liquid",
       "mind-map",
       "network-graph",
+      "organization-chart",
       "pie",
       "radar",
       "scatter",
       "treemap",
       "word-cloud",
-      "dual-axes",
     ]);
   });
 

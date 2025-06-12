@@ -1,0 +1,49 @@
+{
+  "name": "generate_funnel_chart",
+  "description": "Generate a funnel chart to visualize the progressive reduction of data as it passes through stages, such as, the conversion rates of users from visiting a website to completing a purchase.",
+  "inputSchema": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "properties": {
+      "data": {
+        "description": "Data for funnel chart, such as, [{ category: '浏览网站', value: 50000 }, { category: '放入购物车', value: 35000 }, { category: '生成订单', value: 25000 }, { category: '支付订单', value: 15000 }, { category: '完成交易', value: 8000 }].",
+        "items": {
+          "properties": {
+            "category": {
+              "type": "string"
+            },
+            "value": {
+              "type": "number"
+            }
+          },
+          "required": ["category", "value"],
+          "type": "object"
+        },
+        "minItems": 1,
+        "type": "array"
+      },
+      "height": {
+        "default": 400,
+        "description": "Set the height of chart, default is 400.",
+        "type": "number"
+      },
+      "theme": {
+        "default": "default",
+        "description": "Set the theme for the chart, optional, default is 'default'.",
+        "enum": ["default", "academy"],
+        "type": "string"
+      },
+      "title": {
+        "default": "",
+        "description": "Set the title of chart.",
+        "type": "string"
+      },
+      "width": {
+        "default": 600,
+        "description": "Set the width of chart, default is 600.",
+        "type": "number"
+      }
+    },
+    "required": ["data"],
+    "type": "object"
+  }
+}

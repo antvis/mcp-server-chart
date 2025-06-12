@@ -1,0 +1,58 @@
+{
+  "name": "generate_venn_chart",
+  "description": "Generate a Venn diagram to visualize the relationships between different sets, showing how they intersect and overlap, such as the commonalities and differences between various groups.",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "label": {
+              "type": "string",
+              "description": "Label for the venn chart segment, such as 'A', 'B', or 'C'."
+            },
+            "value": {
+              "type": "number",
+              "description": "Value for the venn chart segment, such as 10, 20, or 30."
+            },
+            "sets": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Array of set names that this segment belongs to, such as ['A', 'B'] for an intersection between sets A and B."
+            }
+          },
+          "required": ["value", "sets"]
+        },
+        "minItems": 1,
+        "description": "Data for venn chart, such as, [{ label: 'A', value: 10, sets: ['A'] }, { label: 'B', value: 20, sets: ['B'] }, { label: 'C', value: 30, sets: ['C'] }, { label: 'AB', value: 5, sets: ['A', 'B'] }]."
+      },
+      "theme": {
+        "type": "string",
+        "enum": ["default", "academy"],
+        "default": "default",
+        "description": "Set the theme for the chart, optional, default is 'default'."
+      },
+      "width": {
+        "type": "number",
+        "default": 600,
+        "description": "Set the width of chart, default is 600."
+      },
+      "height": {
+        "type": "number",
+        "default": 400,
+        "description": "Set the height of chart, default is 400."
+      },
+      "title": {
+        "type": "string",
+        "default": "",
+        "description": "Set the title of chart."
+      }
+    },
+    "required": ["data"],
+    "$schema": "http://json-schema.org/draft-07/schema#"
+  }
+}

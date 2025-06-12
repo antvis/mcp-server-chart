@@ -19,4 +19,5 @@ export { radar } from "./radar";
 export { sankey } from "./sankey";
 export { scatter } from "./scatter";
 export { treemap } from "./treemap";
+export { venn } from "./venn";
 export { wordCloud as "word-cloud" } from "./word-cloud";

@@ -42,7 +42,7 @@
         "type": "string",
         "enum": ["horizontal", "vertical"],
         "default": "vertical",
-        "description": "Orientation of the organization chart, either horizontal or vertical, default is vertical."
+        "description": "Orientation of the organization chart, either horizontal or vertical. Default is vertical, when the level of the chart is more than 3, it is recommended to use horizontal orientation."
       },
       "theme": {
         "type": "string",

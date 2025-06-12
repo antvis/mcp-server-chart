@@ -25,7 +25,7 @@ const schema = {
     .enum(["horizontal", "vertical"])
     .default("vertical")
     .describe(
-      "Orientation of the organization chart, either horizontal or vertical, default is vertical.",
+      "Orientation of the organization chart, either horizontal or vertical. Default is vertical, when the level of the chart is more than 3, it is recommended to use horizontal orientation.",
     ),
   theme: ThemeSchema,
   width: WidthSchema,

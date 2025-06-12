@@ -3,6 +3,7 @@
  */
 export { area } from "./area";
 export { bar } from "./bar";
+export { boxplot } from "./boxplot";
 export { column } from "./column";
 export { dualAxes as "dual-axes" } from "./dual-axes";
 export { fishboneDiagram as "fishbone-diagram" } from "./fishbone-diagram";

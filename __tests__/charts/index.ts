@@ -1,5 +1,6 @@
 export { default as area } from "./area.json";
 export { default as bar } from "./bar.json";
+export { default as boxplot } from "./boxplot.json";
 export { default as column } from "./column.json";
 export { default as "dual-axes" } from "./dual-axes.json";
 export { default as "fishbone-diagram" } from "./fishbone-diagram.json";

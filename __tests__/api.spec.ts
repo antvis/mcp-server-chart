@@ -11,6 +11,7 @@ describe("sdk API", () => {
     expect(Object.keys(charts)).toEqual([
       "area",
       "bar",
+      "boxplot",
       "column",
       "dual-axes",
       "fishbone-diagram",

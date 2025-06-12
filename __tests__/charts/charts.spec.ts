@@ -12,6 +12,10 @@ describe("charts schema check", () => {
       const schema = actualCharts[chartName].tool;
       const rightChart = expectedCharts[chartName];
 
+      if (chartName === "boxplot") {
+        console.log(`Boxplot chart schema: ${JSON.stringify(schema, null, 2)}`);
+      }
+
       expect(schema).toEqual(rightChart);
     });
   }

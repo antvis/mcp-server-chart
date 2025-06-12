@@ -1,0 +1,65 @@
+{
+  "name": "generate_boxplot_chart",
+  "description": "Generate a boxplot chart to show data for statistical summaries among different categories, such as, comparing the distribution of data points across categories.",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "category": {
+              "type": "string",
+              "description": "Category of the data point, such as '分类一'."
+            },
+            "value": {
+              "type": "number",
+              "description": "Value of the data point, such as 10."
+            },
+            "group": {
+              "type": "string",
+              "description": "Optional group for the data point, used for grouping in the boxplot."
+            }
+          },
+          "required": ["category", "value"]
+        },
+        "minItems": 1,
+        "description": "Data for boxplot chart, such as, [{ category: '分类一', value: 10 }] or [{ category: '分类二', value: 20, group: '组别一' }]."
+      },
+      "theme": {
+        "type": "string",
+        "enum": ["default", "academy"],
+        "default": "default",
+        "description": "Set the theme for the chart, optional, default is 'default'."
+      },
+      "width": {
+        "type": "number",
+        "default": 600,
+        "description": "Set the width of chart, default is 600."
+      },
+      "height": {
+        "type": "number",
+        "default": 400,
+        "description": "Set the height of chart, default is 400."
+      },
+      "title": {
+        "type": "string",
+        "default": "",
+        "description": "Set the title of chart."
+      },
+      "axisXTitle": {
+        "type": "string",
+        "default": "",
+        "description": "Set the x-axis title of chart."
+      },
+      "axisYTitle": {
+        "type": "string",
+        "default": "",
+        "description": "Set the y-axis title of chart."
+      }
+    },
+    "required": ["data"],
+    "$schema": "http://json-schema.org/draft-07/schema#"
+  }
+}

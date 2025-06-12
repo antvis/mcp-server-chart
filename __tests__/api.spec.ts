@@ -29,6 +29,7 @@ describe("sdk API", () => {
       "scatter",
       "treemap",
       "venn",
+      "violin",
       "word-cloud",
     ]);
   });

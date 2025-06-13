@@ -146,7 +146,7 @@ You can use AntV's project [GPT-Vis-SSR](https://github.com/antvis/GPT-Vis/tree/
 - **Return**: The return object of HTTP service.
   - **success**: `boolean` Whether generate chart image successfully.
   - **resultObj**: `string` The chart image url.
-  - **errorMe**: `errorMessage` When `success = false`, return the error message.
+  - **errorMessage**: `string` When `success = false`, return the error message.
 
 
 ## 🔨 Development

@@ -1,11 +1,11 @@
-import { ACADEMY_COLOR_PALETTE, DEFAULT_COLOR_PALETTE } from './utils';
+import { ACADEMY_COLOR_PALETTE, DEFAULT_COLOR_PALETTE } from "./utils";
 const DEFAULT_THEME = {
-  type: 'light',
+  type: "light",
   view: {
-    viewFill: '#FFF',
-    plotFill: 'transparent',
-    mainFill: 'transparent',
-    contentFill: 'transparent',
+    viewFill: "#FFF",
+    plotFill: "transparent",
+    mainFill: "transparent",
+    contentFill: "transparent",
   },
   interval: {
     rect: {
@@ -30,12 +30,12 @@ const DEFAULT_THEME = {
 };
 
 const ACADEMY_THEME = {
-  type: 'academy',
+  type: "academy",
   view: {
-    viewFill: '#FFF',
-    plotFill: 'transparent',
-    mainFill: 'transparent',
-    contentFill: 'transparent',
+    viewFill: "#FFF",
+    plotFill: "transparent",
+    mainFill: "transparent",
+    contentFill: "transparent",
   },
   interval: {
     rect: {

@@ -14,14 +14,13 @@
     "start": "npx @modelcontextprotocol/inspector node build/index.js",
     "prepare": "husky && npm run build",
     "prepublishOnly": "npm run build",
-    "test": "vitest"
+    "test": "vitest",
+    "lint": "biome check src/",
+    "lint:fix": "biome check --write src/",
+    "format": "biome format --write src/"
   },
   "lint-staged": {
-    "*.{ts,js,json}": [
-      "biome check --write",
-      "biome format --write",
-      "biome lint"
-    ]
+    "*.{ts,js,json}": ["biome check --write"]
   },
   "bin": {
     "mcp-server-chart": "./build/index.js"

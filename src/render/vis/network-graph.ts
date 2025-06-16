@@ -1,17 +1,22 @@
-import { createGraph, G6 } from '@antv/g6-ssr';
-import { type NetworkGraphProps } from '@antv/gpt-vis/dist/esm/NetworkGraph';
-import { G6THEME_MAP } from '../constant';
-import { CommonOptions } from './types';
+import { G6, createGraph } from "@antv/g6-ssr";
+import { G6THEME_MAP } from "../constant";
+import type { G6ChartOptions } from "./types";
 
-const { register, BaseTransform, ExtensionCategory } = G6;
-
-export type NetworkGraphOptions = CommonOptions & NetworkGraphProps;
+export type NetworkGraphOptions = G6ChartOptions;
 
 export async function NetworkGraph(options: NetworkGraphOptions) {
-  const { data, width = 600, height = 400, theme = 'default' } = options;
+  const { data, width = 600, height = 400, theme = "default" } = options;
+
+  if (!data || !data.nodes || !data.edges) {
+    throw new Error("NetworkGraph requires data with nodes and edges");
+  }
+
   const graphData = {
-    nodes: data.nodes.map((node) => ({ ...node, id: node.name })),
-    edges: data.edges.map((edge) => ({ ...edge, id: `${edge.source}-${edge.target}` })),
+    nodes: data.nodes.map((node) => ({ ...node, id: String(node.name) })),
+    edges: data.edges.map((edge) => ({
+      ...edge,
+      id: `${edge.source}-${edge.target}`,
+    })),
   };
 
   return await createGraph({
@@ -19,11 +24,11 @@ export async function NetworkGraph(options: NetworkGraphOptions) {
     width: width,
     height: height,
     devicePixelRatio: 3,
-    autoFit: 'view',
+    autoFit: "view",
     padding: 20,
     animation: false,
     node: {
-      type: 'circle',
+      type: "circle",
       style: {
         size: 20,
         // @ts-ignore
@@ -44,10 +49,10 @@ export async function NetworkGraph(options: NetworkGraphOptions) {
       animation: { enter: false },
     },
     layout: {
-      type: 'force-atlas2',
+      type: "force-atlas2",
       preventOverlap: true,
       kr: 600,
     },
-    transforms: ['process-parallel-edges', G6THEME_MAP[theme]],
+    transforms: ["process-parallel-edges", G6THEME_MAP[theme]],
   });
 }

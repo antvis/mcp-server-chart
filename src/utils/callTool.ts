@@ -4,8 +4,15 @@ import * as Charts from "../charts";
 import { generateChartUrl } from "./generate";
 import { ValidateError } from "./validator";
 
-// Chart type mapping
-const CHART_TYPE_MAP = {
+// Chart type definitions
+export type ChartType = keyof typeof Charts;
+export type ToolName =
+  | `generate_${string}_chart`
+  | `generate_${string}_diagram`
+  | `generate_${string}_map`;
+
+// Chart type mapping with proper typing
+const CHART_TYPE_MAP: Record<string, ChartType> = {
   generate_area_chart: "area",
   generate_bar_chart: "bar",
   generate_column_chart: "column",
@@ -29,8 +36,11 @@ const CHART_TYPE_MAP = {
  * @param args The arguments for the tool, which should match the expected schema for the chart type.
  * @returns
  */
-export async function callTool(tool: string, args: object = {}) {
-  const chartType = CHART_TYPE_MAP[tool as keyof typeof CHART_TYPE_MAP];
+export async function callTool(
+  tool: string,
+  args: Record<string, unknown> = {},
+) {
+  const chartType = CHART_TYPE_MAP[tool];
 
   if (!chartType) {
     throw new McpError(ErrorCode.MethodNotFound, `Unknown tool: ${tool}.`);
@@ -39,7 +49,16 @@ export async function callTool(tool: string, args: object = {}) {
   try {
     // Validate input using Zod before sending to API.
     // Select the appropriate schema based on the chart type.
-    const schema = Charts[chartType].schema;
+    const chartConfig = Charts[chartType];
+
+    if (!chartConfig) {
+      throw new McpError(
+        ErrorCode.InternalError,
+        `Chart configuration not found for type: ${chartType}`,
+      );
+    }
+
+    const { schema } = chartConfig;
 
     if (schema) {
       // Use safeParse instead of parse and try-catch.
@@ -62,14 +81,16 @@ export async function callTool(tool: string, args: object = {}) {
         },
       ],
     };
-    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-  } catch (error: any) {
+  } catch (error: unknown) {
     if (error instanceof McpError) throw error;
     if (error instanceof ValidateError)
       throw new McpError(ErrorCode.InvalidParams, error.message);
+
+    const errorMessage =
+      error instanceof Error ? error.message : "Unknown error";
     throw new McpError(
       ErrorCode.InternalError,
-      `Failed to generate chart: ${error?.message || "Unknown error."}`,
+      `Failed to generate chart: ${errorMessage}`,
     );
   }
 }

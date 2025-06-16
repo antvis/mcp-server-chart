@@ -2,6 +2,8 @@ import { randomUUID } from "node:crypto";
 import { writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
+import type { Chart } from "@antv/g2-ssr";
+import type { Graph } from "@antv/g6-ssr";
 import { render } from "../render/index.js";
 
 /**
@@ -13,11 +15,10 @@ import { render } from "../render/index.js";
  */
 export async function generateChartUrl(
   type: string,
-  // biome-ignore lint/suspicious/noExplicitAny: Required for chart type union compatibility
-  options: Record<string, any>,
+  options: Record<string, unknown>,
 ): Promise<string> {
-  let vis: any = null;
-  
+  let vis: Chart | Graph | null = null;
+
   try {
     console.log(
       `[LOCAL] Generating ${type} chart with options:`,
@@ -26,12 +27,12 @@ export async function generateChartUrl(
 
     // Use local SSR rendering
     const renderOptions = {
-      // biome-ignore lint/suspicious/noExplicitAny: Type casting needed for union type compatibility
+      // biome-ignore lint/suspicious/noExplicitAny: Type union complexity requires any for chart type
       type: type as any,
       ...options,
     };
 
-    // biome-ignore lint/suspicious/noExplicitAny: Type casting needed for render function compatibility
+    // biome-ignore lint/suspicious/noExplicitAny: Complex union type requires any for render options
     vis = await render(renderOptions as any);
     const buffer = vis.toBuffer();
 
@@ -46,11 +47,10 @@ export async function generateChartUrl(
 
     // Return file:// URL
     return `file://${filePath}`;
-    // biome-ignore lint/suspicious/noExplicitAny: Error type from external library is unknown
-  } catch (error: any) {
-    throw new Error(
-      `Failed to generate chart: ${error?.message || "Unknown error"}`,
-    );
+  } catch (error: unknown) {
+    const errorMessage =
+      error instanceof Error ? error.message : "Unknown error";
+    throw new Error(`Failed to generate chart: ${errorMessage}`);
   } finally {
     // Clean up resources to prevent memory leaks and hanging processes
     if (vis && typeof vis.destroy === "function") {

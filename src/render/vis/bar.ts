@@ -1,9 +1,8 @@
-import { createChart } from '@antv/g2-ssr';
-import { type BarProps } from '@antv/gpt-vis/dist/esm/Bar';
-import { THEME_MAP } from '../constant';
-import { CommonOptions } from './types';
+import { createChart } from "@antv/g2-ssr";
+import { THEME_MAP } from "../constant";
+import type { G2ChartOptions } from "./types";
 
-export type BarOptions = CommonOptions & BarProps;
+export type BarOptions = G2ChartOptions;
 
 export async function Bar(options: BarOptions) {
   const {
@@ -15,22 +14,23 @@ export async function Bar(options: BarOptions) {
     axisXTitle,
     group,
     stack,
-    theme = 'default',
+    theme = "default",
   } = options;
 
   const hasGroupField = (data || [])[0]?.group !== undefined;
+  // biome-ignore lint/suspicious/noExplicitAny: Transform array has complex nested structure
   let transforms: any = [];
   let radiusStyle = {};
   let encode = {};
 
-  if (theme === 'default') {
+  if (theme === "default") {
     radiusStyle = { radiusTopLeft: 4, radiusTopRight: 4 };
   }
 
   if (group) {
     transforms = [
       {
-        type: 'dodgeX',
+        type: "dodgeX",
       },
     ];
   }
@@ -38,27 +38,27 @@ export async function Bar(options: BarOptions) {
   if (stack) {
     transforms = [
       {
-        type: 'stackY',
+        type: "stackY",
       },
     ];
   }
 
   if (hasGroupField) {
     encode = {
-      x: 'category',
-      y: 'value',
-      color: 'group',
+      x: "category",
+      y: "value",
+      color: "group",
     };
   } else {
     encode = {
-      x: 'category',
-      y: 'value',
-      color: 'category',
+      x: "category",
+      y: "value",
+      color: "category",
     };
   }
 
   return await createChart({
-    type: 'interval',
+    type: "interval",
     theme: THEME_MAP[theme],
     width,
     height,
@@ -66,7 +66,7 @@ export async function Bar(options: BarOptions) {
     data,
     encode: encode,
     transform: transforms,
-    coordinate: { transform: [{ type: 'transpose' }] },
+    coordinate: { transform: [{ type: "transpose" }] },
     insetRight: 12,
     style: {
       ...radiusStyle,

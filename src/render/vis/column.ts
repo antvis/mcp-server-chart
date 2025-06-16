@@ -1,9 +1,8 @@
-import { createChart } from '@antv/g2-ssr';
-import { type ColumnProps } from '@antv/gpt-vis/dist/esm/Column';
-import { THEME_MAP } from '../constant';
-import { CommonOptions } from './types';
+import { createChart } from "@antv/g2-ssr";
+import { THEME_MAP } from "../constant";
+import type { G2ChartOptions } from "./types";
 
-export type ColumnOptions = CommonOptions & ColumnProps;
+export type ColumnOptions = G2ChartOptions;
 
 export async function Column(options: ColumnOptions) {
   const {
@@ -15,22 +14,23 @@ export async function Column(options: ColumnOptions) {
     axisXTitle,
     group,
     stack,
-    theme = 'default',
+    theme = "default",
   } = options;
 
   const hasGroupField = (data || [])[0]?.group !== undefined;
+  // biome-ignore lint/suspicious/noExplicitAny: Transform array has complex nested structure
   let transforms: any = [];
   let radiusStyle = {};
   let encode = {};
 
-  if (theme === 'default') {
+  if (theme === "default") {
     radiusStyle = { radiusTopLeft: 4, radiusTopRight: 4 };
   }
 
   if (group) {
     transforms = [
       {
-        type: 'dodgeX',
+        type: "dodgeX",
       },
     ];
   }
@@ -38,22 +38,22 @@ export async function Column(options: ColumnOptions) {
   if (stack) {
     transforms = [
       {
-        type: 'stackY',
+        type: "stackY",
       },
     ];
   }
 
   if (hasGroupField) {
     encode = {
-      x: 'category',
-      y: 'value',
-      color: 'group',
+      x: "category",
+      y: "value",
+      color: "group",
     };
   } else {
     encode = {
-      x: 'category',
-      y: 'value',
-      color: 'category',
+      x: "category",
+      y: "value",
+      color: "category",
     };
   }
 
@@ -63,7 +63,7 @@ export async function Column(options: ColumnOptions) {
     height,
     title,
     data,
-    type: 'interval',
+    type: "interval",
     encode: encode,
     transform: transforms,
     insetRight: 12,

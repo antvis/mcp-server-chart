@@ -1,8 +1,8 @@
-import { createChart } from '@antv/g2-ssr';
-import { type AreaProps } from '@antv/gpt-vis/dist/esm/Area';
-import { THEME_MAP } from '../constant';
-import { CommonOptions } from './types';
-export type AreaOptions = CommonOptions & AreaProps;
+import { createChart } from "@antv/g2-ssr";
+import { THEME_MAP } from "../constant";
+import type { G2ChartOptions } from "./types";
+
+export type AreaOptions = G2ChartOptions;
 
 export async function Area(options: AreaOptions) {
   const {
@@ -13,52 +13,53 @@ export async function Area(options: AreaOptions) {
     stack,
     axisYTitle,
     axisXTitle,
-    theme = 'default',
+    theme = "default",
   } = options;
 
   let encode = {};
+  // biome-ignore lint/suspicious/noExplicitAny: Transform array has complex nested structure
   let transform: any = [];
   let children = [];
 
   if (stack) {
-    encode = { x: 'time', y: 'value', color: 'group' };
-    transform = [{ type: 'stackY' }];
+    encode = { x: "time", y: "value", color: "group" };
+    transform = [{ type: "stackY" }];
     children = [
       {
-        type: 'area',
+        type: "area",
         style: { fillOpacity: 0.6 },
       },
       {
-        type: 'line',
+        type: "line",
         style: { lineWidth: 2, strokeOpacity: 0.6 },
       },
     ];
   } else {
-    encode = { x: 'time', y: 'value' };
+    encode = { x: "time", y: "value" };
     children = [
       {
-        type: 'area',
+        type: "area",
         style: {
           fillOpacity: 0.6,
-          ...(theme === 'academy'
+          ...(theme === "academy"
             ? {}
-            : { fill: 'linear-gradient(-90deg, white 0%, #3A95FF 100%)' }),
+            : { fill: "linear-gradient(-90deg, white 0%, #3A95FF 100%)" }),
         },
       },
       {
-        type: 'line',
+        type: "line",
         style: { lineWidth: 2, strokeOpacity: 0.6 },
       },
       {
-        type: 'point',
-        encode: { shape: 'point' },
-        style: { fill: 'white', lineWidth: 1 },
+        type: "point",
+        encode: { shape: "point" },
+        style: { fill: "white", lineWidth: 1 },
       },
     ];
   }
 
   return await createChart({
-    type: 'view',
+    type: "view",
     theme: THEME_MAP[theme],
     title,
     data,

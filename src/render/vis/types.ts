@@ -7,6 +7,9 @@ export type G2ChartOptions = G2Options & {
   axisXTitle?: string;
   axisYTitle?: string;
   theme?: string;
+  // Chart-specific properties
+  stack?: boolean;
+  group?: boolean;
 };
 
 // Extended G6 options with common graph properties

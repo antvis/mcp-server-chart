@@ -1,7 +1,13 @@
 {
   "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
   "files": {
-    "ignore": ["node_modules", "build", "coverage"]
+    "ignore": [
+      "node_modules",
+      "build",
+      "coverage",
+      "src/render/utils.ts",
+      "src/render/constant.ts"
+    ]
   },
   "formatter": {
     "enabled": true,

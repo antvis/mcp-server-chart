@@ -1,7 +1,8 @@
 import { ErrorCode, McpError } from "@modelcontextprotocol/sdk/types.js";
 import { z } from "zod";
 import * as Charts from "../charts";
-import { generateChartUrl } from "./generate";
+import { getStrategy } from "./GenerateStrategy";
+import { getVisGenerateStrategy } from "./env";
 import { ValidateError } from "./validator";
 
 // Chart type mapping
@@ -59,7 +60,8 @@ export async function callTool(tool: string, args: object = {}) {
       }
     }
 
-    const url = await generateChartUrl(chartType, args);
+    const generateStrategy = getStrategy(getVisGenerateStrategy());
+    const url = await generateStrategy.generate(chartType, args);
 
     return {
       content: [

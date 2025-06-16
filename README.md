@@ -141,6 +141,45 @@ Options:
 
 You can use AntV's project [GPT-Vis-SSR](https://github.com/antvis/GPT-Vis/tree/main/bindings/gpt-vis-ssr) to deploy an HTTP service in a private environment, and then pass the URL address through env `VIS_REQUEST_SERVER`.
 
+You can also choose to upload the image to your MinIO server by configuring the following environment variables:
+
+```json
+{
+  "mcpServers": {
+    "mcp-server-chart": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@antv/mcp-server-chart"
+      ],
+      "env": {
+        "VIS_GENERATE_STRATEGY": "minio",
+        "MINIO_ENDPOINT": "<YOUR_MINIO_ENDPOINT>",
+        "MINIO_PORT": "<YOUR_MINIO_PORT>",
+        "MINIO_USE_SSL": "<USE_SSL>",
+        "MINIO_ACCESS_KEY": "<YOUR_MINIO_ACCESS_KEY>",
+        "MINIO_SECRET_KEY": "<YOUR_MINIO_SECRET_KEY>",
+        "MINIO_BUCKET_NAME": "<YOUR_MINIO_BUCKET_NAME>",
+        "MINIO_USE_PUBLIC_BUCKET": "<USE_PUBLIC_BUCKET>"
+      }
+    }
+  }
+}
+```
+
+- `VIS_GENERATE_STRATEGY`: Specifies the image service strategy.
+  - Default: `antvis`
+  - Available values: `antvis` | `minio`
+  - Note: If using `minio`, you must configure the MINIO_xxx variables below.
+- `MINIO_ENDPOINT`: The address of the MinIO server (without port). Default: `127.0.0.1`.
+- `MINIO_PORT`: The port of the MinIO server. Default: `9000`.
+- `MINIO_USE_SSL`: Whether to use SSL for the MinIO server. Default: `false`.
+- `MINIO_ACCESS_KEY`: The access key for connecting to the MinIO server. Default: `minio`.
+- `MINIO_SECRET_KEY`: The secret key for connecting to the MinIO server. Default: `minioadmin`.
+- `MINIO_BUCKET_NAME`: The bucket used for uploads. If the bucket does not exist, it will be created automatically. Default: `mcp-server-chart`.
+- `MINIO_USE_PUBLIC_BUCKET`: Whether the bucket should allow public access. Default: `true`.
+- `MINIO_OBJECT_EXPIRY_SECONDS`: If `MINIO_USE_PUBLIC_BUCKET` is false, this sets the expiration time (in seconds) for objects. Default: 3600.
+
 - **Method**: `POST`
 - **Parameter**: Which will be passed to `GPT-Vis-SSR` for renderring. Such as, `{ "type": "line", "data": [{ "time": "2025-05", "value": "512" }, { "time": "2025-06", "value": "1024" }] }`.
 - **Return**: The return object of HTTP service.

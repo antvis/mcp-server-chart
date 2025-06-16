@@ -26,15 +26,8 @@
   "bin": {
     "mcp-server-chart": "./build/index.js"
   },
-  "files": [
-    "build"
-  ],
-  "keywords": [
-    "antv",
-    "mcp",
-    "data-visualization",
-    "chart"
-  ],
+  "files": ["build"],
+  "keywords": ["antv", "mcp", "data-visualization", "chart"],
   "repository": {
     "type": "git",
     "url": "https://github.com/antvis/mcp-server-chart"
@@ -47,7 +40,6 @@
   "dependencies": {
     "@antv/g2-ssr": "^0.1.0",
     "@antv/g6-ssr": "^0.0.16",
-    "@antv/gpt-vis": "^0.4.0",
     "@modelcontextprotocol/sdk": "^1.11.4",
     "canvas": "^2.11.2",
     "d3-color": "^3.1.0",

@@ -1,9 +1,8 @@
-import { createChart } from '@antv/g2-ssr';
-import { type LineProps } from '@antv/gpt-vis/dist/esm/Line';
-import { THEME_MAP } from '../constant';
-import { CommonOptions } from './types';
+import { createChart } from "@antv/g2-ssr";
+import { THEME_MAP } from "../constant";
+import type { G2ChartOptions } from "./types";
 
-export type LineOptions = CommonOptions & LineProps;
+export type LineOptions = G2ChartOptions;
 
 export async function Line(options: LineOptions) {
   const {
@@ -13,20 +12,20 @@ export async function Line(options: LineOptions) {
     height = 400,
     axisYTitle,
     axisXTitle,
-    theme = 'default',
+    theme = "default",
   } = options;
 
   const hasGroupField = (data || [])[0]?.group !== undefined;
 
   let encode = {};
   if (hasGroupField) {
-    encode = { x: 'time', y: 'value', color: 'group' };
+    encode = { x: "time", y: "value", color: "group" };
   } else {
-    encode = { x: 'time', y: 'value' };
+    encode = { x: "time", y: "value" };
   }
 
   return await createChart({
-    type: 'view',
+    type: "view",
     title,
     data,
     width,
@@ -46,22 +45,22 @@ export async function Line(options: LineOptions) {
     },
     children: [
       {
-        type: 'line',
+        type: "line",
         style: {
           lineWidth: 2,
         },
         labels: [
           {
-            text: 'value',
-            style: { textAlign: 'center', dy: -12 },
-            transform: [{ type: 'overlapDodgeY' }],
+            text: "value",
+            style: { textAlign: "center", dy: -12 },
+            transform: [{ type: "overlapDodgeY" }],
           },
         ],
       },
       {
-        type: 'point',
-        encode: { shape: 'point' },
-        style: { fill: 'white', lineWidth: 1 },
+        type: "point",
+        encode: { shape: "point" },
+        style: { fill: "white", lineWidth: 1 },
       },
     ],
   });

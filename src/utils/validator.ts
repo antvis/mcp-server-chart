@@ -1,12 +1,4 @@
-/**
- * The Error class for validation errors in zod.
- */
-export class ValidateError extends Error {
-  constructor(message: string) {
-    super(message);
-    this.name = "ValidateError";
-  }
-}
+import { z } from "zod";
 
 // Node and Edge Graph Data Types, recursively defined for validation.
 export type NodeEdgeDataType = {
@@ -21,80 +13,113 @@ export type TreeDataType = {
 };
 
 /**
- * Valid node name is unique.
- * Valid edge source and target are existing in nodes.
- * Valid edge source edge target pair are unique.
- * @param data
- * @returns boolean
+ * Zod schema for validating node-edge graph data
+ * - Node names must be unique
+ * - Edge sources and targets must exist in nodes
+ * - Edge pairs must be unique
  */
-export const validatedNodeEdgeDataSchema = (data: NodeEdgeDataType) => {
-  const nodeNames = new Set(data.nodes.map((node) => node.name));
-  const uniqueNodeNames = new Set();
+export const nodeEdgeDataSchema = z
+  .object({
+    nodes: z.array(z.object({ name: z.string() })),
+    edges: z.array(
+      z.object({
+        name: z.string(),
+        source: z.string(),
+        target: z.string(),
+      }),
+    ),
+  })
+  .refine(
+    (data) => {
+      const nodeNames = new Set(data.nodes.map((node) => node.name));
+      const uniqueNodeNames = new Set<string>();
 
-  // 1. valid node name is unique
-  for (const node of data.nodes) {
-    if (uniqueNodeNames.has(node.name)) {
-      throw new ValidateError(
-        `Invalid parameters: node's name '${node.name}' should be unique.`,
-      );
-    }
-    uniqueNodeNames.add(node.name);
+      // 1. Validate node names are unique
+      for (const node of data.nodes) {
+        if (uniqueNodeNames.has(node.name)) {
+          return false;
+        }
+        uniqueNodeNames.add(node.name);
+      }
+
+      // 2. Validate edge sources and targets exist in nodes
+      for (const edge of data.edges) {
+        if (!nodeNames.has(edge.source) || !nodeNames.has(edge.target)) {
+          return false;
+        }
+      }
+
+      // 3. Validate edge pairs are unique
+      const edgePairs = new Set<string>();
+      for (const edge of data.edges) {
+        const pair = `${edge.source}-${edge.target}`;
+        if (edgePairs.has(pair)) {
+          return false;
+        }
+        edgePairs.add(pair);
+      }
+
+      return true;
+    },
+    {
+      message:
+        "Invalid graph data: node names must be unique, edges must reference existing nodes, and edge pairs must be unique",
+    },
+  );
+
+/**
+ * Zod schema for validating tree data
+ * - Node names must be unique across the entire tree
+ */
+export const treeDataSchema: z.ZodType<TreeDataType> = z.lazy(() =>
+  z
+    .object({
+      name: z.string(),
+      children: z.array(treeDataSchema).optional(),
+    })
+    .refine(
+      (data) => {
+        const names = new Set<string>();
+
+        const checkUniqueness = (node: TreeDataType): boolean => {
+          if (names.has(node.name)) {
+            return false;
+          }
+          names.add(node.name);
+
+          if (node.children) {
+            for (const child of node.children) {
+              if (!checkUniqueness(child)) {
+                return false;
+              }
+            }
+          }
+          return true;
+        };
+
+        return checkUniqueness(data);
+      },
+      {
+        message: "Tree node names must be unique across the entire tree",
+      },
+    ),
+);
+
+// Legacy validation functions for backward compatibility
+export const validatedNodeEdgeDataSchema = (
+  data: NodeEdgeDataType,
+): boolean => {
+  const result = nodeEdgeDataSchema.safeParse(data);
+  if (!result.success) {
+    throw new Error(result.error.message);
   }
-
-  // 2. valid edge source and target are existing in nodes
-  for (const edge of data.edges) {
-    if (!nodeNames.has(edge.source)) {
-      throw new ValidateError(
-        `Invalid parameters: edge's source '${edge.source}' should exist in nodes.`,
-      );
-    }
-    if (!nodeNames.has(edge.target)) {
-      throw new ValidateError(
-        `Invalid parameters: edge's target '${edge.target}' should exist in nodes.`,
-      );
-    }
-  }
-
-  // 3. valid edge source edge target pair are unique
-  const edgePairs = new Set();
-  for (const edge of data.edges) {
-    const pair = `${edge.source}-${edge.target}`;
-    if (edgePairs.has(pair)) {
-      throw new ValidateError(
-        `Invalid parameters: edge pair '${pair}' should be unique.`,
-      );
-    }
-    edgePairs.add(pair);
-  }
-
   return true;
 };
 
-/**
- * Valid TreeData name is unique.
- * @param data
- * @returns boolean
- */
-export const validatedTreeDataSchema = (data: TreeDataType) => {
-  const node = data;
-  const names = new Set<string>();
-
-  // valid node name is unique
-  const checkUniqueness = (currentNode: TreeDataType) => {
-    if (names.has(currentNode.name)) {
-      throw new ValidateError(
-        `Invalid parameters: node's name '${currentNode.name}' should be unique.`,
-      );
-    }
-    names.add(currentNode.name);
-    if (currentNode.children) {
-      for (let i = 0; i < currentNode.children.length; i++) {
-        const child = currentNode.children[i];
-        checkUniqueness(child as TreeDataType);
-      }
-    }
-  };
-
-  checkUniqueness(node);
+export const validatedTreeDataSchema = (data: TreeDataType): boolean => {
+  const result = treeDataSchema.safeParse(data);
+  if (!result.success) {
+    throw new Error(result.error.message);
+  }
   return true;
 };

@@ -1,24 +1,13 @@
 import { z } from "zod";
 import { zodToJsonSchema } from "../utils";
-import { type TreeDataType, validatedTreeDataSchema } from "../utils/validator";
+import { type TreeDataType, treeDataSchema } from "../utils/validator";
 import { HeightSchema, ThemeSchema, WidthSchema } from "./base";
-
-// Mind map node schema
-const MindMapNodeSchema: z.ZodType<TreeDataType> = z.lazy(() =>
-  z.object({
-    name: z.string(),
-    children: z.array(MindMapNodeSchema).optional(),
-  }),
-);
 
 // Mind map chart input schema
 const schema = {
-  data: MindMapNodeSchema.describe(
+  data: treeDataSchema.describe(
     "Data for mind map chart, such as, { name: 'main topic', children: [{ name: 'topic 1', children: [{ name:'subtopic 1-1' }] }.",
-  ).refine(validatedTreeDataSchema, {
-    message: "Invalid parameters: node name is not unique.",
-    path: ["data"],
-  }),
+  ),
   theme: ThemeSchema,
   width: WidthSchema,
   height: HeightSchema,

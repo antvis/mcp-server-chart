@@ -4,21 +4,27 @@ import * as Charts from "../../src/charts";
 import { FlowDiagramSchema, MindMapSchema } from "../constant";
 
 describe("validator", () => {
-  it("should valid schema for mind-map chart", () => {
+  it("should detect invalid mind-map chart data", () => {
     const chartType = "mind-map";
-    expect(() => {
-      const schema = Charts[chartType].schema;
-      z.object(schema).safeParse(MindMapSchema);
-    }).toThrow("Invalid parameters: node's name '文字动画' should be unique.");
+    const schema = Charts[chartType].schema;
+    const result = z.object(schema).safeParse(MindMapSchema);
+
+    expect(result.success).toBe(false);
+    if (!result.success) {
+      expect(result.error.message).toContain("Tree node names must be unique");
+    }
   });
 
-  it("should valid schema for flow diagram chart", () => {
+  it("should detect invalid flow diagram chart data", () => {
     const chartType = "flow-diagram";
-    expect(() => {
-      const schema = Charts[chartType].schema;
-      z.object(schema).safeParse(FlowDiagramSchema);
-    }).toThrow(
-      "Invalid parameters: edge pair 'KnowledgeBase-Model' should be unique.",
-    );
+    const schema = Charts[chartType].schema;
+    const result = z.object(schema).safeParse(FlowDiagramSchema);
+
+    expect(result.success).toBe(false);
+    if (!result.success) {
+      expect(result.error.message).toContain(
+        "node names must be unique, edges must reference existing nodes, and edge pairs must be unique",
+      );
+    }
   });
 });

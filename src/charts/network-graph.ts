@@ -1,30 +1,13 @@
 import { z } from "zod";
 import { zodToJsonSchema } from "../utils";
-import { validatedNodeEdgeDataSchema } from "../utils/validator";
-import {
-  EdgeSchema,
-  HeightSchema,
-  NodeSchema,
-  ThemeSchema,
-  WidthSchema,
-} from "./base";
+import { nodeEdgeDataSchema } from "../utils/validator";
+import { HeightSchema, ThemeSchema, WidthSchema } from "./base";
 
 // Network graph input schema
 const schema = {
-  data: z
-    .object({
-      nodes: z
-        .array(NodeSchema)
-        .nonempty({ message: "At least one node is required." }),
-      edges: z.array(EdgeSchema),
-    })
-    .describe(
-      "Data for network graph chart, such as, { nodes: [{ name: 'node1' }, { name: 'node2' }], edges: [{ source: 'node1', target: 'node2', name: 'edge1' }] }",
-    )
-    .refine(validatedNodeEdgeDataSchema, {
-      message: "Invalid parameters",
-      path: ["data", "edges"],
-    }),
+  data: nodeEdgeDataSchema.describe(
+    "Data for network graph chart, such as, { nodes: [{ name: 'node1' }, { name: 'node2' }], edges: [{ source: 'node1', target: 'node2', name: 'edge1' }] }",
+  ),
   theme: ThemeSchema,
   width: WidthSchema,
   height: HeightSchema,

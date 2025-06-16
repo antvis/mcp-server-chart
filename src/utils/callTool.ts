@@ -2,7 +2,6 @@ import { ErrorCode, McpError } from "@modelcontextprotocol/sdk/types.js";
 import { z } from "zod";
 import * as Charts from "../charts";
 import { generateChartUrl } from "./generate";
-import { ValidateError } from "./validator";
 
 // Chart type definitions
 export type ChartType = keyof typeof Charts;
@@ -83,8 +82,6 @@ export async function callTool(
     };
   } catch (error: unknown) {
     if (error instanceof McpError) throw error;
-    if (error instanceof ValidateError)
-      throw new McpError(ErrorCode.InvalidParams, error.message);
 
     const errorMessage =
       error instanceof Error ? error.message : "Unknown error";

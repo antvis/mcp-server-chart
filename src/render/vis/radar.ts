@@ -1,10 +1,9 @@
-import { createChart } from '@antv/g2-ssr';
-import { type RadarProps } from '@antv/gpt-vis/dist/esm/Radar';
-import { THEME_MAP } from '../constant';
-import { groupBy } from '../utils';
-import { CommonOptions } from './types';
+import { createChart } from "@antv/g2-ssr";
+import { THEME_MAP } from "../constant";
+import { groupBy } from "../utils";
+import type { G2ChartOptions } from "./types";
 
-export type RadarOptions = CommonOptions & RadarProps;
+export type RadarOptions = G2ChartOptions;
 
 /**
  * Transform data:
@@ -32,18 +31,23 @@ export type RadarOptions = CommonOptions & RadarProps;
     { name: 'Berlin', data: [ { name: 'Jan.', value: 12.4 }, ... ] },
   ]
  */
+// biome-ignore lint/suspicious/noExplicitAny: Radar data structure is complex and varies
 function transformRadartoParallel(data: any[]) {
   if (!data || data.length === 0) {
     return [];
   }
 
-  const groups = groupBy(data, (d) => d.group || '');
+  const groups = groupBy(data, (d) => d.group || "");
 
   return Object.entries(groups).map(([group, values]) => {
-    const paralleValues = ((values || []) as any[]).reduce((acc, { name, value }) => {
-      acc[name] = value;
-      return acc;
-    }, {});
+    // biome-ignore lint/suspicious/noExplicitAny: Grouped values have varying structure
+    const paralleValues = ((values || []) as any[]).reduce(
+      (acc, { name, value }) => {
+        acc[name] = value;
+        return acc;
+      },
+      {},
+    );
     return {
       ...paralleValues,
       group,
@@ -52,10 +56,12 @@ function transformRadartoParallel(data: any[]) {
 }
 
 export async function Radar(options: RadarOptions) {
-  const { data, title, width = 600, height = 400, theme = 'default' } = options;
+  const { data, title, width = 600, height = 400, theme = "default" } = options;
 
   const parallelData = transformRadartoParallel(data);
-  const position = Object.keys(parallelData[0] || {}).filter((key) => key !== 'group');
+  const position = Object.keys(parallelData[0] || {}).filter(
+    (key) => key !== "group",
+  );
 
   return await createChart({
     title,
@@ -63,20 +69,20 @@ export async function Radar(options: RadarOptions) {
     width,
     height,
     inset: 18,
-    type: 'line',
+    type: "line",
     data: parallelData,
-    coordinate: { type: 'radar' },
+    coordinate: { type: "radar" },
     encode: {
       position,
-      color: 'group',
+      color: "group",
     },
-    style: { lineWidth: 2, lineCap: 'round', lineJoin: 'round' },
+    style: { lineWidth: 2, lineCap: "round", lineJoin: "round" },
     legend: {
-      color: parallelData.length > 1 ? { itemMarker: 'point' } : false,
+      color: parallelData.length > 1 ? { itemMarker: "point" } : false,
     },
     scale: Object.fromEntries(
       Array.from({ length: position.length }, (_, i) => [
-        `position${i === 0 ? '' : i}`,
+        `position${i === 0 ? "" : i}`,
         {
           domainMin: 0,
           nice: true,
@@ -86,24 +92,24 @@ export async function Radar(options: RadarOptions) {
     axis: Object.fromEntries(
       Array.from({ length: position.length }, (_, i) => {
         return [
-          `position${i === 0 ? '' : i}`,
+          `position${i === 0 ? "" : i}`,
           {
             zIndex: 1,
             titleFontSize: 10,
             titleSpacing: 8,
             label: true,
-            labelFill: '#000',
+            labelFill: "#000",
             labelOpacity: 0.45,
             labelFontSize: 10,
             line: true,
-            lineFill: '#000',
+            lineFill: "#000",
             lineStrokeOpacity: 0.25,
             tickFilter: (_: string, idx: number) => {
               return !(i !== 0 && idx === 0);
             },
             tickCount: 4,
             gridStrokeOpacity: 0.45,
-            gridStroke: '#000',
+            gridStroke: "#000",
             gridLineWidth: 1,
             gridLineDash: [4, 4],
           },

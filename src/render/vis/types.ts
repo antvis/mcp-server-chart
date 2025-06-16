@@ -10,6 +10,11 @@ export type G2ChartOptions = G2Options & {
   // Chart-specific properties
   stack?: boolean;
   group?: boolean;
+  innerRadius?: number;
+  binNumber?: number;
+  // biome-ignore lint/suspicious/noExplicitAny: Series data structure is complex and varies by chart type
+  series?: any[];
+  categories?: string[];
 };
 
 // Extended G6 options with common graph properties

@@ -1,14 +1,13 @@
-import { createChart } from '@antv/g2-ssr';
-import { type WordCloudProps } from '@antv/gpt-vis/dist/esm/WordCloud';
-import { THEME_MAP } from '../constant';
-import { CommonOptions } from './types';
+import { createChart } from "@antv/g2-ssr";
+import { THEME_MAP } from "../constant";
+import type { G2ChartOptions } from "./types";
 
-export type WordCloudOptions = CommonOptions & WordCloudProps;
+export type WordCloudOptions = G2ChartOptions;
 
 export async function WordCloud(options: WordCloudOptions) {
-  const { data, title, width = 600, height = 400, theme = 'default' } = options;
+  const { data, title, width = 600, height = 400, theme = "default" } = options;
   return await createChart({
-    type: 'wordCloud',
+    type: "wordCloud",
     theme: THEME_MAP[theme],
     layout: {
       fontSize: [8, 42],
@@ -18,9 +17,9 @@ export async function WordCloud(options: WordCloudOptions) {
     width,
     height,
     encode: {
-      text: 'text',
-      color: 'text',
-      value: 'value',
+      text: "text",
+      color: "text",
+      value: "value",
     },
     legend: false,
   });

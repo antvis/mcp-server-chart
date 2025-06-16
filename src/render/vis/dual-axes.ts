@@ -1,12 +1,18 @@
-import { createChart } from '@antv/g2-ssr';
-import { type DualAxesProps } from '@antv/gpt-vis/dist/esm/DualAxes';
-import { THEME_MAP } from '../constant';
-import { CommonOptions } from './types';
+import { createChart } from "@antv/g2-ssr";
+import { THEME_MAP } from "../constant";
+import type { G2ChartOptions } from "./types";
 
-export type DualAxespOptions = CommonOptions & DualAxesProps;
+export type DualAxespOptions = G2ChartOptions;
 
 export async function DualAxes(options: DualAxespOptions) {
-  const { series, categories, title, width = 600, height = 400, theme = 'default' } = options;
+  const {
+    series,
+    categories,
+    title,
+    width = 600,
+    height = 400,
+    theme = "default",
+  } = options;
   type DualAxesSeriesItem = {
     type: string;
     data: number[];
@@ -14,34 +20,36 @@ export async function DualAxes(options: DualAxespOptions) {
   };
 
   enum ChartType {
-    Column = 'column',
-    Line = 'line',
+    Column = "column",
+    Line = "line",
   }
 
   let radiusStyle = {};
 
-  if (theme === 'default') {
+  if (theme === "default") {
     radiusStyle = { radiusTopLeft: 4, radiusTopRight: 4 };
   }
 
   function transform(series: DualAxesSeriesItem[], categories: string[]) {
     const newChildren = series
       .sort((a, b) => {
-        const ORDER = ['column', 'line'];
+        const ORDER = ["column", "line"];
         return ORDER.indexOf(a.type) - ORDER.indexOf(b.type);
       })
+      // biome-ignore lint/suspicious/noExplicitAny: Series item structure varies by chart type
       .map((item: any) => {
         const { type, axisYTitle, ...others } = item;
 
         const baseConfig = {
           ...others,
           axis: { y: { title: axisYTitle } },
-          encode: { x: 'category', y: axisYTitle, color: () => axisYTitle },
+          encode: { x: "category", y: axisYTitle, color: () => axisYTitle },
           legend: {
             color: {
+              // biome-ignore lint/suspicious/noExplicitAny: Legend marker function parameter type varies
               itemMarker: (v: any) => {
-                if (v === axisYTitle) return 'smooth';
-                return 'rect';
+                if (v === axisYTitle) return "smooth";
+                return "rect";
               },
             },
           },
@@ -51,7 +59,7 @@ export async function DualAxes(options: DualAxespOptions) {
         if (type === ChartType.Column) {
           return {
             ...baseConfig,
-            type: 'interval',
+            type: "interval",
             style: { columnWidthRatio: 0.8, ...radiusStyle },
           };
         }
@@ -60,8 +68,13 @@ export async function DualAxes(options: DualAxespOptions) {
           return {
             ...baseConfig,
             type,
-            axis: { y: { position: 'right', title: axisYTitle } },
-            encode: { x: 'category', y: axisYTitle, shape: 'smooth', color: () => axisYTitle },
+            axis: { y: { position: "right", title: axisYTitle } },
+            encode: {
+              x: "category",
+              y: axisYTitle,
+              shape: "smooth",
+              color: () => axisYTitle,
+            },
             style: { lineWidth: 2 },
             scale: { y: { independent: true } },
           };
@@ -75,6 +88,7 @@ export async function DualAxes(options: DualAxespOptions) {
         category: item,
       } as {
         category: string;
+        // biome-ignore lint/suspicious/noExplicitAny: Dynamic properties from series data
         [key: string]: any;
       };
       series.forEach((s: DualAxesSeriesItem, i: number) => {
@@ -85,8 +99,9 @@ export async function DualAxes(options: DualAxespOptions) {
     });
 
     // todo: GPT-Vis 的 legendTypeList 是必选，不合理
+    // biome-ignore lint/suspicious/noExplicitAny: Series item type varies
     const legendTypeList = series.map((item: any) => {
-      return item.type === ChartType.Line ? 'smooth' : 'rect';
+      return item.type === ChartType.Line ? "smooth" : "rect";
     });
 
     return {
@@ -96,10 +111,10 @@ export async function DualAxes(options: DualAxespOptions) {
     };
   }
 
-  const config = transform(series, categories);
+  const config = transform(series || [], categories || []);
 
   return await createChart({
-    type: 'view',
+    type: "view",
     theme: THEME_MAP[theme],
     autoFit: true,
     title,

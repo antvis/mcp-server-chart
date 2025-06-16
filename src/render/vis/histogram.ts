@@ -1,9 +1,8 @@
-import { createChart } from '@antv/g2-ssr';
-import { type HistogramProps } from '@antv/gpt-vis/dist/esm/Histogram';
-import { THEME_MAP } from '../constant';
-import { CommonOptions } from './types';
+import { createChart } from "@antv/g2-ssr";
+import { THEME_MAP } from "../constant";
+import type { G2ChartOptions } from "./types";
 
-export type HistogramOptions = CommonOptions & HistogramProps;
+export type HistogramOptions = G2ChartOptions;
 
 export async function Histogram(options: HistogramOptions) {
   const {
@@ -14,21 +13,22 @@ export async function Histogram(options: HistogramOptions) {
     axisYTitle,
     axisXTitle,
     binNumber,
-    theme = 'default',
+    theme = "default",
   } = options;
 
   return await createChart({
-    type: 'interval',
+    type: "interval",
     theme: THEME_MAP[theme],
     width,
     height,
     data,
     title,
     encode: {
+      // biome-ignore lint/suspicious/noExplicitAny: Histogram data can be any numeric type
       x: (d: any) => d,
-      y: 'count',
+      y: "count",
     },
-    transform: [{ type: 'binX', y: 'count', thresholds: binNumber }],
+    transform: [{ type: "binX", y: "count", thresholds: binNumber }],
     style: { minHeight: 1, columnWidthRatio: 1, inset: 0.5 },
     axis: {
       x: { title: axisXTitle },

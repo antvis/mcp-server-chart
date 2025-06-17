@@ -12,7 +12,7 @@ This is a TypeScript-based MCP server that provides chart generation capabilitie
 
 Now 20+ charts supported.
 
-<img width="640" alt="mcp-server-chart preview" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*gTzvTaxZEe8AAAAAgBAAAAgAemJ7AQ/fmt.avif" />
+<img width="768" alt="mcp-server-chart preview" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*al0fQpvLxDcAAAAAgCAAAAgAemJ7AQ/fmt.avif" />
 
 1. `generate_area_chart`: Generate an `area` chart, used to display the trend of data under a continuous independent variable, allowing observation of overall data trends.
 1. `generate_bar_chart`: Generate a `bar` chart, used to compare values across different categories, suitable for horizontal comparisons.
@@ -159,7 +159,7 @@ By default, users are required to save the results themselves, but we also provi
 
 Use Alipay to scan and open the mini program to generate a personal service identifier (click the "My" menu below, enter the "My Services" page, click the "Generate" button, and click the "Copy" button after success):
 
-<img alt="My Service Identifier Page" style="width: 240px; margin-bottom: 16px;" src="https://mdn.alipayobjects.com/huamei_dxq8v0/afts/img/Oj4PRo8RM08AAAAAT1AAAAgADu43AQFr/original" />
+<img alt="my service identifier website" width="240" src="https://mdn.alipayobjects.com/huamei_dxq8v0/afts/img/Oj4PRo8RM08AAAAAT1AAAAgADu43AQFr/original" />
 
 Next, you need to add the `SERVICE_ID` environment variable to the MCP server configuration. For example, the configuration for Mac is as follows (for Windows systems, just add the `env` variable):
 
@@ -182,7 +182,7 @@ Next, you need to add the `SERVICE_ID` environment variable to the MCP server co
 
 After updating the MCP Server configuration, you need to restart your AI client application and check again whether you have started and connected to the MCP Server successfully. Then you can try to generate the map again. After the generation is successful, you can go to the "My Map" page of the mini program to view your map generation records.
 
-<img alt="My Map Records Page" style="width: 240px;" src="https://mdn.alipayobjects.com/huamei_dxq8v0/afts/img/RacFR7emR3QAAAAAUkAAAAgADu43AQFr/original" />
+<img alt="my map records website" width="240" src="https://mdn.alipayobjects.com/huamei_dxq8v0/afts/img/RacFR7emR3QAAAAAUkAAAAgADu43AQFr/original" />
 
 ## 🔨 Development
 

@@ -159,7 +159,7 @@ By default, users are required to save the results themselves, but we also provi
 
 Use Alipay to scan and open the mini program to generate a personal service identifier (click the "My" menu below, enter the "My Services" page, click the "Generate" button, and click the "Copy" button after success):
 
-<img alt="my service identifier website" width="240" src="https://mdn.alipayobjects.com/huamei_dxq8v0/afts/img/Oj4PRo8RM08AAAAAT1AAAAgADu43AQFr/original" />
+<img alt="my service identifier website" width="240" src="https://mdn.alipayobjects.com/huamei_dxq8v0/afts/img/dASoTLt6EywAAAAARqAAAAgADu43AQFr/fmt.webp" />
 
 Next, you need to add the `SERVICE_ID` environment variable to the MCP server configuration. For example, the configuration for Mac is as follows (for Windows systems, just add the `env` variable):
 

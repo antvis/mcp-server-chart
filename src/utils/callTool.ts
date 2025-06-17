@@ -1,7 +1,7 @@
 import { ErrorCode, McpError } from "@modelcontextprotocol/sdk/types.js";
 import { z } from "zod";
 import * as Charts from "../charts";
-import { generateChartUrl } from "./generate";
+import { generateChartUrl, generateMap } from "./generate";
 import { ValidateError } from "./validator";
 
 // Chart type mapping
@@ -10,6 +10,7 @@ const CHART_TYPE_MAP = {
   generate_bar_chart: "bar",
   generate_boxplot_chart: "boxplot",
   generate_column_chart: "column",
+  generate_district_map: "district-map",
   generate_dual_axes_chart: "dual-axes",
   generate_fishbone_diagram: "fishbone-diagram",
   generate_flow_diagram: "flow-diagram",
@@ -20,7 +21,9 @@ const CHART_TYPE_MAP = {
   generate_mind_map: "mind-map",
   generate_network_graph: "network-graph",
   generate_organization_chart: "organization-chart",
+  generate_path_map: "path-map",
   generate_pie_chart: "pie",
+  generate_pin_map: "pin-map",
   generate_radar_chart: "radar",
   generate_sankey_chart: "sankey",
   generate_scatter_chart: "scatter",
@@ -57,6 +60,17 @@ export async function callTool(tool: string, args: object = {}) {
           `Invalid parameters: ${result.error.message}`,
         );
       }
+    }
+
+    const isMapChartTool = [
+      "generate_district_map",
+      "generate_path_map",
+      "generate_pin_map",
+    ].includes(tool);
+    if (isMapChartTool) {
+      const { metadata, ...result } = await generateMap(tool, args);
+
+      return result;
     }
 
     const url = await generateChartUrl(chartType, args);

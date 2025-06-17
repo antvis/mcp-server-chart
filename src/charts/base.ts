@@ -46,3 +46,30 @@ export const EdgeSchema = z.object({
   target: z.string(),
   name: z.string().optional().default(""),
 });
+
+// --- The following are only available for Map charts ---
+
+export const MapTitleSchema = z
+  .string()
+  .describe(
+    "The map title should not exceed 16 characters. The content should be consistent with the information the map wants to convey and should be accurate, rich, creative, and attractive.",
+  );
+
+export const MapWidthSchema = z
+  .number()
+  .optional()
+  .default(1600)
+  .describe("Set the width of map, default is 1600.");
+
+export const MapHeightSchema = z
+  .number()
+  .optional()
+  .default(1600)
+  .describe("Set the height of map, default is 1600.");
+
+export const POIsSchema = z
+  .array(z.string())
+  .nonempty("At least one POI name is required.")
+  .describe(
+    'A list of keywords for the names of points of interest (POIs) in Chinese. These POIs usually contain a group of places with similar locations, so the names should be more descriptive, adding attributives to indicate that they are different places in the same area, such as "北京市" is better than "北京", "杭州西湖" is better than "西湖". The tool will use these keywords to search for specific POIs and query their detailed data, such as latitude and longitude, location photos, etc. For example, ["西安钟楼", "西安大唐不夜城", "西安大雁塔"].',
+  );

@@ -1,0 +1,59 @@
+{
+  "name": "generate_pin_map",
+  "description": "Generate a point map to display the location and distribution of point data on the map, such as the location distribution of attractions, hospitals, supermarkets, etc.",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "title": {
+        "type": "string",
+        "description": "The map title should not exceed 16 characters. The content should be consistent with the information the map wants to convey and should be accurate, rich, creative, and attractive."
+      },
+      "data": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "minItems": 1,
+        "description": "A list of keywords for the names of points of interest (POIs) in Chinese. These POIs usually contain a group of places with similar locations, so the names should be more descriptive, adding attributives to indicate that they are different places in the same area, such as \"北京市\" is better than \"北京\", \"杭州西湖\" is better than \"西湖\". The tool will use these keywords to search for specific POIs and query their detailed data, such as latitude and longitude, location photos, etc. For example, [\"西安钟楼\", \"西安大唐不夜城\", \"西安大雁塔\"]."
+      },
+      "markerPopup": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "default": "image",
+            "description": "Must be \"image\"."
+          },
+          "width": {
+            "type": "number",
+            "default": 40,
+            "description": "Width of the photo."
+          },
+          "height": {
+            "type": "number",
+            "default": 40,
+            "description": "Height of the photo."
+          },
+          "borderRadius": {
+            "type": "number",
+            "default": 8,
+            "description": "Border radius of the photo."
+          }
+        },
+        "description": "Marker type, one is simple mode, which is just an icon and does not require `markerPopup` configuration; the other is image mode, which displays location photos and requires `markerPopup` configuration. Among them, `width`/`height`/`borderRadius` can be combined to realize rectangular photos and square photos. In addition, when `borderRadius` is half of the width and height, it can also be a circular photo."
+      },
+      "width": {
+        "type": "number",
+        "default": 1600,
+        "description": "Set the width of map, default is 1600."
+      },
+      "height": {
+        "type": "number",
+        "default": 1600,
+        "description": "Set the height of map, default is 1600."
+      }
+    },
+    "required": ["title", "data"],
+    "$schema": "http://json-schema.org/draft-07/schema#"
+  }
+}

@@ -68,6 +68,7 @@ export async function callTool(tool: string, args: object = {}) {
       "generate_pin_map",
     ].includes(tool);
     if (isMapChartTool) {
+      // For map charts, we use the generateMap function, and return the mcp result.
       const { metadata, ...result } = await generateMap(tool, args);
 
       return result;

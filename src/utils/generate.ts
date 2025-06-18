@@ -1,5 +1,4 @@
 import type { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
-import axios from "axios";
 import { getServiceIdentifier, getVisRequestServer } from "./env";
 
 /**
@@ -16,20 +15,20 @@ export async function generateChartUrl(
 ): Promise<string> {
   const url = getVisRequestServer();
 
-  const response = await axios.post(
-    url,
-    {
+  const response = await fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
       type,
       ...options,
       source: "mcp-server-chart",
-    },
-    {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    },
-  );
-  const { success, errorMessage, resultObj } = response.data;
+    }),
+    signal: AbortSignal.timeout(15e3),
+  });
+
+  const { success, errorMessage, resultObj } = await response.json();
 
   if (!success) {
     throw new Error(errorMessage);
@@ -38,19 +37,14 @@ export async function generateChartUrl(
   return resultObj;
 }
 
-export interface ResponseResult {
+type ResponseResult = {
   metadata: unknown;
   /**
    * @docs https://modelcontextprotocol.io/specification/2025-03-26/server/tools#tool-result
    */
   content: CallToolResult["content"];
   isError?: CallToolResult["isError"];
-}
-export interface ResponseData {
-  success: boolean;
-  errorMessage?: string;
-  resultObj: ResponseResult;
-}
+};
 
 /**
  * Generate a map
@@ -61,24 +55,24 @@ export interface ResponseData {
 export async function generateMap(
   tool: string,
   input: unknown,
-): Promise<ResponseData["resultObj"]> {
+): Promise<ResponseResult> {
   const url = getVisRequestServer();
-  const params = {
-    source: "mcp-server-chart",
-    serviceId: getServiceIdentifier(),
-    tool,
-    input,
-  };
+
   const response = await fetch(url, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(params),
+    body: JSON.stringify({
+      source: "mcp-server-chart",
+      serviceId: getServiceIdentifier(),
+      tool,
+      input,
+    }),
     signal: AbortSignal.timeout(15e3),
   });
-  const { success, errorMessage, resultObj } =
-    (await response.json()) as ResponseData;
+
+  const { success, errorMessage, resultObj } = await response.json();
 
   if (!success) {
     throw new Error(errorMessage);

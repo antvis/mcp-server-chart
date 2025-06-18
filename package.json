@@ -31,7 +31,7 @@
     "access": "public"
   },
   "files": ["build"],
-  "keywords": ["antv", "mcp", "data-visualization", "chart"],
+  "keywords": ["antv", "mcp", "data-visualization", "chart", "graph", "map"],
   "repository": {
     "type": "git",
     "url": "https://github.com/antvis/mcp-server-chart"
@@ -43,7 +43,6 @@
   "license": "MIT",
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.11.4",
-    "axios": "^1.9.0",
     "zod": "^3.25.16",
     "zod-to-json-schema": "^3.24.5"
   },

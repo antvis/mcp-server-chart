@@ -25,7 +25,6 @@ export async function generateChartUrl(
       ...options,
       source: "mcp-server-chart",
     }),
-    signal: AbortSignal.timeout(15e3),
   });
 
   const { success, errorMessage, resultObj } = await response.json();
@@ -69,7 +68,6 @@ export async function generateMap(
       tool,
       input,
     }),
-    signal: AbortSignal.timeout(15e3),
   });
 
   const { success, errorMessage, resultObj } = await response.json();

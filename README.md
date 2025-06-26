@@ -123,10 +123,10 @@ Options:
 ## ⚙️ Environment Variables
 
 | Variable | Description | Default | Example |
-|----------|-------------|---------|---------|
+|----------|:------------|---------|---------|
 | `VIS_REQUEST_SERVER` | Custom chart generation service URL | `https://antv-studio.alipay.com/api/gpt-vis` | `https://your-server.com/api/chart` |
 | `SERVICE_ID` | Service identifier for chart generation records | - | `your-service-id-123` |
-| `DISABLED_TOOLS` | Comma-separated list of tool names to disable | `https://your-server.com/api/chart` | `generate_fishbone_diagram,generate_mind_map` |
+| `DISABLED_TOOLS` | Comma-separated list of tool names to disable | - | `generate_fishbone_diagram,generate_mind_map` |
 
 
 ### 📠 Private Deployment

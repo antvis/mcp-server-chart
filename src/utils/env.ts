@@ -22,11 +22,7 @@ export function getServiceIdentifier() {
  */
 export function getDisabledTools(): string[] {
   const disabledTools = process.env.DISABLED_TOOLS;
-  if (
-    disabledTools === undefined ||
-    disabledTools === "undefined" ||
-    disabledTools === ""
-  ) {
+  if (!disabledTools || disabledTools === "undefined") {
     return [];
   }
   return disabledTools.split(",");

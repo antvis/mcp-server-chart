@@ -10,6 +10,7 @@ import {
   startStdioMcpServer,
 } from "./services";
 import { callTool } from "./utils/callTool";
+import { getDisabledTools } from "./utils/env";
 
 /**
  * Creates and configures an MCP server for chart generation.
@@ -39,11 +40,25 @@ export function createServer(): Server {
 }
 
 /**
+ * Gets enabled tools based on environment variables.
+ */
+function getEnabledTools() {
+  const disabledTools = getDisabledTools();
+  const allCharts = Object.values(Charts);
+
+  if (disabledTools.length === 0) {
+    return allCharts;
+  }
+
+  return allCharts.filter((chart) => !disabledTools.includes(chart.tool.name));
+}
+
+/**
  * Sets up tool handlers for the MCP server.
  */
 function setupToolHandlers(server: Server): void {
   server.setRequestHandler(ListToolsRequestSchema, async () => ({
-    tools: Object.values(Charts).map((chart) => chart.tool),
+    tools: getEnabledTools().map((chart) => chart.tool),
   }));
 
   server.setRequestHandler(CallToolRequestSchema, async (request) => {

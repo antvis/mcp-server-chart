@@ -16,3 +16,10 @@ export function getVisRequestServer() {
 export function getServiceIdentifier() {
   return process.env.SERVICE_ID;
 }
+
+/**
+ * Get the list of disabled tools from environment variables.
+ */
+export function getDisabledTools(): string[] {
+  return process.env.DISABLED_TOOLS?.split(",") || [];
+}

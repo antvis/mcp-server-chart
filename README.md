@@ -8,6 +8,22 @@ A Model Context Protocol server for generating charts using [AntV](https://githu
 
 This is a TypeScript-based MCP server that provides chart generation capabilities. It allows you to create various types of charts through MCP tools. You can also use it in [Dify](https://marketplace.dify.ai/plugins/antv/visualization).
 
+## 📋 Table of Contents
+
+- [✨ Features](#-features)
+- [🤖 Usage](#-usage)
+- [🚰 Run with SSE or Streamable transport](#-run-with-sse-or-streamable-transport)
+- [🎮 CLI Options](#-cli-options)
+- [⚙️ Environment Variables](#%EF%B8%8F-environment-variables)
+  - [VIS_REQUEST_SERVER](#-private-deployment)
+  - [SERVICE_ID](#%EF%B8%8F-generate-records)
+  - [DISABLED_TOOLS](#%EF%B8%8F-tool-filtering)
+- [📠 Private Deployment](#-private-deployment)
+- [🗺️ Generate Records](#%EF%B8%8F-generate-records)
+- [🎛️ Tool Filtering](#%EF%B8%8F-tool-filtering)
+- [🔨 Development](#-development)
+- [📄 License](#-license)
+
 ## ✨ Features
 
 Now 20+ charts supported.
@@ -124,7 +140,7 @@ Options:
 
 | Variable | Description | Default | Example |
 |----------|:------------|---------|---------|
-| `VIS_REQUEST_SERVER` | Custom chart generation service URL | `https://antv-studio.alipay.com/api/gpt-vis` | `https://your-server.com/api/chart` |
+| `VIS_REQUEST_SERVER` | Custom chart generation service URL for private deployment | `https://antv-studio.alipay.com/api/gpt-vis` | `https://your-server.com/api/chart` |
 | `SERVICE_ID` | Service identifier for chart generation records | - | `your-service-id-123` |
 | `DISABLED_TOOLS` | Comma-separated list of tool names to disable | - | `generate_fishbone_diagram,generate_mind_map` |
 
@@ -162,30 +178,6 @@ You can use AntV's project [GPT-Vis-SSR](https://github.com/antvis/GPT-Vis/tree/
 > [!NOTE]
 > The private deployment solution currently does not support geographic visualization chart generation include 3 tools: `geographic-district-map`, `geographic-path-map`, `geographic-pin-map`.
 
-### 🎛️ Tool Filtering
-
-You can disable specific chart generation tools using the `DISABLED_TOOLS` environment variable. This is useful when certain tools have compatibility issues with your MCP client or when you want to limit the available functionality.
-
-```json
-{
-  "mcpServers": {
-    "mcp-server-chart": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "@antv/mcp-server-chart"
-      ],
-      "env": {
-        "DISABLED_TOOLS": "generate_fishbone_diagram,generate_mind_map"
-      }
-    }
-  }
-}
-```
-
-**Available tool names for filtering** See the [✨ Features](#-features).
-
-
 ### 🗺️ Generate Records
 
 By default, users are required to save the results themselves, but we also provide a service for viewing the chart generation records, which requires users to generate a service identifier for themselves and configure it.
@@ -216,6 +208,29 @@ Next, you need to add the `SERVICE_ID` environment variable to the MCP server co
 After updating the MCP Server configuration, you need to restart your AI client application and check again whether you have started and connected to the MCP Server successfully. Then you can try to generate the map again. After the generation is successful, you can go to the "My Map" page of the mini program to view your map generation records.
 
 <img alt="my map records website" width="240" src="https://mdn.alipayobjects.com/huamei_dxq8v0/afts/img/RacFR7emR3QAAAAAUkAAAAgADu43AQFr/original" />
+
+### 🎛️ Tool Filtering
+
+You can disable specific chart generation tools using the `DISABLED_TOOLS` environment variable. This is useful when certain tools have compatibility issues with your MCP client or when you want to limit the available functionality.
+
+```json
+{
+  "mcpServers": {
+    "mcp-server-chart": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@antv/mcp-server-chart"
+      ],
+      "env": {
+        "DISABLED_TOOLS": "generate_fishbone_diagram,generate_mind_map"
+      }
+    }
+  }
+}
+```
+
+**Available tool names for filtering** See the [✨ Features](#-features).
 
 ## 🔨 Development
 

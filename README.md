@@ -120,9 +120,46 @@ Options:
   --help, -h       Show this help message
 ```
 
+## 🎛️ Tool Filtering
+
+You can disable specific chart generation tools using the `DISABLED_TOOLS` environment variable. This is useful when certain tools have compatibility issues with your MCP client or when you want to limit the available functionality.
+
+```json
+{
+  "mcpServers": {
+    "mcp-server-chart": {
+      "command": "npx",
+      "args": ["-y", "@antv/mcp-server-chart"],
+      "env": {
+        "DISABLED_TOOLS": "generate_fishbone_diagram,generate_mind_map"
+      }
+    }
+  }
+}
+```
+
+**Available tool names for filtering:**
+- `generate_area_chart`, `generate_bar_chart`, `generate_boxplot_chart`
+- `generate_column_chart`, `generate_district_map`, `generate_dual_axes_chart`
+- `generate_fishbone_diagram`, `generate_flow_diagram`, `generate_funnel_chart`
+- `generate_histogram_chart`, `generate_line_chart`, `generate_liquid_chart`
+- `generate_mind_map`, `generate_network_graph`, `generate_organization_chart`
+- `generate_path_map`, `generate_pie_chart`, `generate_pin_map`
+- `generate_radar_chart`, `generate_sankey_chart`, `generate_scatter_chart`
+- `generate_treemap_chart`, `generate_venn_chart`, `generate_violin_chart`
+- `generate_word_cloud_chart`
+
 ## 📠 Private Deployment
 
 `MCP Server Chart` provides a free chart generation service by default. For users with a need for private deployment, they can try using `VIS_REQUEST_SERVER` to customize their own chart generation service.
+
+### Environment Variables
+
+| Variable | Description | Default | Example |
+|----------|-------------|---------|---------|
+| `VIS_REQUEST_SERVER` | Custom chart generation service URL | `https://antv-studio.alipay.com/api/gpt-vis` | `https://your-server.com/api/chart` |
+| `SERVICE_ID` | Service identifier for chart generation records | - | `your-service-id-123` |
+| `DISABLED_TOOLS` | Comma-separated list of tool names to disable | - | `generate_fishbone_diagram,generate_mind_map` |
 
 ```json
 {
@@ -134,7 +171,8 @@ Options:
         "@antv/mcp-server-chart"
       ],
       "env": {
-        "VIS_REQUEST_SERVER": "<YOUR_VIS_REQUEST_SERVER>"
+        "VIS_REQUEST_SERVER": "<YOUR_VIS_REQUEST_SERVER>",
+        "DISABLED_TOOLS": "generate_fishbone_diagram,generate_mind_map"
       }
     }
   }

@@ -28,7 +28,7 @@ describe("env", () => {
 
   it("handle empty disabled tools env", () => {
     process.env.DISABLED_TOOLS = "";
-    expect(getDisabledTools()).toEqual([""]);
+    expect(getDisabledTools()).toEqual([]);
   });
 
   afterEach(() => {

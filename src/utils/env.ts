@@ -21,5 +21,13 @@ export function getServiceIdentifier() {
  * Get the list of disabled tools from environment variables.
  */
 export function getDisabledTools(): string[] {
-  return process.env.DISABLED_TOOLS?.split(",") || [];
+  const disabledTools = process.env.DISABLED_TOOLS;
+  if (
+    disabledTools === undefined ||
+    disabledTools === "undefined" ||
+    disabledTools === ""
+  ) {
+    return [];
+  }
+  return disabledTools.split(",");
 }

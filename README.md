@@ -169,7 +169,7 @@ Options:
 You can use AntV's project [GPT-Vis-SSR](https://github.com/antvis/GPT-Vis/tree/main/bindings/gpt-vis-ssr) to deploy an HTTP service in a private environment, and then pass the URL address through env `VIS_REQUEST_SERVER`.
 
 - **Method**: `POST`
-- **Parameter**: Which will be passed to `GPT-Vis-SSR` for renderring. Such as, `{ "type": "line", "data": [{ "time": "2025-05", "value": "512" }, { "time": "2025-06", "value": "1024" }] }`.
+- **Parameter**: Which will be passed to `GPT-Vis-SSR` for rendering. Such as, `{ "type": "line", "data": [{ "time": "2025-05", "value": "512" }, { "time": "2025-06", "value": "1024" }] }`.
 - **Return**: The return object of HTTP service.
   - **success**: `boolean` Whether generate chart image successfully.
   - **resultObj**: `string` The chart image url.

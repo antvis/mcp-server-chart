@@ -117,25 +117,6 @@ All functionality has been preserved while dramatically improving the codebase's
 
 **Priority Order**: Tests → Types → Validation → Performance → Integration Testing
 
-## 🧭 Context Breadcrumbs for AI Agents
+## 📖 Technical Context
 
-### Key Architecture Patterns
-- **Chart Types**: 15 chart types split between G2 (basic charts) and G6 (graph visualizations)
-- **Type System**: `G2ChartOptions` extends `@antv/g2-ssr.Options`, `G6ChartOptions` extends `@antv/g6-ssr.Options`
-- **Validation**: All schemas use Zod with custom refinements for complex data (nodes/edges, tree structures)
-- **Rendering**: `src/render/index.ts` dispatches to chart-specific functions, returns `Chart | Graph` union type
-- **Tool Mapping**: `CHART_TYPE_MAP` in `src/utils/callTool.ts` maps MCP tool names to chart types
-
-### Critical Files & Locations
-- **Chart Definitions**: `src/charts/*.ts` - Each exports `{ schema, tool }` with Zod validation
-- **Render Pipeline**: `src/render/vis/*.ts` - Chart-specific rendering functions using SSR packages
-- **Type Definitions**: `src/render/vis/types.ts` - Base types and union definitions
-- **Validation Logic**: `src/utils/validator.ts` - Zod schemas for complex data structures
-- **Entry Points**: `src/index.ts` (CLI), `src/server.ts` (MCP server), `src/sdk.ts` (programmatic)
-
-### Known Issues & Patterns
-- **Vendored Code**: `src/render/utils.ts` and `src/render/constant.ts` are copied from GPT-Vis, have many `any` types
-- **Test Structure**: `__tests__/charts/charts.spec.ts` compares generated schemas against expected JSON
-- **Error Handling**: Uses `McpError` with proper error codes, Zod validation provides detailed messages
-- **Build Process**: TypeScript + tsc-alias for ES module .js extensions, Biome for linting/formatting
-- **Memory Management**: Charts call `.destroy()` in finally blocks, but no instance pooling exists
+For comprehensive technical context, architecture patterns, and implementation details needed to work with this codebase, see **[CONTEXT.md](./CONTEXT.md)**.

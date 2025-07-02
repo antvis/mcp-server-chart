@@ -3,12 +3,36 @@
 ## Overview
 Manual end-to-end testing strategy to validate chart generation across all 15 chart types with comprehensive property and configuration coverage. Focus on happy path testing with some stress tests for commonly used charts.
 
+## Expected Test Output
+- **15 chart types** × **2-4 configurations each** = ~45 test cases
+- **File generation confirmation** for each test case
+- **Performance metrics** logged when monitoring enabled
+- **Clear pass/fail status** for each test
+- **Summary report** with timing and file size information
+
 ## Test Implementation Requirements
 - **Node.js script** using `generateChartUrl()` function
 - **Mock data generators** for each chart type with realistic datasets
 - **Configuration matrix** testing different property combinations
 - **Output validation** by checking successful file generation
 - **Performance logging** when monitoring is enabled
+
+## File Output Requirements
+- **Output directory**: `test-charts/` (gitignored)
+- **File naming**: Clear, descriptive names like:
+  - `line-basic-default-600x400.png`
+  - `column-grouped-academy-800x600.png`
+  - `pie-donut-stress-1200x800.png`
+  - `network-graph-basic-default-600x400.png`
+- **Flat structure**: All files in single directory (no subdirectories)
+
+## Dimension Testing
+- **Three standard sizes** for basic tests of each chart type:
+  - Small: 600×400 (default)
+  - Medium: 800×600 
+  - Large: 1200×800
+- **Rotate through sizes** for basic test of each chart type
+- **Use default size** (600×400) for variant/stress tests unless size is specifically being tested
 
 ## Chart Types & Configurations to Test
 
@@ -120,9 +144,5 @@ Manual end-to-end testing strategy to validate chart generation across all 15 ch
 { name: 'Root', children: [{ name: 'Branch 1', children: [...] }] }
 ```
 
-## Expected Test Output
-- **15 chart types** × **2-4 configurations each** = ~45 test cases
-- **File generation confirmation** for each test case
-- **Performance metrics** logged when monitoring enabled
-- **Clear pass/fail status** for each test
-- **Summary report** with timing and file size information
+---
+*This document provides complete specifications for building an end-to-end chart generation testing system with concrete requirements and examples.*

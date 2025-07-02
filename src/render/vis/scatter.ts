@@ -1,8 +1,8 @@
 import { createChart } from "@antv/g2-ssr";
 import { THEME_MAP } from "../constant";
-import type { G2ChartOptions } from "./types";
+import type { BasicG2ChartOptions } from "./types";
 
-export type ScatterOptions = G2ChartOptions;
+export type ScatterOptions = BasicG2ChartOptions;
 
 export async function Scatter(options: ScatterOptions) {
   const {

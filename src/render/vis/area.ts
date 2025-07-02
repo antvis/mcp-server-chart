@@ -1,8 +1,8 @@
 import { createChart } from "@antv/g2-ssr";
 import { THEME_MAP } from "../constant";
-import type { G2ChartOptions } from "./types";
+import type { GroupableChartOptions } from "./types";
 
-export type AreaOptions = G2ChartOptions;
+export type AreaOptions = GroupableChartOptions;
 
 export async function Area(options: AreaOptions) {
   const {

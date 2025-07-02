@@ -1,8 +1,8 @@
 import { createChart } from "@antv/g2-ssr";
 import { THEME_MAP } from "../constant";
-import type { G2ChartOptions } from "./types";
+import type { BasicG2ChartOptions } from "./types";
 
-export type TreemapOptions = G2ChartOptions;
+export type TreemapOptions = BasicG2ChartOptions;
 
 export async function Treemap(options: TreemapOptions) {
   const { data, title, width = 600, height = 400, theme = "default" } = options;

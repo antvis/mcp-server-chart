@@ -1,8 +1,8 @@
 import { createChart } from "@antv/g2-ssr";
 import { THEME_MAP } from "../constant";
-import type { G2ChartOptions } from "./types";
+import type { BasicG2ChartOptions } from "./types";
 
-export type WordCloudOptions = G2ChartOptions;
+export type WordCloudOptions = BasicG2ChartOptions;
 
 export async function WordCloud(options: WordCloudOptions) {
   const { data, title, width = 600, height = 400, theme = "default" } = options;

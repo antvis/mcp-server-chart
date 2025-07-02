@@ -1,9 +1,9 @@
 import { createChart } from "@antv/g2-ssr";
 import { THEME_MAP } from "../constant";
 import { groupBy } from "../utils";
-import type { G2ChartOptions } from "./types";
+import type { BasicG2ChartOptions } from "./types";
 
-export type RadarOptions = G2ChartOptions;
+export type RadarOptions = BasicG2ChartOptions;
 
 /**
  * Transform data:

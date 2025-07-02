@@ -3,7 +3,7 @@ import { z } from "zod";
 // Node and Edge Graph Data Types, recursively defined for validation.
 export type NodeEdgeDataType = {
   nodes: Array<{ name: string }>;
-  edges: Array<{ name: string; source: string; target: string }>;
+  edges: Array<{ name?: string; source: string; target: string }>;
 };
 
 // Treemap Graph Data Type, recursively defined for validation.
@@ -17,13 +17,15 @@ export type TreeDataType = {
  * - Node names must be unique
  * - Edge sources and targets must exist in nodes
  * - Edge pairs must be unique
+ * - Nodes array must have at least 1 item
+ * - Edge names are optional with empty string default
  */
 export const nodeEdgeDataSchema = z
   .object({
-    nodes: z.array(z.object({ name: z.string() })),
+    nodes: z.array(z.object({ name: z.string() })).min(1),
     edges: z.array(
       z.object({
-        name: z.string(),
+        name: z.string().default(""),
         source: z.string(),
         target: z.string(),
       }),

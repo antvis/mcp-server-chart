@@ -50,11 +50,17 @@ Manual end-to-end testing strategy to validate chart generation across all 15 ch
 - Stress: 100+ categories
 - Props: `group` (true/false), `stack` (true/false), `theme`, `title`, `axisXTitle`, `axisYTitle`
 
-**Pie Chart**
-- Basic: 6 slices
-- Donut: 6 slices with innerRadius
-- Stress: 50+ slices
-- Props: `innerRadius` (0, 0.3, 0.6), `theme`, `title`, `width`/`height`
+**Bar Chart**
+- Basic: 5 categories, single values
+- Grouped: 5 categories, 2 groups
+- Stress: 100+ categories
+- Props: `group` (true/false), `theme`, `title`, `axisXTitle`, `axisYTitle`
+
+**Dual-Axes Chart**
+- Basic: Column + line series with categories
+- Complex: Multiple series combinations
+- Stress: 50+ categories with multiple series
+- Props: `series` (column/line combinations), `categories`, `theme`, `title`, `axisXTitle`
 
 ### All Chart Types (Basic + One Variant Each)
 
@@ -63,10 +69,10 @@ Manual end-to-end testing strategy to validate chart generation across all 15 ch
 - Stacked: 10 points, 3 series
 - Props: `stack` (true/false), `theme`, `title`, `axisXTitle`, `axisYTitle`
 
-**Bar Chart**
-- Basic: 5 categories
-- Grouped: 5 categories, 2 groups
-- Props: `group` (true/false), `theme`, `title`, `axisXTitle`, `axisYTitle`
+**Pie Chart**
+- Basic: 6 slices
+- Donut: 6 slices with innerRadius
+- Props: `innerRadius` (0, 0.3, 0.6), `theme`, `title`, `width`/`height`
 
 **Scatter Chart**
 - Basic: 20 points with x/y values
@@ -88,10 +94,6 @@ Manual end-to-end testing strategy to validate chart generation across all 15 ch
 **Word Cloud Chart**
 - Basic: 30 words with frequencies
 - Props: `theme`, `title`
-
-**Dual-Axes Chart**
-- Basic: Column + line series with categories
-- Props: `series` (column/line combinations), `categories`, `theme`, `title`, `axisXTitle`
 
 **Network Graph**
 - Basic: 8 nodes, 12 edges with labels

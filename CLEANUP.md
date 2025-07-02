@@ -82,3 +82,60 @@ The codebase is now in excellent shape for future development:
 - Code quality is maintained automatically with improved tooling
 
 All functionality has been preserved while dramatically improving the codebase's maintainability, type safety, and developer experience! 🎉
+
+---
+
+# 🔄 Next Phase Refactoring Tasks
+*Started: January 2, 2025*
+
+## Next Top 5 Refactoring Priorities
+
+### 1. **Fix Failing Tests & Update Test Expectations**
+- **Issue**: 2 tests failing due to schema structure changes from Zod migration
+- **Fix**: Update test expectations to match new validation error formats
+- **Impact**: Restore CI/CD reliability
+
+### 2. **Add Proper Types to Vendored G6 Utilities**
+- **Issue**: `src/render/utils.ts` and `src/render/constant.ts` have 20+ `any` types
+- **Fix**: Create proper interfaces for G6 node attributes, theme maps, and utility functions
+- **Impact**: Complete type safety across entire codebase
+
+### 3. **Implement Proper Chart Configuration Validation**
+- **Issue**: Chart-specific properties (stack, group, series, etc.) are loosely typed
+- **Fix**: Create specific option types per chart instead of generic `G2ChartOptions`
+- **Impact**: Better validation and IDE support for chart configurations
+
+### 4. **Optimize Render Pipeline & Memory Management**
+- **Issue**: Each chart creates new instances without pooling, potential memory leaks
+- **Fix**: Implement chart instance pooling and better cleanup lifecycle
+- **Impact**: Better performance for high-volume chart generation
+
+### 5. **Add Comprehensive Integration Tests**
+- **Issue**: Only unit tests exist, no end-to-end chart generation testing
+- **Fix**: Add tests that actually generate charts and verify outputs
+- **Impact**: Catch rendering regressions and validate chart quality
+
+**Priority Order**: Tests → Types → Validation → Performance → Integration Testing
+
+## 🧭 Context Breadcrumbs for AI Agents
+
+### Key Architecture Patterns
+- **Chart Types**: 15 chart types split between G2 (basic charts) and G6 (graph visualizations)
+- **Type System**: `G2ChartOptions` extends `@antv/g2-ssr.Options`, `G6ChartOptions` extends `@antv/g6-ssr.Options`
+- **Validation**: All schemas use Zod with custom refinements for complex data (nodes/edges, tree structures)
+- **Rendering**: `src/render/index.ts` dispatches to chart-specific functions, returns `Chart | Graph` union type
+- **Tool Mapping**: `CHART_TYPE_MAP` in `src/utils/callTool.ts` maps MCP tool names to chart types
+
+### Critical Files & Locations
+- **Chart Definitions**: `src/charts/*.ts` - Each exports `{ schema, tool }` with Zod validation
+- **Render Pipeline**: `src/render/vis/*.ts` - Chart-specific rendering functions using SSR packages
+- **Type Definitions**: `src/render/vis/types.ts` - Base types and union definitions
+- **Validation Logic**: `src/utils/validator.ts` - Zod schemas for complex data structures
+- **Entry Points**: `src/index.ts` (CLI), `src/server.ts` (MCP server), `src/sdk.ts` (programmatic)
+
+### Known Issues & Patterns
+- **Vendored Code**: `src/render/utils.ts` and `src/render/constant.ts` are copied from GPT-Vis, have many `any` types
+- **Test Structure**: `__tests__/charts/charts.spec.ts` compares generated schemas against expected JSON
+- **Error Handling**: Uses `McpError` with proper error codes, Zod validation provides detailed messages
+- **Build Process**: TypeScript + tsc-alias for ES module .js extensions, Biome for linting/formatting
+- **Memory Management**: Charts call `.destroy()` in finally blocks, but no instance pooling exists

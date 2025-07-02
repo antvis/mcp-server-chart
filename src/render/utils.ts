@@ -1,7 +1,14 @@
 import { G6 } from "@antv/g6-ssr";
 const { register, BaseNode, BaseTransform, ExtensionCategory, idOf } = G6;
 
-export const DEFAULT_COLOR_PALETTE = {
+// Color palette interface for theme configuration
+export interface ColorPalette {
+  type: "assign-color-by-branch";
+  colors: string[];
+  [key: string]: any; // Allow additional properties for G6 compatibility
+}
+
+export const DEFAULT_COLOR_PALETTE: ColorPalette = {
   type: "assign-color-by-branch",
   colors: [
     "#1783FF",
@@ -17,7 +24,7 @@ export const DEFAULT_COLOR_PALETTE = {
   ],
 };
 
-export const ACADEMY_COLOR_PALETTE = {
+export const ACADEMY_COLOR_PALETTE: ColorPalette = {
   type: "assign-color-by-branch",
   colors: [
     "#4e79a7",
@@ -32,12 +39,18 @@ export const ACADEMY_COLOR_PALETTE = {
     "#bab0ab",
   ],
 };
+
+// Transform options interface
+interface AssignColorByBranchOptions {
+  colors: string[];
+}
+
 class AssignColorByBranch extends BaseTransform {
-  static defaultOptions = {
+  static defaultOptions: AssignColorByBranchOptions = {
     colors: DEFAULT_COLOR_PALETTE.colors,
   };
 
-  constructor(context: G6.RuntimeContext, options: any) {
+  constructor(context: any, options: Partial<AssignColorByBranchOptions>) {
     super(
       context,
       Object.assign({}, AssignColorByBranch.defaultOptions, options),
@@ -50,19 +63,19 @@ class AssignColorByBranch extends BaseTransform {
     if (nodes.length === 0) return input;
 
     let colorIndex = 0;
-    const dfs = (nodeId: string, color: any) => {
-      const node = nodes.find((datum) => datum.id == nodeId);
+    const dfs = (nodeId: string, color?: string) => {
+      const node = nodes.find((datum: any) => datum.id == nodeId);
       if (!node) return;
 
       node.style ||= {};
       node.style.color =
         color || this.options.colors[colorIndex++ % this.options.colors.length];
-      node.children?.forEach((childId) => dfs(childId, node.style?.color));
+      node.children?.forEach((childId: string) => dfs(childId as string, node.style?.color as string));
     };
-    // @ts-ignore
+    
     nodes
-      .filter((node) => node.depth === 1)
-      .forEach((rootNode) => dfs(rootNode.id, undefined));
+      .filter((node: any) => node.depth === 1)
+      .forEach((rootNode: any) => dfs(rootNode.id, undefined));
 
     return input;
   }
@@ -82,12 +95,12 @@ class MindmapNode extends BaseNode {
     return idOf(this.context.model.getRootsData()[0]);
   }
 
-  isShowCollapse(attributes: { collapsed: any; showIcon: any }) {
-    const { collapsed, showIcon } = attributes;
+  isShowCollapse(attributes: { collapsed?: boolean; showIcon?: boolean }): boolean {
+    const { collapsed = false, showIcon = false } = attributes;
     return !collapsed && showIcon && this.childrenData.length > 0;
   }
 
-  getCollapseStyle(attributes: any) {
+  getCollapseStyle(attributes: any): object | false {
     const { showIcon, color, direction } = attributes;
     if (!this.isShowCollapse(attributes)) return false;
     const [width, height] = this.getSize(attributes);
@@ -109,9 +122,9 @@ class MindmapNode extends BaseNode {
     };
   }
 
-  drawCollapseShape() {}
+  drawCollapseShape(): void {}
 
-  getCountStyle(attributes: any) {
+  getCountStyle(attributes: any): object | false {
     const { collapsed, color, direction } = attributes;
     const count = this.context.model.getDescendantsData(this.id).length;
     if (!collapsed || count === 0) return false;
@@ -130,9 +143,9 @@ class MindmapNode extends BaseNode {
     };
   }
 
-  drawCountShape() {}
+  drawCountShape(): void {}
 
-  getAddStyle(attributes: any) {
+  getAddStyle(attributes: any): object | false {
     const { collapsed, showIcon, direction } = attributes;
     if (collapsed || !showIcon) return false;
     const [width, height] = this.getSize(attributes);
@@ -162,7 +175,7 @@ class MindmapNode extends BaseNode {
     };
   }
 
-  getAddBarStyle(attributes: any) {
+  getAddBarStyle(attributes: any): object | false {
     const { collapsed, showIcon, direction, color = "#1783FF" } = attributes;
     if (collapsed || !showIcon) return false;
     const [width, height] = this.getSize(attributes);
@@ -191,11 +204,11 @@ class MindmapNode extends BaseNode {
     };
   }
 
-  drawAddShape() {}
+  drawAddShape(): void {}
 
-  forwardEvent() {}
+  forwardEvent(): void {}
 
-  getKeyStyle(attributes: any) {
+  getKeyStyle(attributes: any): object {
     const [width, height] = this.getSize(attributes);
     const keyShape = super.getKeyStyle(attributes);
     return { width, height, ...keyShape };
@@ -206,7 +219,7 @@ class MindmapNode extends BaseNode {
     return this.upsert("key", "rect", keyStyle, container);
   }
 
-  render(attributes = this.parsedAttributes, container = this) {
+  render(attributes = this.parsedAttributes, container = this): void {
     super.render(attributes, container);
   }
 }
@@ -221,11 +234,14 @@ register(
 /**
  * Same with lodash's `groupBy` function.
  * Groups the elements of an array based on a key function.
- * @param data
- * @param keyFunc
- * @returns
+ * @param data - Array of items to group
+ * @param keyFunc - Function that returns the grouping key for each item
+ * @returns Object with keys as group names and values as arrays of items
  */
-export function groupBy(data: any[], keyFunc: (d: any) => string) {
+export function groupBy<T>(
+  data: T[], 
+  keyFunc: (item: T) => string
+): Record<string, T[]> {
   return data.reduce(
     (acc, item) => {
       const key = keyFunc(item);
@@ -235,6 +251,6 @@ export function groupBy(data: any[], keyFunc: (d: any) => string) {
       acc[key].push(item);
       return acc;
     },
-    {} as Record<string, any[]>,
+    {} as Record<string, T[]>,
   );
 }

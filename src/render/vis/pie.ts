@@ -1,8 +1,8 @@
 import { createChart } from "@antv/g2-ssr";
 import { THEME_MAP } from "../constant";
-import type { G2ChartOptions } from "./types";
+import type { PieChartOptions } from "./types";
 
-export type PieOptions = G2ChartOptions;
+export type PieOptions = PieChartOptions;
 
 export async function Pie(options: PieOptions) {
   const {

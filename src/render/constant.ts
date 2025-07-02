@@ -101,3 +101,19 @@ export const G6THEME_MAP: Record<string, typeof DEFAULT_COLOR_PALETTE> = {
   default: DEFAULT_COLOR_PALETTE,
   academy: ACADEMY_COLOR_PALETTE,
 };
+
+// Helper function to safely get theme
+export function getTheme(theme: string | false): G2Theme {
+  if (theme === false || typeof theme !== 'string') {
+    return DEFAULT_THEME;
+  }
+  return THEME_MAP[theme] || DEFAULT_THEME;
+}
+
+// Helper function to safely get G6 theme
+export function getG6Theme(theme: string | false): typeof DEFAULT_COLOR_PALETTE {
+  if (theme === false || typeof theme !== 'string') {
+    return DEFAULT_COLOR_PALETTE;
+  }
+  return G6THEME_MAP[theme] || DEFAULT_COLOR_PALETTE;
+}

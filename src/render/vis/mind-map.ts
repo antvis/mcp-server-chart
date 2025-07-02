@@ -2,10 +2,10 @@ import { G6, createGraph } from "@antv/g6-ssr";
 import type { CanvasRenderingContext2D } from "canvas";
 import { createCanvas } from "canvas";
 import { G6THEME_MAP } from "../constant";
-import type { G6ChartOptions } from "./types";
+import type { TreeChartOptions } from "./types";
 const { idOf, positionOf, treeToGraphData } = G6;
 
-export type MindMapOptions = G6ChartOptions;
+export type MindMapOptions = TreeChartOptions;
 
 let canvas: ReturnType<typeof createCanvas> | null = null;
 let ctx: CanvasRenderingContext2D | null = null;

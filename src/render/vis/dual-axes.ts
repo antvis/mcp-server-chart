@@ -1,8 +1,8 @@
 import { createChart } from "@antv/g2-ssr";
 import { THEME_MAP } from "../constant";
-import type { G2ChartOptions } from "./types";
+import type { DualAxesChartOptions } from "./types";
 
-export type DualAxespOptions = G2ChartOptions;
+export type DualAxespOptions = DualAxesChartOptions;
 
 export async function DualAxes(options: DualAxespOptions) {
   const {

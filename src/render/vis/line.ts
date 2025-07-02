@@ -1,8 +1,8 @@
 import { createChart } from "@antv/g2-ssr";
-import { THEME_MAP } from "../constant";
-import type { G2ChartOptions } from "./types";
+import { getTheme } from "../constant";
+import type { BasicG2ChartOptions } from "./types";
 
-export type LineOptions = G2ChartOptions;
+export type LineOptions = BasicG2ChartOptions;
 
 export async function Line(options: LineOptions) {
   const {
@@ -31,7 +31,7 @@ export async function Line(options: LineOptions) {
     width,
     height,
     encode: encode,
-    theme: THEME_MAP[theme],
+    theme: getTheme(theme),
     insetRight: 12,
     insetTop: 4,
     style: { minHeight: 1 },

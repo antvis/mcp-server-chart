@@ -1,8 +1,8 @@
 import { createChart } from "@antv/g2-ssr";
 import { THEME_MAP } from "../constant";
-import type { G2ChartOptions } from "./types";
+import type { HistogramChartOptions } from "./types";
 
-export type HistogramOptions = G2ChartOptions;
+export type HistogramOptions = HistogramChartOptions;
 
 export async function Histogram(options: HistogramOptions) {
   const {

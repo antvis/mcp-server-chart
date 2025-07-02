@@ -17,6 +17,22 @@ import { Scatter } from "./vis/scatter";
 import { Treemap } from "./vis/treemap";
 import { WordCloud } from "./vis/word-cloud";
 
+/**
+ * Check if performance monitoring is enabled
+ */
+function isPerformanceMonitoringEnabled(): boolean {
+  return process.env.DISABLE_PERFORMANCE_MONITORING !== "true";
+}
+
+/**
+ * Log message if performance monitoring is enabled
+ */
+function logIfEnabled(message: string, ...args: unknown[]): void {
+  if (isPerformanceMonitoringEnabled()) {
+    console.log(message, ...args);
+  }
+}
+
 // Chart type definitions
 export type ChartType = keyof typeof VIS;
 // biome-ignore lint/suspicious/noExplicitAny: Chart options vary significantly between G2 and G6 charts
@@ -120,13 +136,13 @@ export async function render(options: Options): Promise<Chart | Graph> {
       );
     }
 
-    console.log(`[RENDER] Starting ${type} chart render...`);
+    logIfEnabled(`[RENDER] Starting ${type} chart render...`);
 
     // Render the chart
     const chart = await renderVis(rest);
     const renderDuration = Date.now() - renderStartTime;
 
-    console.log(
+    logIfEnabled(
       `[RENDER] Successfully rendered ${type} chart in ${renderDuration}ms`,
     );
 

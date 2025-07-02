@@ -38,29 +38,60 @@ function getMemorySnapshot(): NodeJS.MemoryUsage {
 }
 
 /**
+ * Check if performance monitoring is enabled
+ */
+function isPerformanceMonitoringEnabled(): boolean {
+  return process.env.DISABLE_PERFORMANCE_MONITORING !== "true";
+}
+
+/**
+ * Log performance metrics if monitoring is enabled
+ */
+function logPerformanceMetrics(
+  type: string,
+  metrics: Record<string, unknown>,
+): void {
+  if (isPerformanceMonitoringEnabled()) {
+    console.log(`[LOCAL] Performance metrics for ${type} chart:`, metrics);
+  }
+}
+
+/**
+ * Log message if performance monitoring is enabled
+ */
+function logIfEnabled(message: string, ...args: unknown[]): void {
+  if (isPerformanceMonitoringEnabled()) {
+    console.log(message, ...args);
+  }
+}
+
+/**
  * Generate a chart URL using local SSR rendering with performance monitoring.
  * @param type The type of chart to generate
  * @param options Chart options
- * @param timeout Optional timeout in milliseconds (default: 30000)
+ * @param timeout Optional timeout in milliseconds (default: 15000)
  * @returns {Promise<string>} The generated chart file URL.
  * @throws {Error} If the chart generation fails.
  */
 export async function generateChartUrl(
   type: string,
   options: Record<string, unknown>,
-  timeout = 30000,
+  timeout = 15000,
 ): Promise<string> {
   let vis: Chart | Graph | null = null;
+  const enableMonitoring = isPerformanceMonitoringEnabled();
   const metrics: RenderMetrics = {
     startTime: Date.now(),
     memoryUsage: {
-      before: getMemorySnapshot(),
-      after: getMemorySnapshot(), // Will be updated later
+      before: enableMonitoring
+        ? getMemorySnapshot()
+        : ({} as NodeJS.MemoryUsage),
+      after: {} as NodeJS.MemoryUsage, // Will be updated later
     },
   };
 
   try {
-    console.log(
+    logIfEnabled(
       `[LOCAL] Generating ${type} chart with options:`,
       JSON.stringify(options, null, 2),
     );
@@ -79,12 +110,12 @@ export async function generateChartUrl(
     vis = await Promise.race([renderPromise, timeoutPromise]);
 
     // Generate buffer and measure performance
-    const bufferStartTime = Date.now();
+    const bufferStartTime = enableMonitoring ? Date.now() : 0;
     const buffer = vis.toBuffer();
-    const bufferEndTime = Date.now();
+    const bufferEndTime = enableMonitoring ? Date.now() : 0;
 
     metrics.bufferSize = buffer.length;
-    console.log(
+    logIfEnabled(
       `[LOCAL] Generated buffer of size: ${buffer.length} bytes in ${bufferEndTime - bufferStartTime}ms`,
     );
 
@@ -92,33 +123,35 @@ export async function generateChartUrl(
     const fileName = `chart-${randomUUID()}.png`;
     const filePath = join(tmpdir(), fileName);
 
-    const writeStartTime = Date.now();
+    const writeStartTime = enableMonitoring ? Date.now() : 0;
     await writeFile(filePath, buffer);
-    const writeEndTime = Date.now();
+    const writeEndTime = enableMonitoring ? Date.now() : 0;
 
     // Update metrics
-    metrics.endTime = Date.now();
-    metrics.duration = metrics.endTime - metrics.startTime;
-    metrics.memoryUsage.after = getMemorySnapshot();
+    if (enableMonitoring) {
+      metrics.endTime = Date.now();
+      metrics.duration = metrics.endTime - metrics.startTime;
+      metrics.memoryUsage.after = getMemorySnapshot();
 
-    // Log performance metrics
-    console.log(`[LOCAL] Performance metrics for ${type} chart:`, {
-      totalDuration: metrics.duration,
-      bufferGeneration: bufferEndTime - bufferStartTime,
-      fileWrite: writeEndTime - writeStartTime,
-      bufferSize: metrics.bufferSize,
-      memoryDelta: {
-        rss: metrics.memoryUsage.after.rss - metrics.memoryUsage.before.rss,
-        heapUsed:
-          metrics.memoryUsage.after.heapUsed -
-          metrics.memoryUsage.before.heapUsed,
-        heapTotal:
-          metrics.memoryUsage.after.heapTotal -
-          metrics.memoryUsage.before.heapTotal,
-      },
-    });
+      // Log performance metrics
+      logPerformanceMetrics(type, {
+        totalDuration: metrics.duration,
+        bufferGeneration: bufferEndTime - bufferStartTime,
+        fileWrite: writeEndTime - writeStartTime,
+        bufferSize: metrics.bufferSize,
+        memoryDelta: {
+          rss: metrics.memoryUsage.after.rss - metrics.memoryUsage.before.rss,
+          heapUsed:
+            metrics.memoryUsage.after.heapUsed -
+            metrics.memoryUsage.before.heapUsed,
+          heapTotal:
+            metrics.memoryUsage.after.heapTotal -
+            metrics.memoryUsage.before.heapTotal,
+        },
+      });
+    }
 
-    console.log(`[LOCAL] Saved chart to: ${filePath}`);
+    logIfEnabled(`[LOCAL] Saved chart to: ${filePath}`);
 
     // Return file:// URL
     return `file://${filePath}`;
@@ -140,7 +173,7 @@ export async function generateChartUrl(
     if (vis && typeof vis.destroy === "function") {
       try {
         vis.destroy();
-        console.log(`[LOCAL] Successfully cleaned up ${type} chart resources`);
+        logIfEnabled(`[LOCAL] Successfully cleaned up ${type} chart resources`);
       } catch (cleanupError) {
         console.warn(
           `[LOCAL] Warning: Failed to cleanup ${type} chart resources:`,
@@ -152,7 +185,7 @@ export async function generateChartUrl(
     // Force garbage collection if available (development/debugging)
     if (global.gc && process.env.NODE_ENV === "development") {
       global.gc();
-      console.log("[LOCAL] Forced garbage collection");
+      logIfEnabled("[LOCAL] Forced garbage collection");
     }
   }
 }

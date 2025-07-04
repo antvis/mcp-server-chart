@@ -26,7 +26,7 @@ This is a TypeScript-based MCP server that provides chart generation capabilitie
 
 ## ✨ Features
 
-Now 20+ charts supported.
+Now 25+ charts supported.
 
 <img width="768" alt="mcp-server-chart preview" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*IyIRQIQHyKYAAAAAgCAAAAgAemJ7AQ/fmt.avif" />
 

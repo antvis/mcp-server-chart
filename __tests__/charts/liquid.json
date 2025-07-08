@@ -22,6 +22,12 @@
         "default": "default",
         "description": "Set the theme for the chart, optional, default is 'default'."
       },
+      "texture": {
+        "default": "default",
+        "description": "Set the texture for the chart, optional, default is 'default'.",
+        "enum": ["default", "rough"],
+        "type": "string"
+      },
       "width": {
         "type": "number",
         "default": 600,

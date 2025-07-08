@@ -7,6 +7,12 @@ export const ThemeSchema = z
   .default("default")
   .describe("Set the theme for the chart, optional, default is 'default'.");
 
+export const TextureSchema = z
+  .enum(["default", "rough"])
+  .optional()
+  .default("default")
+  .describe("Set the texture for the chart, optional, default is 'default'.");
+
 export const WidthSchema = z
   .number()
   .optional()

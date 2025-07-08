@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { zodToJsonSchema } from "../utils";
 import { type TreeDataType, validatedTreeDataSchema } from "../utils/validator";
-import { HeightSchema, ThemeSchema, WidthSchema } from "./base";
+import { HeightSchema, TextureSchema, ThemeSchema, WidthSchema } from "./base";
 
 // Mind map node schema
 const MindMapNodeSchema: z.ZodType<TreeDataType> = z.lazy(() =>
@@ -20,6 +20,7 @@ const schema = {
     path: ["data"],
   }),
   theme: ThemeSchema,
+  texture: TextureSchema,
   width: WidthSchema,
   height: HeightSchema,
 };

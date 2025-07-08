@@ -1,6 +1,12 @@
 import { z } from "zod";
 import { zodToJsonSchema } from "../utils";
-import { HeightSchema, ThemeSchema, TitleSchema, WidthSchema } from "./base";
+import {
+  HeightSchema,
+  TextureSchema,
+  ThemeSchema,
+  TitleSchema,
+  WidthSchema,
+} from "./base";
 
 // Pie chart data schema
 const data = z.object({
@@ -23,6 +29,7 @@ const schema = {
       "Set the innerRadius of pie chart, the value between 0 and 1. Set the pie chart as a donut chart. Set the value to 0.6 or number in [0 ,1] to enable it.",
     ),
   theme: ThemeSchema,
+  texture: TextureSchema,
   width: WidthSchema,
   height: HeightSchema,
   title: TitleSchema,

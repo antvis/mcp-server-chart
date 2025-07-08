@@ -32,6 +32,12 @@
         "enum": ["default", "academy"],
         "type": "string"
       },
+      "texture": {
+        "default": "default",
+        "description": "Set the texture for the chart, optional, default is 'default'.",
+        "enum": ["default", "rough"],
+        "type": "string"
+      },
       "title": {
         "default": "",
         "description": "Set the title of chart.",

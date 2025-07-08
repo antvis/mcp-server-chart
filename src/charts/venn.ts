@@ -1,6 +1,12 @@
 import { z } from "zod";
 import { zodToJsonSchema } from "../utils";
-import { HeightSchema, ThemeSchema, TitleSchema, WidthSchema } from "./base";
+import {
+  HeightSchema,
+  TextureSchema,
+  ThemeSchema,
+  TitleSchema,
+  WidthSchema,
+} from "./base";
 
 const data = z.object({
   label: z
@@ -25,6 +31,7 @@ const schema = {
     )
     .nonempty({ message: "Venn chart data cannot be empty." }),
   theme: ThemeSchema,
+  texture: TextureSchema,
   width: WidthSchema,
   height: HeightSchema,
   title: TitleSchema,

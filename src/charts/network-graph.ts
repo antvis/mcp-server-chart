@@ -5,6 +5,7 @@ import {
   EdgeSchema,
   HeightSchema,
   NodeSchema,
+  TextureSchema,
   ThemeSchema,
   WidthSchema,
 } from "./base";
@@ -26,6 +27,7 @@ const schema = {
       path: ["data", "edges"],
     }),
   theme: ThemeSchema,
+  texture: TextureSchema,
   width: WidthSchema,
   height: HeightSchema,
 };

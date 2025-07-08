@@ -4,6 +4,7 @@ import {
   AxisXTitleSchema,
   AxisYTitleSchema,
   HeightSchema,
+  TextureSchema,
   ThemeSchema,
   TitleSchema,
   WidthSchema,
@@ -30,6 +31,7 @@ const schema = {
     )
     .nonempty({ message: "Violin chart data cannot be empty." }),
   theme: ThemeSchema,
+  texture: TextureSchema,
   width: WidthSchema,
   height: HeightSchema,
   title: TitleSchema,

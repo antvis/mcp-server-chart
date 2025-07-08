@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { zodToJsonSchema } from "../utils";
-import { HeightSchema, ThemeSchema, WidthSchema } from "./base";
+import { HeightSchema, TextureSchema, ThemeSchema, WidthSchema } from "./base";
 
 export type OrganizationChartDatumType = {
   name: string;
@@ -28,6 +28,7 @@ const schema = {
       "Orientation of the organization chart, either horizontal or vertical. Default is vertical, when the level of the chart is more than 3, it is recommended to use horizontal orientation.",
     ),
   theme: ThemeSchema,
+  texture: TextureSchema,
   width: WidthSchema,
   height: HeightSchema,
 };

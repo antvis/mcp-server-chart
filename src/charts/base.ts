@@ -11,7 +11,9 @@ export const TextureSchema = z
   .enum(["default", "rough"])
   .optional()
   .default("default")
-  .describe("Set the texture for the chart, optional, default is 'default'.");
+  .describe(
+    "Set the texture for the chart, optional, default is 'default'. 'rough' refers to hand-drawn style.",
+  );
 
 export const WidthSchema = z
   .number()

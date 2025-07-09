@@ -13,7 +13,7 @@
       },
       "texture": {
         "default": "default",
-        "description": "Set the texture for the chart, optional, default is 'default'.",
+        "description": "Set the texture for the chart, optional, default is 'default'. 'rough' refers to hand-drawn style.",
         "enum": ["default", "rough"],
         "type": "string"
       },

@@ -11,13 +11,36 @@
         "items": {
           "type": "object",
           "properties": {
-            "name": { "type": "string" },
-            "value": { "type": "number" },
-            "group": { "type": "string" }
+            "name": {
+              "type": "string"
+            },
+            "value": {
+              "type": "number"
+            },
+            "group": {
+              "type": "string"
+            }
           },
           "required": ["name", "value"]
         },
         "description": "Data for radar chart, such as, [{ name: 'Design', value: 70 }]."
+      },
+      "style": {
+        "description": "Custom style configuration for the chart.",
+        "properties": {
+          "backgroundColor": {
+            "description": "Background color of the chart, such as, '#fff'.",
+            "type": "string"
+          },
+          "palette": {
+            "description": "Color palette for the chart, such as, ['#1890FF', '#2FC25B'].",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          }
+        },
+        "type": "object"
       },
       "theme": {
         "default": "default",

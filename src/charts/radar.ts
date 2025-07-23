@@ -21,6 +21,21 @@ const schema = {
     .array(data)
     .describe("Data for radar chart, such as, [{ name: 'Design', value: 70 }].")
     .nonempty({ message: "Radar chart data cannot be empty." }),
+  style: z
+    .object({
+      backgroundColor: z
+        .string()
+        .optional()
+        .describe("Background color of the chart, such as, '#fff'."),
+      palette: z
+        .array(z.string())
+        .optional()
+        .describe(
+          "Color palette for the chart, such as, ['#1890FF', '#2FC25B'].",
+        ),
+    })
+    .optional()
+    .describe("Custom style configuration for the chart."),
   theme: ThemeSchema,
   texture: TextureSchema,
   width: WidthSchema,

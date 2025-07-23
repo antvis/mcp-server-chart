@@ -16,12 +16,33 @@
           },
           "required": ["time", "value"]
         },
-        "description": "Data for line chart, such as, [{ time: '2015', value: 23 }]."
+        "description": "Data for line chart, such as, [{ time: '2015', value: 23 }, { time: '2016', value: 32 }]."
       },
       "stack": {
         "type": "boolean",
         "default": false,
         "description": "Whether stacking is enabled. When enabled, line charts require a 'group' field in the data."
+      },
+      "style": {
+        "description": "Custom style configuration for the chart.",
+        "properties": {
+          "backgroundColor": {
+            "description": "Background color of the chart, such as, '#fff'.",
+            "type": "string"
+          },
+          "palette": {
+            "description": "Color palette for the chart, such as, ['#1890FF', '#2FC25B'].",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "lineWidth": {
+            "description": "Line width for the lines of chart, such as 4.",
+            "type": "number"
+          }
+        },
+        "type": "object"
       },
       "theme": {
         "default": "default",

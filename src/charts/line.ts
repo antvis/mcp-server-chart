@@ -20,7 +20,9 @@ const data = z.object({
 const schema = {
   data: z
     .array(data)
-    .describe("Data for line chart, such as, [{ time: '2015', value: 23 }].")
+    .describe(
+      "Data for line chart, such as, [{ time: '2015', value: 23 }, { time: '2016', value: 32 }].",
+    )
     .nonempty({ message: "Line chart data cannot be empty." }),
   stack: z
     .boolean()
@@ -29,6 +31,25 @@ const schema = {
     .describe(
       "Whether stacking is enabled. When enabled, line charts require a 'group' field in the data.",
     ),
+  style: z
+    .object({
+      backgroundColor: z
+        .string()
+        .optional()
+        .describe("Background color of the chart, such as, '#fff'."),
+      palette: z
+        .array(z.string())
+        .optional()
+        .describe(
+          "Color palette for the chart, such as, ['#1890FF', '#2FC25B'].",
+        ),
+      lineWidth: z
+        .number()
+        .optional()
+        .describe("Line width for the lines of chart, such as 4."),
+    })
+    .optional()
+    .describe("Custom style configuration for the chart."),
   theme: ThemeSchema,
   texture: TextureSchema,
   width: WidthSchema,

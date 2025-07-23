@@ -17,7 +17,7 @@
           },
           "required": ["category", "value"]
         },
-        "description": "Data for column chart, such as, [{ category: '北京', value: 825, group: '油车' }]."
+        "description": "Data for column chart, such as, [{ category: '北京', value: 825, group: '油车' }, { category: '北京', value: 1000, group: '电车' }]."
       },
       "group": {
         "type": "boolean",
@@ -28,6 +28,23 @@
         "type": "boolean",
         "default": false,
         "description": "Whether stacking is enabled. When enabled, column charts require a 'group' field in the data. When `stack` is true, `group` should be false."
+      },
+      "style": {
+        "description": "Custom style configuration for the chart.",
+        "properties": {
+          "backgroundColor": {
+            "description": "Background color of the chart, such as, '#fff'.",
+            "type": "string"
+          },
+          "palette": {
+            "description": "Color palette for the chart, such as, ['#1890FF', '#2FC25B'].",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          }
+        },
+        "type": "object"
       },
       "theme": {
         "default": "default",

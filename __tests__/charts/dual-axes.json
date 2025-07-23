@@ -11,6 +11,23 @@
         "enum": ["default", "academy"],
         "type": "string"
       },
+      "style": {
+        "description": "Custom style configuration for the chart.",
+        "properties": {
+          "backgroundColor": {
+            "description": "Background color of the chart, such as, '#fff'.",
+            "type": "string"
+          },
+          "palette": {
+            "description": "Color palette for the chart, such as, ['#1890FF', '#2FC25B'].",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          }
+        },
+        "type": "object"
+      },
       "texture": {
         "default": "default",
         "description": "Set the texture for the chart, optional, default is 'default'. 'rough' refers to hand-drawn style.",

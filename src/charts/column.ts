@@ -22,7 +22,7 @@ const schema = {
   data: z
     .array(data)
     .describe(
-      "Data for column chart, such as, [{ category: '北京', value: 825, group: '油车' }].",
+      "Data for column chart, such as, [{ category: '北京', value: 825, group: '油车' }, { category: '北京', value: 1000, group: '电车' }].",
     )
     .nonempty({ message: "Column chart data cannot be empty." }),
   group: z
@@ -39,6 +39,21 @@ const schema = {
     .describe(
       "Whether stacking is enabled. When enabled, column charts require a 'group' field in the data. When `stack` is true, `group` should be false.",
     ),
+  style: z
+    .object({
+      backgroundColor: z
+        .string()
+        .optional()
+        .describe("Background color of the chart, such as, '#fff'."),
+      palette: z
+        .array(z.string())
+        .optional()
+        .describe(
+          "Color palette for the chart, such as, ['#1890FF', '#2FC25B'].",
+        ),
+    })
+    .optional()
+    .describe("Custom style configuration for the chart."),
   theme: ThemeSchema,
   texture: TextureSchema,
   width: WidthSchema,

@@ -28,6 +28,21 @@ const schema = {
     .describe(
       "Set the innerRadius of pie chart, the value between 0 and 1. Set the pie chart as a donut chart. Set the value to 0.6 or number in [0 ,1] to enable it.",
     ),
+  style: z
+    .object({
+      backgroundColor: z
+        .string()
+        .optional()
+        .describe("Background color of the chart, such as, '#fff'."),
+      palette: z
+        .array(z.string())
+        .optional()
+        .describe(
+          "Color palette for the chart, such as, ['#1890FF', '#2FC25B'].",
+        ),
+    })
+    .optional()
+    .describe("Custom style configuration for the chart."),
   theme: ThemeSchema,
   texture: TextureSchema,
   width: WidthSchema,

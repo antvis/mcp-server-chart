@@ -23,7 +23,7 @@
           },
           "required": ["name", "value"]
         },
-        "description": "Data for radar chart, such as, [{ name: 'Design', value: 70 }]."
+        "description": "Data for radar chart, it should be an array of objects, each object contains a `name` field and a `value` field, such as, [{ name: 'Design', value: 70 }]."
       },
       "style": {
         "description": "Custom style configuration for the chart.",

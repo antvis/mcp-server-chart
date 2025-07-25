@@ -23,7 +23,7 @@ const schema = {
   data: z
     .array(data)
     .describe(
-      "Data for line chart, such as, [{ time: '2015', value: 23 }, { time: '2016', value: 32 }].",
+      "Data for line chart, it should be an array of objects, each object contains a `time` field and a `value` field, such as, [{ time: '2015', value: 23 }, { time: '2016', value: 32 }].",
     )
     .nonempty({ message: "Line chart data cannot be empty." }),
   stack: z

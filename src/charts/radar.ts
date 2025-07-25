@@ -21,7 +21,9 @@ const data = z.object({
 const schema = {
   data: z
     .array(data)
-    .describe("Data for radar chart, such as, [{ name: 'Design', value: 70 }].")
+    .describe(
+      "Data for radar chart, it should be an array of objects, each object contains a `name` field and a `value` field, such as, [{ name: 'Design', value: 70 }].",
+    )
     .nonempty({ message: "Radar chart data cannot be empty." }),
   style: z
     .object({

@@ -11,7 +11,7 @@
         "items": {
           "type": "number"
         },
-        "description": "Data for histogram chart, such as, [78, 88, 60, 100, 95]."
+        "description": "Data for histogram chart, it should be an array of numbers, such as, [78, 88, 60, 100, 95]."
       },
       "binNumber": {
         "anyOf": [
@@ -26,7 +26,7 @@
           }
         ],
         "default": null,
-        "description": "Number of intervals to define the number of intervals in a histogram."
+        "description": "Number of intervals to define the number of intervals in a histogram, when not specified, a default value will be used."
       },
       "theme": {
         "default": "default",

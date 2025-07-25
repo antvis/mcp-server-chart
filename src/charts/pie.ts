@@ -21,7 +21,7 @@ const schema = {
   data: z
     .array(data)
     .describe(
-      "Data for pie chart, such as, [{ category: '分类一', value: 27 }].",
+      "Data for pie chart, it should be an array of objects, each object contains a `category` field and a `value` field, such as, [{ category: '分类一', value: 27 }].",
     )
     .nonempty({ message: "Pie chart data cannot be empty." }),
   innerRadius: z

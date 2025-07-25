@@ -21,7 +21,7 @@ const schema = {
   data: z
     .array(data)
     .describe(
-      "Data for word cloud chart, such as, [{ value: 4.272, text: '形成' }].",
+      "Data for word cloud chart, it should be an array of objects, each object contains a `text` field and a `value` field, such as, [{ value: 4.272, text: '形成' }].",
     )
     .nonempty({ message: "Word cloud chart data cannot be empty." }),
   style: z

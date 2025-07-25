@@ -3,7 +3,9 @@ import { zodToJsonSchema } from "../utils";
 import {
   AxisXTitleSchema,
   AxisYTitleSchema,
+  BackgroundColorSchema,
   HeightSchema,
+  PaletteSchema,
   TextureSchema,
   ThemeSchema,
   TitleSchema,
@@ -30,8 +32,15 @@ const schema = {
     .describe(
       "Whether stacking is enabled. When enabled, area charts require a 'group' field in the data.",
     ),
+  style: z
+    .object({
+      backgroundColor: BackgroundColorSchema,
+      palette: PaletteSchema,
+      texture: TextureSchema,
+    })
+    .optional()
+    .describe("Custom style configuration for the chart."),
   theme: ThemeSchema,
-  texture: TextureSchema,
   width: WidthSchema,
   height: HeightSchema,
   title: TitleSchema,

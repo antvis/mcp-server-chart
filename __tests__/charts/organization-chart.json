@@ -50,11 +50,17 @@
         "default": "default",
         "description": "Set the theme for the chart, optional, default is 'default'."
       },
-      "texture": {
-        "default": "default",
-        "description": "Set the texture for the chart, optional, default is 'default'. 'rough' refers to hand-drawn style.",
-        "enum": ["default", "rough"],
-        "type": "string"
+      "style": {
+        "description": "Custom style configuration for the chart.",
+        "properties": {
+          "texture": {
+            "default": "default",
+            "description": "Set the texture for the chart, optional, default is 'default'. 'rough' refers to hand-drawn style.",
+            "enum": ["default", "rough"],
+            "type": "string"
+          }
+        },
+        "type": "object"
       },
       "width": {
         "type": "number",

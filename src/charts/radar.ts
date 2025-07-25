@@ -1,7 +1,9 @@
 import { z } from "zod";
 import { zodToJsonSchema } from "../utils";
 import {
+  BackgroundColorSchema,
   HeightSchema,
+  PaletteSchema,
   TextureSchema,
   ThemeSchema,
   TitleSchema,
@@ -23,19 +25,13 @@ const schema = {
     .nonempty({ message: "Radar chart data cannot be empty." }),
   style: z
     .object({
-      backgroundColor: z
-        .string()
-        .optional()
-        .describe("Background color of the chart, such as, '#fff'."),
-      palette: z
-        .array(z.string())
-        .optional()
-        .describe("Color palette for the chart, it is a collection of colors."),
+      backgroundColor: BackgroundColorSchema,
+      palette: PaletteSchema,
+      texture: TextureSchema,
     })
     .optional()
     .describe("Custom style configuration for the chart."),
   theme: ThemeSchema,
-  texture: TextureSchema,
   width: WidthSchema,
   height: HeightSchema,
   title: TitleSchema,

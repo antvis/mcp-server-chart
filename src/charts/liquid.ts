@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { zodToJsonSchema } from "../utils";
 import {
+  BackgroundColorSchema,
   HeightSchema,
   TextureSchema,
   ThemeSchema,
@@ -23,8 +24,20 @@ const schema = {
     .describe(
       "The shape of the liquid chart, can be 'circle', 'rect', 'pin', or 'triangle'. Default is 'circle'.",
     ),
+  style: z
+    .object({
+      backgroundColor: BackgroundColorSchema,
+      texture: TextureSchema,
+      color: z
+        .string()
+        .optional()
+        .describe(
+          "Custom color for the liquid chart, if not specified, defaults to the theme color.",
+        ),
+    })
+    .optional()
+    .describe("Custom style configuration for the chart."),
   theme: ThemeSchema,
-  texture: TextureSchema,
   width: WidthSchema,
   height: HeightSchema,
   title: TitleSchema,

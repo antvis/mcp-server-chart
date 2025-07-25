@@ -38,6 +38,12 @@
               "type": "string"
             },
             "type": "array"
+          },
+          "texture": {
+            "default": "default",
+            "description": "Set the texture for the chart, optional, default is 'default'. 'rough' refers to hand-drawn style.",
+            "enum": ["default", "rough"],
+            "type": "string"
           }
         },
         "type": "object"
@@ -46,12 +52,6 @@
         "default": "default",
         "description": "Set the theme for the chart, optional, default is 'default'.",
         "enum": ["default", "academy"],
-        "type": "string"
-      },
-      "texture": {
-        "default": "default",
-        "description": "Set the texture for the chart, optional, default is 'default'. 'rough' refers to hand-drawn style.",
-        "enum": ["default", "rough"],
         "type": "string"
       },
       "width": {

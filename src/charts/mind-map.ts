@@ -19,8 +19,13 @@ const schema = {
     message: "Invalid parameters: node name is not unique.",
     path: ["data"],
   }),
+  style: z
+    .object({
+      texture: TextureSchema,
+    })
+    .optional()
+    .describe("Custom style configuration for the chart."),
   theme: ThemeSchema,
-  texture: TextureSchema,
   width: WidthSchema,
   height: HeightSchema,
 };

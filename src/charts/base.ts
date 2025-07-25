@@ -7,6 +7,16 @@ export const ThemeSchema = z
   .default("default")
   .describe("Set the theme for the chart, optional, default is 'default'.");
 
+export const BackgroundColorSchema = z
+  .string()
+  .optional()
+  .describe("Background color of the chart, such as, '#fff'.");
+
+export const PaletteSchema = z
+  .array(z.string())
+  .optional()
+  .describe("Color palette for the chart, it is a collection of colors.");
+
 export const TextureSchema = z
   .enum(["default", "rough"])
   .optional()

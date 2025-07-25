@@ -3,7 +3,9 @@ import { zodToJsonSchema } from "../utils";
 import {
   AxisXTitleSchema,
   AxisYTitleSchema,
+  BackgroundColorSchema,
   HeightSchema,
+  PaletteSchema,
   TextureSchema,
   ThemeSchema,
   TitleSchema,
@@ -23,8 +25,15 @@ const schema = {
     .describe(
       "Number of intervals to define the number of intervals in a histogram.",
     ),
+  style: z
+    .object({
+      backgroundColor: BackgroundColorSchema,
+      palette: PaletteSchema,
+      texture: TextureSchema,
+    })
+    .optional()
+    .describe("Custom style configuration for the chart."),
   theme: ThemeSchema,
-  texture: TextureSchema,
   width: WidthSchema,
   height: HeightSchema,
   title: TitleSchema,

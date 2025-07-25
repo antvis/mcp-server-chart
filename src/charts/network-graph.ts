@@ -26,8 +26,13 @@ const schema = {
       message: "Invalid parameters",
       path: ["data", "edges"],
     }),
+  style: z
+    .object({
+      texture: TextureSchema,
+    })
+    .optional()
+    .describe("Custom style configuration for the chart."),
   theme: ThemeSchema,
-  texture: TextureSchema,
   width: WidthSchema,
   height: HeightSchema,
 };

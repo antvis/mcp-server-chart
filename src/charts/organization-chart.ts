@@ -27,8 +27,13 @@ const schema = {
     .describe(
       "Orientation of the organization chart, either horizontal or vertical. Default is vertical, when the level of the chart is more than 3, it is recommended to use horizontal orientation.",
     ),
+  style: z
+    .object({
+      texture: TextureSchema,
+    })
+    .optional()
+    .describe("Custom style configuration for the chart."),
   theme: ThemeSchema,
-  texture: TextureSchema,
   width: WidthSchema,
   height: HeightSchema,
 };

@@ -1,7 +1,9 @@
 import { z } from "zod";
 import { zodToJsonSchema } from "../utils";
 import {
+  BackgroundColorSchema,
   HeightSchema,
+  PaletteSchema,
   TextureSchema,
   ThemeSchema,
   TitleSchema,
@@ -30,8 +32,15 @@ const schema = {
       "Data for venn chart, such as, [{ label: 'A', value: 10, sets: ['A'] }, { label: 'B', value: 20, sets: ['B'] }, { label: 'C', value: 30, sets: ['C'] }, { label: 'AB', value: 5, sets: ['A', 'B'] }].",
     )
     .nonempty({ message: "Venn chart data cannot be empty." }),
+  style: z
+    .object({
+      backgroundColor: BackgroundColorSchema,
+      palette: PaletteSchema,
+      texture: TextureSchema,
+    })
+    .optional()
+    .describe("Custom style configuration for the chart."),
   theme: ThemeSchema,
-  texture: TextureSchema,
   width: WidthSchema,
   height: HeightSchema,
   title: TitleSchema,

@@ -29,16 +29,22 @@
         "required": ["name"],
         "description": "Data for fishbone diagram chart, such as, { name: 'main topic', children: [{ name: 'topic 1', children: [{ name: 'subtopic 1-1' }] }."
       },
+      "style": {
+        "description": "Custom style configuration for the chart.",
+        "properties": {
+          "texture": {
+            "default": "default",
+            "description": "Set the texture for the chart, optional, default is 'default'. 'rough' refers to hand-drawn style.",
+            "enum": ["default", "rough"],
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
       "theme": {
         "default": "default",
         "description": "Set the theme for the chart, optional, default is 'default'.",
         "enum": ["default", "academy"],
-        "type": "string"
-      },
-      "texture": {
-        "default": "default",
-        "description": "Set the texture for the chart, optional, default is 'default'. 'rough' refers to hand-drawn style.",
-        "enum": ["default", "rough"],
         "type": "string"
       },
       "width": {

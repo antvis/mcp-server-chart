@@ -1,7 +1,9 @@
 import { z } from "zod";
 import { zodToJsonSchema } from "../utils";
 import {
+  BackgroundColorSchema,
   HeightSchema,
+  PaletteSchema,
   TextureSchema,
   ThemeSchema,
   TitleSchema,
@@ -22,8 +24,15 @@ const schema = {
       "Data for word cloud chart, such as, [{ value: 4.272, text: '形成' }].",
     )
     .nonempty({ message: "Word cloud chart data cannot be empty." }),
+  style: z
+    .object({
+      backgroundColor: BackgroundColorSchema,
+      palette: PaletteSchema,
+      texture: TextureSchema,
+    })
+    .optional()
+    .describe("Custom style configuration for the chart."),
   theme: ThemeSchema,
-  texture: TextureSchema,
   width: WidthSchema,
   height: HeightSchema,
   title: TitleSchema,

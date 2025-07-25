@@ -23,9 +23,19 @@
         "default": false,
         "description": "Whether stacking is enabled. When enabled, line charts require a 'group' field in the data."
       },
+      "theme": {
+        "default": "default",
+        "description": "Set the theme for the chart, optional, default is 'default'.",
+        "enum": ["default", "academy"],
+        "type": "string"
+      },
       "style": {
         "description": "Custom style configuration for the chart.",
         "properties": {
+          "lineWidth": {
+            "description": "Line width for the lines of chart, such as 4.",
+            "type": "number"
+          },
           "backgroundColor": {
             "description": "Background color of the chart, such as, '#fff'.",
             "type": "string"
@@ -37,24 +47,14 @@
             },
             "type": "array"
           },
-          "lineWidth": {
-            "description": "Line width for the lines of chart, such as 4.",
-            "type": "number"
+          "texture": {
+            "default": "default",
+            "description": "Set the texture for the chart, optional, default is 'default'. 'rough' refers to hand-drawn style.",
+            "enum": ["default", "rough"],
+            "type": "string"
           }
         },
         "type": "object"
-      },
-      "theme": {
-        "default": "default",
-        "description": "Set the theme for the chart, optional, default is 'default'.",
-        "enum": ["default", "academy"],
-        "type": "string"
-      },
-      "texture": {
-        "default": "default",
-        "description": "Set the texture for the chart, optional, default is 'default'. 'rough' refers to hand-drawn style.",
-        "enum": ["default", "rough"],
-        "type": "string"
       },
       "width": {
         "type": "number",

@@ -61,7 +61,7 @@ const schema = {
 const tool = {
   name: "generate_bar_chart",
   description:
-    "Generate a bar chart to show data for numerical comparisons among different categories, such as, comparing categorical data and for horizontal comparisons.",
+    "Generate a horizontal bar chart to show data for numerical comparisons among different categories, such as, comparing categorical data and for horizontal comparisons.",
   inputSchema: zodToJsonSchema(schema),
 };
 

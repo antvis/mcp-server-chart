@@ -37,7 +37,7 @@
             "type": "string"
           },
           "palette": {
-            "description": "Color palette for the chart, such as, ['#1890FF', '#2FC25B'].",
+            "description": "Color palette for the chart, it is a collection of colors.",
             "items": {
               "type": "string"
             },

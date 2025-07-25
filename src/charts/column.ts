@@ -48,9 +48,7 @@ const schema = {
       palette: z
         .array(z.string())
         .optional()
-        .describe(
-          "Color palette for the chart, such as, ['#1890FF', '#2FC25B'].",
-        ),
+        .describe("Color palette for the chart, it is a collection of colors."),
     })
     .optional()
     .describe("Custom style configuration for the chart."),

@@ -17,7 +17,7 @@
           },
           "required": ["category", "value"]
         },
-        "description": "Data for bar chart, such as, [{ category: '分类一', value: 10 }, { category: '分类二', value: 20 }]."
+        "description": "Data for bar chart, such as, [{ category: '分类一', value: 10 }, { category: '分类二', value: 20 }], when grouping or stacking is needed for bar, the data should contain a `group` field, such as, when [{ category: '北京', value: 825, group: '油车' }, { category: '北京', value: 1000, group: '电车' }]."
       },
       "group": {
         "type": "boolean",

@@ -1,0 +1,21 @@
+name: mcp-server-chart
+services:
+  sse:
+    restart: unless-stopped
+    build:
+      context: ./sse
+      dockerfile: Dockerfile
+    ports:
+      - "1123:1123"
+    volumes:
+      - ./sse:/mcp-server-chart/sse
+
+  streamable:
+    restart: unless-stopped
+    build:
+      context: ./streamable
+      dockerfile: Dockerfile
+    ports:
+      - "1122:1122"
+    volumes:
+      - ./streamable:/mcp-server-chart/streamable

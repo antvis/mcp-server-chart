@@ -99,6 +99,8 @@ Also, you can use it on [aliyun](https://bailian.console.aliyun.com/?tab=mcp#/mc
 
 ## 🚰 Run with SSE or Streamable transport
 
+### Run directly
+
 Install the package globally.
 
 ```bash
@@ -118,6 +120,25 @@ mcp-server-chart --transport streamable
 Then you can access the server at:
 
 - SSE transport: `http://localhost:1122/sse`
+- Streamable transport: `http://localhost:1122/mcp`
+
+### Docker deploy
+
+Enter the docker directory.
+
+```bash
+cd docker
+```
+
+Deploy using docker-compose.
+
+```bash
+docker compose up -d
+```
+
+Then you can access the server at:
+
+- SSE transport: `http://localhost:1123/sse`
 - Streamable transport: `http://localhost:1122/mcp`
 
 ## 🎮 CLI Options

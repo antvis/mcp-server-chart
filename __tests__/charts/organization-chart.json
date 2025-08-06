@@ -46,7 +46,7 @@
       },
       "theme": {
         "type": "string",
-        "enum": ["default", "academy"],
+        "enum": ["default", "academy", "dark"],
         "default": "default",
         "description": "Set the theme for the chart, optional, default is 'default'."
       },

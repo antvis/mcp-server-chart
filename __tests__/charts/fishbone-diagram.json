@@ -8,12 +8,16 @@
       "data": {
         "type": "object",
         "properties": {
-          "name": { "type": "string" },
+          "name": {
+            "type": "string"
+          },
           "children": {
             "type": "array",
             "items": {
               "properties": {
-                "name": { "type": "string" },
+                "name": {
+                  "type": "string"
+                },
                 "children": {
                   "type": "array",
                   "items": {
@@ -44,7 +48,7 @@
       "theme": {
         "default": "default",
         "description": "Set the theme for the chart, optional, default is 'default'.",
-        "enum": ["default", "academy"],
+        "enum": ["default", "academy", "dark"],
         "type": "string"
       },
       "width": {

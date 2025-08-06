@@ -11,11 +11,17 @@
         "items": {
           "type": "object",
           "properties": {
-            "name": { "type": "string" },
-            "value": { "type": "number" },
+            "name": {
+              "type": "string"
+            },
+            "value": {
+              "type": "number"
+            },
             "children": {
               "type": "array",
-              "items": { "$ref": "#/properties/data/items" }
+              "items": {
+                "$ref": "#/properties/data/items"
+              }
             }
           },
           "required": ["name", "value"]
@@ -25,7 +31,7 @@
       "theme": {
         "default": "default",
         "description": "Set the theme for the chart, optional, default is 'default'.",
-        "enum": ["default", "academy"],
+        "enum": ["default", "academy", "dark"],
         "type": "string"
       },
       "style": {

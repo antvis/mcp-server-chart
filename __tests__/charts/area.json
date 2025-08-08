@@ -11,9 +11,15 @@
         "items": {
           "type": "object",
           "properties": {
-            "time": { "type": "string" },
-            "value": { "type": "number" },
-            "group": { "type": "string" }
+            "time": {
+              "type": "string"
+            },
+            "value": {
+              "type": "number"
+            },
+            "group": {
+              "type": "string"
+            }
           },
           "required": ["time", "value"]
         },
@@ -50,7 +56,7 @@
       "theme": {
         "default": "default",
         "description": "Set the theme for the chart, optional, default is 'default'.",
-        "enum": ["default", "academy"],
+        "enum": ["default", "academy", "dark"],
         "type": "string"
       },
       "width": {

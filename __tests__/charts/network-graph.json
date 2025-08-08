@@ -13,7 +13,9 @@
             "minItems": 1,
             "items": {
               "properties": {
-                "name": { "type": "string" }
+                "name": {
+                  "type": "string"
+                }
               },
               "required": ["name"],
               "type": "object"
@@ -23,9 +25,16 @@
             "type": "array",
             "items": {
               "properties": {
-                "name": { "type": "string", "default": "" },
-                "source": { "type": "string" },
-                "target": { "type": "string" }
+                "name": {
+                  "type": "string",
+                  "default": ""
+                },
+                "source": {
+                  "type": "string"
+                },
+                "target": {
+                  "type": "string"
+                }
               },
               "required": ["source", "target"],
               "type": "object"
@@ -38,7 +47,7 @@
       "theme": {
         "default": "default",
         "description": "Set the theme for the chart, optional, default is 'default'.",
-        "enum": ["default", "academy"],
+        "enum": ["default", "academy", "dark"],
         "type": "string"
       },
       "style": {

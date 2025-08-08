@@ -35,7 +35,7 @@
         "description": "Set the theme for the chart, optional, default is 'default'.",
         "default": "default",
         "type": "string",
-        "enum": ["default", "academy"]
+        "enum": ["default", "academy", "dark"]
       },
       "width": {
         "description": "Set the width of chart, default is 600.",

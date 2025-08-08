@@ -2,7 +2,7 @@ import { z } from "zod";
 
 // Define Zod schemas for base configuration properties
 export const ThemeSchema = z
-  .enum(["default", "academy"])
+  .enum(["default", "academy", "dark"])
   .optional()
   .prefault("default")
   .describe("Set the theme for the chart, optional, default is 'default'.");

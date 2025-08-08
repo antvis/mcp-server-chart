@@ -1,10 +1,27 @@
 import { z } from "zod";
-import { zodToJsonSchema as zodToJsonSchemaOriginal } from "zod-to-json-schema";
 
-// TODO: use zod v4 JSON to schema to replace zod-to-json-schema when v4 is stable
 // biome-ignore lint/suspicious/noExplicitAny: <explanation>
 export const zodToJsonSchema = (schema: Record<string, z.ZodType<any>>) => {
-  return zodToJsonSchemaOriginal(z.object(schema), {
-    rejectedAdditionalProperties: undefined,
+  const result = z.toJSONSchema(z.object(schema), {
+    target: "draft-7",
+    // not set additionalProperties
+    io: "input",
+    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+    override: (ctx: any) => {
+      if (ctx.zodSchema?.description) {
+        ctx.jsonSchema.description = ctx.zodSchema.description;
+      }
+
+      if (typeof ctx?.zodSchema?.def?.defaultValue !== "undefined") {
+        ctx.jsonSchema.default = ctx.zodSchema.def.defaultValue;
+      }
+
+      if (ctx?.jsonSchema?.type === "array" && ctx.jsonSchema.additionalItems) {
+        // biome-ignore lint/performance/noDelete: <explanation>
+        delete ctx.jsonSchema.additionalItems;
+      }
+    },
   });
+
+  return result;
 };

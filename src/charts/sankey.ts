@@ -18,15 +18,15 @@ const data = z.object({
 
 const schema = {
   data: z
-    .array(data)
+    .tuple([data], data)
+    .check(z.minLength(1))
     .describe(
       "Date for sankey chart, such as, [{ source: 'Landing Page', target: 'Product Page', value: 50000 }, { source: 'Product Page', target: 'Add to Cart', value: 35000 }, { source: 'Add to Cart', target: 'Checkout', value: 25000 }, { source: 'Checkout', target: 'Payment', value: 15000 }, { source: 'Payment', target: 'Purchase Completed', value: 8000 }].",
-    )
-    .nonempty({ message: "Sankey chart data cannot be empty." }),
+    ),
   nodeAlign: z
     .enum(["left", "right", "justify", "center"])
     .optional()
-    .default("center")
+    .prefault("center")
     .describe(
       "Alignment of nodes in the sankey chart, such as, 'left', 'right', 'justify', or 'center'.",
     ),

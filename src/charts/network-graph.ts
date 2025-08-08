@@ -14,18 +14,16 @@ import {
 const schema = {
   data: z
     .object({
-      nodes: z
-        .array(NodeSchema)
-        .nonempty({ message: "At least one node is required." }),
+      nodes: z.tuple([NodeSchema], NodeSchema).check(z.minLength(1)),
       edges: z.array(EdgeSchema),
+    })
+    .refine(validatedNodeEdgeDataSchema, {
+      path: ["data", "edges"],
+      error: "Invalid parameters",
     })
     .describe(
       "Data for network graph chart, such as, { nodes: [{ name: 'node1' }, { name: 'node2' }], edges: [{ source: 'node1', target: 'node2', name: 'edge1' }] }",
-    )
-    .refine(validatedNodeEdgeDataSchema, {
-      message: "Invalid parameters",
-      path: ["data", "edges"],
-    }),
+    ),
   style: z
     .object({
       texture: TextureSchema,

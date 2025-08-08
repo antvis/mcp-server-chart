@@ -23,7 +23,7 @@ const schema = {
   ),
   orient: z
     .enum(["horizontal", "vertical"])
-    .default("vertical")
+    .prefault("vertical")
     .describe(
       "Orientation of the organization chart, either horizontal or vertical. Default is vertical, when the level of the chart is more than 3, it is recommended to use horizontal orientation.",
     ),

@@ -20,11 +20,11 @@ const data = z.object({
 // Radar chart input schema
 const schema = {
   data: z
-    .array(data)
+    .tuple([data], data)
+    .check(z.minLength(1))
     .describe(
       "Data for radar chart, it should be an array of objects, each object contains a `name` field and a `value` field, such as, [{ name: 'Design', value: 70 }].",
-    )
-    .nonempty({ message: "Radar chart data cannot be empty." }),
+    ),
   style: z
     .object({
       backgroundColor: BackgroundColorSchema,

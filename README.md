@@ -292,10 +292,6 @@ SSE
   "transport": {
     "type": "sse",
     "url": "http://localhost:1122/sse"
-  },
-  "streamable": {
-    "type": "streamable",
-    "url": "http://localhost:1122/streamable"
   }
 }
 ```

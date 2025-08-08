@@ -27,11 +27,11 @@ const data = z.object({
 
 const schema = {
   data: z
-    .array(data)
+    .tuple([data], data)
+    .check(z.minLength(1))
     .describe(
       "Data for boxplot chart, such as, [{ category: '分类一', value: 10 }] or [{ category: '分类二', value: 20, group: '组别一' }].",
-    )
-    .nonempty({ message: "Boxplot chart data cannot be empty." }),
+    ),
   style: z
     .object({
       backgroundColor: BackgroundColorSchema,

@@ -35,7 +35,7 @@ const schema = {
       style: StyleSchema,
       colors: z
         .array(z.string())
-        .default([
+        .prefault([
           "#1783FF",
           "#00C9C9",
           "#F0884D",
@@ -65,7 +65,7 @@ const schema = {
       showAllSubdistricts: z
         .boolean()
         .optional()
-        .default(false)
+        .prefault(false)
         .describe("Whether to display all subdistricts."),
       subdistricts: z
         .array(SubDistrictSchema)

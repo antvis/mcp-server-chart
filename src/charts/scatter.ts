@@ -21,9 +21,9 @@ const data = z.object({
 // Scatter chart input schema
 const schema = {
   data: z
-    .array(data)
-    .describe("Data for scatter chart, such as, [{ x: 10, y: 15 }].")
-    .nonempty({ message: "Scatter chart data cannot be empty." }),
+    .tuple([data], data)
+    .check(z.minLength(1))
+    .describe("Data for scatter chart, such as, [{ x: 10, y: 15 }]."),
   style: z
     .object({
       backgroundColor: BackgroundColorSchema,

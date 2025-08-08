@@ -19,9 +19,6 @@
             "type": "number"
           },
           {
-            "not": {}
-          },
-          {
             "type": "null"
           }
         ],

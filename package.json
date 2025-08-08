@@ -11,6 +11,8 @@
     "prebuild": "rm -rf build/*",
     "build": "tsc && tsc-alias -p tsconfig.json",
     "postbuild": "chmod +x build/index.js",
+    "dev:sse": "node build/index.js -t sse",
+    "dev:streamable": "node build/index.js -t streamable",
     "start": "npx @modelcontextprotocol/inspector node build/index.js",
     "prepare": "husky && npm run build",
     "prepublishOnly": "npm run build",
@@ -42,12 +44,12 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.11.4",
-    "zod": "^4.0.14"
+    "@modelcontextprotocol/sdk": "^1.17.2",
+    "zod": "^4.0.15"
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
-    "@modelcontextprotocol/inspector": "^0.14.2",
+    "@modelcontextprotocol/inspector": "^0.16.2",
     "@types/node": "^22.15.21",
     "husky": "^9.1.7",
     "lint-staged": "^15.5.2",

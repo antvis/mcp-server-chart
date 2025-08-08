@@ -19,11 +19,11 @@ const data = z.object({
 // Word cloud input schema
 const schema = {
   data: z
-    .array(data)
+    .tuple([data], data)
+    .check(z.minLength(1))
     .describe(
       "Data for word cloud chart, it should be an array of objects, each object contains a `text` field and a `value` field, such as, [{ value: 4.272, text: '形成' }].",
-    )
-    .nonempty({ message: "Word cloud chart data cannot be empty." }),
+    ),
   style: z
     .object({
       backgroundColor: BackgroundColorSchema,

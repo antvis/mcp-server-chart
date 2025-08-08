@@ -15,15 +15,16 @@ import {
 // Histogram chart input schema
 const schema = {
   data: z
-    .array(z.number())
+    .tuple([z.number()], z.number())
+    .check(z.minLength(1))
     .describe(
       "Data for histogram chart, it should be an array of numbers, such as, [78, 88, 60, 100, 95].",
-    )
-    .nonempty({ message: "Histogram chart data cannot be empty." }),
+    ),
   binNumber: z
-    .union([z.number(), z.undefined(), z.null()])
+    .number()
+    .nullable()
     .optional()
-    .default(null)
+    .prefault(null)
     .describe(
       "Number of intervals to define the number of intervals in a histogram, when not specified, a default value will be used.",
     ),

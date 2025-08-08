@@ -22,13 +22,13 @@ const data = z.object({
 // Area chart input schema
 const schema = {
   data: z
-    .array(data)
-    .describe("Data for area chart, such as, [{ time: '2018', value: 99.9 }].")
-    .nonempty({ message: "Area chart data cannot be empty." }),
+    .tuple([data], data)
+    .check(z.minLength(1))
+    .describe("Data for area chart, such as, [{ time: '2018', value: 99.9 }]."),
   stack: z
     .boolean()
     .optional()
-    .default(false)
+    .prefault(false)
     .describe(
       "Whether stacking is enabled. When enabled, area charts require a 'group' field in the data.",
     ),

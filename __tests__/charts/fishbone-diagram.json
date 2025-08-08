@@ -8,56 +8,64 @@
       "data": {
         "type": "object",
         "properties": {
-          "name": { "type": "string" },
+          "name": {
+            "type": "string"
+          },
           "children": {
             "type": "array",
             "items": {
-              "properties": {
-                "name": { "type": "string" },
-                "children": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/properties/data/properties/children/items"
-                  }
-                }
-              },
-              "required": ["name"],
-              "type": "object"
+              "$ref": "#/definitions/__schema0"
             }
           }
         },
-        "required": ["name"],
-        "description": "Data for fishbone diagram chart, such as, { name: 'main topic', children: [{ name: 'topic 1', children: [{ name: 'subtopic 1-1' }] }."
+        "required": ["name"]
       },
       "style": {
         "description": "Custom style configuration for the chart.",
+        "type": "object",
         "properties": {
           "texture": {
-            "default": "default",
             "description": "Set the texture for the chart, optional, default is 'default'. 'rough' refers to hand-drawn style.",
-            "enum": ["default", "rough"],
-            "type": "string"
+            "default": "default",
+            "type": "string",
+            "enum": ["default", "rough"]
           }
-        },
-        "type": "object"
+        }
       },
       "theme": {
-        "default": "default",
         "description": "Set the theme for the chart, optional, default is 'default'.",
-        "enum": ["default", "academy"],
-        "type": "string"
+        "default": "default",
+        "type": "string",
+        "enum": ["default", "academy"]
       },
       "width": {
-        "type": "number",
         "description": "Set the width of chart, default is 600.",
-        "default": 600
+        "default": 600,
+        "type": "number"
       },
       "height": {
-        "type": "number",
         "description": "Set the height of chart, default is 400.",
-        "default": 400
+        "default": 400,
+        "type": "number"
       }
     },
-    "required": ["data"]
+    "required": ["data"],
+    "definitions": {
+      "__schema0": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "children": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/__schema0"
+            }
+          }
+        },
+        "required": ["name"]
+      }
+    }
   }
 }

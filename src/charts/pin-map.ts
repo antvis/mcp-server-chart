@@ -12,12 +12,12 @@ const schema = {
   data: POIsSchema,
   markerPopup: z
     .object({
-      type: z.string().default("image").describe('Must be "image".'),
-      width: z.number().default(40).describe("Width of the photo."),
-      height: z.number().default(40).describe("Height of the photo."),
+      type: z.string().prefault("image").describe('Must be "image".'),
+      width: z.number().prefault(40).describe("Width of the photo."),
+      height: z.number().prefault(40).describe("Height of the photo."),
       borderRadius: z
         .number()
-        .default(8)
+        .prefault(8)
         .describe("Border radius of the photo."),
     })
     .optional()

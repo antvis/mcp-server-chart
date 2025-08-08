@@ -27,11 +27,11 @@ const TreeNodeSchema: z.ZodType<TreemapDataType> = z.lazy(() =>
 // Treemap chart input schema
 const schema = {
   data: z
-    .array(TreeNodeSchema)
+    .tuple([TreeNodeSchema], TreeNodeSchema)
+    .check(z.minLength(1))
     .describe(
       "Data for treemap chart, such as, [{ name: 'Design', value: 70, children: [{ name: 'Tech', value: 20 }] }].",
-    )
-    .nonempty({ message: "Treemap chart data cannot be empty." }),
+    ),
   style: z
     .object({
       backgroundColor: BackgroundColorSchema,

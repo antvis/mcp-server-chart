@@ -2,7 +2,6 @@
   "name": "generate_mind_map",
   "description": "Generate a mind map chart to organizes and presents information in a hierarchical structure with branches radiating from a central topic, such as, a diagram showing the relationship between a main topic and its subtopics.",
   "inputSchema": {
-    "$schema": "http://json-schema.org/draft-07/schema#",
     "type": "object",
     "properties": {
       "data": {
@@ -14,19 +13,37 @@
           "children": {
             "type": "array",
             "items": {
+              "type": "object",
               "properties": {
-                "children": {
-                  "items": {
-                    "$ref": "#/properties/data/properties/children/items"
-                  },
-                  "type": "array"
-                },
                 "name": {
                   "type": "string"
+                },
+                "children": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "children": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            }
+                          },
+                          "required": ["name"]
+                        }
+                      }
+                    },
+                    "required": ["name"]
+                  }
                 }
               },
-              "required": ["name"],
-              "type": "object"
+              "required": ["name"]
             }
           }
         },
@@ -40,28 +57,29 @@
         "type": "string"
       },
       "style": {
-        "description": "Custom style configuration for the chart.",
+        "type": "object",
         "properties": {
           "texture": {
-            "default": "default",
-            "description": "Set the texture for the chart, optional, default is 'default'. 'rough' refers to hand-drawn style.",
+            "type": "string",
             "enum": ["default", "rough"],
-            "type": "string"
+            "default": "default",
+            "description": "Set the texture for the chart, optional, default is 'default'. 'rough' refers to hand-drawn style."
           }
         },
-        "type": "object"
+        "description": "Custom style configuration for the chart."
       },
       "width": {
         "type": "number",
-        "description": "Set the width of chart, default is 600.",
-        "default": 600
+        "default": 600,
+        "description": "Set the width of chart, default is 600."
       },
       "height": {
         "type": "number",
-        "description": "Set the height of chart, default is 400.",
-        "default": 400
+        "default": 400,
+        "description": "Set the height of chart, default is 400."
       }
     },
-    "required": ["data"]
+    "required": ["data"],
+    "$schema": "http://json-schema.org/draft-07/schema#"
   }
 }

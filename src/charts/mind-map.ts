@@ -1,15 +1,14 @@
 import { z } from "zod";
 import { zodToJsonSchema } from "../utils";
-import { type TreeDataType, validatedTreeDataSchema } from "../utils/validator";
+import { validatedTreeDataSchema } from "../utils/validator";
 import { HeightSchema, TextureSchema, ThemeSchema, WidthSchema } from "./base";
+import { FishboneNodeSchema } from "./fishbone-diagram";
 
 // Mind map node schema
-const MindMapNodeSchema: z.ZodType<TreeDataType> = z.lazy(() =>
-  z.object({
-    name: z.string(),
-    children: z.array(MindMapNodeSchema).optional(),
-  }),
-);
+// The recursive schema is not supported by gemini, and other clients, so we use a non-recursive schema which can represent a tree structure with a fixed depth.
+// Ref: https://github.com/antvis/mcp-server-chart/issues/155
+// Ref: https://github.com/antvis/mcp-server-chart/issues/132
+const MindMapNodeSchema = FishboneNodeSchema;
 
 // Mind map chart input schema
 const schema = {

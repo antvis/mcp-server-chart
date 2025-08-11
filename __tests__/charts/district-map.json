@@ -72,14 +72,22 @@
               "type": "object",
               "properties": {
                 "name": {
-                  "$ref": "#/properties/data/properties/name"
+                  "description": "Keywords for the Chinese name of an administrative region (must be within China), and must be one of China, province, city, district, or county. The name should be more specific and add attributive descriptions, for example, \"西安市\" is better than \"西安\", \"杭州西湖区\" is better than \"西湖区\". It cannot be a specific place name or a vague name, such as \"其它\".",
+                  "type": "string"
                 },
                 "dataValue": {
                   "type": "string",
                   "description": "Data value, numeric string or enumeration string."
                 },
                 "style": {
-                  "$ref": "#/properties/data/properties/style"
+                  "description": "Style settings.",
+                  "properties": {
+                    "fillColor": {
+                      "description": "Fill color, rgb or rgba format.",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
                 }
               },
               "required": ["name"]

@@ -22,14 +22,14 @@ const TreeNodeSchema = z.object({
       z.object({
         name: z.string(),
         value: z.number(),
-        children: z.array(
-          z
-            .object({
+        children: z
+          .array(
+            z.object({
               name: z.string(),
               value: z.number(),
-            })
-            .optional(),
-        ),
+            }),
+          )
+          .optional(),
       }),
     )
     .optional(),

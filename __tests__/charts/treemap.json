@@ -29,27 +29,20 @@
                   "children": {
                     "type": "array",
                     "items": {
-                      "anyOf": [
-                        {
-                          "not": {}
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
                         },
-                        {
-                          "type": "object",
-                          "properties": {
-                            "name": {
-                              "type": "string"
-                            },
-                            "value": {
-                              "type": "number"
-                            }
-                          },
-                          "required": ["name", "value"]
+                        "value": {
+                          "type": "number"
                         }
-                      ]
+                      },
+                      "required": ["name", "value"]
                     }
                   }
                 },
-                "required": ["name", "value", "children"]
+                "required": ["name", "value"]
               }
             }
           },
@@ -57,12 +50,6 @@
         },
         "minItems": 1,
         "description": "Data for treemap chart, such as, [{ name: 'Design', value: 70, children: [{ name: 'Tech', value: 20 }] }]."
-      },
-      "theme": {
-        "default": "default",
-        "description": "Set the theme for the chart, optional, default is 'default'.",
-        "enum": ["default", "academy", "dark"],
-        "type": "string"
       },
       "style": {
         "type": "object",
@@ -86,6 +73,12 @@
           }
         },
         "description": "Custom style configuration for the chart."
+      },
+      "theme": {
+        "type": "string",
+        "enum": ["default", "academy", "dark"],
+        "default": "default",
+        "description": "Set the theme for the chart, optional, default is 'default'."
       },
       "width": {
         "type": "number",

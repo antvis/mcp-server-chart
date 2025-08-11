@@ -13,7 +13,7 @@ const MindMapNodeSchema = FishboneNodeSchema;
 // Mind map chart input schema
 const schema = {
   data: MindMapNodeSchema.describe(
-    "Data for mind map chart, such as, { name: 'main topic', children: [{ name: 'topic 1', children: [{ name:'subtopic 1-1' }] }.",
+    "Data for mind map chart which is a hierarchical structure, such as, { name: 'main topic', children: [{ name: 'topic 1', children: [{ name:'subtopic 1-1' }] }, and the maximum depth is 3.",
   ).refine(validatedTreeDataSchema, {
     message: "Invalid parameters: node name is not unique.",
     path: ["data"],

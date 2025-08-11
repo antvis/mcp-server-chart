@@ -48,7 +48,7 @@
           }
         },
         "required": ["name"],
-        "description": "Data for mind map chart, such as, { name: 'main topic', children: [{ name: 'topic 1', children: [{ name:'subtopic 1-1' }] }."
+        "description": "Data for mind map chart which is a hierarchical structure, such as, { name: 'main topic', children: [{ name: 'topic 1', children: [{ name:'subtopic 1-1' }] }, and the maximum depth is 3."
       },
       "theme": {
         "default": "default",

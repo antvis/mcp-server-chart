@@ -40,7 +40,7 @@ const schema = {
   data: z
     .array(TreeNodeSchema)
     .describe(
-      "Data for treemap chart, such as, [{ name: 'Design', value: 70, children: [{ name: 'Tech', value: 20 }] }].",
+      "Data for treemap chart which is a hierarchical structure, such as, [{ name: 'Design', value: 70, children: [{ name: 'Tech', value: 20 }] }], and the maximum depth is 3.",
     )
     .nonempty({ message: "Treemap chart data cannot be empty." }),
   style: z

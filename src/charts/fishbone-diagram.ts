@@ -35,7 +35,7 @@ export const FishboneNodeSchema: z.ZodType<TreeDataType> = z.object({
 // Fishbone diagram input schema
 const schema = {
   data: FishboneNodeSchema.describe(
-    "Data for fishbone diagram chart, such as, { name: 'main topic', children: [{ name: 'topic 1', children: [{ name: 'subtopic 1-1' }] }.",
+    "Data for fishbone diagram chart which is a hierarchical structure, such as, { name: 'main topic', children: [{ name: 'topic 1', children: [{ name: 'subtopic 1-1' }] }] }, and the maximum depth is 3.",
   ).refine(validatedTreeDataSchema, {
     message: "Invalid parameters: node name is not unique.",
     path: ["data"],

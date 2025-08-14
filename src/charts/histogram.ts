@@ -21,11 +21,10 @@ const schema = {
     )
     .nonempty({ message: "Histogram chart data cannot be empty." }),
   binNumber: z
-    .union([z.number(), z.undefined(), z.null()])
+    .number()
     .optional()
-    .default(null)
     .describe(
-      "Number of intervals to define the number of intervals in a histogram, when not specified, a default value will be used.",
+      "Number of intervals to define the number of intervals in a histogram, when not specified, a built-in value will be used.",
     ),
   style: z
     .object({

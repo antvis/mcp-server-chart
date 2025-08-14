@@ -9,7 +9,7 @@ describe("validator", () => {
     expect(() => {
       const schema = Charts[chartType].schema;
       z.object(schema).safeParse(MindMapSchema);
-    }).toThrow('Invalid element at key "~standard": expected a Zod schema');
+    }).toThrow("Cannot read properties of undefined (reading 'traits')");
   });
 
   it("should valid schema for flow diagram chart", () => {
@@ -17,6 +17,6 @@ describe("validator", () => {
     expect(() => {
       const schema = Charts[chartType].schema;
       z.object(schema).safeParse(FlowDiagramSchema);
-    }).toThrow('Invalid element at key "~standard": expected a Zod schema');
+    }).toThrow("Cannot read properties of undefined (reading 'traits')");
   });
 });

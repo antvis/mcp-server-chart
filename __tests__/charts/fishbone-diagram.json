@@ -14,7 +14,40 @@
           "children": {
             "type": "array",
             "items": {
-              "$ref": "#/$defs/__schema0"
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "children": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "children": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            }
+                          },
+                          "required": ["name"],
+                          "additionalProperties": false
+                        }
+                      }
+                    },
+                    "required": ["name"],
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "required": ["name"],
+              "additionalProperties": false
             }
           }
         },
@@ -49,24 +82,6 @@
       }
     },
     "required": ["data", "theme", "width", "height"],
-    "additionalProperties": false,
-    "$defs": {
-      "__schema0": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "children": {
-            "type": "array",
-            "items": {
-              "$ref": "#/$defs/__schema0"
-            }
-          }
-        },
-        "required": ["name"],
-        "additionalProperties": false
-      }
-    }
+    "additionalProperties": false
   }
 }

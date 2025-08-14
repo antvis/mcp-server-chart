@@ -2,24 +2,41 @@ import { z } from "zod";
 
 import { HeightSchema, TextureSchema, ThemeSchema, WidthSchema } from "./base";
 
-export type OrganizationChartDatumType = {
-  name: string;
-  description?: string;
-  children?: OrganizationChartDatumType[];
-};
-
-const OrganizationChartNodeSchema: z.ZodType<OrganizationChartDatumType> =
-  z.lazy(() =>
-    z.object({
-      name: z.string(),
-      description: z.string().optional(),
-      children: z.array(OrganizationChartNodeSchema).optional(),
-    }),
-  );
+// The recursive schema is not supported by gemini, and other clients, so we use a non-recursive schema which can represent a tree structure with a fixed depth.
+// Ref: https://github.com/antvis/mcp-server-chart/issues/155
+// Ref: https://github.com/antvis/mcp-server-chart/issues/132
+const OrganizationChartNodeSchema = z.object({
+  name: z.string(),
+  description: z.string().optional(),
+  children: z
+    .array(
+      z.object({
+        name: z.string(),
+        description: z.string().optional(),
+        children: z
+          .array(
+            z.object({
+              name: z.string(),
+              description: z.string().optional(),
+              children: z
+                .array(
+                  z.object({
+                    name: z.string(),
+                    description: z.string().optional(),
+                  }),
+                )
+                .optional(),
+            }),
+          )
+          .optional(),
+      }),
+    )
+    .optional(),
+});
 
 const schema = z.object({
   data: OrganizationChartNodeSchema.describe(
-    "Data for organization chart, such as, { name: 'CEO', description: 'Chief Executive Officer', children: [{ name: 'CTO', description: 'Chief Technology Officer', children: [{ name: 'Dev Manager', description: 'Development Manager' }] }] }.",
+    "Data for organization chart which is a hierarchical structure, such as, { name: 'CEO', description: 'Chief Executive Officer', children: [{ name: 'CTO', description: 'Chief Technology Officer', children: [{ name: 'Dev Manager', description: 'Development Manager' }] }] }, and the maximum depth is 3.",
   ),
   orient: z
     .enum(["horizontal", "vertical"])

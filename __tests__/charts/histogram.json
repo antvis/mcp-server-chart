@@ -19,15 +19,8 @@
         "minItems": 1
       },
       "binNumber": {
-        "description": "Number of intervals to define the number of intervals in a histogram, when not specified, a default value will be used.",
-        "anyOf": [
-          {
-            "type": "number"
-          },
-          {
-            "type": "null"
-          }
-        ]
+        "description": "Number of intervals to define the number of intervals in a histogram, when not specified, a built-in value will be used.",
+        "type": "number"
       },
       "style": {
         "description": "Custom style configuration for the chart.",
@@ -81,7 +74,6 @@
     },
     "required": [
       "data",
-      "binNumber",
       "theme",
       "width",
       "height",

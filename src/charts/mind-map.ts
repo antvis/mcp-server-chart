@@ -1,20 +1,18 @@
 import { z } from "zod";
-
-import { type TreeDataType, validatedTreeDataSchema } from "../utils/validator";
+import { validatedTreeDataSchema } from "../utils/validator";
 import { HeightSchema, TextureSchema, ThemeSchema, WidthSchema } from "./base";
+import { FishboneNodeSchema } from "./fishbone-diagram";
 
 // Mind map node schema
-const MindMapNodeSchema: z.ZodType<TreeDataType> = z.lazy(() =>
-  z.object({
-    name: z.string(),
-    children: z.array(MindMapNodeSchema).optional(),
-  }),
-);
+// The recursive schema is not supported by gemini, and other clients, so we use a non-recursive schema which can represent a tree structure with a fixed depth.
+// Ref: https://github.com/antvis/mcp-server-chart/issues/155
+// Ref: https://github.com/antvis/mcp-server-chart/issues/132
+const MindMapNodeSchema = FishboneNodeSchema;
 
 // Mind map chart input schema
 const schema = z.object({
   data: MindMapNodeSchema.describe(
-    "Data for mind map chart, such as, { name: 'main topic', children: [{ name: 'topic 1', children: [{ name:'subtopic 1-1' }] }.",
+    "Data for mind map chart which is a hierarchical structure, such as, { name: 'main topic', children: [{ name: 'topic 1', children: [{ name:'subtopic 1-1' }] }, and the maximum depth is 3.",
   ).refine(validatedTreeDataSchema, {
     message: "Invalid parameters: node name is not unique.",
     path: ["data"],

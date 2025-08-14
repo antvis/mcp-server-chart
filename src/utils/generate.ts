@@ -1,4 +1,5 @@
 import type { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
+import axios from "axios";
 import { getServiceIdentifier, getVisRequestServer } from "./env";
 
 /**
@@ -15,19 +16,20 @@ export async function generateChartUrl(
 ): Promise<string> {
   const url = getVisRequestServer();
 
-  const response = await fetch(url, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
+  const response = await axios.post(
+    url,
+    {
       type,
       ...options,
       source: "mcp-server-chart",
-    }),
-  });
-
-  const { success, errorMessage, resultObj } = await response.json();
+    },
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    },
+  );
+  const { success, errorMessage, resultObj } = response.data;
 
   if (!success) {
     throw new Error(errorMessage);
@@ -57,20 +59,21 @@ export async function generateMap(
 ): Promise<ResponseResult> {
   const url = getVisRequestServer();
 
-  const response = await fetch(url, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      source: "mcp-server-chart",
+  const response = await axios.post(
+    url,
+    {
       serviceId: getServiceIdentifier(),
       tool,
       input,
-    }),
-  });
-
-  const { success, errorMessage, resultObj } = await response.json();
+      source: "mcp-server-chart",
+    },
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    },
+  );
+  const { success, errorMessage, resultObj } = response.data;
 
   if (!success) {
     throw new Error(errorMessage);

@@ -22,11 +22,9 @@ const schema = z.object({
     ),
   binNumber: z
     .number()
-    .nullable()
     .optional()
-    .prefault(null)
     .describe(
-      "Number of intervals to define the number of intervals in a histogram, when not specified, a default value will be used.",
+      "Number of intervals to define the number of intervals in a histogram, when not specified, a built-in value will be used.",
     ),
   style: z
     .object({

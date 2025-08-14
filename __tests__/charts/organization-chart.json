@@ -2,9 +2,11 @@
   "name": "generate_organization_chart",
   "description": "Generate an organization chart to visualize the hierarchical structure of an organization, such as, a diagram showing the relationship between a CEO and their direct reports.",
   "inputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
     "type": "object",
     "properties": {
       "data": {
+        "description": "Data for organization chart which is a hierarchical structure, such as, { name: 'CEO', description: 'Chief Executive Officer', children: [{ name: 'CTO', description: 'Chief Technology Officer', children: [{ name: 'Dev Manager', description: 'Development Manager' }] }] }, and the maximum depth is 3.",
         "type": "object",
         "properties": {
           "name": {
@@ -47,57 +49,57 @@
                               "type": "string"
                             }
                           },
-                          "required": ["name"]
+                          "required": ["name"],
+                          "additionalProperties": false
                         }
                       }
                     },
-                    "required": ["name"]
+                    "required": ["name"],
+                    "additionalProperties": false
                   }
                 }
               },
-              "required": ["name"]
+              "required": ["name"],
+              "additionalProperties": false
             }
           }
         },
         "required": ["name"],
-        "description": "Data for organization chart which is a hierarchical structure, such as, { name: 'CEO', description: 'Chief Executive Officer', children: [{ name: 'CTO', description: 'Chief Technology Officer', children: [{ name: 'Dev Manager', description: 'Development Manager' }] }] }, and the maximum depth is 3."
+        "additionalProperties": false
       },
       "orient": {
+        "description": "Orientation of the organization chart, either horizontal or vertical. Default is vertical, when the level of the chart is more than 3, it is recommended to use horizontal orientation.",
         "type": "string",
-        "enum": ["horizontal", "vertical"],
-        "default": "vertical",
-        "description": "Orientation of the organization chart, either horizontal or vertical. Default is vertical, when the level of the chart is more than 3, it is recommended to use horizontal orientation."
-      },
-      "theme": {
-        "type": "string",
-        "enum": ["default", "academy", "dark"],
-        "default": "default",
-        "description": "Set the theme for the chart, optional, default is 'default'."
+        "enum": ["horizontal", "vertical"]
       },
       "style": {
+        "description": "Custom style configuration for the chart.",
         "type": "object",
         "properties": {
           "texture": {
+            "description": "Set the texture for the chart, optional, default is 'default'. 'rough' refers to hand-drawn style.",
             "type": "string",
-            "enum": ["default", "rough"],
-            "default": "default",
-            "description": "Set the texture for the chart, optional, default is 'default'. 'rough' refers to hand-drawn style."
+            "enum": ["default", "rough"]
           }
         },
-        "description": "Custom style configuration for the chart."
+        "required": ["texture"],
+        "additionalProperties": false
+      },
+      "theme": {
+        "description": "Set the theme for the chart, optional, default is 'default'.",
+        "type": "string",
+        "enum": ["default", "academy", "dark"]
       },
       "width": {
-        "type": "number",
-        "default": 600,
-        "description": "Set the width of chart, default is 600."
+        "description": "Set the width of chart, default is 600.",
+        "type": "number"
       },
       "height": {
-        "type": "number",
-        "default": 400,
-        "description": "Set the height of chart, default is 400."
+        "description": "Set the height of chart, default is 400.",
+        "type": "number"
       }
     },
-    "required": ["data"],
-    "$schema": "http://json-schema.org/draft-07/schema#"
+    "required": ["data", "orient", "theme", "width", "height"],
+    "additionalProperties": false
   }
 }

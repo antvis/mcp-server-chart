@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { zodToJsonSchema } from "../utils";
+
 import {
   AxisXTitleSchema,
   AxisYTitleSchema,
@@ -19,17 +19,17 @@ const data = z.object({
 });
 
 // Line chart input schema
-const schema = {
+const schema = z.object({
   data: z
-    .array(data)
+    .tuple([data], data)
+    .check(z.minLength(1))
     .describe(
       "Data for line chart, it should be an array of objects, each object contains a `time` field and a `value` field, such as, [{ time: '2015', value: 23 }, { time: '2016', value: 32 }].",
-    )
-    .nonempty({ message: "Line chart data cannot be empty." }),
+    ),
   stack: z
     .boolean()
     .optional()
-    .default(false)
+    .prefault(false)
     .describe(
       "Whether stacking is enabled. When enabled, line charts require a 'group' field in the data.",
     ),
@@ -51,14 +51,14 @@ const schema = {
   title: TitleSchema,
   axisXTitle: AxisXTitleSchema,
   axisYTitle: AxisYTitleSchema,
-};
+});
 
 // Line chart tool descriptor
 const tool = {
   name: "generate_line_chart",
   description:
     "Generate a line chart to show trends over time, such as, the ratio of Apple computer sales to Apple's profits changed from 2000 to 2016.",
-  inputSchema: zodToJsonSchema(schema),
+  inputSchema: schema,
 };
 
 export const line = {

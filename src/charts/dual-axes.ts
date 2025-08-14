@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { zodToJsonSchema } from "../utils";
+
 import {
   AxisXTitleSchema,
   BackgroundColorSchema,
@@ -23,7 +23,7 @@ const DualAxesSeriesSchema = z.object({
     ),
   axisYTitle: z
     .string()
-    .default("")
+    .prefault("")
     .describe(
       "Set the y-axis title of the chart series, such as, axisYTitle: '销售额'.",
     )
@@ -31,19 +31,19 @@ const DualAxesSeriesSchema = z.object({
 });
 
 // Dual axes chart input schema
-const schema = {
+const schema = z.object({
   categories: z
-    .array(z.string())
+    .tuple([z.string()], z.string())
+    .check(z.minLength(1))
     .describe(
       "Categories for dual axes chart, such as, ['2015', '2016', '2017'].",
-    )
-    .nonempty({ message: "Dual axes chart categories cannot be empty." }),
+    ),
   series: z
-    .array(DualAxesSeriesSchema)
+    .tuple([DualAxesSeriesSchema], DualAxesSeriesSchema)
+    .check(z.minLength(1))
     .describe(
       "Series for dual axes chart, such as, [{ type: 'column', data: [91.9, 99.1, 101.6, 114.4, 121], axisYTitle: '销售额' }, { type: 'line', data: [0.055, 0.06, 0.062, 0.07, 0.075], 'axisYTitle': '利润率' }].",
-    )
-    .nonempty({ message: "Dual axes chart series cannot be empty." }),
+    ),
   style: z
     .object({
       backgroundColor: BackgroundColorSchema,
@@ -57,14 +57,14 @@ const schema = {
   height: HeightSchema,
   title: TitleSchema,
   axisXTitle: AxisXTitleSchema,
-};
+});
 
 // Dual axes chart tool descriptor
 const tool = {
   name: "generate_dual_axes_chart",
   description:
     "Generate a dual axes chart which is a combination chart that integrates two different chart types, typically combining a bar chart with a line chart to display both the trend and comparison of data, such as, the trend of sales and profit over time.",
-  inputSchema: zodToJsonSchema(schema),
+  inputSchema: schema,
 };
 
 export const dualAxes = {

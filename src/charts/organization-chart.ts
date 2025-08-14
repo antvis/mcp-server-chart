@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { zodToJsonSchema } from "../utils";
+
 import { HeightSchema, TextureSchema, ThemeSchema, WidthSchema } from "./base";
 
 // The recursive schema is not supported by gemini, and other clients, so we use a non-recursive schema which can represent a tree structure with a fixed depth.
@@ -34,13 +34,13 @@ const OrganizationChartNodeSchema = z.object({
     .optional(),
 });
 
-const schema = {
+const schema = z.object({
   data: OrganizationChartNodeSchema.describe(
     "Data for organization chart which is a hierarchical structure, such as, { name: 'CEO', description: 'Chief Executive Officer', children: [{ name: 'CTO', description: 'Chief Technology Officer', children: [{ name: 'Dev Manager', description: 'Development Manager' }] }] }, and the maximum depth is 3.",
   ),
   orient: z
     .enum(["horizontal", "vertical"])
-    .default("vertical")
+    .prefault("vertical")
     .describe(
       "Orientation of the organization chart, either horizontal or vertical. Default is vertical, when the level of the chart is more than 3, it is recommended to use horizontal orientation.",
     ),
@@ -53,13 +53,13 @@ const schema = {
   theme: ThemeSchema,
   width: WidthSchema,
   height: HeightSchema,
-};
+});
 
 const tool = {
   name: "generate_organization_chart",
   description:
     "Generate an organization chart to visualize the hierarchical structure of an organization, such as, a diagram showing the relationship between a CEO and their direct reports.",
-  inputSchema: zodToJsonSchema(schema),
+  inputSchema: schema,
 };
 
 export const organizationChart = {

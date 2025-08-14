@@ -2,63 +2,60 @@
   "name": "generate_liquid_chart",
   "description": "Generate a liquid chart to visualize a single value as a percentage, such as, the current occupancy rate of a reservoir or the completion percentage of a project.",
   "inputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
     "type": "object",
     "properties": {
       "percent": {
+        "description": "The percentage value to display in the liquid chart, should be a number between 0 and 1, where 1 represents 100%. For example, 0.75 represents 75%.",
         "type": "number",
         "minimum": 0,
-        "maximum": 1,
-        "description": "The percentage value to display in the liquid chart, should be a number between 0 and 1, where 1 represents 100%. For example, 0.75 represents 75%."
+        "maximum": 1
       },
       "shape": {
+        "description": "The shape of the liquid chart, can be 'circle', 'rect', 'pin', or 'triangle'. Default is 'circle'.",
         "type": "string",
-        "enum": ["circle", "rect", "pin", "triangle"],
-        "default": "circle",
-        "description": "The shape of the liquid chart, can be 'circle', 'rect', 'pin', or 'triangle'. Default is 'circle'."
-      },
-      "theme": {
-        "type": "string",
-        "enum": ["default", "academy", "dark"],
-        "default": "default",
-        "description": "Set the theme for the chart, optional, default is 'default'."
+        "enum": ["circle", "rect", "pin", "triangle"]
       },
       "style": {
         "description": "Custom style configuration for the chart.",
+        "type": "object",
         "properties": {
           "backgroundColor": {
             "description": "Background color of the chart, such as, '#fff'.",
             "type": "string"
           },
+          "texture": {
+            "description": "Set the texture for the chart, optional, default is 'default'. 'rough' refers to hand-drawn style.",
+            "type": "string",
+            "enum": ["default", "rough"]
+          },
           "color": {
             "description": "Custom color for the liquid chart, if not specified, defaults to the theme color.",
             "type": "string"
-          },
-          "texture": {
-            "default": "default",
-            "description": "Set the texture for the chart, optional, default is 'default'. 'rough' refers to hand-drawn style.",
-            "enum": ["default", "rough"],
-            "type": "string"
           }
         },
-        "type": "object"
+        "required": ["texture"],
+        "additionalProperties": false
+      },
+      "theme": {
+        "description": "Set the theme for the chart, optional, default is 'default'.",
+        "type": "string",
+        "enum": ["default", "academy", "dark"]
       },
       "width": {
-        "type": "number",
-        "default": 600,
-        "description": "Set the width of chart, default is 600."
+        "description": "Set the width of chart, default is 600.",
+        "type": "number"
       },
       "height": {
-        "type": "number",
-        "default": 400,
-        "description": "Set the height of chart, default is 400."
+        "description": "Set the height of chart, default is 400.",
+        "type": "number"
       },
       "title": {
-        "type": "string",
-        "default": "",
-        "description": "Set the title of chart."
+        "description": "Set the title of chart.",
+        "type": "string"
       }
     },
-    "required": ["percent"],
-    "$schema": "http://json-schema.org/draft-07/schema#"
+    "required": ["percent", "shape", "theme", "width", "height", "title"],
+    "additionalProperties": false
   }
 }

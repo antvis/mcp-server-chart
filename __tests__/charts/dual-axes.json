@@ -2,17 +2,78 @@
   "name": "generate_dual_axes_chart",
   "description": "Generate a dual axes chart which is a combination chart that integrates two different chart types, typically combining a bar chart with a line chart to display both the trend and comparison of data, such as, the trend of sales and profit over time.",
   "inputSchema": {
-    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
     "type": "object",
     "properties": {
-      "theme": {
-        "default": "default",
-        "description": "Set the theme for the chart, optional, default is 'default'.",
-        "enum": ["default", "academy", "dark"],
-        "type": "string"
+      "categories": {
+        "description": "Categories for dual axes chart, such as, ['2015', '2016', '2017'].",
+        "type": "array",
+        "prefixItems": [
+          {
+            "type": "string"
+          }
+        ],
+        "items": {
+          "type": "string"
+        },
+        "minItems": 1
+      },
+      "series": {
+        "description": "Series for dual axes chart, such as, [{ type: 'column', data: [91.9, 99.1, 101.6, 114.4, 121], axisYTitle: '销售额' }, { type: 'line', data: [0.055, 0.06, 0.062, 0.07, 0.075], 'axisYTitle': '利润率' }].",
+        "type": "array",
+        "prefixItems": [
+          {
+            "type": "object",
+            "properties": {
+              "type": {
+                "description": "The optional value can be 'column' or 'line'.",
+                "type": "string",
+                "enum": ["column", "line"]
+              },
+              "data": {
+                "description": "When type is column, the data represents quantities, such as [91.9, 99.1, 101.6, 114.4, 121]. When type is line, the data represents ratios and its values are recommended to be less than 1, such as [0.055, 0.06, 0.062, 0.07, 0.075].",
+                "type": "array",
+                "items": {
+                  "type": "number"
+                }
+              },
+              "axisYTitle": {
+                "description": "Set the y-axis title of the chart series, such as, axisYTitle: '销售额'.",
+                "type": "string"
+              }
+            },
+            "required": ["type", "data"],
+            "additionalProperties": false
+          }
+        ],
+        "items": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "description": "The optional value can be 'column' or 'line'.",
+              "type": "string",
+              "enum": ["column", "line"]
+            },
+            "data": {
+              "description": "When type is column, the data represents quantities, such as [91.9, 99.1, 101.6, 114.4, 121]. When type is line, the data represents ratios and its values are recommended to be less than 1, such as [0.055, 0.06, 0.062, 0.07, 0.075].",
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "axisYTitle": {
+              "description": "Set the y-axis title of the chart series, such as, axisYTitle: '销售额'.",
+              "type": "string"
+            }
+          },
+          "required": ["type", "data"],
+          "additionalProperties": false
+        },
+        "minItems": 1
       },
       "style": {
         "description": "Custom style configuration for the chart.",
+        "type": "object",
         "properties": {
           "backgroundColor": {
             "description": "Background color of the chart, such as, '#fff'.",
@@ -20,77 +81,51 @@
           },
           "palette": {
             "description": "Color palette for the chart, it is a collection of colors.",
+            "type": "array",
             "items": {
               "type": "string"
-            },
-            "type": "array"
-          },
-          "texture": {
-            "default": "default",
-            "description": "Set the texture for the chart, optional, default is 'default'. 'rough' refers to hand-drawn style.",
-            "enum": ["default", "rough"],
-            "type": "string"
-          }
-        },
-        "type": "object"
-      },
-      "width": {
-        "type": "number",
-        "description": "Set the width of chart, default is 600.",
-        "default": 600
-      },
-      "height": {
-        "type": "number",
-        "description": "Set the height of chart, default is 400.",
-        "default": 400
-      },
-      "title": {
-        "type": "string",
-        "default": "",
-        "description": "Set the title of chart."
-      },
-      "axisXTitle": {
-        "type": "string",
-        "default": "",
-        "description": "Set the x-axis title of chart."
-      },
-      "categories": {
-        "type": "array",
-        "minItems": 1,
-        "items": {
-          "type": "string"
-        },
-        "description": "Categories for dual axes chart, such as, ['2015', '2016', '2017']."
-      },
-      "series": {
-        "type": "array",
-        "minItems": 1,
-        "items": {
-          "type": "object",
-          "properties": {
-            "type": {
-              "type": "string",
-              "description": "The optional value can be 'column' or 'line'.",
-              "enum": ["column", "line"]
-            },
-            "data": {
-              "type": "array",
-              "items": {
-                "type": "number"
-              },
-              "description": "When type is column, the data represents quantities, such as [91.9, 99.1, 101.6, 114.4, 121]. When type is line, the data represents ratios and its values are recommended to be less than 1, such as [0.055, 0.06, 0.062, 0.07, 0.075]."
-            },
-            "axisYTitle": {
-              "type": "string",
-              "default": "",
-              "description": "Set the y-axis title of the chart series, such as, axisYTitle: '销售额'."
             }
           },
-          "required": ["type", "data"]
+          "texture": {
+            "description": "Set the texture for the chart, optional, default is 'default'. 'rough' refers to hand-drawn style.",
+            "type": "string",
+            "enum": ["default", "rough"]
+          }
         },
-        "description": "Series for dual axes chart, such as, [{ type: 'column', data: [91.9, 99.1, 101.6, 114.4, 121], axisYTitle: '销售额' }, { type: 'line', data: [0.055, 0.06, 0.062, 0.07, 0.075], 'axisYTitle': '利润率' }]."
+        "required": ["texture"],
+        "additionalProperties": false
+      },
+      "theme": {
+        "description": "Set the theme for the chart, optional, default is 'default'.",
+        "type": "string",
+        "enum": ["default", "academy", "dark"]
+      },
+      "width": {
+        "description": "Set the width of chart, default is 600.",
+        "type": "number"
+      },
+      "height": {
+        "description": "Set the height of chart, default is 400.",
+        "type": "number"
+      },
+      "title": {
+        "description": "Set the title of chart.",
+        "type": "string"
+      },
+      "axisXTitle": {
+        "description": "Set the x-axis title of chart.",
+        "type": "string"
       }
     },
-    "required": ["categories", "series"]
+    "required": [
+      "categories",
+      "series",
+      "theme",
+      "width",
+      "height",
+      "title",
+      "axisXTitle"
+    ],
+    "additionalProperties": false
   }
 }

@@ -2,12 +2,27 @@
   "name": "generate_line_chart",
   "description": "Generate a line chart to show trends over time, such as, the ratio of Apple computer sales to Apple's profits changed from 2000 to 2016.",
   "inputSchema": {
-    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
     "type": "object",
     "properties": {
       "data": {
+        "description": "Data for line chart, it should be an array of objects, each object contains a `time` field and a `value` field, such as, [{ time: '2015', value: 23 }, { time: '2016', value: 32 }].",
         "type": "array",
-        "minItems": 1,
+        "prefixItems": [
+          {
+            "type": "object",
+            "properties": {
+              "time": {
+                "type": "string"
+              },
+              "value": {
+                "type": "number"
+              }
+            },
+            "required": ["time", "value"],
+            "additionalProperties": false
+          }
+        ],
         "items": {
           "type": "object",
           "properties": {
@@ -18,27 +33,23 @@
               "type": "number"
             }
           },
-          "required": ["time", "value"]
+          "required": ["time", "value"],
+          "additionalProperties": false
         },
-        "description": "Data for line chart, it should be an array of objects, each object contains a `time` field and a `value` field, such as, [{ time: '2015', value: 23 }, { time: '2016', value: 32 }]."
+        "minItems": 1
       },
       "stack": {
-        "type": "boolean",
-        "default": false,
-        "description": "Whether stacking is enabled. When enabled, line charts require a 'group' field in the data."
-      },
-      "theme": {
-        "default": "default",
-        "description": "Set the theme for the chart, optional, default is 'default'.",
-        "enum": ["default", "academy", "dark"],
-        "type": "string"
+        "description": "Whether stacking is enabled. When enabled, line charts require a 'group' field in the data.",
+        "type": "boolean"
       },
       "style": {
         "description": "Custom style configuration for the chart.",
+        "type": "object",
         "properties": {
-          "lineWidth": {
-            "description": "Line width for the lines of chart, such as 4.",
-            "type": "number"
+          "texture": {
+            "description": "Set the texture for the chart, optional, default is 'default'. 'rough' refers to hand-drawn style.",
+            "type": "string",
+            "enum": ["default", "rough"]
           },
           "backgroundColor": {
             "description": "Background color of the chart, such as, '#fff'.",
@@ -46,46 +57,55 @@
           },
           "palette": {
             "description": "Color palette for the chart, it is a collection of colors.",
+            "type": "array",
             "items": {
               "type": "string"
-            },
-            "type": "array"
+            }
           },
-          "texture": {
-            "default": "default",
-            "description": "Set the texture for the chart, optional, default is 'default'. 'rough' refers to hand-drawn style.",
-            "enum": ["default", "rough"],
-            "type": "string"
+          "lineWidth": {
+            "description": "Line width for the lines of chart, such as 4.",
+            "type": "number"
           }
         },
-        "type": "object"
+        "required": ["texture"],
+        "additionalProperties": false
+      },
+      "theme": {
+        "description": "Set the theme for the chart, optional, default is 'default'.",
+        "type": "string",
+        "enum": ["default", "academy", "dark"]
       },
       "width": {
-        "type": "number",
         "description": "Set the width of chart, default is 600.",
-        "default": 600
+        "type": "number"
       },
       "height": {
-        "type": "number",
         "description": "Set the height of chart, default is 400.",
-        "default": 400
+        "type": "number"
       },
       "title": {
-        "type": "string",
-        "default": "",
-        "description": "Set the title of chart."
+        "description": "Set the title of chart.",
+        "type": "string"
       },
       "axisXTitle": {
-        "type": "string",
-        "default": "",
-        "description": "Set the x-axis title of chart."
+        "description": "Set the x-axis title of chart.",
+        "type": "string"
       },
       "axisYTitle": {
-        "type": "string",
-        "default": "",
-        "description": "Set the y-axis title of chart."
+        "description": "Set the y-axis title of chart.",
+        "type": "string"
       }
     },
-    "required": ["data"]
+    "required": [
+      "data",
+      "stack",
+      "theme",
+      "width",
+      "height",
+      "title",
+      "axisXTitle",
+      "axisYTitle"
+    ],
+    "additionalProperties": false
   }
 }

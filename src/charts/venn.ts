@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { zodToJsonSchema } from "../utils";
+
 import {
   BackgroundColorSchema,
   HeightSchema,
@@ -25,13 +25,13 @@ const data = z.object({
     ),
 });
 
-const schema = {
+const schema = z.object({
   data: z
-    .array(data)
+    .tuple([data], data)
+    .check(z.minLength(1))
     .describe(
       "Data for venn chart, such as, [{ label: 'A', value: 10, sets: ['A'] }, { label: 'B', value: 20, sets: ['B'] }, { label: 'C', value: 30, sets: ['C'] }, { label: 'AB', value: 5, sets: ['A', 'B'] }].",
-    )
-    .nonempty({ message: "Venn chart data cannot be empty." }),
+    ),
   style: z
     .object({
       backgroundColor: BackgroundColorSchema,
@@ -44,13 +44,13 @@ const schema = {
   width: WidthSchema,
   height: HeightSchema,
   title: TitleSchema,
-};
+});
 
 const tool = {
   name: "generate_venn_chart",
   description:
     "Generate a Venn diagram to visualize the relationships between different sets, showing how they intersect and overlap, such as the commonalities and differences between various groups.",
-  inputSchema: zodToJsonSchema(schema),
+  inputSchema: schema,
 };
 
 export const venn = {

@@ -1,5 +1,4 @@
 import { z } from "zod";
-import { zodToJsonSchema } from "../utils";
 import { validatedTreeDataSchema } from "../utils/validator";
 import { HeightSchema, TextureSchema, ThemeSchema, WidthSchema } from "./base";
 import { FishboneNodeSchema } from "./fishbone-diagram";
@@ -11,7 +10,7 @@ import { FishboneNodeSchema } from "./fishbone-diagram";
 const MindMapNodeSchema = FishboneNodeSchema;
 
 // Mind map chart input schema
-const schema = {
+const schema = z.object({
   data: MindMapNodeSchema.describe(
     "Data for mind map chart which is a hierarchical structure, such as, { name: 'main topic', children: [{ name: 'topic 1', children: [{ name:'subtopic 1-1' }] }, and the maximum depth is 3.",
   ).refine(validatedTreeDataSchema, {
@@ -27,14 +26,14 @@ const schema = {
   theme: ThemeSchema,
   width: WidthSchema,
   height: HeightSchema,
-};
+});
 
 // Mind map chart tool descriptor
 const tool = {
   name: "generate_mind_map",
   description:
     "Generate a mind map chart to organizes and presents information in a hierarchical structure with branches radiating from a central topic, such as, a diagram showing the relationship between a main topic and its subtopics.",
-  inputSchema: zodToJsonSchema(schema),
+  inputSchema: schema,
 };
 
 export const mindMap = {

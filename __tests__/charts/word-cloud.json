@@ -2,34 +2,45 @@
   "name": "generate_word_cloud_chart",
   "description": "Generate a word cloud chart to show word frequency or weight through text size variation, such as, analyzing common words in social media, reviews, or feedback.",
   "inputSchema": {
-    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
     "type": "object",
     "properties": {
       "data": {
+        "description": "Data for word cloud chart, it should be an array of objects, each object contains a `text` field and a `value` field, such as, [{ value: 4.272, text: '形成' }].",
         "type": "array",
-        "minItems": 1,
+        "prefixItems": [
+          {
+            "type": "object",
+            "properties": {
+              "text": {
+                "type": "string"
+              },
+              "value": {
+                "type": "number"
+              }
+            },
+            "required": ["text", "value"],
+            "additionalProperties": false
+          }
+        ],
         "items": {
           "type": "object",
           "properties": {
-            "value": {
-              "type": "number"
-            },
             "text": {
               "type": "string"
+            },
+            "value": {
+              "type": "number"
             }
           },
-          "required": ["text", "value"]
+          "required": ["text", "value"],
+          "additionalProperties": false
         },
-        "description": "Data for word cloud chart, it should be an array of objects, each object contains a `text` field and a `value` field, such as, [{ value: 4.272, text: '形成' }]."
-      },
-      "theme": {
-        "default": "default",
-        "description": "Set the theme for the chart, optional, default is 'default'.",
-        "enum": ["default", "academy", "dark"],
-        "type": "string"
+        "minItems": 1
       },
       "style": {
         "description": "Custom style configuration for the chart.",
+        "type": "object",
         "properties": {
           "backgroundColor": {
             "description": "Background color of the chart, such as, '#fff'.",
@@ -37,36 +48,39 @@
           },
           "palette": {
             "description": "Color palette for the chart, it is a collection of colors.",
+            "type": "array",
             "items": {
               "type": "string"
-            },
-            "type": "array"
+            }
           },
           "texture": {
-            "default": "default",
             "description": "Set the texture for the chart, optional, default is 'default'. 'rough' refers to hand-drawn style.",
-            "enum": ["default", "rough"],
-            "type": "string"
+            "type": "string",
+            "enum": ["default", "rough"]
           }
         },
-        "type": "object"
+        "required": ["texture"],
+        "additionalProperties": false
+      },
+      "theme": {
+        "description": "Set the theme for the chart, optional, default is 'default'.",
+        "type": "string",
+        "enum": ["default", "academy", "dark"]
       },
       "width": {
-        "type": "number",
         "description": "Set the width of chart, default is 600.",
-        "default": 600
+        "type": "number"
       },
       "height": {
-        "type": "number",
         "description": "Set the height of chart, default is 400.",
-        "default": 400
+        "type": "number"
       },
       "title": {
-        "type": "string",
-        "default": "",
-        "description": "Set the title of chart."
+        "description": "Set the title of chart.",
+        "type": "string"
       }
     },
-    "required": ["data"]
+    "required": ["data", "theme", "width", "height", "title"],
+    "additionalProperties": false
   }
 }

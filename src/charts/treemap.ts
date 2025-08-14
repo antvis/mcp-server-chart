@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { zodToJsonSchema } from "../utils";
+
 import {
   BackgroundColorSchema,
   HeightSchema,
@@ -36,13 +36,13 @@ const TreeNodeSchema = z.object({
 });
 
 // Treemap chart input schema
-const schema = {
+const schema = z.object({
   data: z
-    .array(TreeNodeSchema)
+    .tuple([TreeNodeSchema], TreeNodeSchema)
+    .check(z.minLength(1))
     .describe(
       "Data for treemap chart which is a hierarchical structure, such as, [{ name: 'Design', value: 70, children: [{ name: 'Tech', value: 20 }] }], and the maximum depth is 3.",
-    )
-    .nonempty({ message: "Treemap chart data cannot be empty." }),
+    ),
   style: z
     .object({
       backgroundColor: BackgroundColorSchema,
@@ -55,14 +55,14 @@ const schema = {
   width: WidthSchema,
   height: HeightSchema,
   title: TitleSchema,
-};
+});
 
 // Treemap chart tool descriptor
 const tool = {
   name: "generate_treemap_chart",
   description:
     "Generate a treemap chart to display hierarchical data and can intuitively show comparisons between items at the same level, such as, show disk space usage with treemap.",
-  inputSchema: zodToJsonSchema(schema),
+  inputSchema: schema,
 };
 
 export const treemap = {

@@ -273,6 +273,40 @@ Start the MCP server:
 npm run start
 ```
 
+### run mcp server
+
+if you want test sse server or streamable server, you can use the following command:
+
+```bash
+npm run dev:sse
+# or
+npm run dev:streamable
+```
+
+and then change the transport type and url in the MCP Inspector configuration, such as:
+
+SSE
+
+```json
+{
+  "transport": {
+    "type": "sse",
+    "url": "http://localhost:1122/sse"
+  }
+}
+```
+
+streamable
+
+```json
+{
+  "transport": {
+    "type": "streamable",
+    "url": "http://localhost:1122/streamable"
+  }
+}
+```
+
 ## 📄 License
 
 MIT@[AntV](https://github.com/antvis).

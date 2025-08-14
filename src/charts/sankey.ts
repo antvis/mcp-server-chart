@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { zodToJsonSchema } from "../utils";
+
 import {
   BackgroundColorSchema,
   HeightSchema,
@@ -16,7 +16,7 @@ const data = z.object({
   value: z.number(),
 });
 
-const schema = {
+const schema = z.object({
   data: z
     .tuple([data], data)
     .check(z.minLength(1))
@@ -42,13 +42,13 @@ const schema = {
   width: WidthSchema,
   height: HeightSchema,
   title: TitleSchema,
-};
+});
 
 const tool = {
   name: "generate_sankey_chart",
   description:
     "Generate a sankey chart to visualize the flow of data between different stages or categories, such as, the user journey from landing on a page to completing a purchase.",
-  inputSchema: zodToJsonSchema(schema),
+  inputSchema: schema,
 };
 
 export const sankey = {

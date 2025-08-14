@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { zodToJsonSchema } from "../utils";
+
 import {
   AxisXTitleSchema,
   AxisYTitleSchema,
@@ -20,7 +20,7 @@ const data = z.object({
 });
 
 // Column chart input schema
-const schema = {
+const schema = z.object({
   data: z
     .tuple([data], data)
     .check(z.minLength(1))
@@ -55,14 +55,14 @@ const schema = {
   title: TitleSchema,
   axisXTitle: AxisXTitleSchema,
   axisYTitle: AxisYTitleSchema,
-};
+});
 
 // Column chart tool descriptor
 const tool = {
   name: "generate_column_chart",
   description:
     "Generate a column chart, which are best for comparing categorical data, such as, when values are close, column charts are preferable because our eyes are better at judging height than other visual elements like area or angles.",
-  inputSchema: zodToJsonSchema(schema),
+  inputSchema: schema,
 };
 
 export const column = {

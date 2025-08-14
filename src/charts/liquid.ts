@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { zodToJsonSchema } from "../utils";
+
 import {
   BackgroundColorSchema,
   HeightSchema,
@@ -9,7 +9,7 @@ import {
   WidthSchema,
 } from "./base";
 
-const schema = {
+const schema = z.object({
   percent: z
     .number()
     .min(0, {
@@ -45,13 +45,13 @@ const schema = {
   width: WidthSchema,
   height: HeightSchema,
   title: TitleSchema,
-};
+});
 
 const tool = {
   name: "generate_liquid_chart",
   description:
     "Generate a liquid chart to visualize a single value as a percentage, such as, the current occupancy rate of a reservoir or the completion percentage of a project.",
-  inputSchema: zodToJsonSchema(schema),
+  inputSchema: schema,
 };
 
 export const liquid = {

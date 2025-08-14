@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { zodToJsonSchema } from "../utils";
+
 import {
   AxisXTitleSchema,
   AxisYTitleSchema,
@@ -19,7 +19,7 @@ const data = z.object({
 });
 
 // Line chart input schema
-const schema = {
+const schema = z.object({
   data: z
     .tuple([data], data)
     .check(z.minLength(1))
@@ -51,14 +51,14 @@ const schema = {
   title: TitleSchema,
   axisXTitle: AxisXTitleSchema,
   axisYTitle: AxisYTitleSchema,
-};
+});
 
 // Line chart tool descriptor
 const tool = {
   name: "generate_line_chart",
   description:
     "Generate a line chart to show trends over time, such as, the ratio of Apple computer sales to Apple's profits changed from 2000 to 2016.",
-  inputSchema: zodToJsonSchema(schema),
+  inputSchema: schema,
 };
 
 export const line = {

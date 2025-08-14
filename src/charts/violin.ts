@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { zodToJsonSchema } from "../utils";
+
 import {
   AxisXTitleSchema,
   AxisYTitleSchema,
@@ -25,7 +25,7 @@ const data = z.object({
     ),
 });
 
-const schema = {
+const schema = z.object({
   data: z
     .tuple([data], data)
     .check(z.minLength(1))
@@ -46,13 +46,13 @@ const schema = {
   title: TitleSchema,
   axisXTitle: AxisXTitleSchema,
   axisYTitle: AxisYTitleSchema,
-};
+});
 
 const tool = {
   name: "generate_violin_chart",
   description:
     "Generate a violin chart to show data for statistical summaries among different categories, such as, comparing the distribution of data points across categories.",
-  inputSchema: zodToJsonSchema(schema),
+  inputSchema: schema,
 };
 
 export const violin = {

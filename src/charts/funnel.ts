@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { zodToJsonSchema } from "../utils";
+
 import {
   BackgroundColorSchema,
   HeightSchema,
@@ -15,7 +15,7 @@ const data = z.object({
   value: z.number(),
 });
 
-const schema = {
+const schema = z.object({
   data: z
     .tuple([data], data)
     .check(z.minLength(1))
@@ -34,13 +34,13 @@ const schema = {
   width: WidthSchema,
   height: HeightSchema,
   title: TitleSchema,
-};
+});
 
 const tool = {
   name: "generate_funnel_chart",
   description:
     "Generate a funnel chart to visualize the progressive reduction of data as it passes through stages, such as, the conversion rates of users from visiting a website to completing a purchase.",
-  inputSchema: zodToJsonSchema(schema),
+  inputSchema: schema,
 };
 
 export const funnel = {

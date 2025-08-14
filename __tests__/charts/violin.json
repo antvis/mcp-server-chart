@@ -2,39 +2,57 @@
   "name": "generate_violin_chart",
   "description": "Generate a violin chart to show data for statistical summaries among different categories, such as, comparing the distribution of data points across categories.",
   "inputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
     "type": "object",
     "properties": {
       "data": {
+        "description": "Data for violin chart, such as, [{ category: '分类一', value: 10 }] or [{ category: '分类二', value: 20, group: '组别一' }].",
         "type": "array",
+        "prefixItems": [
+          {
+            "type": "object",
+            "properties": {
+              "category": {
+                "description": "Category of the data point, such as '分类一'.",
+                "type": "string"
+              },
+              "value": {
+                "description": "Value of the data point, such as 10.",
+                "type": "number"
+              },
+              "group": {
+                "description": "Optional group for the data point, used for grouping in the violin chart.",
+                "type": "string"
+              }
+            },
+            "required": ["category", "value"],
+            "additionalProperties": false
+          }
+        ],
         "items": {
           "type": "object",
           "properties": {
             "category": {
-              "type": "string",
-              "description": "Category of the data point, such as '分类一'."
+              "description": "Category of the data point, such as '分类一'.",
+              "type": "string"
             },
             "value": {
-              "type": "number",
-              "description": "Value of the data point, such as 10."
+              "description": "Value of the data point, such as 10.",
+              "type": "number"
             },
             "group": {
-              "type": "string",
-              "description": "Optional group for the data point, used for grouping in the violin chart."
+              "description": "Optional group for the data point, used for grouping in the violin chart.",
+              "type": "string"
             }
           },
-          "required": ["category", "value"]
+          "required": ["category", "value"],
+          "additionalProperties": false
         },
-        "minItems": 1,
-        "description": "Data for violin chart, such as, [{ category: '分类一', value: 10 }] or [{ category: '分类二', value: 20, group: '组别一' }]."
-      },
-      "theme": {
-        "type": "string",
-        "enum": ["default", "academy", "dark"],
-        "default": "default",
-        "description": "Set the theme for the chart, optional, default is 'default'."
+        "minItems": 1
       },
       "style": {
         "description": "Custom style configuration for the chart.",
+        "type": "object",
         "properties": {
           "backgroundColor": {
             "description": "Background color of the chart, such as, '#fff'.",
@@ -42,47 +60,55 @@
           },
           "palette": {
             "description": "Color palette for the chart, it is a collection of colors.",
+            "type": "array",
             "items": {
               "type": "string"
-            },
-            "type": "array"
+            }
           },
           "texture": {
-            "default": "default",
             "description": "Set the texture for the chart, optional, default is 'default'. 'rough' refers to hand-drawn style.",
-            "enum": ["default", "rough"],
-            "type": "string"
+            "type": "string",
+            "enum": ["default", "rough"]
           }
         },
-        "type": "object"
+        "required": ["texture"],
+        "additionalProperties": false
+      },
+      "theme": {
+        "description": "Set the theme for the chart, optional, default is 'default'.",
+        "type": "string",
+        "enum": ["default", "academy", "dark"]
       },
       "width": {
-        "type": "number",
-        "default": 600,
-        "description": "Set the width of chart, default is 600."
+        "description": "Set the width of chart, default is 600.",
+        "type": "number"
       },
       "height": {
-        "type": "number",
-        "default": 400,
-        "description": "Set the height of chart, default is 400."
+        "description": "Set the height of chart, default is 400.",
+        "type": "number"
       },
       "title": {
-        "type": "string",
-        "default": "",
-        "description": "Set the title of chart."
+        "description": "Set the title of chart.",
+        "type": "string"
       },
       "axisXTitle": {
-        "type": "string",
-        "default": "",
-        "description": "Set the x-axis title of chart."
+        "description": "Set the x-axis title of chart.",
+        "type": "string"
       },
       "axisYTitle": {
-        "type": "string",
-        "default": "",
-        "description": "Set the y-axis title of chart."
+        "description": "Set the y-axis title of chart.",
+        "type": "string"
       }
     },
-    "required": ["data"],
-    "$schema": "http://json-schema.org/draft-07/schema#"
+    "required": [
+      "data",
+      "theme",
+      "width",
+      "height",
+      "title",
+      "axisXTitle",
+      "axisYTitle"
+    ],
+    "additionalProperties": false
   }
 }

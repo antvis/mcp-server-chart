@@ -2,7 +2,7 @@
   "name": "generate_fishbone_diagram",
   "description": "Generate a fishbone diagram chart to uses a fish skeleton, like structure to display the causes or effects of a core problem, with the problem as the fish head and the causes/effects as the fish bones. It suits problems that can be split into multiple related factors.",
   "inputSchema": {
-    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
     "type": "object",
     "properties": {
       "data": {
@@ -14,11 +14,12 @@
           "children": {
             "type": "array",
             "items": {
-              "$ref": "#/definitions/__schema0"
+              "$ref": "#/$defs/__schema0"
             }
           }
         },
-        "required": ["name"]
+        "required": ["name"],
+        "additionalProperties": false
       },
       "style": {
         "description": "Custom style configuration for the chart.",
@@ -26,31 +27,30 @@
         "properties": {
           "texture": {
             "description": "Set the texture for the chart, optional, default is 'default'. 'rough' refers to hand-drawn style.",
-            "default": "default",
             "type": "string",
             "enum": ["default", "rough"]
           }
-        }
+        },
+        "required": ["texture"],
+        "additionalProperties": false
       },
       "theme": {
         "description": "Set the theme for the chart, optional, default is 'default'.",
-        "default": "default",
         "type": "string",
         "enum": ["default", "academy", "dark"]
       },
       "width": {
         "description": "Set the width of chart, default is 600.",
-        "default": 600,
         "type": "number"
       },
       "height": {
         "description": "Set the height of chart, default is 400.",
-        "default": 400,
         "type": "number"
       }
     },
-    "required": ["data"],
-    "definitions": {
+    "required": ["data", "theme", "width", "height"],
+    "additionalProperties": false,
+    "$defs": {
       "__schema0": {
         "type": "object",
         "properties": {
@@ -60,11 +60,12 @@
           "children": {
             "type": "array",
             "items": {
-              "$ref": "#/definitions/__schema0"
+              "$ref": "#/$defs/__schema0"
             }
           }
         },
-        "required": ["name"]
+        "required": ["name"],
+        "additionalProperties": false
       }
     }
   }

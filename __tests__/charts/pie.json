@@ -2,12 +2,27 @@
   "name": "generate_pie_chart",
   "description": "Generate a pie chart to show the proportion of parts, such as, market share and budget allocation.",
   "inputSchema": {
-    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
     "type": "object",
     "properties": {
       "data": {
+        "description": "Data for pie chart, it should be an array of objects, each object contains a `category` field and a `value` field, such as, [{ category: '分类一', value: 27 }].",
         "type": "array",
-        "minItems": 1,
+        "prefixItems": [
+          {
+            "type": "object",
+            "properties": {
+              "category": {
+                "type": "string"
+              },
+              "value": {
+                "type": "number"
+              }
+            },
+            "required": ["category", "value"],
+            "additionalProperties": false
+          }
+        ],
         "items": {
           "type": "object",
           "properties": {
@@ -18,17 +33,18 @@
               "type": "number"
             }
           },
-          "required": ["category", "value"]
+          "required": ["category", "value"],
+          "additionalProperties": false
         },
-        "description": "Data for pie chart, it should be an array of objects, each object contains a `category` field and a `value` field, such as, [{ category: '分类一', value: 27 }]."
+        "minItems": 1
       },
       "innerRadius": {
-        "type": "number",
         "description": "Set the innerRadius of pie chart, the value between 0 and 1. Set the pie chart as a donut chart. Set the value to 0.6 or number in [0 ,1] to enable it.",
-        "default": 0
+        "type": "number"
       },
       "style": {
         "description": "Custom style configuration for the chart.",
+        "type": "object",
         "properties": {
           "backgroundColor": {
             "description": "Background color of the chart, such as, '#fff'.",
@@ -36,42 +52,39 @@
           },
           "palette": {
             "description": "Color palette for the chart, it is a collection of colors.",
+            "type": "array",
             "items": {
               "type": "string"
-            },
-            "type": "array"
+            }
           },
           "texture": {
-            "default": "default",
             "description": "Set the texture for the chart, optional, default is 'default'. 'rough' refers to hand-drawn style.",
-            "enum": ["default", "rough"],
-            "type": "string"
+            "type": "string",
+            "enum": ["default", "rough"]
           }
         },
-        "type": "object"
+        "required": ["texture"],
+        "additionalProperties": false
       },
       "theme": {
-        "default": "default",
         "description": "Set the theme for the chart, optional, default is 'default'.",
-        "enum": ["default", "academy", "dark"],
-        "type": "string"
+        "type": "string",
+        "enum": ["default", "academy", "dark"]
       },
       "width": {
-        "type": "number",
         "description": "Set the width of chart, default is 600.",
-        "default": 600
+        "type": "number"
       },
       "height": {
-        "type": "number",
         "description": "Set the height of chart, default is 400.",
-        "default": 400
+        "type": "number"
       },
       "title": {
-        "type": "string",
-        "default": "",
-        "description": "Set the title of chart."
+        "description": "Set the title of chart.",
+        "type": "string"
       }
     },
-    "required": ["data"]
+    "required": ["data", "innerRadius", "theme", "width", "height", "title"],
+    "additionalProperties": false
   }
 }

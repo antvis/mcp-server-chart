@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { zodToJsonSchema } from "../utils";
+
 import { validatedNodeEdgeDataSchema } from "../utils/validator";
 import {
   EdgeSchema,
@@ -11,7 +11,7 @@ import {
 } from "./base";
 
 // Network graph input schema
-const schema = {
+const schema = z.object({
   data: z
     .object({
       nodes: z.tuple([NodeSchema], NodeSchema).check(z.minLength(1)),
@@ -33,14 +33,14 @@ const schema = {
   theme: ThemeSchema,
   width: WidthSchema,
   height: HeightSchema,
-};
+});
 
 // Network graph tool descriptor
 const tool = {
   name: "generate_network_graph",
   description:
     "Generate a network graph chart to show relationships (edges) between entities (nodes), such as, relationships between people in social networks.",
-  inputSchema: zodToJsonSchema(schema),
+  inputSchema: schema,
 };
 
 export const networkGraph = {

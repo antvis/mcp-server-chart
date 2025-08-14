@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { zodToJsonSchema } from "../utils";
+
 import {
   AxisXTitleSchema,
   BackgroundColorSchema,
@@ -31,7 +31,7 @@ const DualAxesSeriesSchema = z.object({
 });
 
 // Dual axes chart input schema
-const schema = {
+const schema = z.object({
   categories: z
     .tuple([z.string()], z.string())
     .check(z.minLength(1))
@@ -57,14 +57,14 @@ const schema = {
   height: HeightSchema,
   title: TitleSchema,
   axisXTitle: AxisXTitleSchema,
-};
+});
 
 // Dual axes chart tool descriptor
 const tool = {
   name: "generate_dual_axes_chart",
   description:
     "Generate a dual axes chart which is a combination chart that integrates two different chart types, typically combining a bar chart with a line chart to display both the trend and comparison of data, such as, the trend of sales and profit over time.",
-  inputSchema: zodToJsonSchema(schema),
+  inputSchema: schema,
 };
 
 export const dualAxes = {

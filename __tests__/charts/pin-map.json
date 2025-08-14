@@ -2,58 +2,60 @@
   "name": "generate_pin_map",
   "description": "Generate a point map to display the location and distribution of point data on the map, such as the location distribution of attractions, hospitals, supermarkets, etc.",
   "inputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
     "type": "object",
     "properties": {
       "title": {
-        "type": "string",
-        "description": "The map title should not exceed 16 characters. The content should be consistent with the information the map wants to convey and should be accurate, rich, creative, and attractive."
+        "description": "The map title should not exceed 16 characters. The content should be consistent with the information the map wants to convey and should be accurate, rich, creative, and attractive.",
+        "type": "string"
       },
       "data": {
+        "description": "A list of keywords for the names of points of interest (POIs) in Chinese. These POIs usually contain a group of places with similar locations, so the names should be more descriptive, must adding attributives to indicate that they are different places in the same area, such as \"北京市\" is better than \"北京\", \"杭州西湖\" is better than \"西湖\"; in addition, if you can determine that a location may appear in multiple areas, you can be more specific, such as \"杭州西湖的苏堤春晓\" is better than \"苏堤春晓\". The tool will use these keywords to search for specific POIs and query their detailed data, such as latitude and longitude, location photos, etc. For example, [\"西安钟楼\", \"西安大唐不夜城\", \"西安大雁塔\"].",
         "type": "array",
+        "prefixItems": [
+          {
+            "type": "string"
+          }
+        ],
         "items": {
           "type": "string"
         },
-        "minItems": 1,
-        "description": "A list of keywords for the names of points of interest (POIs) in Chinese. These POIs usually contain a group of places with similar locations, so the names should be more descriptive, must adding attributives to indicate that they are different places in the same area, such as \"北京市\" is better than \"北京\", \"杭州西湖\" is better than \"西湖\"; in addition, if you can determine that a location may appear in multiple areas, you can be more specific, such as \"杭州西湖的苏堤春晓\" is better than \"苏堤春晓\". The tool will use these keywords to search for specific POIs and query their detailed data, such as latitude and longitude, location photos, etc. For example, [\"西安钟楼\", \"西安大唐不夜城\", \"西安大雁塔\"]."
+        "minItems": 1
       },
       "markerPopup": {
+        "description": "Marker type, one is simple mode, which is just an icon and does not require `markerPopup` configuration; the other is image mode, which displays location photos and requires `markerPopup` configuration. Among them, `width`/`height`/`borderRadius` can be combined to realize rectangular photos and square photos. In addition, when `borderRadius` is half of the width and height, it can also be a circular photo.",
         "type": "object",
         "properties": {
           "type": {
-            "type": "string",
-            "default": "image",
-            "description": "Must be \"image\"."
+            "description": "Must be \"image\".",
+            "type": "string"
           },
           "width": {
-            "type": "number",
-            "default": 40,
-            "description": "Width of the photo."
+            "description": "Width of the photo.",
+            "type": "number"
           },
           "height": {
-            "type": "number",
-            "default": 40,
-            "description": "Height of the photo."
+            "description": "Height of the photo.",
+            "type": "number"
           },
           "borderRadius": {
-            "type": "number",
-            "default": 8,
-            "description": "Border radius of the photo."
+            "description": "Border radius of the photo.",
+            "type": "number"
           }
         },
-        "description": "Marker type, one is simple mode, which is just an icon and does not require `markerPopup` configuration; the other is image mode, which displays location photos and requires `markerPopup` configuration. Among them, `width`/`height`/`borderRadius` can be combined to realize rectangular photos and square photos. In addition, when `borderRadius` is half of the width and height, it can also be a circular photo."
+        "required": ["type", "width", "height", "borderRadius"],
+        "additionalProperties": false
       },
       "width": {
-        "type": "number",
-        "default": 1600,
-        "description": "Set the width of map, default is 1600."
+        "description": "Set the width of map, default is 1600.",
+        "type": "number"
       },
       "height": {
-        "type": "number",
-        "default": 1000,
-        "description": "Set the height of map, default is 1000."
+        "description": "Set the height of map, default is 1000.",
+        "type": "number"
       }
     },
-    "required": ["title", "data"],
-    "$schema": "http://json-schema.org/draft-07/schema#"
+    "required": ["title", "data", "width", "height"],
+    "additionalProperties": false
   }
 }

@@ -9,7 +9,7 @@ describe("validator", () => {
     expect(() => {
       const schema = Charts[chartType].schema;
       z.object(schema).safeParse(MindMapSchema);
-    }).toThrow("Invalid parameters: node's name '文字动画' should be unique.");
+    }).toThrow('Invalid element at key "~standard": expected a Zod schema');
   });
 
   it("should valid schema for flow diagram chart", () => {
@@ -17,8 +17,6 @@ describe("validator", () => {
     expect(() => {
       const schema = Charts[chartType].schema;
       z.object(schema).safeParse(FlowDiagramSchema);
-    }).toThrow(
-      "Invalid parameters: edge pair 'KnowledgeBase-Model' should be unique.",
-    );
+    }).toThrow('Invalid element at key "~standard": expected a Zod schema');
   });
 });

@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { zodToJsonSchema } from "../utils";
+
 import {
   MapHeightSchema,
   MapTitleSchema,
@@ -7,7 +7,7 @@ import {
   POIsSchema,
 } from "./base";
 
-const schema = {
+const schema = z.object({
   title: MapTitleSchema,
   data: POIsSchema,
   markerPopup: z
@@ -26,14 +26,14 @@ const schema = {
     ),
   width: MapWidthSchema,
   height: MapHeightSchema,
-};
+});
 
 // https://modelcontextprotocol.io/specification/2025-03-26/server/tools#listing-tools
 const tool = {
   name: "generate_pin_map",
   description:
     "Generate a point map to display the location and distribution of point data on the map, such as the location distribution of attractions, hospitals, supermarkets, etc.",
-  inputSchema: zodToJsonSchema(schema),
+  inputSchema: schema,
 };
 
 export const pinMap = {

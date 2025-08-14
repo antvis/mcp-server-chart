@@ -1,8 +1,4 @@
-import { Server } from "@modelcontextprotocol/sdk/server/index.js";
-import {
-  CallToolRequestSchema,
-  ListToolsRequestSchema,
-} from "@modelcontextprotocol/sdk/types.js";
+import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import * as Charts from "./charts";
 import {
   startHTTPStreamableServer,
@@ -15,22 +11,14 @@ import { getDisabledTools } from "./utils/env";
 /**
  * Creates and configures an MCP server for chart generation.
  */
-export function createServer(): Server {
-  const server = new Server(
-    {
-      name: "mcp-server-chart",
-      version: "0.8.x",
-    },
-    {
-      capabilities: {
-        tools: {},
-      },
-    },
-  );
+export function createServer(): McpServer {
+  const server = new McpServer({
+    name: "mcp-server-chart",
+    version: "0.8.x",
+  });
 
   setupToolHandlers(server);
 
-  server.onerror = (error) => console.error("[MCP Error]", error);
   process.on("SIGINT", async () => {
     await server.close();
     process.exit(0);
@@ -56,14 +44,18 @@ function getEnabledTools() {
 /**
  * Sets up tool handlers for the MCP server.
  */
-function setupToolHandlers(server: Server): void {
-  server.setRequestHandler(ListToolsRequestSchema, async () => ({
-    tools: getEnabledTools().map((chart) => chart.tool),
-  }));
+function setupToolHandlers(server: McpServer): void {
+  for (const chart of getEnabledTools()) {
+    const { name, description, inputSchema } = chart?.tool || {};
+    if (!name || !description || !inputSchema) {
+      continue;
+    }
 
-  server.setRequestHandler(CallToolRequestSchema, async (request) => {
-    return await callTool(request.params.name, request.params.arguments);
-  });
+    // @ts-ignore
+    server.tool(name, description, inputSchema.shape, async (params) => {
+      return await callTool(chart.tool.name, params);
+    });
+  }
 }
 
 /**

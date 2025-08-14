@@ -1,5 +1,4 @@
 import { z } from "zod";
-import { zodToJsonSchema } from "../utils";
 import {
   AxisXTitleSchema,
   AxisYTitleSchema,
@@ -20,7 +19,7 @@ const data = z.object({
 });
 
 // Area chart input schema
-const schema = {
+const schema = z.object({
   data: z
     .tuple([data], data)
     .check(z.minLength(1))
@@ -46,14 +45,14 @@ const schema = {
   title: TitleSchema,
   axisXTitle: AxisXTitleSchema,
   axisYTitle: AxisYTitleSchema,
-};
+});
 
 // Area chart tool descriptor
 const tool = {
   name: "generate_area_chart",
   description:
     "Generate a area chart to show data trends under continuous independent variables and observe the overall data trend, such as, displacement = velocity (average or instantaneous) × time: s = v × t. If the x-axis is time (t) and the y-axis is velocity (v) at each moment, an area chart allows you to observe the trend of velocity over time and infer the distance traveled by the area's size.",
-  inputSchema: zodToJsonSchema(schema),
+  inputSchema: schema,
 };
 
 export const area = {

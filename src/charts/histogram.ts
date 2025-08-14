@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { zodToJsonSchema } from "../utils";
+
 import {
   AxisXTitleSchema,
   AxisYTitleSchema,
@@ -13,7 +13,7 @@ import {
 } from "./base";
 
 // Histogram chart input schema
-const schema = {
+const schema = z.object({
   data: z
     .tuple([z.number()], z.number())
     .check(z.minLength(1))
@@ -42,14 +42,14 @@ const schema = {
   title: TitleSchema,
   axisXTitle: AxisXTitleSchema,
   axisYTitle: AxisYTitleSchema,
-};
+});
 
 // Histogram chart tool descriptor
 const tool = {
   name: "generate_histogram_chart",
   description:
     "Generate a histogram chart to show the frequency of data points within a certain range. It can observe data distribution, such as, normal and skewed distributions, and identify data concentration areas and extreme points.",
-  inputSchema: zodToJsonSchema(schema),
+  inputSchema: schema,
 };
 
 export const histogram = {

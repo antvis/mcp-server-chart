@@ -2,14 +2,19 @@
   "name": "generate_treemap_chart",
   "description": "Generate a treemap chart to display hierarchical data and can intuitively show comparisons between items at the same level, such as, show disk space usage with treemap.",
   "inputSchema": {
-    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
     "type": "object",
     "properties": {
       "data": {
         "description": "Data for treemap chart, such as, [{ name: 'Design', value: 70, children: [{ name: 'Tech', value: 20 }] }].",
         "type": "array",
+        "prefixItems": [
+          {
+            "$ref": "#/$defs/__schema0"
+          }
+        ],
         "items": {
-          "$ref": "#/definitions/__schema0"
+          "$ref": "#/$defs/__schema0"
         },
         "minItems": 1
       },
@@ -30,36 +35,34 @@
           },
           "texture": {
             "description": "Set the texture for the chart, optional, default is 'default'. 'rough' refers to hand-drawn style.",
-            "default": "default",
             "type": "string",
             "enum": ["default", "rough"]
           }
-        }
+        },
+        "required": ["texture"],
+        "additionalProperties": false
       },
       "theme": {
         "description": "Set the theme for the chart, optional, default is 'default'.",
-        "default": "default",
         "type": "string",
         "enum": ["default", "academy", "dark"]
       },
       "width": {
         "description": "Set the width of chart, default is 600.",
-        "default": 600,
         "type": "number"
       },
       "height": {
         "description": "Set the height of chart, default is 400.",
-        "default": 400,
         "type": "number"
       },
       "title": {
         "description": "Set the title of chart.",
-        "type": "string",
-        "default": ""
+        "type": "string"
       }
     },
-    "required": ["data"],
-    "definitions": {
+    "required": ["data", "theme", "width", "height", "title"],
+    "additionalProperties": false,
+    "$defs": {
       "__schema0": {
         "type": "object",
         "properties": {
@@ -72,11 +75,12 @@
           "children": {
             "type": "array",
             "items": {
-              "$ref": "#/definitions/__schema0"
+              "$ref": "#/$defs/__schema0"
             }
           }
         },
-        "required": ["name", "value"]
+        "required": ["name", "value"],
+        "additionalProperties": false
       }
     }
   }

@@ -2,20 +2,15 @@
   "name": "generate_organization_chart",
   "description": "Generate an organization chart to visualize the hierarchical structure of an organization, such as, a diagram showing the relationship between a CEO and their direct reports.",
   "inputSchema": {
-    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
     "type": "object",
     "properties": {
       "data": {
         "description": "Data for organization chart, such as, { name: 'CEO', description: 'Chief Executive Officer', children: [{ name: 'CTO', description: 'Chief Technology Officer', children: [{ name: 'Dev Manager', description: 'Development Manager' }] }] }.",
-        "allOf": [
-          {
-            "$ref": "#/definitions/__schema0"
-          }
-        ]
+        "$ref": "#/$defs/__schema0"
       },
       "orient": {
         "description": "Orientation of the organization chart, either horizontal or vertical. Default is vertical, when the level of the chart is more than 3, it is recommended to use horizontal orientation.",
-        "default": "vertical",
         "type": "string",
         "enum": ["horizontal", "vertical"]
       },
@@ -25,31 +20,30 @@
         "properties": {
           "texture": {
             "description": "Set the texture for the chart, optional, default is 'default'. 'rough' refers to hand-drawn style.",
-            "default": "default",
             "type": "string",
             "enum": ["default", "rough"]
           }
-        }
+        },
+        "required": ["texture"],
+        "additionalProperties": false
       },
       "theme": {
         "description": "Set the theme for the chart, optional, default is 'default'.",
-        "default": "default",
         "type": "string",
         "enum": ["default", "academy", "dark"]
       },
       "width": {
         "description": "Set the width of chart, default is 600.",
-        "default": 600,
         "type": "number"
       },
       "height": {
         "description": "Set the height of chart, default is 400.",
-        "default": 400,
         "type": "number"
       }
     },
-    "required": ["data"],
-    "definitions": {
+    "required": ["data", "orient", "theme", "width", "height"],
+    "additionalProperties": false,
+    "$defs": {
       "__schema0": {
         "type": "object",
         "properties": {
@@ -62,11 +56,12 @@
           "children": {
             "type": "array",
             "items": {
-              "$ref": "#/definitions/__schema0"
+              "$ref": "#/$defs/__schema0"
             }
           }
         },
-        "required": ["name"]
+        "required": ["name"],
+        "additionalProperties": false
       }
     }
   }

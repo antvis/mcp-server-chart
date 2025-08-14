@@ -1,6 +1,6 @@
 import { randomUUID } from "node:crypto";
 import type { IncomingMessage, ServerResponse } from "node:http";
-import type { Server } from "@modelcontextprotocol/sdk/server/index.js";
+import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import {
   type EventStore,
   StreamableHTTPServerTransport,
@@ -14,7 +14,7 @@ import {
 } from "../utils";
 
 export const startHTTPStreamableServer = async (
-  createServer: () => Server,
+  createServer: () => McpServer,
   endpoint = "/mcp",
   port = 1122,
   eventStore: EventStore = new InMemoryEventStore(),
@@ -22,7 +22,7 @@ export const startHTTPStreamableServer = async (
   const activeTransports: Record<
     string,
     {
-      server: Server;
+      server: McpServer;
       transport: StreamableHTTPServerTransport;
     }
   > = {};
@@ -47,7 +47,7 @@ export const startHTTPStreamableServer = async (
           : req.headers["mcp-session-id"];
         let transport: StreamableHTTPServerTransport;
 
-        let server: Server;
+        let server: McpServer;
 
         const body = await getBody(req);
 
@@ -144,7 +144,7 @@ export const startHTTPStreamableServer = async (
       const sessionId = req.headers["mcp-session-id"] as string | undefined;
       const activeTransport:
         | {
-            server: Server;
+            server: McpServer;
             transport: StreamableHTTPServerTransport;
           }
         | undefined = sessionId ? activeTransports[sessionId] : undefined;

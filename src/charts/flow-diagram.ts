@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { zodToJsonSchema } from "../utils";
+
 import { validatedNodeEdgeDataSchema } from "../utils/validator";
 import {
   EdgeSchema,
@@ -11,7 +11,7 @@ import {
 } from "./base";
 
 // Flow diagram input schema
-const schema = {
+const schema = z.object({
   data: z
     .object({
       nodes: z.tuple([NodeSchema], NodeSchema).check(z.minLength(1)),
@@ -33,14 +33,14 @@ const schema = {
   theme: ThemeSchema,
   width: WidthSchema,
   height: HeightSchema,
-};
+});
 
 // Flow diagram tool descriptor
 const tool = {
   name: "generate_flow_diagram",
   description:
     "Generate a flow diagram chart to show the steps and decision points of a process or system, such as, scenarios requiring linear process presentation.",
-  inputSchema: zodToJsonSchema(schema),
+  inputSchema: schema,
 };
 
 export const flowDiagram = {

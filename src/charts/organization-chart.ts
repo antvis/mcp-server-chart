@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { zodToJsonSchema } from "../utils";
+
 import { HeightSchema, TextureSchema, ThemeSchema, WidthSchema } from "./base";
 
 export type OrganizationChartDatumType = {
@@ -17,7 +17,7 @@ const OrganizationChartNodeSchema: z.ZodType<OrganizationChartDatumType> =
     }),
   );
 
-const schema = {
+const schema = z.object({
   data: OrganizationChartNodeSchema.describe(
     "Data for organization chart, such as, { name: 'CEO', description: 'Chief Executive Officer', children: [{ name: 'CTO', description: 'Chief Technology Officer', children: [{ name: 'Dev Manager', description: 'Development Manager' }] }] }.",
   ),
@@ -36,13 +36,13 @@ const schema = {
   theme: ThemeSchema,
   width: WidthSchema,
   height: HeightSchema,
-};
+});
 
 const tool = {
   name: "generate_organization_chart",
   description:
     "Generate an organization chart to visualize the hierarchical structure of an organization, such as, a diagram showing the relationship between a CEO and their direct reports.",
-  inputSchema: zodToJsonSchema(schema),
+  inputSchema: schema,
 };
 
 export const organizationChart = {

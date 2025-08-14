@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import z from "zod";
 import * as expectedCharts from ".";
 import * as actualCharts from "../../src/charts";
 
@@ -12,7 +13,10 @@ describe("charts schema check", () => {
       const schema = actualCharts[chartName].tool;
       const rightChart = expectedCharts[chartName];
 
-      expect(schema).toEqual(rightChart);
+      expect({
+        ...schema,
+        inputSchema: z.toJSONSchema(schema.inputSchema),
+      }).toEqual(rightChart);
     });
   }
 });

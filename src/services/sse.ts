@@ -1,10 +1,10 @@
 import type { IncomingMessage, ServerResponse } from "node:http";
-import type { Server } from "@modelcontextprotocol/sdk/server/index.js";
+import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { SSEServerTransport } from "@modelcontextprotocol/sdk/server/sse.js";
 import { type RequestHandlers, createBaseHttpServer } from "../utils";
 
 export const startSSEMcpServer = async (
-  server: Server,
+  server: McpServer,
   endpoint = "/sse",
   port = 1122,
 ): Promise<void> => {

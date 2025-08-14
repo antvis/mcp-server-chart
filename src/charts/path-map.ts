@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { zodToJsonSchema } from "../utils";
+
 import {
   MapHeightSchema,
   MapTitleSchema,
@@ -7,7 +7,7 @@ import {
   POIsSchema,
 } from "./base";
 
-const schema = {
+const schema = z.object({
   title: MapTitleSchema,
   data: z
     .tuple(
@@ -24,14 +24,14 @@ const schema = {
     ),
   width: MapWidthSchema,
   height: MapHeightSchema,
-};
+});
 
 // https://modelcontextprotocol.io/specification/2025-03-26/server/tools#listing-tools
 const tool = {
   name: "generate_path_map",
   description:
     "Generate a route map to display the user's planned route, such as travel guide routes.",
-  inputSchema: zodToJsonSchema(schema),
+  inputSchema: schema,
 };
 
 export const pathMap = {

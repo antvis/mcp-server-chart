@@ -1,35 +1,25 @@
-import type { Server as HttpServer } from "node:http";
 import express, {
   type Express,
   type Request,
   type Response,
   type NextFunction,
 } from "express";
+import type { Server as HttpServer } from "node:http";
 
 /**
  * Interface for Express-based handlers
  */
 export interface ExpressServerOptions {
-  /**
-   * The port to run the server on
-   */
   port: number;
-
-  /**
-   * Server type name for logging purposes
-   */
   serverType: string;
-
-  /**
-   * Custom cleanup function to be called when the server is shutting down
-   */
   cleanup?: () => void;
 }
 
 /**
- * Handles CORS middleware for Express
+ * Sets up CORS, common endpoints and middleware
  */
-function setupCORS(app: Express): void {
+function setupMiddleware(app: Express): void {
+  // CORS middleware
   app.use((req, res, next) => {
     if (req.headers.origin) {
       try {
@@ -49,24 +39,14 @@ function setupCORS(app: Express): void {
   });
 
   // Handle OPTIONS requests
-  app.options("*", (req, res) => {
-    res.status(204).end();
-  });
-}
+  app.options("*", (req, res) => res.status(204).end());
 
-/**
- * Sets up common endpoints like health check and ping
- */
-function setupCommonEndpoints(app: Express): void {
-  // Health check endpoint
-  app.get("/health", (req, res) => {
-    res.status(200).type("text/plain").send("OK");
-  });
+  // Parse JSON requests
+  app.use(express.json());
 
-  // Ping endpoint
-  app.get("/ping", (req, res) => {
-    res.status(200).send("pong");
-  });
+  // Health check endpoints
+  app.get("/health", (req, res) => res.status(200).type("text/plain").send("OK"));
+  app.get("/ping", (req, res) => res.status(200).send("pong"));
 }
 
 /**
@@ -126,14 +106,8 @@ export function createExpressServer(options: ExpressServerOptions): {
 } {
   const app = express();
 
-  // Set up middleware
-  setupCORS(app);
-
-  // Parse JSON requests
-  app.use(express.json());
-
-  // Set up common endpoints
-  setupCommonEndpoints(app);
+  // Set up all middleware and endpoints
+  setupMiddleware(app);
 
   // Error handling middleware
   app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
@@ -142,9 +116,7 @@ export function createExpressServer(options: ExpressServerOptions): {
   });
 
   // Create HTTP server
-  const httpServer = app.listen(options.port, () => {
-    // This will be called when start() is invoked
-  });
+  const httpServer = app.listen(options.port);
 
   // Set up cleanup handlers
   setupCleanupHandlers(httpServer, options.cleanup);

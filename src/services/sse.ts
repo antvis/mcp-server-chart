@@ -1,7 +1,7 @@
-import type { IncomingMessage, ServerResponse } from "node:http";
 import type { Server } from "@modelcontextprotocol/sdk/server/index.js";
 import { SSEServerTransport } from "@modelcontextprotocol/sdk/server/sse.js";
-import { type RequestHandlers, createBaseHttpServer } from "../utils";
+import type { Request, Response } from "express";
+import { createExpressServer } from "../utils";
 
 export const startSSEMcpServer = async (
   server: Server,
@@ -9,85 +9,6 @@ export const startSSEMcpServer = async (
   port = 1122,
 ): Promise<void> => {
   const activeTransports: Record<string, SSEServerTransport> = {};
-
-  // Define the request handler for SSE-specific logic
-  const handleRequest: RequestHandlers["handleRequest"] = async (
-    req: IncomingMessage,
-    res: ServerResponse,
-  ) => {
-    if (!req.url) {
-      res.writeHead(400).end("No URL");
-      return;
-    }
-
-    const reqUrl = new URL(req.url, "http://localhost");
-
-    // Handle GET requests to the SSE endpoint
-    if (req.method === "GET" && reqUrl.pathname === endpoint) {
-      const transport = new SSEServerTransport("/messages", res);
-
-      activeTransports[transport.sessionId] = transport;
-
-      let closed = false;
-
-      res.on("close", async () => {
-        closed = true;
-
-        try {
-          await server.close();
-        } catch (error) {
-          console.error("Error closing server:", error);
-        }
-
-        delete activeTransports[transport.sessionId];
-      });
-
-      try {
-        await server.connect(transport);
-
-        await transport.send({
-          jsonrpc: "2.0",
-          method: "sse/connection",
-          params: { message: "SSE Connection established" },
-        });
-      } catch (error) {
-        if (!closed) {
-          console.error("Error connecting to server:", error);
-
-          res.writeHead(500).end("Error connecting to server");
-        }
-      }
-
-      return;
-    }
-
-    // Handle POST requests to the messages endpoint
-    if (req.method === "POST" && req.url?.startsWith("/messages")) {
-      const sessionId = new URL(
-        req.url,
-        "https://example.com",
-      ).searchParams.get("sessionId");
-
-      if (!sessionId) {
-        res.writeHead(400).end("No sessionId");
-        return;
-      }
-
-      const activeTransport: SSEServerTransport | undefined =
-        activeTransports[sessionId];
-
-      if (!activeTransport) {
-        res.writeHead(400).end("No active transport");
-        return;
-      }
-
-      await activeTransport.handlePostMessage(req, res);
-      return;
-    }
-
-    // If we reach here, no handler matched
-    res.writeHead(404).end("Not found");
-  };
 
   // Custom cleanup for SSE server
   const cleanup = () => {
@@ -98,10 +19,68 @@ export const startSSEMcpServer = async (
     server.close();
   };
 
-  // Create the HTTP server using our factory
-  createBaseHttpServer(port, endpoint, {
-    handleRequest,
-    cleanup,
+  // Create Express server
+  const { app, start } = createExpressServer({
+    port,
     serverType: "SSE Server",
+    cleanup,
   });
+
+  // Handle GET requests to the SSE endpoint
+  app.get(endpoint, async (req: Request, res: Response) => {
+    const transport = new SSEServerTransport("/messages", res);
+    activeTransports[transport.sessionId] = transport;
+
+    let closed = false;
+
+    res.on("close", async () => {
+      closed = true;
+
+      try {
+        await server.close();
+      } catch (error) {
+        console.error("Error closing server:", error);
+      }
+
+      delete activeTransports[transport.sessionId];
+    });
+
+    try {
+      await server.connect(transport);
+
+      await transport.send({
+        jsonrpc: "2.0",
+        method: "sse/connection",
+        params: { message: "SSE Connection established" },
+      });
+    } catch (error) {
+      if (!closed) {
+        console.error("Error connecting to server:", error);
+        res.status(500).send("Error connecting to server");
+      }
+    }
+  });
+
+  // Handle POST requests to the messages endpoint
+  app.post("/messages", async (req: Request, res: Response) => {
+    const sessionId = req.query.sessionId as string;
+
+    if (!sessionId) {
+      res.status(400).send("No sessionId");
+      return;
+    }
+
+    const activeTransport: SSEServerTransport | undefined =
+      activeTransports[sessionId];
+
+    if (!activeTransport) {
+      res.status(400).send("No active transport");
+      return;
+    }
+
+    await activeTransport.handlePostMessage(req, res);
+  });
+
+  // Start the server and log endpoints
+  start([endpoint, "/messages"]);
 };

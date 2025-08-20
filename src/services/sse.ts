@@ -1,33 +1,19 @@
 import type { Server } from "@modelcontextprotocol/sdk/server/index.js";
 import { SSEServerTransport } from "@modelcontextprotocol/sdk/server/sse.js";
-import type { Request, Response } from "express";
-import { createExpressServer } from "../utils";
+import express from "express";
 
 export const startSSEMcpServer = async (
   server: Server,
   endpoint = "/sse",
   port = 1122,
 ): Promise<void> => {
+  const app = express();
+  app.use(express.json());
+
   const activeTransports: Record<string, SSEServerTransport> = {};
 
-  // Custom cleanup for SSE server
-  const cleanup = () => {
-    // Close all active transports
-    for (const transport of Object.values(activeTransports)) {
-      transport.close();
-    }
-    server.close();
-  };
-
-  // Create Express server
-  const { app, start } = createExpressServer({
-    port,
-    serverType: "SSE Server",
-    cleanup,
-  });
-
   // Handle GET requests to the SSE endpoint
-  app.get(endpoint, async (req: Request, res: Response) => {
+  app.get(endpoint, async (req, res) => {
     const transport = new SSEServerTransport("/messages", res);
     activeTransports[transport.sessionId] = transport;
 
@@ -35,19 +21,16 @@ export const startSSEMcpServer = async (
 
     res.on("close", async () => {
       closed = true;
-
       try {
         await server.close();
       } catch (error) {
         console.error("Error closing server:", error);
       }
-
       delete activeTransports[transport.sessionId];
     });
 
     try {
       await server.connect(transport);
-
       await transport.send({
         jsonrpc: "2.0",
         method: "sse/connection",
@@ -62,7 +45,7 @@ export const startSSEMcpServer = async (
   });
 
   // Handle POST requests to the messages endpoint
-  app.post("/messages", async (req: Request, res: Response) => {
+  app.post("/messages", async (req, res) => {
     const sessionId = req.query.sessionId as string;
 
     if (!sessionId) {
@@ -70,9 +53,7 @@ export const startSSEMcpServer = async (
       return;
     }
 
-    const activeTransport: SSEServerTransport | undefined =
-      activeTransports[sessionId];
-
+    const activeTransport = activeTransports[sessionId];
     if (!activeTransport) {
       res.status(400).send("No active transport");
       return;
@@ -81,6 +62,7 @@ export const startSSEMcpServer = async (
     await activeTransport.handlePostMessage(req, res);
   });
 
-  // Start the server and log endpoints
-  start([endpoint, "/messages"]);
+  app.listen(port, () => {
+    console.log(`SSE Server running on http://localhost:${port}${endpoint}`);
+  });
 };

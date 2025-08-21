@@ -9,60 +9,35 @@ export const startSSEMcpServer = async (
 ): Promise<void> => {
   const app = express();
   app.use(express.json());
+  
+  const transports: Record<string, SSEServerTransport> = {};
 
-  const activeTransports: Record<string, SSEServerTransport> = {};
-
-  // Handle GET requests to the SSE endpoint
   app.get(endpoint, async (req, res) => {
-    const transport = new SSEServerTransport("/messages", res);
-    activeTransports[transport.sessionId] = transport;
-
-    let closed = false;
-
-    res.on("close", async () => {
-      closed = true;
-      try {
-        await server.close();
-      } catch (error) {
-        console.error("Error closing server:", error);
-      }
-      delete activeTransports[transport.sessionId];
-    });
-
     try {
+      const transport = new SSEServerTransport('/messages', res);
+      transports[transport.sessionId] = transport;
+      transport.onclose = () => delete transports[transport.sessionId];
       await server.connect(transport);
-      await transport.send({
-        jsonrpc: "2.0",
-        method: "sse/connection",
-        params: { message: "SSE Connection established" },
-      });
     } catch (error) {
-      if (!closed) {
-        console.error("Error connecting to server:", error);
-        res.status(500).send("Error connecting to server");
-      }
+      if (!res.headersSent) res.status(500).send('Error establishing SSE stream');
     }
   });
 
-  // Handle POST requests to the messages endpoint
-  app.post("/messages", async (req, res) => {
+  app.post('/messages', async (req, res) => {
     const sessionId = req.query.sessionId as string;
-
-    if (!sessionId) {
-      res.status(400).send("No sessionId");
-      return;
+    if (!sessionId) return res.status(400).send('Missing sessionId parameter');
+    
+    const transport = transports[sessionId];
+    if (!transport) return res.status(404).send('Session not found');
+    
+    try {
+      await transport.handlePostMessage(req, res, req.body);
+    } catch (error) {
+      if (!res.headersSent) res.status(500).send('Error handling request');
     }
-
-    const activeTransport = activeTransports[sessionId];
-    if (!activeTransport) {
-      res.status(400).send("No active transport");
-      return;
-    }
-
-    await activeTransport.handlePostMessage(req, res);
   });
 
   app.listen(port, () => {
-    console.log(`SSE Server running on http://localhost:${port}${endpoint}`);
+    console.log(`SSE Server listening on http://localhost:${port}${endpoint}`);
   });
 };

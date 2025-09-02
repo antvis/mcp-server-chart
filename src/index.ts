@@ -14,6 +14,11 @@ const { values } = parseArgs({
       short: "t",
       default: "stdio",
     },
+    host: {
+      type: "string",
+      short: "h",
+      default: "1122",
+    },
     port: {
       type: "string",
       short: "p",
@@ -26,7 +31,7 @@ const { values } = parseArgs({
     },
     help: {
       type: "boolean",
-      short: "h",
+      short: "l",
     },
   },
 });
@@ -38,11 +43,12 @@ MCP Server Chart CLI
 
 Options:
   --transport, -t  Specify the transport protocol: "stdio", "sse", or "streamable" (default: "stdio")
+  --host, -h       Specify the host for SSE or streamable transport (default: localhost)
   --port, -p       Specify the port for SSE or streamable transport (default: 1122)
   --endpoint, -e   Specify the endpoint for the transport:
                    - For SSE: default is "/sse"
                    - For streamable: default is "/mcp"
-  --help, -h       Show this help message
+  --help, -l       Show this help message
   `);
   process.exit(0);
 }
@@ -54,12 +60,14 @@ if (transport === "sse") {
   const port = Number.parseInt(values.port as string, 10);
   // Use provided endpoint or default to "/sse" for SSE
   const endpoint = values.endpoint || "/sse";
-  runSSEServer(endpoint, port).catch(console.error);
+  const host = values.host || "localhost";
+  runSSEServer(endpoint, port, host).catch(console.error);
 } else if (transport === "streamable") {
   const port = Number.parseInt(values.port as string, 10);
   // Use provided endpoint or default to "/mcp" for streamable
   const endpoint = values.endpoint || "/mcp";
-  runHTTPStreamableServer(endpoint, port).catch(console.error);
+  const host = values.host || "localhost";
+  runHTTPStreamableServer(endpoint, port, host).catch(console.error);
 } else {
   runStdioServer().catch(console.error);
 }

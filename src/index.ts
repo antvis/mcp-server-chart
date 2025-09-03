@@ -17,7 +17,7 @@ const { values } = parseArgs({
     host: {
       type: "string",
       short: "h",
-      default: "1122",
+      default: "localhost",
     },
     port: {
       type: "string",
@@ -31,7 +31,7 @@ const { values } = parseArgs({
     },
     help: {
       type: "boolean",
-      short: "l",
+      short: "H",
     },
   },
 });
@@ -48,7 +48,7 @@ Options:
   --endpoint, -e   Specify the endpoint for the transport:
                    - For SSE: default is "/sse"
                    - For streamable: default is "/mcp"
-  --help, -l       Show this help message
+  --help, -H       Show this help message
   `);
   process.exit(0);
 }

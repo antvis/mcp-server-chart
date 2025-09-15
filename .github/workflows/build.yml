@@ -24,6 +24,29 @@ jobs:
           npm install
           npm run build
           npx vitest --watch=false
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write  # Required for OIDC authentication
+      contents: read
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+      - name: Setup Node.js  # Adjust for your language
+        uses: actions/setup-node@v5
+        with:
+          node-version: "lts/*"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm run test --if-present
+
+      - name: Build package
+        run: npm run build --if-present
+
       - name: Install MCP Publisher
         run: |
           curl -L "https://github.com/modelcontextprotocol/registry/releases/download/v1.0.0/mcp-publisher_1.0.0_$(uname -s | tr '[:upper:]' '[:lower:]')_$(uname -m | sed 's/x86_64/amd64/;s/aarch64/arm64/').tar.gz" | tar xz mcp-publisher

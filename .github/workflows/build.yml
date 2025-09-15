@@ -39,7 +39,7 @@ jobs:
           node-version: "lts/*"
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install
 
       - name: Run tests
         run: npm run test --if-present

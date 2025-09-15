@@ -13,7 +13,7 @@
       "registry_type": "npm",
       "registry_base_url": "https://registry.npmjs.org",
       "identifier": "@antv/mcp-server-chart",
-      "version": "0.8.3",
+      "version": "0.9.0-beta.1",
       "transport": {
         "type": "stdio"
       },

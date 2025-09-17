@@ -40,28 +40,28 @@ const parsed = parseArgs({
 // Initialize default host value
 let host = "localhost";
 // Flag to track if we're expecting a host value in the next token
-let isHostVlaue = false;
+let isHostValue = false;
 
 // Iterate through parsed command line tokens to extract host value
 for (const item of parsed.tokens) {
   // If current token is the host option flag
   if (item.kind === "option" && item.name === "host") {
-    isHostVlaue = true;
+    isHostValue = true;
     continue;
   }
   // If we're expecting a host value (previous token was --host flag)
-  if (isHostVlaue) {
+  if (isHostValue) {
     // Deep copy the token to avoid reference issues
     const temp = JSON.parse(JSON.stringify(item));
     // Extract host value or default to "0.0.0.0"
     host = temp.value || "0.0.0.0";
-    isHostVlaue = false;
+    isHostValue = false;
     break;
   }
 }
 
 // If --host flag was set but no value followed it, use "0.0.0.0" as default
-if (isHostVlaue) {
+if (isHostValue) {
   host = "0.0.0.0";
 }
 

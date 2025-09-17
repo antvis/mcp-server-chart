@@ -15,4 +15,5 @@ COPY . .
 RUN npm run build
 
 # Command will be provided by smithery.yaml
-CMD ["node", "build/index.js", "--transport", "streamable"]
+CMD ["node", "build/index.js", "-t", "streamable"]
+

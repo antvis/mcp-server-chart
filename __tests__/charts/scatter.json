@@ -11,6 +11,10 @@
         "items": {
           "type": "object",
           "properties": {
+            "group": {
+              "description": "Group name for the data point.",
+              "type": "string"
+            },
             "x": {
               "type": "number"
             },

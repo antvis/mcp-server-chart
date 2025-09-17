@@ -30,6 +30,10 @@ const schema = {
       backgroundColor: BackgroundColorSchema,
       palette: PaletteSchema,
       texture: TextureSchema,
+      lineWidth: z
+        .number()
+        .optional()
+        .describe("Line width for the lines of chart, such as 4."),
     })
     .optional()
     .describe("Custom style configuration for the chart."),

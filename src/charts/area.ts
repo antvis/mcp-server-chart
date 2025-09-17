@@ -11,6 +11,7 @@ import {
   TitleSchema,
   WidthSchema,
 } from "./base";
+import { line } from "./line";
 
 // Area chart data schema
 const data = z.object({
@@ -37,6 +38,10 @@ const schema = {
       backgroundColor: BackgroundColorSchema,
       palette: PaletteSchema,
       texture: TextureSchema,
+      lineWidth: z
+        .number()
+        .optional()
+        .describe("Line width for the lines of chart, such as 4."),
     })
     .optional()
     .describe("Custom style configuration for the chart."),

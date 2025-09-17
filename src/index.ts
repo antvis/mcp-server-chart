@@ -94,13 +94,13 @@ if (transport === "sse") {
   // Use provided endpoint or default to "/sse" for SSE
   const endpoint = values.endpoint || "/sse";
   const host = values.host || "localhost";
-  runSSEServer(endpoint, port, host).catch(console.error);
+  runSSEServer(host, port, endpoint).catch(console.error);
 } else if (transport === "streamable") {
   const port = Number.parseInt(values.port as string, 10);
   // Use provided endpoint or default to "/mcp" for streamable
   const endpoint = values.endpoint || "/mcp";
   const host = values.host || "localhost";
-  runHTTPStreamableServer(endpoint, port, host).catch(console.error);
+  runHTTPStreamableServer(host, port, endpoint).catch(console.error);
 } else {
   runStdioServer().catch(console.error);
 }

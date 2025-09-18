@@ -16,16 +16,14 @@
             },
             "value": {
               "type": "number"
+            },
+            "group": {
+              "type": "string"
             }
           },
           "required": ["time", "value"]
         },
         "description": "Data for line chart, it should be an array of objects, each object contains a `time` field and a `value` field, such as, [{ time: '2015', value: 23 }, { time: '2016', value: 32 }]."
-      },
-      "stack": {
-        "type": "boolean",
-        "default": false,
-        "description": "Whether stacking is enabled. When enabled, line charts require a 'group' field in the data."
       },
       "theme": {
         "default": "default",

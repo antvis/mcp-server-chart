@@ -27,10 +27,10 @@ jobs:
           npm install
           npm run build
           npx vitest --watch=false
+          
       - name: Build
         run: npm run build
 
-      # ---- 下面这段原来在 publish job，直接搬过来 ----
       - name: Update server.json version
         run: |
           VERSION=$(node -p "require('./package.json').version")

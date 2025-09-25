@@ -67,10 +67,10 @@ export async function callTool(tool: string, args: object = {}) {
       "generate_path_map",
       "generate_pin_map",
     ].includes(tool);
+
     if (isMapChartTool) {
       // For map charts, we use the generateMap function, and return the mcp result.
       const { metadata, ...result } = await generateMap(tool, args);
-
       return result;
     }
 
@@ -83,6 +83,11 @@ export async function callTool(tool: string, args: object = {}) {
           text: url,
         },
       ],
+      _meta: {
+        description:
+          "Charts spec configuration, you can use this config to generate the corresponding chart.",
+        spec: { type: chartType, ...args },
+      },
     };
     // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   } catch (error: any) {

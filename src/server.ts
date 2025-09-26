@@ -78,19 +78,21 @@ export async function runStdioServer(): Promise<void> {
  * Runs the server with SSE transport.
  */
 export async function runSSEServer(
-  endpoint = "/sse",
+  host = "localhost",
   port = 1122,
+  endpoint = "/sse",
 ): Promise<void> {
   const server = createServer();
-  await startSSEMcpServer(server, endpoint, port);
+  await startSSEMcpServer(server, endpoint, port, host);
 }
 
 /**
  * Runs the server with HTTP streamable transport.
  */
 export async function runHTTPStreamableServer(
-  endpoint = "/mcp",
+  host = "localhost",
   port = 1122,
+  endpoint = "/mcp",
 ): Promise<void> {
-  await startHTTPStreamableServer(createServer, endpoint, port);
+  await startHTTPStreamableServer(createServer, endpoint, port, host);
 }

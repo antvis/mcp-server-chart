@@ -1,5 +1,5 @@
 {
-  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-07-09/server.schema.json",
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-09-16/server.schema.json",
   "name": "io.github.antvis/mcp-server-chart",
   "description": "A Model Context Protocol server for generating charts using AntV.",
   "status": "active",
@@ -10,14 +10,14 @@
   "version": "{{VERSION}}",
   "packages": [
     {
-      "registry_type": "npm",
-      "registry_base_url": "https://registry.npmjs.org",
+      "registryType": "npm",
+      "registryBaseUrl": "https://registry.npmjs.org",
       "identifier": "@antv/mcp-server-chart",
       "version": "{{VERSION}}",
       "transport": {
         "type": "stdio"
       },
-      "environment_variables": [
+      "environmentVariables": [
         {
           "name": "VIS_REQUEST_SERVER",
           "description": "Custom chart generation service URL for private deployment",

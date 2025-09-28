@@ -22,23 +22,23 @@
           "name": "VIS_REQUEST_SERVER",
           "description": "Custom chart generation service URL for private deployment",
           "default": "https://antv-studio.alipay.com/api/gpt-vis",
-          "is_required": false,
+          "isRequired": false,
           "format": "string",
-          "is_secret": false
+          "isSecret": false
         },
         {
           "name": "SERVICE_ID",
           "description": "Service identifier for chart generation records",
-          "is_required": false,
+          "isRequired": false,
           "format": "string",
-          "is_secret": true
+          "isSecret": true
         },
         {
           "name": "DISABLED_TOOLS",
           "description": "Comma-separated list of tool names to disable",
-          "is_required": false,
+          "isRequired": false,
           "format": "string",
-          "is_secret": false
+          "isSecret": false
         }
       ]
     }

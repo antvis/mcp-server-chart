@@ -1,0 +1,14 @@
+services:
+  mcp-server-chart:
+    build:
+      context: .          # Dockerfile 所在目录
+      dockerfile: Dockerfile
+    image: mcp-server-chart:stable
+    container_name: mcp-server-chart-1
+    # environment:
+    #   - VIS_REQUEST_SERVER=http://192.168.1.156:3000/render  # 注意哈，这里需要改为你自己启动的gpt_vis_ssr服务地址
+    command: ["node", "build/index.js", "--transport", "sse", "--port", "1122", "--host", "0.0.0.0"]
+    ports:
+      - "1122:1122"
+# networks:
+#     - internal

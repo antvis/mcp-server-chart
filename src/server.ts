@@ -30,7 +30,7 @@ export function createServer(): Server {
 
   setupToolHandlers(server);
 
-  server.onerror = (error) => console.error("[MCP Error]", error);
+  server.onerror = (error: Error) => console.error("[MCP Error]", error);
   process.on("SIGINT", async () => {
     await server.close();
     process.exit(0);
@@ -50,7 +50,7 @@ function getEnabledTools() {
     return allCharts;
   }
 
-  return allCharts.filter((chart) => !disabledTools.includes(chart.tool.name));
+  return allCharts.filter((chart) => !disabledTools.find((toolName) => toolName === chart.tool.name));
 }
 
 /**
@@ -61,7 +61,7 @@ function setupToolHandlers(server: Server): void {
     tools: getEnabledTools().map((chart) => chart.tool),
   }));
 
-  server.setRequestHandler(CallToolRequestSchema, async (request) => {
+  server.setRequestHandler(CallToolRequestSchema, async (request: any) => {
     return await callTool(request.params.name, request.params.arguments);
   });
 }
@@ -80,9 +80,10 @@ export async function runStdioServer(): Promise<void> {
 export async function runSSEServer(
   endpoint = "/sse",
   port = 1122,
+  host = "localhost",
 ): Promise<void> {
   const server = createServer();
-  await startSSEMcpServer(server, endpoint, port);
+  await startSSEMcpServer(server, endpoint, port, host);
 }
 
 /**
@@ -91,6 +92,7 @@ export async function runSSEServer(
 export async function runHTTPStreamableServer(
   endpoint = "/mcp",
   port = 1122,
+  host = "localhost",
 ): Promise<void> {
-  await startHTTPStreamableServer(createServer, endpoint, port);
+  await startHTTPStreamableServer(createServer, endpoint, port, host);
 }

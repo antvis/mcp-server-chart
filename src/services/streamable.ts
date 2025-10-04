@@ -16,12 +16,12 @@ export const startHTTPStreamableServer = async (
     try {
       const server = createServer();
       const transport = new StreamableHTTPServerTransport({ sessionIdGenerator: undefined });
-      await server.connect(transport);
-      await transport.handleRequest(req, res, req.body);
       res.on('close', () => {
         transport.close();
         server.close();
       });
+      await server.connect(transport);
+      await transport.handleRequest(req, res, req.body);
     } catch (error) {
       if (!res.headersSent) {
         res.status(500).json({
@@ -37,7 +37,7 @@ export const startHTTPStreamableServer = async (
     res.status(405).json({
       jsonrpc: "2.0",
       error: { code: -32000, message: "Method not allowed" },
-      id: null
+      id: null,
     });
   });
 
@@ -45,7 +45,7 @@ export const startHTTPStreamableServer = async (
     res.status(405).json({
       jsonrpc: "2.0",
       error: { code: -32000, message: "Method not allowed" },
-      id: null
+      id: null,
     });
   });
 

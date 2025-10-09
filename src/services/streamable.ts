@@ -11,23 +11,25 @@ export const startHTTPStreamableServer = async (
 ): Promise<void> => {
   const app = express();
   app.use(express.json());
-  app.use(cors({ origin: '*', exposedHeaders: ['Mcp-Session-Id'] }));
+  app.use(cors({ origin: "*", exposedHeaders: ["Mcp-Session-Id"] }));
 
   app.post(endpoint, async (req: Request, res: Response) => {
     try {
       const server = createServer();
-      const transport = new StreamableHTTPServerTransport({ sessionIdGenerator: undefined });
-      await server.connect(transport);
-      await transport.handleRequest(req, res, req.body);
-      res.on('close', () => {
+      const transport = new StreamableHTTPServerTransport({
+        sessionIdGenerator: undefined,
+      });
+      res.on("close", () => {
         transport.close();
         server.close();
       });
+      await server.connect(transport);
+      await transport.handleRequest(req, res, req.body);
     } catch (error) {
       if (!res.headersSent) {
         res.status(500).json({
-          jsonrpc: '2.0',
-          error: { code: -32603, message: 'Internal server error' },
+          jsonrpc: "2.0",
+          error: { code: -32603, message: "Internal server error" },
           id: null,
         });
       }
@@ -38,7 +40,7 @@ export const startHTTPStreamableServer = async (
     res.status(405).json({
       jsonrpc: "2.0",
       error: { code: -32000, message: "Method not allowed" },
-      id: null
+      id: null,
     });
   });
 
@@ -46,11 +48,13 @@ export const startHTTPStreamableServer = async (
     res.status(405).json({
       jsonrpc: "2.0",
       error: { code: -32000, message: "Method not allowed" },
-      id: null
+      id: null,
     });
   });
 
   app.listen(port, host, () => {
-    console.log(`Streamable HTTP Server listening on http://${host}:${port}${endpoint}`);
+    console.log(
+      `Streamable HTTP Server listening on http://${host}:${port}${endpoint}`,
+    );
   });
 };

@@ -10,31 +10,32 @@ export const startSSEMcpServer = async (
 ): Promise<void> => {
   const app = express();
   app.use(express.json());
-  
+
   const transports: Record<string, SSEServerTransport> = {};
 
   app.get(endpoint, async (req: Request, res: Response) => {
     try {
-      const transport = new SSEServerTransport('/messages', res);
+      const transport = new SSEServerTransport("/messages", res);
       transports[transport.sessionId] = transport;
       transport.onclose = () => delete transports[transport.sessionId];
       await server.connect(transport);
     } catch (error) {
-      if (!res.headersSent) res.status(500).send('Error establishing SSE stream');
+      if (!res.headersSent)
+        res.status(500).send("Error establishing SSE stream");
     }
   });
 
   app.post('/messages', async (req: Request, res: Response) => {
     const sessionId = req.query.sessionId as string;
-    if (!sessionId) return res.status(400).send('Missing sessionId parameter');
-    
+    if (!sessionId) return res.status(400).send("Missing sessionId parameter");
+
     const transport = transports[sessionId];
-    if (!transport) return res.status(404).send('Session not found');
-    
+    if (!transport) return res.status(404).send("Session not found");
+
     try {
       await transport.handlePostMessage(req, res, req.body);
     } catch (error) {
-      if (!res.headersSent) res.status(500).send('Error handling request');
+      if (!res.headersSent) res.status(500).send("Error handling request");
     }
   });
 

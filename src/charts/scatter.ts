@@ -16,6 +16,7 @@ import {
 const data = z.object({
   x: z.number(),
   y: z.number(),
+  group: z.string().optional().describe("Group name for the data point."),
 });
 
 // Scatter chart input schema

@@ -19,12 +19,12 @@ export const startHTTPStreamableServer = async (
       const transport = new StreamableHTTPServerTransport({
         sessionIdGenerator: undefined,
       });
-      await server.connect(transport);
-      await transport.handleRequest(req, res, req.body);
       res.on("close", () => {
         transport.close();
         server.close();
       });
+      await server.connect(transport);
+      await transport.handleRequest(req, res, req.body);
     } catch (error) {
       if (!res.headersSent) {
         res.status(500).json({

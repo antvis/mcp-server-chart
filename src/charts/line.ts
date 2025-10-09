@@ -16,6 +16,7 @@ import {
 const data = z.object({
   time: z.string(),
   value: z.number(),
+  group: z.string().optional(),
 });
 
 // Line chart input schema
@@ -26,13 +27,6 @@ const schema = {
       "Data for line chart, it should be an array of objects, each object contains a `time` field and a `value` field, such as, [{ time: '2015', value: 23 }, { time: '2016', value: 32 }].",
     )
     .nonempty({ message: "Line chart data cannot be empty." }),
-  stack: z
-    .boolean()
-    .optional()
-    .default(false)
-    .describe(
-      "Whether stacking is enabled. When enabled, line charts require a 'group' field in the data.",
-    ),
   style: z
     .object({
       texture: TextureSchema,

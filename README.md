@@ -256,6 +256,19 @@ Start the MCP server:
 npm run start
 ```
 
+Start the MCP server with SSE transport:
+
+```bash
+node build/index.js -t sse
+```
+
+Start the MCP server with Streamable transport:
+
+```bash
+node build/index.js -t streamable
+```
+
+
 ## 📄 License
 
 MIT@[AntV](https://github.com/antvis).

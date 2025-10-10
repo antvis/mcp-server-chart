@@ -14,11 +14,6 @@ const parsed = parseArgs({
       short: "t",
       default: "stdio",
     },
-    // host: {
-    //   type: "boolean",
-    //   short: "h",
-    //   default: false,
-    // },
     port: {
       type: "string",
       short: "p",
@@ -83,7 +78,6 @@ Options:
   --transport, -t  Specify the transport protocol: "stdio", "sse", or "streamable" (default: "stdio")
   --host, -h       Specify the host for SSE or streamable transport (default: localhost)
   --port, -p       Specify the port for SSE or streamable transport (default: 1122)
-  --host           Specify the host to bind to (default: "localhost")
   --endpoint, -e   Specify the endpoint for the transport:
                    - For SSE: default is "/sse"
                    - For streamable: default is "/mcp"

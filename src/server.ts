@@ -50,7 +50,7 @@ function getEnabledTools() {
     return allCharts;
   }
 
-  return allCharts.filter((chart) => !disabledTools.find((toolName) => toolName === chart.tool.name));
+  return allCharts.filter((chart) => !disabledTools.includes(chart.tool.name));
 }
 
 /**

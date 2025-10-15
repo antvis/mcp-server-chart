@@ -85,7 +85,7 @@ export async function callTool(tool: string, args: object = {}) {
       ],
       _meta: {
         description:
-          "Charts spec configuration, you can use this config to generate the corresponding chart.",
+          "This is the chart's spec and configuration, which can be renderred to corresponding chart by AntV GPT-Vis chart components.",
         spec: { type: chartType, ...args },
       },
     };

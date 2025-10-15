@@ -2,6 +2,7 @@ import type { Server } from "@modelcontextprotocol/sdk/server/index.js";
 import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
 import cors from "cors";
 import express, { type Request, type Response } from "express";
+import { logger } from "../utils/logger";
 
 export const startHTTPStreamableServer = async (
   createServer: () => Server,
@@ -24,13 +25,17 @@ export const startHTTPStreamableServer = async (
         sessionIdGenerator: undefined,
         enableJsonResponse: true,
       });
+
       res.on("close", () => {
         transport.close();
+        logger.info("HTTP Streamable Server response closed");
       });
 
       await server.connect(transport);
       await transport.handleRequest(req, res, req.body);
-    } catch (error) {
+      logger.info("HTTP Streamable Server response connected");
+    } catch (e) {
+      logger.error("HTTP Streamable Server response error", e);
       if (!res.headersSent) {
         res.status(500).json({
           jsonrpc: "2.0",
@@ -42,7 +47,7 @@ export const startHTTPStreamableServer = async (
   });
 
   app.listen(port, host, () => {
-    console.log(
+    logger.success(
       `Streamable HTTP Server listening on http://${host}:${port}${endpoint}`,
     );
   });

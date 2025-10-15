@@ -2,6 +2,7 @@ import { ErrorCode, McpError } from "@modelcontextprotocol/sdk/types.js";
 import { z } from "zod";
 import * as Charts from "../charts";
 import { generateChartUrl, generateMap } from "./generate";
+import { logger } from "./logger";
 import { ValidateError } from "./validator";
 
 // Chart type mapping
@@ -40,9 +41,11 @@ const CHART_TYPE_MAP = {
  * @returns
  */
 export async function callTool(tool: string, args: object = {}) {
+  logger.info(`Calling tool: ${tool}`);
   const chartType = CHART_TYPE_MAP[tool as keyof typeof CHART_TYPE_MAP];
 
   if (!chartType) {
+    logger.error(`Unknown tool: ${tool}`);
     throw new McpError(ErrorCode.MethodNotFound, `Unknown tool: ${tool}.`);
   }
 
@@ -55,6 +58,7 @@ export async function callTool(tool: string, args: object = {}) {
       // Use safeParse instead of parse and try-catch.
       const result = z.object(schema).safeParse(args);
       if (!result.success) {
+        logger.error(`Invalid parameters: ${result.error.message}`);
         throw new McpError(
           ErrorCode.InvalidParams,
           `Invalid parameters: ${result.error.message}`,
@@ -75,6 +79,7 @@ export async function callTool(tool: string, args: object = {}) {
     }
 
     const url = await generateChartUrl(chartType, args);
+    logger.info(`Generated chart URL: ${url}`);
 
     return {
       content: [
@@ -91,6 +96,9 @@ export async function callTool(tool: string, args: object = {}) {
     };
     // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   } catch (error: any) {
+    logger.error(
+      `Failed to generate chart: ${error.message || "Unknown error"}.`,
+    );
     if (error instanceof McpError) throw error;
     if (error instanceof ValidateError)
       throw new McpError(ErrorCode.InvalidParams, error.message);

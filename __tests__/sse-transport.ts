@@ -15,13 +15,11 @@ console.log(`Transport stress test: ${url} @ ${qps} QPS for ${duration}s`);
     console.error("Transport error:", err);
   };
 
-  // instantiate client that will use this transport
   const client = new Client(
     { name: "stress-client", version: "1.0.0" },
     { capabilities: {} },
   );
 
-  // client.connect will start the transport internally
   try {
     await client.connect(transport);
   } catch (err) {
@@ -30,17 +28,17 @@ console.log(`Transport stress test: ${url} @ ${qps} QPS for ${duration}s`);
   }
 
   // discover tools and pick a generate_* tool to call
-  let tool: { name: string };
+  let tool: { name?: string } = { name: "generate_line_chart" };
   try {
     const toolsResult = await client.listTools();
     const tools = toolsResult?.tools ?? [];
-    // prefer a line generator
     tool =
-      tools.find((t: { name: string }) => t.name === "generate_line_chart") ||
-      tools[0];
+      tools.find((t) => t && t.name === "generate_line_chart") ||
+      tools[0] ||
+      tool;
     console.log("✅ success get tools:", tools);
   } catch (e) {
-    console.error("Failed to list tools:", e?.message ? e.message : e);
+    console.error("Failed to list tools:", e?.message ? e.message : String(e));
   }
   // sent counters
   let sent = 0;
@@ -86,7 +84,10 @@ console.log(`Transport stress test: ${url} @ ${qps} QPS for ${duration}s`);
       })
       .catch((e) => {
         fail++;
-        console.error(`❌ fail seq=${seq}:`, e?.message ? e.message : e);
+        console.error(
+          `❌ fail seq=${seq}:`,
+          e?.message ? e.message : String(e),
+        );
       })
       .finally(() => {
         inflight--;

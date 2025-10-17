@@ -38,7 +38,7 @@ console.log(`Transport stress test: ${url} @ ${qps} QPS for ${duration}s`);
       tool;
     console.log("✅ success get tools:", tools);
   } catch (e) {
-    console.error("Failed to list tools:", e?.message ? e.message : String(e));
+    console.error("Failed to list tools:", String(e));
   }
   // sent counters
   let sent = 0;
@@ -64,7 +64,7 @@ console.log(`Transport stress test: ${url} @ ${qps} QPS for ${duration}s`);
       ],
     };
     const callParams = {
-      name: tool.name,
+      name: tool.name ?? "generate_line_chart",
       arguments: payload,
     };
 
@@ -84,10 +84,7 @@ console.log(`Transport stress test: ${url} @ ${qps} QPS for ${duration}s`);
       })
       .catch((e) => {
         fail++;
-        console.error(
-          `❌ fail seq=${seq}:`,
-          e?.message ? e.message : String(e),
-        );
+        console.error(`❌ fail seq=${seq}:`, String(e));
       })
       .finally(() => {
         inflight--;
@@ -111,7 +108,9 @@ console.log(`Transport stress test: ${url} @ ${qps} QPS for ${duration}s`);
         // close transport
         transport
           .close()
-          .catch(() => {})
+          .catch((e) => {
+            console.error("Failed to close transport:", String(e));
+          })
           .finally(() => process.exit(0));
         return;
       }

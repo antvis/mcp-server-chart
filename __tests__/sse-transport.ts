@@ -2,10 +2,9 @@
 import { Client } from "@modelcontextprotocol/sdk/client";
 import { SSEClientTransport } from "@modelcontextprotocol/sdk/client/sse.js";
 
-// Usage: node build/__tests__/sse-transport.js [url] [qps] [duration_seconds]
 const url = process.argv[2] || "http://localhost:1122/sse";
 const qps = Number(process.argv[3]) || 20;
-const duration = Number(process.argv[4]) || 15; // seconds
+const duration = Number(process.argv[4]) || 15;
 
 console.log(`Transport stress test: ${url} @ ${qps} QPS for ${duration}s`);
 

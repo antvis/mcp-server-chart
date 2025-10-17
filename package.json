@@ -13,6 +13,8 @@
     "postbuild": "chmod +x build/index.js",
     "start": "npx @modelcontextprotocol/inspector node build/index.js",
     "prepare": "husky && npm run build",
+    "build:test": "tsc --module Node16 --target ES2017 --moduleResolution node16 --esModuleInterop --skipLibCheck --outDir build __tests__/sse-transport.ts",
+    "sse-transport:test": "npm run build:test && node build/sse-transport.js",
     "prepublishOnly": "npm run build",
     "test": "vitest"
   },

@@ -114,7 +114,6 @@ Then you can access the server at:
 - SSE transport: `http://localhost:1122/sse`
 - Streamable transport: `http://localhost:1122/mcp`
 
-
 ### Docker deploy
 
 Enter the docker directory.
@@ -267,33 +266,6 @@ Start the MCP server with Streamable transport:
 
 ```bash
 node build/index.js -t streamable
-```
-
-### SSE Transport Test
-
-This project includes a debugging script, `sse-transport.ts`, which connects to the server via SSE after it starts and sends test messages to the `/messages` endpoint.
-
-First make sure the server is running in SSE:
-
-```bash
-mcp-server-chart --transport sse
-```
-
-Then run the script from the project root:
-
-```bash
-npm run sse-transport:test
-```
-You can modify the command-line arguments to specify the SSE service address, the QPS to send, and the duration (in seconds). By default, QPS is 20 and the duration is 15 seconds.
-
-```bash
-node build/sse-transport.js [URL] [QPS] [duration]
-```
-
-For example:
-
-```bash
-node build/sse-transport.js http://localhost:1122/sse 20 15
 ```
 
 ## 📄 License

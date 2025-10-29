@@ -23,4 +23,10 @@ jobs:
         run: |
           npm install
           npm run build
-          npx vitest --watch=false --testTimeout=20000
+          npx vitest --coverage --watch=false
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          slug: antvis/mcp-server-chart

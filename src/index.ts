@@ -5,6 +5,7 @@ import {
   runSSEServer,
   runStdioServer,
 } from "./server";
+import { logger } from "./utils/logger";
 
 // Parse command line arguments
 const { values } = parseArgs({
@@ -57,17 +58,20 @@ Options:
 const transport = values.transport.toLowerCase();
 
 if (transport === "sse") {
+  logger.setIsStdio(false);
   const port = Number.parseInt(values.port as string, 10);
   // Use provided endpoint or default to "/sse" for SSE
   const endpoint = values.endpoint || "/sse";
   const host = values.host || "localhost";
   runSSEServer(host, port, endpoint).catch(console.error);
 } else if (transport === "streamable") {
+  logger.setIsStdio(false);
   const port = Number.parseInt(values.port as string, 10);
   // Use provided endpoint or default to "/mcp" for streamable
   const endpoint = values.endpoint || "/mcp";
   const host = values.host || "localhost";
   runHTTPStreamableServer(host, port, endpoint).catch(console.error);
 } else {
+  logger.setIsStdio(true);
   runStdioServer().catch(console.error);
 }

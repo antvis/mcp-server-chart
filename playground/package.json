@@ -1,0 +1,28 @@
+{
+  "name": "mcp-chart-demo",
+  "version": "1.0.0",
+  "description": "MCP Server Chart Demo with GPT-Vis",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@ant-design/x": "^1.0.0",
+    "@antv/gpt-vis": "^0.5.9",
+    "antd": "^5.22.5",
+    "antd-style": "^3.7.1",
+    "axios": "^1.7.9",
+    "openai": "^4.104.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.17",
+    "@types/react-dom": "^18.3.5",
+    "@vitejs/plugin-react": "^4.3.4",
+    "typescript": "^5.8.3",
+    "vite": "^6.0.7"
+  }
+}

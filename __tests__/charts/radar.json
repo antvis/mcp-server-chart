@@ -26,7 +26,7 @@
         "description": "Data for radar chart, it should be an array of objects, each object contains a `name` field and a `value` field, such as, [{ name: 'Design', value: 70 }]."
       },
       "style": {
-        "description": "Custom style configuration for the chart.",
+        "description": "Style configuration for the chart with a JSON object, optional.",
         "properties": {
           "backgroundColor": {
             "description": "Background color of the chart, such as, '#fff'.",

@@ -12,7 +12,7 @@
         "type": "string"
       },
       "style": {
-        "description": "Custom style configuration for the chart.",
+        "description": "Style configuration for the chart with a JSON object, optional.",
         "properties": {
           "backgroundColor": {
             "description": "Background color of the chart, such as, '#fff'.",

@@ -28,7 +28,7 @@
         "description": "Data for boxplot chart, such as, [{ category: '分类一', value: 10 }] or [{ category: '分类二', value: 20, group: '组别一' }]."
       },
       "style": {
-        "description": "Custom style configuration for the chart.",
+        "description": "Style configuration for the chart with a JSON object, optional.",
         "properties": {
           "backgroundColor": {
             "description": "Background color of the chart, such as, '#fff'.",

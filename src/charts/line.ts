@@ -38,7 +38,9 @@ const schema = {
         .describe("Line width for the lines of chart, such as 4."),
     })
     .optional()
-    .describe("Custom style configuration for the chart."),
+    .describe(
+      "Style configuration for the chart with a JSON object, optional.",
+    ),
   theme: ThemeSchema,
   width: WidthSchema,
   height: HeightSchema,

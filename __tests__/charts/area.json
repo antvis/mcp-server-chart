@@ -31,7 +31,7 @@
         "description": "Whether stacking is enabled. When enabled, area charts require a 'group' field in the data."
       },
       "style": {
-        "description": "Custom style configuration for the chart.",
+        "description": "Style configuration for the chart with a JSON object, optional.",
         "properties": {
           "backgroundColor": {
             "description": "Background color of the chart, such as, '#fff'.",

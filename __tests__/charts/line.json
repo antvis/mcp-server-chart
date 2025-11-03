@@ -32,7 +32,7 @@
         "type": "string"
       },
       "style": {
-        "description": "Custom style configuration for the chart.",
+        "description": "Style configuration for the chart with a JSON object, optional.",
         "properties": {
           "lineWidth": {
             "description": "Line width for the lines of chart, such as 4.",

@@ -24,7 +24,9 @@ const data = z.object({
 const schema = {
   data: z
     .array(data)
-    .describe("Data for area chart, such as, [{ time: '2018', value: 99.9 }].")
+    .describe(
+      "Data for area chart, it should be an array of objects, each object contains a `time` field and a `value` field, such as, [{ time: '2015', value: 23 }, { time: '2016', value: 32 }], when stacking is needed for area, the data should contain a `group` field, such as, [{ time: '2015', value: 23, group: 'A' }, { time: '2015', value: 32, group: 'B' }].",
+    )
     .nonempty({ message: "Area chart data cannot be empty." }),
   stack: z
     .boolean()

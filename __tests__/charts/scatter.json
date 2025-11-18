@@ -24,7 +24,7 @@
           },
           "required": ["x", "y"]
         },
-        "description": "Data for scatter chart, such as, [{ x: 10, y: 15 }]."
+        "description": "Data for scatter chart, such as, [{ x: 10, y: 15 }], when the data is grouped, the group name can be specified in the `group` field, such as, [{ x: 10, y: 15, group: 'Group A' }]."
       },
       "theme": {
         "default": "default",

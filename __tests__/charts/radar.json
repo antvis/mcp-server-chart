@@ -23,7 +23,7 @@
           },
           "required": ["name", "value"]
         },
-        "description": "Data for radar chart, it should be an array of objects, each object contains a `name` field and a `value` field, such as, [{ name: 'Design', value: 70 }]."
+        "description": "Data for radar chart, it should be an array of objects, each object contains a `name` field and a `value` field, such as, [{ name: 'Design', value: 70 }], when the data is grouped by `group`, the `group` field is required, such as, [{ name: 'Design', value: 70, group: 'Huawei' }]."
       },
       "style": {
         "description": "Style configuration for the chart with a JSON object, optional.",

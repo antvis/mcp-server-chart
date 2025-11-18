@@ -25,7 +25,7 @@
           "required": ["category", "value"]
         },
         "minItems": 1,
-        "description": "Data for violin chart, such as, [{ category: '分类一', value: 10 }] or [{ category: '分类二', value: 20, group: '组别一' }]."
+        "description": "Data for violin chart, such as, [{ category: '分类一', value: 10 }], when the data is grouped, the `group` field is required, such as, [{ category: '分类二', value: 20, group: '组别一' }]."
       },
       "theme": {
         "type": "string",

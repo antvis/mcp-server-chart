@@ -29,7 +29,7 @@ const schema = {
   data: z
     .array(data)
     .describe(
-      "Data for violin chart, such as, [{ category: '分类一', value: 10 }], when the data is grouped, the `group` field is required, such as, [{ category: '分类二', value: 20, group: '组别一' }].",
+      "Data for violin chart, such as, [{ category: 'Category A', value: 10 }], when the data is grouped, the 'group' field is required, such as, [{ category: 'Category B', value: 20, group: 'Group A' }].",
     )
     .nonempty({ message: "Violin chart data cannot be empty." }),
   style: z

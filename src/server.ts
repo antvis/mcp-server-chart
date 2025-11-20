@@ -92,8 +92,7 @@ export async function runSSEServer(
   port = 1122,
   endpoint = "/sse",
 ): Promise<void> {
-  const server = createServer();
-  await startSSEMcpServer(server, endpoint, port, host);
+  await startSSEMcpServer(createServer, endpoint, port, host);
 }
 
 /**

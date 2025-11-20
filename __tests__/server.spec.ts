@@ -75,7 +75,7 @@ describe("MCP Server", () => {
     const transport = new SSEClientTransport(new URL(url), {});
 
     const client = new Client(
-      { name: "stress-client", version: "1.0.0" },
+      { name: "sse-client", version: "1.0.0" },
       { capabilities: {} },
     );
 
@@ -156,6 +156,62 @@ describe("MCP Server", () => {
 
     // @ts-expect-error ignore
     expect(res.content[0].text.substring(0, 8)).toBe("https://");
+
+    await killAsync(child);
+  });
+
+  it("sse with multiple clients", async () => {
+    const child = await spawnAsync("ts-node", ["./src/index.ts", "-t", "sse"]);
+
+    const url = "http://localhost:1122/sse";
+    const transport1 = new SSEClientTransport(new URL(url), {});
+
+    const client1 = new Client(
+      { name: "sse-client-1", version: "1.0.0" },
+      { capabilities: {} },
+    );
+    await client1.connect(transport1);
+
+    const transport2 = new SSEClientTransport(new URL(url), {});
+    const client2 = new Client(
+      { name: "sse-client-2", version: "1.0.0" },
+      { capabilities: {} },
+    );
+    await client2.connect(transport2);
+
+    expect((await client1.listTools()).tools.length).toBe(
+      (await client2.listTools()).tools.length,
+    );
+
+    await killAsync(child);
+  });
+
+  it("streamable with multiple clients", async () => {
+    const child = await spawnAsync("ts-node", [
+      "./src/index.ts",
+      "-t",
+      "streamable",
+    ]);
+
+    const url = "http://localhost:1122/mcp";
+    const transport1 = new StreamableHTTPClientTransport(new URL(url), {});
+
+    const client1 = new Client(
+      { name: "streamable-client-1", version: "1.0.0" },
+      { capabilities: {} },
+    );
+    await client1.connect(transport1);
+
+    const transport2 = new StreamableHTTPClientTransport(new URL(url), {});
+    const client2 = new Client(
+      { name: "streamable-client-2", version: "1.0.0" },
+      { capabilities: {} },
+    );
+    await client2.connect(transport2);
+
+    expect((await client1.listTools()).tools.length).toBe(
+      (await client2.listTools()).tools.length,
+    );
 
     await killAsync(child);
   });

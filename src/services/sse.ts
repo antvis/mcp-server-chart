@@ -4,7 +4,7 @@ import express, { type Request, type Response } from "express";
 import { logger } from "../utils/logger";
 
 export const startSSEMcpServer = async (
-  server: Server,
+  createServer: () => Server,
   endpoint = "/sse",
   port = 1122,
   host = "localhost",
@@ -12,14 +12,16 @@ export const startSSEMcpServer = async (
   const app = express();
   app.use(express.json());
 
-  const transports: Record<string, SSEServerTransport> = {};
+  const connections: Record<string, SSEServerTransport> = {};
 
   app.get(endpoint, async (req: Request, res: Response) => {
+    const server = createServer();
+
     const transport = new SSEServerTransport("/messages", res);
-    transports[transport.sessionId] = transport;
+    connections[transport.sessionId] = transport;
 
     transport.onclose = () => {
-      delete transports[transport.sessionId];
+      delete connections[transport.sessionId];
       logger.info(`SSE Server disconnected: sessionId=${transport.sessionId}`);
     };
 
@@ -34,7 +36,7 @@ export const startSSEMcpServer = async (
       return res.status(400).send("Missing sessionId parameter");
     }
 
-    const transport = transports[sessionId];
+    const transport = connections[sessionId];
     if (!transport) {
       logger.warn(`SSE Server session not found: sessionId=${sessionId}`);
       return res.status(404).send("Session not found");

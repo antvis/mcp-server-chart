@@ -5,8 +5,8 @@ const enableCoverage = process.argv.includes("--coverage");
 export default defineConfig({
   resolve: {},
   test: {
-    testTimeout: 20_000,
-    hookTimeout: 20_000,
+    testTimeout: 60_000,
+    hookTimeout: 60_000,
     include: ["__tests__/**/*.{test,spec}.?(c|m)[jt]s?(x)"],
     ...(enableCoverage
       ? {

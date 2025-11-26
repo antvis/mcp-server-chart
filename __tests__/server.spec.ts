@@ -164,20 +164,23 @@ describe("MCP Server", () => {
     const child = await spawnAsync("ts-node", ["./src/index.ts", "-t", "sse"]);
 
     const url = "http://localhost:1122/sse";
-    const transport1 = new SSEClientTransport(new URL(url), {});
 
+    const transport1 = new SSEClientTransport(new URL(url), {});
     const client1 = new Client(
       { name: "sse-client-1", version: "1.0.0" },
       { capabilities: {} },
     );
-    await client1.connect(transport1);
 
     const transport2 = new SSEClientTransport(new URL(url), {});
     const client2 = new Client(
       { name: "sse-client-2", version: "1.0.0" },
       { capabilities: {} },
     );
-    await client2.connect(transport2);
+
+    await Promise.all([
+      client1.connect(transport1),
+      client2.connect(transport2),
+    ]);
 
     expect((await client1.listTools()).tools.length).toBe(
       (await client2.listTools()).tools.length,
@@ -194,20 +197,23 @@ describe("MCP Server", () => {
     ]);
 
     const url = "http://localhost:1122/mcp";
-    const transport1 = new StreamableHTTPClientTransport(new URL(url), {});
 
+    const transport1 = new StreamableHTTPClientTransport(new URL(url), {});
     const client1 = new Client(
       { name: "streamable-client-1", version: "1.0.0" },
       { capabilities: {} },
     );
-    await client1.connect(transport1);
 
     const transport2 = new StreamableHTTPClientTransport(new URL(url), {});
     const client2 = new Client(
       { name: "streamable-client-2", version: "1.0.0" },
       { capabilities: {} },
     );
-    await client2.connect(transport2);
+
+    await Promise.all([
+      client1.connect(transport1),
+      client2.connect(transport2),
+    ]);
 
     expect((await client1.listTools()).tools.length).toBe(
       (await client2.listTools()).tools.length,

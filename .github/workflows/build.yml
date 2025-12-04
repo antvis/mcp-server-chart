@@ -9,9 +9,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    permissions:
-      id-token: write  # Required for OIDC authentication
-      contents: read
 
     steps:
       - name: Checkout
@@ -26,22 +23,10 @@ jobs:
         run: |
           npm install
           npm run build
-          npx vitest --watch=false
-          
-      - name: Build
-        run: npm run build
+          npx vitest --coverage --watch=false
 
-      - name: Update server.json version
-        run: |
-          VERSION=$(node -p "require('./package.json').version")
-          sed -i "s/{{VERSION}}/$VERSION/g" server.json
-      
-      - name: Install MCP Publisher
-        run: |
-          curl -L "https://github.com/modelcontextprotocol/registry/releases/latest/download/mcp-publisher_$(uname -s | tr '[:upper:]' '[:lower:]')_$(uname -m | sed 's/x86_64/amd64/;s/aarch64/arm64/').tar.gz" | tar xz mcp-publisher
-
-      - name: Login to MCP Registry
-        run: ./mcp-publisher login github-oidc
-
-      - name: Publish to MCP Registry
-        run: ./mcp-publisher publish
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          slug: antvis/mcp-server-chart

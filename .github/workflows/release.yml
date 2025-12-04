@@ -6,11 +6,11 @@ on:
       - '**' 
 
 jobs:
-  build-and-publish:
+  publish-to-mcp-registry:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      id-token: write 
+      id-token: write # Required for OIDC authentication
 
     steps:
       - name: Checkout
@@ -21,9 +21,6 @@ jobs:
         with:
           node-version: '20'
           cache: npm
-
-      - name: Build
-        run: npm run build
 
       - name: Update server.json version
         run: sed -i "s/{{VERSION}}/$GITHUB_REF_NAME/g" server.json

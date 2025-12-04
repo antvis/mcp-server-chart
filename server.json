@@ -1,0 +1,45 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-10-17/server.schema.json",
+  "name": "io.github.antvis/mcp-server-chart",
+  "description": "A Model Context Protocol server for generating charts using AntV.",
+  "repository": {
+    "url": "https://github.com/antvis/mcp-server-chart",
+    "source": "github"
+  },
+  "version": "{{VERSION}}",
+  "packages": [
+    {
+      "registryType": "npm",
+      "registryBaseUrl": "https://registry.npmjs.org",
+      "identifier": "@antv/mcp-server-chart",
+      "version": "{{VERSION}}",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "name": "VIS_REQUEST_SERVER",
+          "description": "Custom chart generation service URL for private deployment",
+          "default": "https://antv-studio.alipay.com/api/gpt-vis",
+          "isRequired": false,
+          "format": "string",
+          "isSecret": false
+        },
+        {
+          "name": "SERVICE_ID",
+          "description": "Service identifier for chart generation records",
+          "isRequired": false,
+          "format": "string",
+          "isSecret": true
+        },
+        {
+          "name": "DISABLED_TOOLS",
+          "description": "Comma-separated list of tool names to disable",
+          "isRequired": false,
+          "format": "string",
+          "isSecret": false
+        }
+      ]
+    }
+  ]
+}

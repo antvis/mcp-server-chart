@@ -19,7 +19,7 @@
       "environmentVariables": [
         {
           "name": "VIS_REQUEST_SERVER",
-          "description": "Custom chart generation service URL for private deployment",
+          "description": "URL for the chart generation service. Defaults to the public AntV service, but can be overridden for private deployments.",
           "default": "https://antv-studio.alipay.com/api/gpt-vis",
           "isRequired": false,
           "format": "string",
@@ -27,14 +27,14 @@
         },
         {
           "name": "SERVICE_ID",
-          "description": "Service identifier for chart generation records",
+          "description": "A unique identifier for your service, used for tracking chart generation records. This may be required for certain service levels or features.",
           "isRequired": false,
           "format": "string",
           "isSecret": true
         },
         {
           "name": "DISABLED_TOOLS",
-          "description": "Comma-separated list of tool names to disable",
+          "description": "Comma-separated list of tool names to disable.",
           "isRequired": false,
           "format": "string",
           "isSecret": false

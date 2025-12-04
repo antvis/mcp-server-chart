@@ -23,7 +23,9 @@ const data = z.object({
 const schema = {
   data: z
     .array(data)
-    .describe("Data for scatter chart, such as, [{ x: 10, y: 15 }].")
+    .describe(
+      "Data for scatter chart, such as, [{ x: 10, y: 15 }], when the data is grouped, the group name can be specified in the `group` field, such as, [{ x: 10, y: 15, group: 'Group A' }].",
+    )
     .nonempty({ message: "Scatter chart data cannot be empty." }),
   style: z
     .object({
@@ -32,7 +34,9 @@ const schema = {
       texture: TextureSchema,
     })
     .optional()
-    .describe("Custom style configuration for the chart."),
+    .describe(
+      "Style configuration for the chart with a JSON object, optional.",
+    ),
   theme: ThemeSchema,
   width: WidthSchema,
   height: HeightSchema,

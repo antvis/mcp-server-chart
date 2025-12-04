@@ -11,6 +11,7 @@ import {
 } from "./services";
 import { callTool } from "./utils/callTool";
 import { getDisabledTools } from "./utils/env";
+import { logger } from "./utils/logger";
 
 /**
  * Creates and configures an MCP server for chart generation.
@@ -30,8 +31,12 @@ export function createServer(): Server {
 
   setupToolHandlers(server);
 
-  server.onerror = (error) => console.error("[MCP Error]", error);
+  server.onerror = (e: Error) => {
+    logger.error("Server encountered an error, shutting down", e);
+  };
+
   process.on("SIGINT", async () => {
+    logger.info("SIGINT received, shutting down server...");
     await server.close();
     process.exit(0);
   });
@@ -57,13 +62,18 @@ function getEnabledTools() {
  * Sets up tool handlers for the MCP server.
  */
 function setupToolHandlers(server: Server): void {
+  logger.info("setting up tool handlers...");
   server.setRequestHandler(ListToolsRequestSchema, async () => ({
     tools: getEnabledTools().map((chart) => chart.tool),
   }));
 
-  server.setRequestHandler(CallToolRequestSchema, async (request) => {
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  server.setRequestHandler(CallToolRequestSchema, async (request: any) => {
+    logger.info("calling tool", request.params.name, request.params.arguments);
+
     return await callTool(request.params.name, request.params.arguments);
   });
+  logger.info("tool handlers set up");
 }
 
 /**
@@ -78,19 +88,20 @@ export async function runStdioServer(): Promise<void> {
  * Runs the server with SSE transport.
  */
 export async function runSSEServer(
-  endpoint = "/sse",
+  host = "localhost",
   port = 1122,
+  endpoint = "/sse",
 ): Promise<void> {
-  const server = createServer();
-  await startSSEMcpServer(server, endpoint, port);
+  await startSSEMcpServer(createServer, endpoint, port, host);
 }
 
 /**
  * Runs the server with HTTP streamable transport.
  */
 export async function runHTTPStreamableServer(
-  endpoint = "/mcp",
+  host = "localhost",
   port = 1122,
+  endpoint = "/mcp",
 ): Promise<void> {
-  await startHTTPStreamableServer(createServer, endpoint, port);
+  await startHTTPStreamableServer(createServer, endpoint, port, host);
 }

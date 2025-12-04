@@ -23,7 +23,7 @@
           },
           "required": ["time", "value"]
         },
-        "description": "Data for area chart, such as, [{ time: '2018', value: 99.9 }]."
+        "description": "Data for area chart, it should be an array of objects, each object contains a `time` field and a `value` field, such as, [{ time: '2015', value: 23 }, { time: '2016', value: 32 }], when stacking is needed for area, the data should contain a `group` field, such as, [{ time: '2015', value: 23, group: 'A' }, { time: '2015', value: 32, group: 'B' }]."
       },
       "stack": {
         "type": "boolean",
@@ -31,7 +31,7 @@
         "description": "Whether stacking is enabled. When enabled, area charts require a 'group' field in the data."
       },
       "style": {
-        "description": "Custom style configuration for the chart.",
+        "description": "Style configuration for the chart with a JSON object, optional.",
         "properties": {
           "backgroundColor": {
             "description": "Background color of the chart, such as, '#fff'.",

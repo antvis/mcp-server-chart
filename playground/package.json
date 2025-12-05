@@ -1,0 +1,27 @@
+{
+  "name": "mcp-chart-mastra-app",
+  "version": "1.0.0",
+  "description": "Data visualization intelligent chat application powered by Mastra and MCP Server Chart",
+  "type": "module",
+  "scripts": {
+    "dev": "mastra dev",
+    "build": "mastra build",
+    "start": "node dist/index.js",
+    "example": "tsx src/example.ts"
+  },
+  "dependencies": {
+    "@antv/gpt-vis": "^0.5.9",
+    "@mastra/core": "^0.24.6",
+    "@mastra/libsql": "^0.16.3",
+    "@mastra/memory": "^0.15.12",
+    "eventsource": "^2.0.2",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "@types/eventsource": "^1.1.15",
+    "@types/node": "^20.11.0",
+    "mastra": "^0.18.6",
+    "tsx": "^4.7.0",
+    "typescript": "^5.8.3"
+  }
+}

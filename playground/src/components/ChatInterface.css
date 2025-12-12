@@ -1,0 +1,449 @@
+/* 布局容器 - 左右分栏 */
+.chat-layout {
+  display: flex;
+  height: 100vh;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+/* 侧边栏样式 */
+.chat-sider {
+  width: 280px;
+  background: #fafafa;
+  border-right: 1px solid #f0f0f0;
+  display: flex;
+  flex-direction: column;
+  padding: 16px 12px;
+  box-sizing: border-box;
+}
+
+.chat-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+  margin-bottom: 16px;
+}
+
+.chat-logo span {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.new-conversation-btn {
+  margin-bottom: 16px;
+  border-radius: 8px;
+  background: #667eea0f;
+  border: 1px solid #667eea34;
+  height: 40px;
+  color: #667eea;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.new-conversation-btn:hover {
+  background: #667eea1a !important;
+  border-color: #667eea !important;
+  color: #667eea !important;
+}
+
+.conversations-list {
+  flex: 1;
+  overflow-y: auto;
+  margin-bottom: 16px;
+}
+
+.conversations-list::-webkit-scrollbar {
+  width: 4px;
+}
+
+.conversations-list::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 2px;
+}
+
+.chat-sider-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  border-top: 1px solid #f0f0f0;
+}
+
+/* 主聊天区域 */
+.chat-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  max-width: 100%;
+}
+
+.chat-header-x {
+  padding: 16px 24px;
+  background: #fff;
+  border-bottom: 1px solid #f0f0f0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.chat-header-x h1 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.subtitle {
+  margin: 4px 0 0;
+  font-size: 14px;
+  color: #8c8c8c;
+}
+
+.chat-content-x {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-content-x::-webkit-scrollbar {
+  width: 6px;
+}
+
+.chat-content-x::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.chat-content-x::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 3px;
+}
+
+.chat-content-x::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.25);
+}
+
+.welcome-container {
+  width: 100%;
+  max-width: 840px;
+  margin: 0 auto;
+}
+
+.chat-footer-x {
+  padding: 16px 24px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.chat-footer-x > .ant-prompts {
+  width: 100%;
+  max-width: 840px;
+}
+
+.chat-footer-x > .ant-sender {
+  width: 100%;
+  max-width: 840px;
+}
+
+/* Ant Design X 组件样式覆盖 - 样板间风格 */
+.ant-bubble-list {
+  margin: 0 auto;
+  width: 100%;
+}
+
+.ant-bubble {
+  max-width: 840px;
+}
+
+.ant-bubble-content {
+  font-size: 14px;
+  line-height: 1.6;
+  word-break: break-word;
+  overflow: hidden;
+  max-width: 100%;
+}
+
+.ant-bubble-content-filled {
+  background-color: #f7f7fa !important;
+}
+
+.ant-bubble[data-placement="start"] .ant-bubble-content {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  padding: 12px 16px;
+}
+
+.ant-bubble[data-placement="end"] .ant-bubble-content {
+  background: #667eea;
+  color: #fff;
+  border-radius: 12px;
+  padding: 12px 16px;
+}
+
+/* 头像样式 */
+.ant-bubble .ant-avatar {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* Prompts 样式 - 样板间风格 */
+.ant-prompts {
+  margin-bottom: 12px;
+}
+
+.ant-prompts-list {
+  gap: 8px;
+}
+
+.ant-prompts-item {
+  background: #fff;
+  border: 1px solid #d9d9d9;
+  border-radius: 8px;
+  font-size: 13px;
+  transition: all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+  padding: 6px 12px;
+  color: rgba(0, 0, 0, 0.88);
+}
+.chat-footer-x .ant-prompts .ant-prompts-list .ant-prompts-item:hover{
+  background:#fefeff;
+  border-color: #667eea;
+  color: #667eea;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+}
+.chat-content-x .ant-prompts .ant-prompts-list .ant-prompts-item:hover{
+  background:#f9f9ff;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+}
+.chat-content-x .ant-prompts .ant-prompts-list .ant-prompts-item{
+  background: #ffffff;
+}
+
+
+.ant-prompts-item .anticon {
+  font-size: 14px;
+}
+
+/* Sender 样式 - 样板间风格 */
+.ant-sender {
+  background: #fff;
+  border: 1px solid #d9d9d9;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  transition: all 0.2s;
+}
+
+.ant-sender:hover,
+.ant-sender:focus-within {
+  border-color: #667eea;
+  box-shadow: 0 2px 12px rgba(102, 126, 234, 0.15);
+}
+
+.ant-sender textarea {
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.ant-sender-actions {
+  gap: 8px;
+}
+
+/* Welcome 样式 - 样板间风格 */
+.ant-welcome {
+  padding: 12px 0px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.ant-welcome .anticon {
+  color: #667eea;
+  font-size: 72px;
+}
+
+.ant-welcome-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 12px;
+}
+
+.ant-welcome-description {
+  font-size: 14px;
+  color: #8c8c8c;
+  line-height: 1.6;
+}
+
+/* Prompts 分组样式 - 样板间效果 */
+.ant-prompts-group {
+  margin-top: 32px;
+}
+
+.ant-prompts-group-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 16px;
+  padding: 0 8px;
+}
+
+.ant-prompts-subitem {
+  background: #fff;
+  border: 1px solid #f0f0f0;
+  border-radius: 12px;
+  padding: 16px;
+  transition: all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+  cursor: pointer;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.ant-prompts-subitem:hover {
+  background: #fafafa;
+  border-color: #667eea;
+  box-shadow: 0 4px 16px rgba(102, 126, 234, 0.15);
+  transform: translateY(-2px);
+}
+
+.ant-prompts-subitem .anticon {
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+.ant-prompts-subitem-content {
+  flex: 1;
+}
+
+.ant-prompts-subitem-label {
+  font-size: 15px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 4px;
+}
+
+.ant-prompts-subitem-description {
+  font-size: 13px;
+  color: #8c8c8c;
+  line-height: 1.5;
+}
+
+/* GPTVis 内容响应式处理 */
+.ant-bubble-content img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 8px;
+  margin: 8px 0;
+}
+
+.ant-bubble-content canvas {
+  max-width: 100%;
+  height: auto !important;
+}
+
+.ant-bubble-content [class*="gpt-vis"] svg {
+  max-width: 100%;
+  height: auto;
+}
+
+/* 确保 GPTVis 渲染的图表容器不超出 */
+.ant-bubble-content [class*="gpt-vis"] [class*="chart"],
+.ant-bubble-content [class*="gpt-vis"] [class*="visualization"],
+.ant-bubble-content [class*="gpt-vis"] > div > div {
+  max-width: 100%;
+  overflow: hidden;
+}
+
+/* 打字效果优化 */
+.ant-bubble-loading .ant-bubble-content {
+  background: #fafafa;
+}
+
+/* Markdown 内容样式 */
+.ant-bubble-content p {
+  margin: 8px 0;
+}
+
+.ant-bubble-content h1,
+.ant-bubble-content h2,
+.ant-bubble-content h3,
+.ant-bubble-content h4 {
+  margin: 12px 0 8px;
+  font-weight: 600;
+}
+
+.ant-bubble-content ul,
+.ant-bubble-content ol {
+  margin: 8px 0;
+  padding-left: 24px;
+}
+
+.ant-bubble-content li {
+  margin: 4px 0;
+}
+
+.ant-bubble-content code {
+  background: rgba(0, 0, 0, 0.06);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 13px;
+}
+
+.ant-bubble-content pre {
+  background: rgba(0, 0, 0, 0.04);
+  padding: 12px;
+  border-radius: 8px;
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+.ant-bubble-content pre code {
+  background: none;
+  padding: 0;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .chat-header-x {
+    padding: 12px 16px;
+  }
+  
+  .chat-header-x h1 {
+    font-size: 18px;
+  }
+  
+  .chat-content-x {
+    padding: 16px;
+  }
+  
+  .chat-footer-x {
+    padding: 12px 16px 16px;
+  }
+  
+  .ant-bubble {
+    max-width: 90%;
+  }
+  
+ 
+  
+  .ant-welcome-title {
+    font-size: 20px;
+  }
+  
+  .ant-bubble-content img {
+    border-radius: 4px;
+  }
+}
+
+@media (max-width: 480px) {
+  .ant-bubble {
+    max-width: 95%;
+  }
+  
+  .ant-bubble-content {
+    font-size: 13px;
+  }
+}

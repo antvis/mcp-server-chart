@@ -22,4 +22,5 @@ export { default as scatter } from "./scatter.json";
 export { default as treemap } from "./treemap.json";
 export { default as venn } from "./venn.json";
 export { default as violin } from "./violin.json";
+export { default as waterfall } from "./waterfall.json";
 export { default as "word-cloud" } from "./word-cloud.json";

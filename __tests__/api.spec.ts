@@ -33,6 +33,7 @@ describe("sdk API", () => {
       "treemap",
       "venn",
       "violin",
+      "waterfall",
       "word-cloud",
     ]);
   });

@@ -11,18 +11,33 @@ import {
   WidthSchema,
 } from "./base";
 
-const data = z.object({
-  category: z.string(),
-  value: z.number().optional(),
-  isIntermediateTotal: z.boolean().optional(),
-  isTotal: z.boolean().optional(),
-});
+const data = z
+  .object({
+    category: z.string(),
+    value: z.number().optional(),
+    isIntermediateTotal: z.boolean().optional(),
+    isTotal: z.boolean().optional(),
+  })
+  .superRefine((item, ctx) => {
+    if (
+      !item.isIntermediateTotal &&
+      !item.isTotal &&
+      item.value === undefined
+    ) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message:
+          "The 'value' field is required for data points that are not totals.",
+        path: ["value"],
+      });
+    }
+  });
 
 const schema = {
   data: z
     .array(data)
     .describe(
-      "Data for waterfall chart, it should be an array of objects, each object contains a `category` field and a `value` field. The `isIntermediateTotal` field marks intermediate subtotals, and the `isTotal` field marks the final total. For example, [{ category: 'Initial', value: 100 }, { category: 'Increase', value: 50 }, { category: 'Subtotal', isIntermediateTotal: true }, { category: 'Decrease', value: -30 }, { category: 'Total', isTotal: true }].",
+      "Data for waterfall chart, it should be an array of objects. Each object must contain a `category` field. For regular items, a `value` field is also required. The `isIntermediateTotal` field marks intermediate subtotals, and the `isTotal` field marks the final total. For example, [{ category: 'Initial', value: 100 }, { category: 'Increase', value: 50 }, { category: 'Subtotal', isIntermediateTotal: true }, { category: 'Decrease', value: -30 }, { category: 'Total', isTotal: true }].",
     )
     .nonempty({ message: "Waterfall chart data cannot be empty." }),
   positiveColor: z

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { mastraClient } from "../lib/mastra";
 import { GPTVis } from "@antv/gpt-vis";
 import {
@@ -119,12 +119,32 @@ export function ChatInterface() {
   );
   const messages = currentConversation?.messages || [];
 
+  // 流式更新消息内容
+  const updateStreamingMessage = useCallback((messageId: string, content: string, status: "loading" | "success" | "error" = "loading") => {
+    console.log("更新流式消息:", messageId, content, status);
+    setConversations((prev) =>
+      prev.map((c) =>
+        c.key === activeConversationKey
+          ? {
+              ...c,
+              messages: c.messages.map((msg) =>
+                msg.id === messageId
+                  ? { ...msg, content, status }
+                  : msg
+              ),
+            }
+          : c
+      )
+    );
+  }, [activeConversationKey]);
+
   // 初始化：从本地存储加载对话
   useEffect(() => {
     const stored = localStorage.getItem(STORAGE_KEY);
     if (stored) {
       try {
         const parsed = JSON.parse(stored);
+        if(!Array.isArray(parsed)) throw new Error("Invalid data");
         setConversations(parsed);
         if (parsed.length > 0) {
           setActiveConversationKey(parsed[0].key);
@@ -237,78 +257,80 @@ export function ChatInterface() {
 
     try {
       const agent = mastraClient.getAgent("chartAgent");
-      const response = await agent.generate({
+      const streamResponse = await agent.stream({
         messages: [{ role: "user", content }],
       });
 
-      // 后处理:强制提取 chart 数据替换 URL
-      let finalContent = response.text || "未能生成回复";
-      
-      // 检查是否有工具调用结果
-      if (response.toolResults && response.toolResults.length > 0) {
-        // 提取所有 chart 数据
-        const charts: string[] = [];
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        response.toolResults.forEach((toolResult: any) => {
-          if (toolResult.payload?.result?.chart) {
-            charts.push(toolResult.payload.result.chart);
-          }
-        });
+      // 流式处理响应
+      let streamedText = "";
+      const charts: string[] = [];
 
-        // 如果找到 chart 数据且响应中包含 URL 图片语法，替换为 chart
-        if (charts.length > 0) {
-          // 检测是否包含 ![...](...) 图片语法
-          const imageMarkdownRegex = /!\[.*?\]\(.*?\)/g;
-          if (imageMarkdownRegex.test(finalContent)) {
-            // 移除所有图片 Markdown 语法
-            finalContent = finalContent.replace(imageMarkdownRegex, '').trim();
+      await streamResponse.processDataStream({
+        onChunk: (chunk) => {
+          // 处理文本块 - Mastra 的 chunk 结构
+          if (chunk.type === "text-delta" && chunk.payload?.text) {
+            streamedText += chunk.payload.text;
             
-            // 在合适位置插入 chart（在第一段文字后）
-            const paragraphs = finalContent.split('\n\n');
-            if (paragraphs.length >= 1) {
-              // 在第一段后插入 chart
-              paragraphs.splice(1, 0, charts[0]);
-              finalContent = paragraphs.join('\n\n');
-            } else {
-              // 如果没有段落分隔，直接追加
-              finalContent = finalContent + '\n\n' + charts[0];
+            // 实时更新消息内容 - 打字机效果
+            updateStreamingMessage(assistantMessageId, streamedText, "success");
+          }
+
+          // 处理工具调用结果
+          if (chunk.type === "tool-result" && chunk.payload) {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            const toolResult = chunk.payload as any;
+            
+            if (toolResult?.chart) {
+              charts.push(toolResult.chart);
+              // 在文本后添加图表
+              const contentWithChart = streamedText + '\n\n' + toolResult.chart;
+              updateStreamingMessage(assistantMessageId, contentWithChart, "loading");
             }
           }
+        },
+      });
+
+      // 流式完成后的最终处理
+      let finalContent = streamedText;
+      
+      // 如果有图表数据，确保添加到内容中
+      if (charts.length > 0) {
+        // 如果文本为空，添加默认说明
+        if (!finalContent.trim()) {
+          finalContent = "已为您生成图表：";
         }
+        
+        // 移除可能存在的图片 Markdown 语法
+        const imageMarkdownRegex = /!\[.*?\]\(.*?\)/g;
+        finalContent = finalContent.replace(imageMarkdownRegex, '').trim();
+        
+        // 添加图表（如果还没有包含）
+        if (!finalContent.includes(charts[0])) {
+          finalContent = finalContent + '\n\n' + charts[0];
+        }
+      } else if (!finalContent.trim()) {
+        // 既没有文本也没有图表
+        finalContent = "未能生成回复，请重试";
       }
 
-      // 更新 AI 消息
-      updateMessages((prev) =>
-        prev.map((msg) =>
-          msg.id === assistantMessageId
-            ? {
-                ...msg,
-                content: finalContent,
-                status: "success" as const,
-              }
-            : msg
-        )
-      );
+      // 最终更新消息状态为成功
+      updateStreamingMessage(assistantMessageId, finalContent, "success");
+      setIsLoading(false);
     } catch (error) {
       console.error("Error generating response:", error);
       antMessage.error("生成图表失败，请重试");
 
       // 更新错误消息
-      updateMessages((prev) =>
-        prev.map((msg) =>
-          msg.id === assistantMessageId
-            ? {
-                ...msg,
-                content: `❌ 错误: ${error instanceof Error ? error.message : "未知错误"}`,
-                status: "error" as const,
-              }
-            : msg
-        )
+      updateStreamingMessage(
+        assistantMessageId,
+        `❌ 错误: ${error instanceof Error ? error.message : "未知错误"}`,
+        "error"
       );
-    } finally {
       setIsLoading(false);
     }
   };
+
+  // console.log("渲染对话组件，当前对话:", currentConversation, "消息数:", messages.length, isLoading);
 
   return (
     <div className="chat-layout">
@@ -413,7 +435,8 @@ export function ChatInterface() {
           </Space>
         ) : (
           <Bubble.List
-            items={messages.map((msg) => ({
+            items={messages.map((msg) => (
+             {
               key: msg.id,
               role: msg.role,
               content:
@@ -432,10 +455,6 @@ export function ChatInterface() {
                   <Avatar style={{ background: "#87d068" }}>U</Avatar>
                 ),
               placement: msg.role === "assistant" ? "start" : "end",
-              typing:
-                msg.status === "loading"
-                  ? { effect: "typing", step: 5, interval: 20 }
-                  : false,
               loading: msg.status === "loading",
             }))}
           />

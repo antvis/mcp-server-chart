@@ -40,28 +40,32 @@ const schema = {
       "Data for waterfall chart, it should be an array of objects. Each object must contain a `category` field. For regular items, a `value` field is also required. The `isIntermediateTotal` field marks intermediate subtotals, and the `isTotal` field marks the final total. For example, [{ category: 'Initial', value: 100 }, { category: 'Increase', value: 50 }, { category: 'Subtotal', isIntermediateTotal: true }, { category: 'Decrease', value: -30 }, { category: 'Total', isTotal: true }].",
     )
     .nonempty({ message: "Waterfall chart data cannot be empty." }),
-  positiveColor: z
-    .string()
-    .optional()
-    .describe(
-      "Color for positive values (increases), such as '#FF4D4F'. Default is red.",
-    ),
-  negativeColor: z
-    .string()
-    .optional()
-    .describe(
-      "Color for negative values (decreases), such as '#2EBB59'. Default is green.",
-    ),
-  totalColor: z
-    .string()
-    .optional()
-    .describe(
-      "Color for total and intermediate total bars, such as '#1783FF'. Default is blue.",
-    ),
   style: z
     .object({
       backgroundColor: BackgroundColorSchema,
       texture: TextureSchema,
+      palette: z
+        .object({
+          positiveColor: z
+            .string()
+            .optional()
+            .describe(
+              "Color for positive values (increases). Default is '#FF4D4F'.",
+            ),
+          negativeColor: z
+            .string()
+            .optional()
+            .describe(
+              "Color for negative values (decreases). Default is '#2EBB59'.",
+            ),
+          totalColor: z
+            .string()
+            .optional()
+            .describe(
+              "Color for total and intermediate total bars. Default is '#1783FF'.",
+            ),
+        })
+        .optional(),
     })
     .optional()
     .describe(

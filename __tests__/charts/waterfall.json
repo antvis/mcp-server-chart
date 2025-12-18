@@ -27,18 +27,6 @@
         "minItems": 1,
         "description": "Data for waterfall chart, it should be an array of objects. Each object must contain a `category` field. For regular items, a `value` field is also required. The `isIntermediateTotal` field marks intermediate subtotals, and the `isTotal` field marks the final total. For example, [{ category: 'Initial', value: 100 }, { category: 'Increase', value: 50 }, { category: 'Subtotal', isIntermediateTotal: true }, { category: 'Decrease', value: -30 }, { category: 'Total', isTotal: true }]."
       },
-      "positiveColor": {
-        "type": "string",
-        "description": "Color for positive values (increases), such as '#FF4D4F'. Default is red."
-      },
-      "negativeColor": {
-        "type": "string",
-        "description": "Color for negative values (decreases), such as '#2EBB59'. Default is green."
-      },
-      "totalColor": {
-        "type": "string",
-        "description": "Color for total and intermediate total bars, such as '#1783FF'. Default is blue."
-      },
       "style": {
         "type": "object",
         "properties": {
@@ -51,6 +39,23 @@
             "enum": ["default", "rough"],
             "default": "default",
             "description": "Set the texture for the chart, optional, default is 'default'. 'rough' refers to hand-drawn style."
+          },
+          "palette": {
+            "type": "object",
+            "properties": {
+              "positiveColor": {
+                "type": "string",
+                "description": "Color for positive values (increases). Default is '#FF4D4F'."
+              },
+              "negativeColor": {
+                "type": "string",
+                "description": "Color for negative values (decreases). Default is '#2EBB59'."
+              },
+              "totalColor": {
+                "type": "string",
+                "description": "Color for total and intermediate total bars. Default is '#1783FF'."
+              }
+            }
           }
         },
         "description": "Style configuration for the chart with a JSON object, optional."

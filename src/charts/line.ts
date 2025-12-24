@@ -6,6 +6,7 @@ import {
   BackgroundColorSchema,
   HeightSchema,
   PaletteSchema,
+  StartAtZeroSchema,
   TextureSchema,
   ThemeSchema,
   TitleSchema,
@@ -32,6 +33,7 @@ const schema = {
       texture: TextureSchema,
       backgroundColor: BackgroundColorSchema,
       palette: PaletteSchema,
+      startAtZero: StartAtZeroSchema,
       lineWidth: z
         .number()
         .optional()

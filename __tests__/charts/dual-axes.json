@@ -30,6 +30,11 @@
             "description": "Set the texture for the chart, optional, default is 'default'. 'rough' refers to hand-drawn style.",
             "enum": ["default", "rough"],
             "type": "string"
+          },
+          "startAtZero": {
+            "type": "boolean",
+            "description": "Whether to start the axis at zero, optional, default is false.",
+            "default": false
           }
         },
         "type": "object"

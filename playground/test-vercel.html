@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vercel API 测试工具</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            padding: 30px;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+        
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+        
+        .test-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .test-section h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        
+        .url-input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 14px;
+            margin-bottom: 15px;
+            font-family: 'Monaco', 'Courier New', monospace;
+        }
+        
+        .url-input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s;
+            margin-right: 10px;
+        }
+        
+        button:hover {
+            background: #5568d3;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+        
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .result {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 6px;
+            font-size: 13px;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-family: 'Monaco', 'Courier New', monospace;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        .result.success {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+        
+        .result.error {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+        
+        .result.info {
+            background: #d1ecf1;
+            border: 1px solid #bee5eb;
+            color: #0c5460;
+        }
+        
+        .loading {
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            border: 2px solid #667eea;
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin-right: 8px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-right: 10px;
+        }
+        
+        .status-badge.online {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .status-badge.offline {
+            background: #f8d7da;
+            color: #721c24;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Vercel API 测试工具</h1>
+        <p class="subtitle">在浏览器中测试你的 Vercel 部署的 API</p>
+        
+        <div class="test-section">
+            <h2>📍 API 基础 URL</h2>
+            <input 
+                type="text" 
+                id="baseUrl" 
+                class="url-input" 
+                value="https://playground-two-snowy.vercel.app"
+                placeholder="输入你的 Vercel URL"
+            />
+        </div>
+        
+        <div class="test-section">
+            <h2>❤️ 健康检查</h2>
+            <button onclick="testHealth()">测试健康检查</button>
+            <div id="healthResult"></div>
+        </div>
+        
+        <div class="test-section">
+            <h2>📊 生成图表（非流式）</h2>
+            <button onclick="testGenerate()">测试生成</button>
+            <div id="generateResult"></div>
+        </div>
+        
+        <div class="test-section">
+            <h2>🌊 流式生成</h2>
+            <button onclick="testStream()">测试流式</button>
+            <div id="streamResult"></div>
+        </div>
+        
+        <div class="test-section">
+            <h2>🧪 运行所有测试</h2>
+            <button onclick="runAllTests()">运行所有测试</button>
+            <div id="allResult"></div>
+        </div>
+    </div>
+
+    <script>
+        function getBaseUrl() {
+            return document.getElementById('baseUrl').value.trim();
+        }
+        
+        function showLoading(elementId) {
+            const el = document.getElementById(elementId);
+            el.innerHTML = '<div class="result info"><span class="loading"></span>正在测试...</div>';
+        }
+        
+        function showResult(elementId, success, message) {
+            const el = document.getElementById(elementId);
+            const className = success ? 'success' : 'error';
+            const icon = success ? '✅' : '❌';
+            el.innerHTML = `<div class="result ${className}">${icon} ${message}</div>`;
+        }
+        
+        async function testHealth() {
+            const baseUrl = getBaseUrl();
+            if (!baseUrl) {
+                showResult('healthResult', false, '请输入 API URL');
+                return;
+            }
+            
+            showLoading('healthResult');
+            
+            try {
+                const url = `${baseUrl}/api/health`;
+                const response = await fetch(url);
+                const data = await response.json();
+                
+                if (response.ok && data.success) {
+                    showResult('healthResult', true, `健康检查成功！\n\n${JSON.stringify(data, null, 2)}`);
+                } else {
+                    showResult('healthResult', false, `健康检查失败\n状态码: ${response.status}\n${JSON.stringify(data, null, 2)}`);
+                }
+            } catch (error) {
+                showResult('healthResult', false, `请求失败: ${error.message}\n\n可能原因:\n1. 网络连接问题\n2. URL 不正确\n3. CORS 限制`);
+            }
+        }
+        
+        async function testGenerate() {
+            const baseUrl = getBaseUrl();
+            if (!baseUrl) {
+                showResult('generateResult', false, '请输入 API URL');
+                return;
+            }
+            
+            showLoading('generateResult');
+            
+            try {
+                const url = `${baseUrl}/api/agents/chartAgent/generate`;
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        messages: [
+                            {
+                                role: 'user',
+                                content: '用柱状图展示2024年各季度销售数据：Q1:120万, Q2:150万, Q3:180万, Q4:200万'
+                            }
+                        ]
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok && data.text) {
+                    const preview = data.text.length > 500 ? data.text.substring(0, 500) + '...' : data.text;
+                    showResult('generateResult', true, `生成成功！\n\n响应长度: ${data.text.length} 字符\n\n预览:\n${preview}`);
+                } else {
+                    showResult('generateResult', false, `生成失败\n状态码: ${response.status}\n${JSON.stringify(data, null, 2)}`);
+                }
+            } catch (error) {
+                showResult('generateResult', false, `请求失败: ${error.message}`);
+            }
+        }
+        
+        async function testStream() {
+            const baseUrl = getBaseUrl();
+            if (!baseUrl) {
+                showResult('streamResult', false, '请输入 API URL');
+                return;
+            }
+            
+            showLoading('streamResult');
+            
+            try {
+                const url = `${baseUrl}/api/agents/chartAgent/stream`;
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        messages: [
+                            {
+                                role: 'user',
+                                content: '生成饼图展示市场份额：苹果35%, 三星28%, 小米18%, 其他19%'
+                            }
+                        ]
+                    })
+                });
+                
+                if (!response.ok || !response.body) {
+                    const text = await response.text();
+                    showResult('streamResult', false, `流式请求失败\n状态码: ${response.status}\n${text}`);
+                    return;
+                }
+                
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder();
+                let buffer = '';
+                let collected = '';
+                let chunkCount = 0;
+                
+                while (true) {
+                    const { done, value } = await reader.read();
+                    if (done) break;
+                    
+                    buffer += decoder.decode(value, { stream: true });
+                    const lines = buffer.split('\n');
+                    buffer = lines.pop() || '';
+                    
+                    for (const line of lines) {
+                        if (!line.trim()) continue;
+                        try {
+                            const json = JSON.parse(line);
+                            chunkCount++;
+                            if (json.type === 'text-delta' && json.payload?.text) {
+                                collected += json.payload.text;
+                            }
+                        } catch (e) {
+                            // ignore parse errors
+                        }
+                    }
+                }
+                
+                if (collected) {
+                    const preview = collected.length > 500 ? collected.substring(0, 500) + '...' : collected;
+                    showResult('streamResult', true, `流式生成成功！\n\n收到 ${chunkCount} 个数据块\n内容长度: ${collected.length} 字符\n\n预览:\n${preview}`);
+                } else {
+                    showResult('streamResult', false, '流式响应没有内容');
+                }
+            } catch (error) {
+                showResult('streamResult', false, `请求失败: ${error.message}`);
+            }
+        }
+        
+        async function runAllTests() {
+            const el = document.getElementById('allResult');
+            el.innerHTML = '<div class="result info"><span class="loading"></span>运行所有测试...</div>';
+            
+            const results = [];
+            
+            // Test 1: Health
+            try {
+                const url = `${getBaseUrl()}/api/health`;
+                const response = await fetch(url);
+                const data = await response.json();
+                results.push(`✅ 健康检查: ${response.ok && data.success ? '通过' : '失败'}`);
+            } catch (error) {
+                results.push(`❌ 健康检查: 失败 (${error.message})`);
+            }
+            
+            // Test 2: Generate
+            try {
+                const url = `${getBaseUrl()}/api/agents/chartAgent/generate`;
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        messages: [{ role: 'user', content: '测试' }]
+                    })
+                });
+                const data = await response.json();
+                results.push(`✅ 生成图表: ${response.ok && data.text ? '通过' : '失败'}`);
+            } catch (error) {
+                results.push(`❌ 生成图表: 失败 (${error.message})`);
+            }
+            
+            // Test 3: Stream
+            try {
+                const url = `${getBaseUrl()}/api/agents/chartAgent/stream`;
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        messages: [{ role: 'user', content: '测试' }]
+                    })
+                });
+                results.push(`✅ 流式生成: ${response.ok ? '通过' : '失败'}`);
+            } catch (error) {
+                results.push(`❌ 流式生成: 失败 (${error.message})`);
+            }
+            
+            const allPassed = results.every(r => r.startsWith('✅'));
+            const className = allPassed ? 'success' : 'error';
+            el.innerHTML = `<div class="result ${className}">
+                <strong>${allPassed ? '🎉 所有测试通过！' : '⚠️ 部分测试失败'}</strong>\n\n${results.join('\n')}
+            </div>`;
+        }
+    </script>
+</body>
+</html>

@@ -1,6 +1,6 @@
 import { Agent } from "@mastra/core/agent";
 import { Memory } from "@mastra/memory";
-import { createChartTools } from "../tools/chart-tools";
+import { createChartTools } from "../tools/chart-tools.js";
 
 /**
  * 数据可视化智能对话 Agent

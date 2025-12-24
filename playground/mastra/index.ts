@@ -1,6 +1,6 @@
 import { Mastra } from "@mastra/core";
 import { LibSQLStore } from "@mastra/libsql";
-import { createChartAgent } from "./agents/chart-agent";
+import { createChartAgent } from "./agents/chart-agent.js";
 
 // 预先初始化图表 Agent，确保 Mastra 应用加载时即可使用动态图表工具
 const chartAgent = await createChartAgent();

@@ -13,6 +13,7 @@ import {
   Space,
   Button,
   message as antMessage,
+  Switch,
 } from "antd";
 import {
   BarChartOutlined,
@@ -112,6 +113,7 @@ export function ChatInterface() {
   const [activeConversationKey, setActiveConversationKey] = useState<string>("");
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [useStream, setUseStream] = useState(false);
 
   // 当前对话的消息
   const currentConversation = conversations.find(
@@ -257,65 +259,67 @@ export function ChatInterface() {
 
     try {
       const agent = mastraClient.getAgent("chartAgent");
-      const streamResponse = await agent.stream({
-        messages: [{ role: "user", content }],
-      });
 
-      // 流式处理响应
-      let streamedText = "";
-      const charts: string[] = [];
+      if (useStream) {
+        const streamResponse = await agent.stream({
+          messages: [{ role: "user", content }],
+        });
 
-      await streamResponse.processDataStream({
-        onChunk: (chunk) => {
-          // 处理文本块 - Mastra 的 chunk 结构
-          if (chunk.type === "text-delta" && chunk.payload?.text) {
-            streamedText += chunk.payload.text;
-            
-            // 实时更新消息内容 - 打字机效果
-            updateStreamingMessage(assistantMessageId, streamedText, "success");
-          }
+        // 流式处理响应
+        let streamedText = "";
+        const charts: string[] = [];
 
-          // 处理工具调用结果
-          if (chunk.type === "tool-result" && chunk.payload) {
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            const toolResult = chunk.payload as any;
-            
-            if (toolResult?.chart) {
-              charts.push(toolResult.chart);
-              // 在文本后添加图表
-              const contentWithChart = streamedText + '\n\n' + toolResult.chart;
-              updateStreamingMessage(assistantMessageId, contentWithChart, "loading");
+        await streamResponse.processDataStream({
+          onChunk: (chunk) => {
+            // 处理文本块 - Mastra 的 chunk 结构
+            if (chunk.type === "text-delta" && chunk.payload?.text) {
+              streamedText += chunk.payload.text;
+              updateStreamingMessage(assistantMessageId, streamedText, "success");
             }
+
+            // 处理工具调用结果
+            if (chunk.type === "tool-result" && chunk.payload) {
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              const toolResult = chunk.payload as any;
+
+              if (toolResult?.chart) {
+                charts.push(toolResult.chart);
+                const contentWithChart = streamedText + "\n\n" + toolResult.chart;
+                updateStreamingMessage(assistantMessageId, contentWithChart, "loading");
+              }
+            }
+          },
+        });
+
+        // 流式完成后的最终处理
+        let finalContent = streamedText;
+
+        if (charts.length > 0) {
+          if (!finalContent.trim()) {
+            finalContent = "已为您生成图表：";
           }
-        },
-      });
 
-      // 流式完成后的最终处理
-      let finalContent = streamedText;
-      
-      // 如果有图表数据，确保添加到内容中
-      if (charts.length > 0) {
-        // 如果文本为空，添加默认说明
-        if (!finalContent.trim()) {
-          finalContent = "已为您生成图表：";
+          const imageMarkdownRegex = /!\[.*?\]\(.*?\)/g;
+          finalContent = finalContent.replace(imageMarkdownRegex, '').trim();
+
+          if (!finalContent.includes(charts[0])) {
+            finalContent = finalContent + "\n\n" + charts[0];
+          }
+        } else if (!finalContent.trim()) {
+          finalContent = "未能生成回复，请重试";
         }
-        
-        // 移除可能存在的图片 Markdown 语法
-        const imageMarkdownRegex = /!\[.*?\]\(.*?\)/g;
-        finalContent = finalContent.replace(imageMarkdownRegex, '').trim();
-        
-        // 添加图表（如果还没有包含）
-        if (!finalContent.includes(charts[0])) {
-          finalContent = finalContent + '\n\n' + charts[0];
-        }
-      } else if (!finalContent.trim()) {
-        // 既没有文本也没有图表
-        finalContent = "未能生成回复，请重试";
+
+        updateStreamingMessage(assistantMessageId, finalContent, "success");
+        setIsLoading(false);
+      } else {
+        const result = await agent.generate({
+          messages: [{ role: "user", content }],
+        });
+
+        const finalContent = (result?.text || "").trim() || "未能生成回复，请重试";
+        updateStreamingMessage(assistantMessageId, finalContent, "success");
+        setIsLoading(false);
       }
-
-      // 最终更新消息状态为成功
-      updateStreamingMessage(assistantMessageId, finalContent, "success");
-      setIsLoading(false);
     } catch (error) {
       console.error("Error generating response:", error);
       antMessage.error("生成图表失败，请重试");
@@ -462,6 +466,10 @@ export function ChatInterface() {
         </div>
 
         <div className="chat-footer-x">
+            <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', marginBottom: 8 }}>
+              <span style={{ marginRight: 8, color: '#888' }}>流式输出</span>
+              <Switch size="small" checked={useStream} onChange={setUseStream} />
+            </div>
           <Prompts
             items={CHART_PROMPTS}
             onItemClick={(info) => {

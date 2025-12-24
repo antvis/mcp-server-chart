@@ -1,0 +1,12 @@
+node_modules
+.env
+.env.local
+dist
+.turbo
+*.log
+.DS_Store
+src
+public
+index.html
+vite.config.ts
+tsconfig.json

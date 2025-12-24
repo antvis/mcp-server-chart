@@ -6,10 +6,15 @@
   "scripts": {
     "dev": "vite",
     "dev:mastra": "mastra dev --dir mastra",
+    "dev:server": "tsx server.ts",
+    "test:server": "node ./scripts/test-server.mjs",
+    "test:vercel": "node ./scripts/test-vercel.mjs",
     "build": "tsc -b && vite build",
     "build:mastra": "mastra build --dir mastra",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "vercel:dev": "vercel dev",
+    "vercel:deploy": "vercel --prod"
   },
   "dependencies": {
     "@ant-design/icons": "^6.1.0",
@@ -20,8 +25,11 @@
     "@mastra/libsql": "^0.16.4",
     "@mastra/memory": "^0.15.13",
     "antd": "^6.1.0",
+    "cors": "^2.8.5",
     "dayjs": "^1.11.19",
+    "dotenv": "^17.2.3",
     "eventsource": "^2.0.2",
+    "express": "^5.2.1",
     "mastra": "^0.18.7",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
@@ -30,17 +38,22 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
+    "@types/cors": "^2.8.19",
     "@types/eventsource": "^3.0.0",
+    "@types/express": "^5.0.6",
     "@types/node": "^24.10.1",
     "@types/react": "^19.2.5",
     "@types/react-dom": "^19.2.3",
+    "@vercel/node": "^3.0.0",
     "@vitejs/plugin-react": "^5.1.1",
     "eslint": "^9.39.1",
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.4.24",
     "globals": "^16.5.0",
+    "tsx": "^4.21.0",
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.46.4",
+    "vercel": "^33.0.0",
     "vite": "^7.2.4"
   }
 }

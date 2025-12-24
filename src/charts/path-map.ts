@@ -27,6 +27,10 @@ const tool = {
   description:
     "Generate a route map to display the user's planned route, such as travel guide routes.",
   inputSchema: zodToJsonSchema(schema),
+  annotations: {
+    title: "Generate Path Map",
+    destructiveHint: true,
+  },
 };
 
 export const pathMap = {

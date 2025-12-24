@@ -85,6 +85,10 @@ const tool = {
   description:
     "Generate a waterfall chart to visualize the cumulative effect of sequentially introduced positive or negative values, such as showing how an initial value is affected by a series of intermediate positive or negative values leading to a final result. Waterfall charts are ideal for financial analysis, budget tracking, profit and loss statements, and understanding the composition of changes over time or categories.",
   inputSchema: zodToJsonSchema(schema),
+  annotations: {
+    title: "Generate Waterfall Chart",
+    destructiveHint: true,
+  },
 };
 
 export const waterfall = {

@@ -62,6 +62,10 @@ const tool = {
   description:
     "Generate an organization chart to visualize the hierarchical structure of an organization, such as, a diagram showing the relationship between a CEO and their direct reports.",
   inputSchema: zodToJsonSchema(schema),
+  annotations: {
+    title: "Generate Organization Chart",
+    destructiveHint: true,
+  },
 };
 
 export const organizationChart = {

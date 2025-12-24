@@ -50,6 +50,10 @@ const tool = {
   description:
     "Generate a histogram chart to show the frequency of data points within a certain range. It can observe data distribution, such as, normal and skewed distributions, and identify data concentration areas and extreme points.",
   inputSchema: zodToJsonSchema(schema),
+  annotations: {
+    title: "Generate Histogram Chart",
+    destructiveHint: true,
+  },
 };
 
 export const histogram = {

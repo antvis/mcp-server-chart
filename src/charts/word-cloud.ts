@@ -46,6 +46,10 @@ const tool = {
   description:
     "Generate a word cloud chart to show word frequency or weight through text size variation, such as, analyzing common words in social media, reviews, or feedback.",
   inputSchema: zodToJsonSchema(schema),
+  annotations: {
+    title: "Generate Word Cloud Chart",
+    destructiveHint: true,
+  },
 };
 
 export const wordCloud = {

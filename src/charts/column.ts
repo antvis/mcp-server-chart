@@ -65,6 +65,10 @@ const tool = {
   description:
     "Generate a column chart, which are best for comparing categorical data, such as, when values are close, column charts are preferable because our eyes are better at judging height than other visual elements like area or angles.",
   inputSchema: zodToJsonSchema(schema),
+  annotations: {
+    title: "Generate Column Chart",
+    destructiveHint: true,
+  },
 };
 
 export const column = {

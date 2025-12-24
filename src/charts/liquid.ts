@@ -50,6 +50,10 @@ const tool = {
   description:
     "Generate a liquid chart to visualize a single value as a percentage, such as, the current occupancy rate of a reservoir or the completion percentage of a project.",
   inputSchema: zodToJsonSchema(schema),
+  annotations: {
+    title: "Generate Liquid Chart",
+    destructiveHint: true,
+  },
 };
 
 export const liquid = {

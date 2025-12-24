@@ -43,6 +43,10 @@ const tool = {
   description:
     "Generate a funnel chart to visualize the progressive reduction of data as it passes through stages, such as, the conversion rates of users from visiting a website to completing a purchase.",
   inputSchema: zodToJsonSchema(schema),
+  annotations: {
+    title: "Generate Funnel Chart",
+    destructiveHint: true,
+  },
 };
 
 export const funnel = {

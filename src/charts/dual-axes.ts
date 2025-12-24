@@ -69,6 +69,10 @@ const tool = {
   description:
     "Generate a dual axes chart which is a combination chart that integrates two different chart types, typically combining a bar chart with a line chart to display both the trend and comparison of data, such as, the trend of sales and profit over time.",
   inputSchema: zodToJsonSchema(schema),
+  annotations: {
+    title: "Generate Dual Axes Chart",
+    destructiveHint: true,
+  },
 };
 
 export const dualAxes = {

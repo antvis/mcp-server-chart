@@ -63,6 +63,10 @@ const tool = {
   description:
     "Generate a area chart to show data trends under continuous independent variables and observe the overall data trend, such as, displacement = velocity (average or instantaneous) × time: s = v × t. If the x-axis is time (t) and the y-axis is velocity (v) at each moment, an area chart allows you to observe the trend of velocity over time and infer the distance traveled by the area's size.",
   inputSchema: zodToJsonSchema(schema),
+  annotations: {
+    title: "Generate Area Chart",
+    destructiveHint: true,
+  },
 };
 
 export const area = {

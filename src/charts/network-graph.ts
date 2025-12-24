@@ -45,6 +45,10 @@ const tool = {
   description:
     "Generate a network graph chart to show relationships (edges) between entities (nodes), such as, relationships between people in social networks.",
   inputSchema: zodToJsonSchema(schema),
+  annotations: {
+    title: "Generate Network Graph",
+    destructiveHint: true,
+  },
 };
 
 export const networkGraph = {

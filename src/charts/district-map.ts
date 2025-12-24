@@ -87,6 +87,10 @@ const tool = {
   description:
     "Generates regional distribution maps, which are usually used to show the administrative divisions and coverage of a dataset. It is not suitable for showing the distribution of specific locations, such as urban administrative divisions, GDP distribution maps of provinces and cities across the country, etc. This tool is limited to generating data maps within China.",
   inputSchema: zodToJsonSchema(schema),
+  annotations: {
+    title: "Generate District Map",
+    destructiveHint: true,
+  },
 };
 
 export const districtMap = {

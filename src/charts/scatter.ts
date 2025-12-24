@@ -51,6 +51,10 @@ const tool = {
   description:
     "Generate a scatter chart to show the relationship between two variables, helps discover their relationship or trends, such as, the strength of correlation, data distribution patterns.",
   inputSchema: zodToJsonSchema(schema),
+  annotations: {
+    title: "Generate Scatter Chart",
+    destructiveHint: true,
+  },
 };
 
 export const scatter = {

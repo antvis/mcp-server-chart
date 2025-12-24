@@ -53,6 +53,10 @@ const tool = {
   description:
     "Generate a Venn diagram to visualize the relationships between different sets, showing how they intersect and overlap, such as the commonalities and differences between various groups.",
   inputSchema: zodToJsonSchema(schema),
+  annotations: {
+    title: "Generate Venn Chart",
+    destructiveHint: true,
+  },
 };
 
 export const venn = {

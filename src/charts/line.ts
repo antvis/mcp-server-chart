@@ -57,6 +57,10 @@ const tool = {
   description:
     "Generate a line chart to show trends over time, such as, the ratio of Apple computer sales to Apple's profits changed from 2000 to 2016.",
   inputSchema: zodToJsonSchema(schema),
+  annotations: {
+    title: "Generate Line Chart",
+    destructiveHint: true,
+  },
 };
 
 export const line = {

@@ -59,6 +59,10 @@ const tool = {
   description:
     "Generate a fishbone diagram chart to uses a fish skeleton, like structure to display the causes or effects of a core problem, with the problem as the fish head and the causes/effects as the fish bones. It suits problems that can be split into multiple related factors.",
   inputSchema: zodToJsonSchema(schema),
+  annotations: {
+    title: "Generate Fishbone Diagram",
+    destructiveHint: true,
+  },
 };
 
 export const fishboneDiagram = {

@@ -34,6 +34,10 @@ const tool = {
   description:
     "Generate a point map to display the location and distribution of point data on the map, such as the location distribution of attractions, hospitals, supermarkets, etc.",
   inputSchema: zodToJsonSchema(schema),
+  annotations: {
+    title: "Generate Pin Map",
+    destructiveHint: true,
+  },
 };
 
 export const pinMap = {

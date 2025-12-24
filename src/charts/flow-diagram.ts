@@ -45,6 +45,10 @@ const tool = {
   description:
     "Generate a flow diagram chart to show the steps and decision points of a process or system, such as, scenarios requiring linear process presentation.",
   inputSchema: zodToJsonSchema(schema),
+  annotations: {
+    title: "Generate Flow Diagram",
+    destructiveHint: true,
+  },
 };
 
 export const flowDiagram = {

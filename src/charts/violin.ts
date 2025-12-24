@@ -57,6 +57,10 @@ const tool = {
   description:
     "Generate a violin chart to show data for statistical summaries among different categories, such as, comparing the distribution of data points across categories.",
   inputSchema: zodToJsonSchema(schema),
+  annotations: {
+    title: "Generate Violin Chart",
+    destructiveHint: true,
+  },
 };
 
 export const violin = {

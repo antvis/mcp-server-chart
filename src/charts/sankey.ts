@@ -51,6 +51,10 @@ const tool = {
   description:
     "Generate a sankey chart to visualize the flow of data between different stages or categories, such as, the user journey from landing on a page to completing a purchase.",
   inputSchema: zodToJsonSchema(schema),
+  annotations: {
+    title: "Generate Sankey Chart",
+    destructiveHint: true,
+  },
 };
 
 export const sankey = {

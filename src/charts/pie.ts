@@ -52,6 +52,10 @@ const tool = {
   description:
     "Generate a pie chart to show the proportion of parts, such as, market share and budget allocation.",
   inputSchema: zodToJsonSchema(schema),
+  annotations: {
+    title: "Generate Pie Chart",
+    destructiveHint: true,
+  },
 };
 
 export const pie = {

@@ -51,6 +51,10 @@ const tool = {
   description:
     "Generate a radar chart to display multidimensional data (four dimensions or more), such as, evaluate Huawei and Apple phones in terms of five dimensions: ease of use, functionality, camera, benchmark scores, and battery life.",
   inputSchema: zodToJsonSchema(schema),
+  annotations: {
+    title: "Generate Radar Chart",
+    destructiveHint: true,
+  },
 };
 
 export const radar = {

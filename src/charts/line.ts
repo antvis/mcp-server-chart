@@ -30,9 +30,9 @@ const schema = {
     .nonempty({ message: "Line chart data cannot be empty." }),
   style: z
     .object({
-      texture: TextureSchema,
       backgroundColor: BackgroundColorSchema,
       palette: PaletteSchema,
+      texture: TextureSchema,
       startAtZero: StartAtZeroSchema,
       lineWidth: z
         .number()

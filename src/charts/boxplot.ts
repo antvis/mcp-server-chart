@@ -37,8 +37,8 @@ const schema = {
     .object({
       backgroundColor: BackgroundColorSchema,
       palette: PaletteSchema,
-      texture: TextureSchema,
       startAtZero: StartAtZeroSchema,
+      texture: TextureSchema,
     })
     .optional()
     .describe(

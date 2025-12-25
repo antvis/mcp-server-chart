@@ -53,7 +53,7 @@ const tool = {
   inputSchema: zodToJsonSchema(schema),
   annotations: {
     title: "Generate Radar Chart",
-    destructiveHint: true,
+    readOnlyHint: true,
   },
 };
 

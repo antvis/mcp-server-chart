@@ -39,7 +39,7 @@ const tool = {
   inputSchema: zodToJsonSchema(schema),
   annotations: {
     title: "Generate Mind Map",
-    destructiveHint: true,
+    readOnlyHint: true,
   },
 };
 

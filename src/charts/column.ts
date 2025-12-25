@@ -67,7 +67,7 @@ const tool = {
   inputSchema: zodToJsonSchema(schema),
   annotations: {
     title: "Generate Column Chart",
-    destructiveHint: true,
+    readOnlyHint: true,
   },
 };
 

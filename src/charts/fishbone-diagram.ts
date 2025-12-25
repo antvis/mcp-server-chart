@@ -61,7 +61,7 @@ const tool = {
   inputSchema: zodToJsonSchema(schema),
   annotations: {
     title: "Generate Fishbone Diagram",
-    destructiveHint: true,
+    readOnlyHint: true,
   },
 };
 

@@ -52,7 +52,7 @@ const tool = {
   inputSchema: zodToJsonSchema(schema),
   annotations: {
     title: "Generate Histogram Chart",
-    destructiveHint: true,
+    readOnlyHint: true,
   },
 };
 

@@ -53,7 +53,7 @@ const tool = {
   inputSchema: zodToJsonSchema(schema),
   annotations: {
     title: "Generate Scatter Chart",
-    destructiveHint: true,
+    readOnlyHint: true,
   },
 };
 

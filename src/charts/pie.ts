@@ -54,7 +54,7 @@ const tool = {
   inputSchema: zodToJsonSchema(schema),
   annotations: {
     title: "Generate Pie Chart",
-    destructiveHint: true,
+    readOnlyHint: true,
   },
 };
 

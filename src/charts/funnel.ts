@@ -45,7 +45,7 @@ const tool = {
   inputSchema: zodToJsonSchema(schema),
   annotations: {
     title: "Generate Funnel Chart",
-    destructiveHint: true,
+    readOnlyHint: true,
   },
 };
 

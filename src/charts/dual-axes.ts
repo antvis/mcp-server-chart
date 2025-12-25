@@ -71,7 +71,7 @@ const tool = {
   inputSchema: zodToJsonSchema(schema),
   annotations: {
     title: "Generate Dual Axes Chart",
-    destructiveHint: true,
+    readOnlyHint: true,
   },
 };
 

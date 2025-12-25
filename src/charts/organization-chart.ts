@@ -64,7 +64,7 @@ const tool = {
   inputSchema: zodToJsonSchema(schema),
   annotations: {
     title: "Generate Organization Chart",
-    destructiveHint: true,
+    readOnlyHint: true,
   },
 };
 

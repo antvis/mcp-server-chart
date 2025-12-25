@@ -47,7 +47,7 @@ const tool = {
   inputSchema: zodToJsonSchema(schema),
   annotations: {
     title: "Generate Flow Diagram",
-    destructiveHint: true,
+    readOnlyHint: true,
   },
 };
 

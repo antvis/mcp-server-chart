@@ -47,7 +47,7 @@ const tool = {
   inputSchema: zodToJsonSchema(schema),
   annotations: {
     title: "Generate Network Graph",
-    destructiveHint: true,
+    readOnlyHint: true,
   },
 };
 

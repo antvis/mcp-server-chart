@@ -89,7 +89,7 @@ const tool = {
   inputSchema: zodToJsonSchema(schema),
   annotations: {
     title: "Generate District Map",
-    destructiveHint: true,
+    readOnlyHint: true,
   },
 };
 

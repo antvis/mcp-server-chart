@@ -36,7 +36,7 @@ const tool = {
   inputSchema: zodToJsonSchema(schema),
   annotations: {
     title: "Generate Pin Map",
-    destructiveHint: true,
+    readOnlyHint: true,
   },
 };
 

@@ -87,7 +87,7 @@ const tool = {
   inputSchema: zodToJsonSchema(schema),
   annotations: {
     title: "Generate Waterfall Chart",
-    destructiveHint: true,
+    readOnlyHint: true,
   },
 };
 

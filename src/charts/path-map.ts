@@ -29,7 +29,7 @@ const tool = {
   inputSchema: zodToJsonSchema(schema),
   annotations: {
     title: "Generate Path Map",
-    destructiveHint: true,
+    readOnlyHint: true,
   },
 };
 

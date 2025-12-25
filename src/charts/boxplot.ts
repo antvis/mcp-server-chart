@@ -59,7 +59,7 @@ const tool = {
   inputSchema: zodToJsonSchema(schema),
   annotations: {
     title: "Generate Boxplot Chart",
-    destructiveHint: true,
+    readOnlyHint: true,
   },
 };
 

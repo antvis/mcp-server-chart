@@ -48,7 +48,7 @@ const tool = {
   inputSchema: zodToJsonSchema(schema),
   annotations: {
     title: "Generate Word Cloud Chart",
-    destructiveHint: true,
+    readOnlyHint: true,
   },
 };
 

@@ -67,7 +67,7 @@ const tool = {
   inputSchema: zodToJsonSchema(schema),
   annotations: {
     title: "Generate Treemap Chart",
-    destructiveHint: true,
+    readOnlyHint: true,
   },
 };
 

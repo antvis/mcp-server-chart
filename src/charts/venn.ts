@@ -55,7 +55,7 @@ const tool = {
   inputSchema: zodToJsonSchema(schema),
   annotations: {
     title: "Generate Venn Chart",
-    destructiveHint: true,
+    readOnlyHint: true,
   },
 };
 

@@ -59,7 +59,7 @@ const tool = {
   inputSchema: zodToJsonSchema(schema),
   annotations: {
     title: "Generate Violin Chart",
-    destructiveHint: true,
+    readOnlyHint: true,
   },
 };
 

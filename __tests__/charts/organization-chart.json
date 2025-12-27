@@ -99,5 +99,9 @@
     },
     "required": ["data"],
     "$schema": "http://json-schema.org/draft-07/schema#"
+  },
+  "annotations": {
+    "title": "Generate Organization Chart",
+    "readOnlyHint": true
   }
 }

@@ -82,5 +82,9 @@
       }
     },
     "required": ["data"]
+  },
+  "annotations": {
+    "title": "Generate Scatter Chart",
+    "readOnlyHint": true
   }
 }

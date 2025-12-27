@@ -91,5 +91,9 @@
       }
     },
     "required": ["data"]
+  },
+  "annotations": {
+    "title": "Generate Column Chart",
+    "readOnlyHint": true
   }
 }

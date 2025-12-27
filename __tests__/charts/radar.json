@@ -75,5 +75,9 @@
       }
     },
     "required": ["data"]
+  },
+  "annotations": {
+    "title": "Generate Radar Chart",
+    "readOnlyHint": true
   }
 }

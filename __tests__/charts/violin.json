@@ -11,7 +11,7 @@
           "properties": {
             "category": {
               "type": "string",
-              "description": "Category of the data point, such as '分类一'."
+              "description": "Category of the data point, such as '\u5206\u7c7b\u4e00'."
             },
             "value": {
               "type": "number",
@@ -89,5 +89,9 @@
     },
     "required": ["data"],
     "$schema": "http://json-schema.org/draft-07/schema#"
+  },
+  "annotations": {
+    "title": "Generate Violin Chart",
+    "readOnlyHint": true
   }
 }

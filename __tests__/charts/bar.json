@@ -23,7 +23,7 @@
           },
           "required": ["category", "value"]
         },
-        "description": "Data for bar chart, such as, [{ category: '分类一', value: 10 }, { category: '分类二', value: 20 }], when grouping or stacking is needed for bar, the data should contain a `group` field, such as, when [{ category: '北京', value: 825, group: '油车' }, { category: '北京', value: 1000, group: '电车' }]."
+        "description": "Data for bar chart, such as, [{ category: '\u5206\u7c7b\u4e00', value: 10 }, { category: '\u5206\u7c7b\u4e8c', value: 20 }], when grouping or stacking is needed for bar, the data should contain a `group` field, such as, when [{ category: '\u5317\u4eac', value: 825, group: '\u6cb9\u8f66' }, { category: '\u5317\u4eac', value: 1000, group: '\u7535\u8f66' }]."
       },
       "group": {
         "type": "boolean",
@@ -91,5 +91,9 @@
       }
     },
     "required": ["data"]
+  },
+  "annotations": {
+    "title": "Generate Bar Chart",
+    "readOnlyHint": true
   }
 }

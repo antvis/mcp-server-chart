@@ -74,5 +74,9 @@
       }
     },
     "required": ["data"]
+  },
+  "annotations": {
+    "title": "Generate Network Graph",
+    "readOnlyHint": true
   }
 }

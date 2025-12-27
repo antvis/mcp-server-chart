@@ -5,7 +5,7 @@
     "$schema": "http://json-schema.org/draft-07/schema#",
     "properties": {
       "data": {
-        "description": "Data for funnel chart, such as, [{ category: '浏览网站', value: 50000 }, { category: '放入购物车', value: 35000 }, { category: '生成订单', value: 25000 }, { category: '支付订单', value: 15000 }, { category: '完成交易', value: 8000 }].",
+        "description": "Data for funnel chart, such as, [{ category: '\u6d4f\u89c8\u7f51\u7ad9', value: 50000 }, { category: '\u653e\u5165\u8d2d\u7269\u8f66', value: 35000 }, { category: '\u751f\u6210\u8ba2\u5355', value: 25000 }, { category: '\u652f\u4ed8\u8ba2\u5355', value: 15000 }, { category: '\u5b8c\u6210\u4ea4\u6613', value: 8000 }].",
         "items": {
           "properties": {
             "category": {
@@ -68,5 +68,9 @@
     },
     "required": ["data"],
     "type": "object"
+  },
+  "annotations": {
+    "title": "Generate Funnel Chart",
+    "readOnlyHint": true
   }
 }

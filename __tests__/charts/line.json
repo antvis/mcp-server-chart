@@ -90,5 +90,9 @@
       }
     },
     "required": ["data"]
+  },
+  "annotations": {
+    "title": "Generate Line Chart",
+    "readOnlyHint": true
   }
 }

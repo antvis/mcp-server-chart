@@ -11,7 +11,7 @@
           "properties": {
             "category": {
               "type": "string",
-              "description": "Category of the data point, such as '分类一'."
+              "description": "Category of the data point, such as '\u5206\u7c7b\u4e00'."
             },
             "value": {
               "type": "number",
@@ -25,7 +25,7 @@
           "required": ["category", "value"]
         },
         "minItems": 1,
-        "description": "Data for boxplot chart, such as, [{ category: '分类一', value: 10 }] or [{ category: '分类二', value: 20, group: '组别一' }]."
+        "description": "Data for boxplot chart, such as, [{ category: '\u5206\u7c7b\u4e00', value: 10 }] or [{ category: '\u5206\u7c7b\u4e8c', value: 20, group: '\u7ec4\u522b\u4e00' }]."
       },
       "style": {
         "description": "Style configuration for the chart with a JSON object, optional.",
@@ -89,5 +89,9 @@
     },
     "required": ["data"],
     "$schema": "http://json-schema.org/draft-07/schema#"
+  },
+  "annotations": {
+    "title": "Generate Boxplot Chart",
+    "readOnlyHint": true
   }
 }

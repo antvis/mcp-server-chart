@@ -20,7 +20,7 @@
           },
           "required": ["category", "value"]
         },
-        "description": "Data for pie chart, it should be an array of objects, each object contains a `category` field and a `value` field, such as, [{ category: '分类一', value: 27 }]."
+        "description": "Data for pie chart, it should be an array of objects, each object contains a `category` field and a `value` field, such as, [{ category: '\u5206\u7c7b\u4e00', value: 27 }]."
       },
       "innerRadius": {
         "type": "number",
@@ -73,5 +73,9 @@
       }
     },
     "required": ["data"]
+  },
+  "annotations": {
+    "title": "Generate Pie Chart",
+    "readOnlyHint": true
   }
 }

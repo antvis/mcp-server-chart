@@ -77,5 +77,9 @@
     },
     "required": ["data"],
     "$schema": "http://json-schema.org/draft-07/schema#"
+  },
+  "annotations": {
+    "title": "Generate Sankey Chart",
+    "readOnlyHint": true
   }
 }

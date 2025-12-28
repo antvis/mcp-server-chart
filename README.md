@@ -16,10 +16,12 @@ This is a TypeScript-based MCP server that provides chart generation capabilitie
   - [VIS_REQUEST_SERVER](#-private-deployment)
   - [SERVICE_ID](#%EF%B8%8F-generate-records)
   - [DISABLED_TOOLS](#%EF%B8%8F-tool-filtering)
+- [📤 Output Format](#-output-format)
 - [📠 Private Deployment](#-private-deployment)
 - [🗺️ Generate Records](#%EF%B8%8F-generate-records)
 - [🎛️ Tool Filtering](#%EF%B8%8F-tool-filtering)
 - [🔨 Development](#-development)
+- [📦 Playground](#-playground)
 - [📄 License](#-license)
 
 ## ✨ Features
@@ -56,6 +58,7 @@ Now 25+ charts supported.
 
 > [!NOTE]
 > The above geographic visualization chart generation tool uses [AMap service](https://lbs.amap.com/) and currently only supports map generation within China.
+
 
 ## 🤖 Usage
 
@@ -234,6 +237,64 @@ You can disable specific chart generation tools using the `DISABLED_TOOLS` envir
 
 **Available tool names for filtering** See the [✨ Features](#-features).
 
+## 📤 Output Format
+
+When you call any chart generation tool (e.g., `generate_line_chart`, `generate_pie_chart`), the MCP Server returns a response in the following format:
+
+### Standard Chart Response
+
+```typescript
+{
+  content: [
+    {
+      type: "text",
+      text: "https://antv-studio.alipay.com/api/gpt-vis?spec=..." // Chart image URL
+    }
+  ],
+  _meta: {
+    description: "Charts spec configuration, you can use this config to generate the corresponding chart.",
+    spec: {
+      type: "line",       
+      data: [...],        
+      title: "...",        
+      axisXTitle: "...",   
+      axisYTitle: "...", 
+      // ... other chart-specific properties
+    }
+  }
+}
+```
+
+### Usage Examples
+
+#### Using the Image URL
+
+You can directly use the `content[0].text` URL to display the chart image:
+
+```html
+<img src="https://antv-studio.alipay.com/api/gpt-vis?spec=..." alt="Chart" />
+```
+
+#### Using the Chart Spec
+
+For interactive charts, use the `_meta.spec` with GPT-Vis:
+
+```tsx
+import { GPTVis } from '@antv/gpt-vis';
+
+const chartSpec = response._meta.spec;
+
+// Render with GPT-Vis
+<GPTVis>
+  {`\`\`\`vis-chart
+${JSON.stringify(chartSpec, null, 2)}
+\`\`\``}
+</GPTVis>
+```
+
+
+
+
 ## 🔨 Development
 
 Install dependencies:
@@ -265,6 +326,7 @@ Start the MCP server with Streamable transport:
 ```bash
 node build/index.js -t streamable
 ```
+
 
 ## 📄 License
 

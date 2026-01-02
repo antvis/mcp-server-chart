@@ -1,0 +1,129 @@
+{
+  "manifest_version": "0.3",
+  "name": "AntV Chart Server",
+  "version": "0.9.7",
+  "description": "Visualization MCP server with 26 chart types using AntV for chart generation and data analysis",
+  "author": {
+    "name": "AntV Team",
+    "url": "https://github.com/antvis"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/antvis/mcp-server-chart"
+  },
+  "icon": "icon.png",
+  "server": {
+    "type": "node",
+    "entry_point": "build/index.js",
+    "mcp_config": {
+      "command": "npx",
+      "args": ["-y", "@antv/mcp-server-chart"]
+    }
+  },
+  "tools": [
+    {
+      "name": "generate_area_chart",
+      "description": "Generate area charts for showing trends over continuous data"
+    },
+    {
+      "name": "generate_bar_chart",
+      "description": "Generate horizontal bar charts for comparing categories"
+    },
+    {
+      "name": "generate_boxplot_chart",
+      "description": "Generate box-and-whisker plots for statistical distributions"
+    },
+    {
+      "name": "generate_column_chart",
+      "description": "Generate vertical column charts for comparing categories"
+    },
+    {
+      "name": "generate_district_map",
+      "description": "Generate district map visualizations (China regions)"
+    },
+    {
+      "name": "generate_dual_axes_chart",
+      "description": "Generate dual-axes charts for comparing different scales"
+    },
+    {
+      "name": "generate_fishbone_diagram",
+      "description": "Generate fishbone diagrams for cause-and-effect analysis"
+    },
+    {
+      "name": "generate_flow_diagram",
+      "description": "Generate flow diagrams for process visualization"
+    },
+    {
+      "name": "generate_funnel_chart",
+      "description": "Generate funnel charts for conversion or stage analysis"
+    },
+    {
+      "name": "generate_histogram_chart",
+      "description": "Generate histograms for frequency distributions"
+    },
+    {
+      "name": "generate_line_chart",
+      "description": "Generate line charts for trend analysis"
+    },
+    {
+      "name": "generate_liquid_chart",
+      "description": "Generate liquid/fill gauges for percentage displays"
+    },
+    {
+      "name": "generate_mind_map",
+      "description": "Generate mind maps for hierarchical idea organization"
+    },
+    {
+      "name": "generate_network_graph",
+      "description": "Generate network graphs for relationship visualization"
+    },
+    {
+      "name": "generate_organization_chart",
+      "description": "Generate org charts for hierarchical structures"
+    },
+    {
+      "name": "generate_path_map",
+      "description": "Generate path maps for route visualization (China)"
+    },
+    {
+      "name": "generate_pie_chart",
+      "description": "Generate pie charts for part-to-whole relationships"
+    },
+    {
+      "name": "generate_pin_map",
+      "description": "Generate pin maps for location markers (China)"
+    },
+    {
+      "name": "generate_radar_chart",
+      "description": "Generate radar/spider charts for multivariate comparison"
+    },
+    {
+      "name": "generate_sankey_chart",
+      "description": "Generate sankey diagrams for flow quantities"
+    },
+    {
+      "name": "generate_scatter_chart",
+      "description": "Generate scatter plots for correlation analysis"
+    },
+    {
+      "name": "generate_treemap_chart",
+      "description": "Generate treemaps for hierarchical data proportions"
+    },
+    {
+      "name": "generate_venn_chart",
+      "description": "Generate venn diagrams for set relationships"
+    },
+    {
+      "name": "generate_violin_chart",
+      "description": "Generate violin plots for distribution comparison"
+    },
+    {
+      "name": "generate_waterfall_chart",
+      "description": "Generate waterfall charts for cumulative effect analysis"
+    },
+    {
+      "name": "generate_word_cloud_chart",
+      "description": "Generate word clouds for text frequency visualization"
+    }
+  ]
+}

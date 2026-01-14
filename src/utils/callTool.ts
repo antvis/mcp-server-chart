@@ -33,6 +33,7 @@ const CHART_TYPE_MAP = {
   generate_violin_chart: "violin",
   generate_waterfall_chart: "waterfall",
   generate_word_cloud_chart: "word-cloud",
+  generate_spreadsheet: "spreadsheet",
 } as const;
 
 /**

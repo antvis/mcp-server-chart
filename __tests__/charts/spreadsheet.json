@@ -1,0 +1,76 @@
+{
+  "name": "generate_spreadsheet",
+  "description": "Generate a spreadsheet or pivot table for displaying tabular data. When 'rows' or 'values' fields are provided, it renders as a pivot table (cross-tabulation); otherwise, it renders as a regular table. Useful for displaying structured data, comparing values across categories, and creating data summaries.",
+  "inputSchema": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+      "data": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              },
+              {
+                "not": {}
+              }
+            ]
+          }
+        },
+        "minItems": 1,
+        "description": "Data for spreadsheet, an array of objects where each object represents a row. Keys are column names and values can be string, number, null, or undefined. Such as, [{ name: 'John', age: 30 }, { name: 'Jane', age: 25 }]."
+      },
+      "rows": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "Row header fields for pivot table. When 'rows' or 'values' is provided, the spreadsheet will be rendered as a pivot table."
+      },
+      "columns": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "Column header fields, used to specify the order of columns. For regular tables, this determines column order; for pivot tables, this is used for column grouping."
+      },
+      "values": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "Value fields for pivot table. When 'rows' or 'values' is provided, the spreadsheet will be rendered as a pivot table."
+      },
+      "theme": {
+        "type": "string",
+        "enum": ["default", "dark"],
+        "default": "default",
+        "description": "Set the theme for the spreadsheet, optional, default is 'default'."
+      },
+      "width": {
+        "type": "number",
+        "default": 600,
+        "description": "Set the width of chart, default is 600."
+      },
+      "height": {
+        "type": "number",
+        "default": 400,
+        "description": "Set the height of chart, default is 400."
+      }
+    },
+    "required": ["data"]
+  },
+  "annotations": {
+    "title": "Generate Spreadsheet",
+    "readOnlyHint": true
+  }
+}

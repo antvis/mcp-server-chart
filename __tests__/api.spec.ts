@@ -35,6 +35,7 @@ describe("sdk API", () => {
       "violin",
       "waterfall",
       "word-cloud",
+      "spreadsheet",
     ]);
   });
 

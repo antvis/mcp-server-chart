@@ -39,7 +39,7 @@ describe("MCP Server", () => {
     await client.connect(transport);
     const listTools = await client.listTools();
 
-    expect(listTools.tools.length).toBe(26);
+    expect(listTools.tools.length).toBe(27);
 
     const spec = {
       type: "line",
@@ -82,7 +82,7 @@ describe("MCP Server", () => {
     await client.connect(transport);
     const listTools = await client.listTools();
 
-    expect(listTools.tools.length).toBe(26);
+    expect(listTools.tools.length).toBe(27);
 
     const spec = {
       type: "line",
@@ -129,7 +129,7 @@ describe("MCP Server", () => {
     await client.connect(transport);
     const listTools = await client.listTools();
 
-    expect(listTools.tools.length).toBe(26);
+    expect(listTools.tools.length).toBe(27);
 
     const spec = {
       type: "line",

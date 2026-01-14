@@ -24,3 +24,4 @@ export { default as venn } from "./venn.json";
 export { default as violin } from "./violin.json";
 export { default as waterfall } from "./waterfall.json";
 export { default as "word-cloud" } from "./word-cloud.json";
+export { default as spreadsheet } from "./spreadsheet.json";

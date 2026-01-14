@@ -59,6 +59,7 @@
     "@vitest/coverage-v8": "3.2.4",
     "husky": "^9.1.7",
     "lint-staged": "^15.5.2",
+    "ts-node": "^10.9.2",
     "tsc-alias": "^1.8.16",
     "typescript": "^5.8.3",
     "vitest": "^3.1.4"

@@ -10,6 +10,7 @@ This is a TypeScript-based MCP server that provides chart generation capabilitie
 
 - [✨ Features](#-features)
 - [🤖 Usage](#-usage)
+- [🎨 Skill Usage](#-skill-usage)
 - [🚰 Run with SSE or Streamable transport](#-run-with-sse-or-streamable-transport)
 - [🎮 CLI Options](#-cli-options)
 - [⚙️ Environment Variables](#%EF%B8%8F-environment-variables)
@@ -87,6 +88,14 @@ On Window system:
 ```
 
 Also, you can use it on [aliyun](https://bailian.console.aliyun.com/?tab=mcp#/mcp-market/detail/antv-visualization-chart), [modelscope](https://www.modelscope.cn/mcp/servers/@antvis/mcp-server-chart), [glama.ai](https://glama.ai/mcp/servers/@antvis/mcp-server-chart), [smithery.ai](https://smithery.ai/server/@antvis/mcp-server-chart) or others with HTTP, SSE Protocol.
+
+## 🎨 Skill Usage
+
+If you are using an AI IDE with skill support (like **Claude Code**), you can use the `chart-visualization` skill to automatically select the best chart type and generate visualizations.
+
+1. Import `.skills/chart-visualization` and enable the skill in your editor.
+2. Provide your data or describe the visualization you want.
+3. The skill will intelligently choose from 25+ chart types and generate the chart for you.
 
 ## 🚰 Run with SSE or Streamable transport
 

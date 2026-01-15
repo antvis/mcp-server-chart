@@ -1,6 +1,6 @@
 ---
 name: chart-visualization
-description: This skill should be used when the user wants to visualize data. It intelligently selects the most suitable chart type from 25 available options, extracts parameters based on detailed specifications, and generates a chart image using a Python script.
+description: This skill should be used when the user wants to visualize data. It intelligently selects the most suitable chart type from 26 available options, extracts parameters based on detailed specifications, and generates a chart image using a Python script.
 ---
 
 # Chart Visualization Skill
@@ -29,6 +29,7 @@ Analyze the user's data features to determine the most appropriate chart type. U
     - `generate_network_graph`: Complex node-edge relationships.
     - `generate_fishbone_diagram`: Cause-effect analysis.
     - `generate_flow_diagram`: Process flow.
+    - `generate_spreadsheet`: Tabular data or pivot tables for structured data display and cross-tabulation.
 
 ### 2. Parameter Extraction
 Once a chart type is selected, read the corresponding file in the `references/` directory (e.g., `references/generate_line_chart.md`) to identify the required and optional fields.

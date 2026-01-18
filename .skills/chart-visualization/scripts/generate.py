@@ -50,7 +50,7 @@ def generate_chart_url(chart_type, options):
     url = get_vis_request_server()
     payload = {
         "type": chart_type,
-        "source": "mcp-server-chart",
+        "source": "chart-visualization-creator",
         **options
     }
     
@@ -77,7 +77,7 @@ def generate_map(tool, input_data):
         "serviceId": get_service_identifier(),
         "tool": tool,
         "input": input_data,
-        "source": "mcp-server-chart",
+        "source": "chart-visualization-creator",
     }
     
     response = requests.post(

@@ -1,0 +1,65 @@
+# Development files
+*.test.ts
+*.spec.ts
+__tests__/
+coverage/
+
+# Source files (using built output)
+src/
+
+# Documentation
+docs/
+*.md
+!README.md
+
+# Build artifacts
+*.map
+.tsbuildinfo
+
+# Environment
+.env*
+*.local
+
+# IDE
+.vscode/
+.idea/
+
+# Git
+.git/
+.gitignore
+
+# Docker (not needed for bundle)
+docker/
+docker-compose.yaml
+Dockerfile
+.dockerignore
+
+# CI/CD
+.github/
+.husky/
+
+# Config files (not needed for runtime)
+biome.json
+.prettierrc
+.prettierignore
+.codecov.yml
+vitest.config.ts
+tsconfig.json
+eslint.config.js
+
+# Schema files (used for dev)
+schema/
+
+# Other config
+smithery.yaml
+server.json
+glama.json
+gemini-extension.json
+
+# Package managers and lock files
+node_modules/
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+.npm/
+.yarn/

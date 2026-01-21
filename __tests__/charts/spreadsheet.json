@@ -19,15 +19,15 @@
               },
               {
                 "type": "null"
-              },
-              {
-                "not": {}
               }
             ]
+          },
+          "propertyNames": {
+            "type": "string"
           }
         },
         "minItems": 1,
-        "description": "Data for spreadsheet, an array of objects where each object represents a row. Keys are column names and values can be string, number, null, or undefined. Such as, [{ name: 'John', age: 30 }, { name: 'Jane', age: 25 }]."
+        "description": "Data for spreadsheet, an array of objects where each object represents a row. Keys are column names and values can be string, number, or null. Such as, [{ name: 'John', age: 30 }, { name: 'Jane', age: 25 }]."
       },
       "rows": {
         "type": "array",

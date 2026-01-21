@@ -3,10 +3,7 @@ import { zodToJsonSchema } from "../utils";
 import { HeightSchema, WidthSchema } from "./base";
 
 // Spreadsheet data schema - flexible record type
-const data = z.record(
-  z.string(),
-  z.union([z.string(), z.number(), z.null(), z.undefined()]),
-);
+const data = z.record(z.string(), z.union([z.string(), z.number(), z.null()]));
 
 // Spreadsheet theme schema
 const SpreadsheetThemeSchema = z
@@ -22,7 +19,7 @@ const schema = {
   data: z
     .array(data)
     .describe(
-      "Data for spreadsheet, an array of objects where each object represents a row. Keys are column names and values can be string, number, null, or undefined. Such as, [{ name: 'John', age: 30 }, { name: 'Jane', age: 25 }].",
+      "Data for spreadsheet, an array of objects where each object represents a row. Keys are column names and values can be string, number, or null. Such as, [{ name: 'John', age: 30 }, { name: 'Jane', age: 25 }].",
     )
     .nonempty({ message: "Spreadsheet data cannot be empty." }),
   rows: z

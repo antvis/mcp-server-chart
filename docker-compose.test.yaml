@@ -1,0 +1,12 @@
+services:
+  mcp-server-chart:
+    build:
+      context: .          
+      dockerfile: Dockerfile
+    image: mcp-server-chart:stable
+    container_name: mcp-server-chart-1
+    environment:
+       - VIS_REQUEST_SERVER=http://localhost:3000/render
+    command: ["node", "build/index.js", "--transport", "streamable", "--port", "1122", "--host", "0.0.0.0"]
+    ports:
+      - "1122:1122"

@@ -93,9 +93,13 @@ Also, you can use it on [aliyun](https://bailian.console.aliyun.com/?tab=mcp#/mc
 
 If you are using an AI IDE with skill support (like **Claude Code**), you can use the `chart-visualization` skill to automatically select the best chart type and generate visualizations.
 
-1. Import `.skills/chart-visualization` and enable the skill in your editor.
-2. Provide your data or describe the visualization you want.
-3. The skill will intelligently choose from 25+ chart types and generate the chart for you.
+You can add the skill from [https://github.com/antvis/chart-visualization-skills](https://github.com/antvis/chart-visualization-skills) using:
+
+```bash
+npx skills add antvis/chart-visualization-skills
+```
+
+Then provide your data or describe the visualization you want. The skill will intelligently choose from 25+ chart types and generate the chart for you.
 
 ## 🚰 Run with SSE or Streamable transport
 

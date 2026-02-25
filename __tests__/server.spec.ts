@@ -60,7 +60,7 @@ describe("MCP Server", () => {
 
     expect(res._meta).toEqual({
       description:
-        "This is the chart's spec and configuration, which can be renderred to corresponding chart by AntV GPT-Vis chart components.",
+        "The content returned by MCP is the remote image URL of the visualization chart, which can be rendered using Markdown or HTML image tags. The _meta.spec content corresponds to the chart's configuration and spec, which can be rendered using AntV GPT-Vis chart components.",
       spec: spec,
     });
 
@@ -103,7 +103,7 @@ describe("MCP Server", () => {
 
     expect(res._meta).toEqual({
       description:
-        "This is the chart's spec and configuration, which can be renderred to corresponding chart by AntV GPT-Vis chart components.",
+        "The content returned by MCP is the remote image URL of the visualization chart, which can be rendered using Markdown or HTML image tags. The _meta.spec content corresponds to the chart's configuration and spec, which can be rendered using AntV GPT-Vis chart components.",
       spec: spec,
     });
 
@@ -150,7 +150,7 @@ describe("MCP Server", () => {
 
     expect(res._meta).toEqual({
       description:
-        "This is the chart's spec and configuration, which can be renderred to corresponding chart by AntV GPT-Vis chart components.",
+        "The content returned by MCP is the remote image URL of the visualization chart, which can be rendered using Markdown or HTML image tags. The _meta.spec content corresponds to the chart's configuration and spec, which can be rendered using AntV GPT-Vis chart components.",
       spec: spec,
     });
 

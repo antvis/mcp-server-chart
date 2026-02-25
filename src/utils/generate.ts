@@ -1,6 +1,11 @@
+import https from "node:https";
 import type { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
 import axios from "axios";
 import { getServiceIdentifier, getVisRequestServer } from "./env";
+
+const httpsAgent = new https.Agent({ keepAlive: true });
+
+const axiosInstance = axios.create({ httpsAgent });
 
 /**
  * Generate a chart URL using the provided configuration.
@@ -16,7 +21,7 @@ export async function generateChartUrl(
 ): Promise<string> {
   const url = getVisRequestServer();
 
-  const response = await axios.post(
+  const response = await axiosInstance.post(
     url,
     {
       type,
@@ -59,7 +64,7 @@ export async function generateMap(
 ): Promise<ResponseResult> {
   const url = getVisRequestServer();
 
-  const response = await axios.post(
+  const response = await axiosInstance.post(
     url,
     {
       serviceId: getServiceIdentifier(),

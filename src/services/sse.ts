@@ -14,6 +14,12 @@ export const startSSEMcpServer = async (
 
   const connections: Record<string, SSEServerTransport> = {};
 
+  const prmPath = `/.well-known/oauth-protected-resource${endpoint === "/" ? "" : endpoint}`;
+  app.get(prmPath, (req: Request, res: Response) => {
+    const resourceUrl = `${req.protocol}://${req.get("host")}${endpoint}`;
+    res.json({ resource: resourceUrl });
+  });
+
   app.get(endpoint, async (req: Request, res: Response) => {
     const server = createServer();
 

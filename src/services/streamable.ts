@@ -14,6 +14,12 @@ export const startHTTPStreamableServer = async (
   app.use(express.json());
   app.use(cors({ origin: "*", exposedHeaders: ["Mcp-Session-Id"] }));
 
+  const prmPath = `/.well-known/oauth-protected-resource${endpoint === "/" ? "" : endpoint}`;
+  app.get(prmPath, (req: Request, res: Response) => {
+    const resourceUrl = `${req.protocol}://${req.get("host")}${endpoint}`;
+    res.json({ resource: resourceUrl });
+  });
+
   app.post(endpoint, async (req: Request, res: Response) => {
     // In stateless mode, create a new transport for each request to prevent
     // request ID collisions. Different clients may use the same JSON-RPC request IDs,

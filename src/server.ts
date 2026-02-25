@@ -46,16 +46,22 @@ export function createServer(): Server {
 
 /**
  * Gets enabled tools based on environment variables.
+ * The result is cached since the tool list does not change at runtime.
  */
+let enabledToolsCache: ReturnType<typeof Object.values> | null = null;
+
 function getEnabledTools() {
+  if (enabledToolsCache) return enabledToolsCache;
+
   const disabledTools = getDisabledTools();
   const allCharts = Object.values(Charts);
 
-  if (disabledTools.length === 0) {
-    return allCharts;
-  }
+  enabledToolsCache =
+    disabledTools.length === 0
+      ? allCharts
+      : allCharts.filter((chart) => !disabledTools.includes(chart.tool.name));
 
-  return allCharts.filter((chart) => !disabledTools.includes(chart.tool.name));
+  return enabledToolsCache;
 }
 
 /**

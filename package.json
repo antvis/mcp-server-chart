@@ -42,6 +42,9 @@
     "url": "https://antv.antgroup.com/"
   },
   "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.25.2",
     "axios": "^1.11.0",

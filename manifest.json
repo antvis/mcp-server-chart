@@ -1,7 +1,7 @@
 {
   "manifest_version": "0.3",
   "name": "AntV Chart Server",
-  "version": "0.9.7",
+  "version": "0.9.10",
   "description": "Visualization MCP server with 26 chart types using AntV for chart generation and data analysis",
   "author": {
     "name": "AntV Team",

@@ -36,6 +36,16 @@ const CHART_TYPE_MAP = {
   generate_spreadsheet: "spreadsheet",
 } as const;
 
+// Pre-compile Zod schemas at module load time to avoid recompiling on every request.
+// biome-ignore lint/suspicious/noExplicitAny: schema types vary per chart
+const COMPILED_SCHEMA_CACHE = new Map<string, z.ZodObject<any>>();
+for (const chartType of Object.values(CHART_TYPE_MAP)) {
+  const schema = Charts[chartType as keyof typeof Charts]?.schema;
+  if (schema) {
+    COMPILED_SCHEMA_CACHE.set(chartType, z.object(schema));
+  }
+}
+
 /**
  * Call a tool to generate a chart based on the provided name and arguments.
  * @param tool The name of the tool to call, e.g., "generate_area_chart".
@@ -53,12 +63,12 @@ export async function callTool(tool: string, args: object = {}) {
 
   try {
     // Validate input using Zod before sending to API.
-    // Select the appropriate schema based on the chart type.
-    const schema = Charts[chartType].schema;
+    // Use pre-compiled schema from cache to avoid recompiling on every call.
+    const compiledSchema = COMPILED_SCHEMA_CACHE.get(chartType);
 
-    if (schema) {
+    if (compiledSchema) {
       // Use safeParse instead of parse and try-catch.
-      const result = z.object(schema).safeParse(args);
+      const result = compiledSchema.safeParse(args);
       if (!result.success) {
         logger.error(`Invalid parameters: ${result.error.message}`);
         throw new McpError(

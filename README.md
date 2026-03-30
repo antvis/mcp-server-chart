@@ -285,3 +285,8 @@ node build/index.js -t streamable
 ## 📄 License
 
 MIT@[AntV](https://github.com/antvis).
+
+## Hosted deployment
+
+A hosted deployment is available on [Fronteir AI](https://fronteir.ai/mcp/antv-mcp-server-chart).
+

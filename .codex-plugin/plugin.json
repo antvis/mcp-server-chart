@@ -1,0 +1,23 @@
+{
+  "name": "antvis-chart-mcp",
+  "version": "0.1.0",
+  "description": "25+ visual chart generation and data analysis from Codex",
+  "author": {
+    "name": "antvis",
+    "url": "https://github.com/antvis/mcp-server-chart"
+  },
+  "homepage": "https://github.com/antvis/mcp-server-chart",
+  "repository": "https://github.com/antvis/mcp-server-chart",
+  "keywords": [
+    "mcp",
+    "codex"
+  ],
+  "mcpServers": "./.mcp.json",
+  "interface": {
+    "displayName": "AntV Chart MCP",
+    "shortDescription": "25+ visual chart generation and data analysis from Codex",
+    "longDescription": "A visualization MCP containing 25+ visual charts using @antvis for chart generation and data analysis.",
+    "category": "Productivity",
+    "websiteURL": "https://github.com/antvis/mcp-server-chart"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "antvis-chart-mcp": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@antv/mcp-server-chart"
+      ]
+    }
+  }
+}

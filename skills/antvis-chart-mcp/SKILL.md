@@ -1,3 +1,8 @@
+---
+name: antvis-chart-mcp
+description: 26 visual chart generation and data analysis from Codex
+---
+
 # AntV Chart MCP for Codex
 
 Use AntV Chart MCP from Codex via MCP.

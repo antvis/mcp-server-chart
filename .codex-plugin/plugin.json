@@ -19,5 +19,6 @@
     "longDescription": "A visualization MCP containing 25+ visual charts using @antvis for chart generation and data analysis.",
     "category": "Productivity",
     "websiteURL": "https://github.com/antvis/mcp-server-chart"
-  }
+  },
+  "skills": "./skills/"
 }

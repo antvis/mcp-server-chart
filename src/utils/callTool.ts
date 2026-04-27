@@ -108,6 +108,19 @@ export async function callTool(tool: string, args: object = {}) {
     };
     // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   } catch (error: any) {
+    // ZodError.message includes stack trace in Zod v4; use issues for clean messages
+    if (error instanceof z.ZodError) {
+      const cleanMessage = error.issues
+        // biome-ignore lint/suspicious/noExplicitAny: ZodIssue type is complex; using any for brevity
+        .map((issue: any) =>
+          issue.path.length > 0
+            ? `${issue.path.join(".")}: ${issue.message}`
+            : issue.message,
+        )
+        .join("; ");
+      logger.error(`Invalid parameters: ${cleanMessage}`);
+      throw new McpError(ErrorCode.InvalidParams, cleanMessage);
+    }
     logger.error(
       `Failed to generate chart: ${error.message || "Unknown error"}.`,
     );

@@ -3,6 +3,7 @@
     "target": "ES6",
     "module": "commonjs",
     "moduleResolution": "node",
+    "ignoreDeprecations": "5.0",
     "outDir": "./build",
     "rootDir": "./src",
     "strict": true,

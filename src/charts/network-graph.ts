@@ -17,7 +17,9 @@ const schema = {
       nodes: z
         .array(NodeSchema)
         .nonempty({ message: "At least one node is required." }),
-      edges: z.array(EdgeSchema),
+      edges: z
+        .array(EdgeSchema)
+        .nonempty({ message: "At least one edge is required." }),
     })
     .describe(
       "Data for network graph chart, such as, { nodes: [{ name: 'node1' }, { name: 'node2' }], edges: [{ source: 'node1', target: 'node2', name: 'edge1' }] }",

@@ -1,4 +1,4 @@
-name: "generate_funnel_chart crashes on empty data (antvis/mcp-server-chart#291)"
+name: generate_funnel_chart handles empty input gracefully
 server:
   command: node
   args:
@@ -6,8 +6,7 @@ server:
 assert:
   tool: generate_funnel_chart
   args:
-    data: []
+    data: {}
   expect:
-    not_error: true
-skip: true
+    is_error: true
 timeout: 30s

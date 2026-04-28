@@ -1,0 +1,13 @@
+name: generate_bar_chart returns expected result
+server:
+  command: npx
+  args:
+  - -y
+  - '@antv/mcp-server-chart'
+assert:
+  tool: generate_bar_chart
+  args:
+    data: []
+  expect:
+    not_error: true
+timeout: 30s

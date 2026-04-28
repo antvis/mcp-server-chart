@@ -1,0 +1,12 @@
+name: "generate_organization_chart crashes on empty data (antvis/mcp-server-chart#291)"
+server:
+  command: npx
+  args: [-y, '@antv/mcp-server-chart']
+assert:
+  tool: generate_organization_chart
+  args:
+    data: {}
+  expect:
+    not_error: true
+skip: true
+timeout: 30s

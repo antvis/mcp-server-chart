@@ -1,0 +1,13 @@
+name: generate_spreadsheet returns expected result
+server:
+  command: npx
+  args:
+  - -y
+  - '@antv/mcp-server-chart'
+assert:
+  tool: generate_spreadsheet
+  args:
+    data: []
+  expect:
+    not_error: true
+timeout: 30s

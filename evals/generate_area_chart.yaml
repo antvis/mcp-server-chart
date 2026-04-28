@@ -1,9 +1,8 @@
 name: generate_area_chart returns expected result
 server:
-  command: npx
+  command: node
   args:
-  - -y
-  - '@antv/mcp-server-chart'
+  - build/index.js
 assert:
   tool: generate_area_chart
   args:

@@ -1,7 +1,8 @@
 name: "generate_radar_chart crashes on empty data (antvis/mcp-server-chart#291)"
 server:
-  command: npx
-  args: [-y, '@antv/mcp-server-chart']
+  command: node
+  args:
+  - build/index.js
 assert:
   tool: generate_radar_chart
   args:

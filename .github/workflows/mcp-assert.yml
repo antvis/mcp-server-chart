@@ -16,7 +16,7 @@ jobs:
         with:
           node-version: '20'
 
-      - run: npm ci
+      - run: npm install
       - run: npm run build
 
       - uses: blackwell-systems/mcp-assert-action@v1

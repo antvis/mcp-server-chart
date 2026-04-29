@@ -19,14 +19,14 @@
                 "type": "string"
               },
               "minItems": 1,
-              "description": "A list of keywords for the names of points of interest (POIs) in Chinese. These POIs usually contain a group of places with similar locations, so the names should be more descriptive, must adding attributives to indicate that they are different places in the same area, such as \"北京市\" is better than \"北京\", \"杭州西湖\" is better than \"西湖\"; in addition, if you can determine that a location may appear in multiple areas, you can be more specific, such as \"杭州西湖的苏堤春晓\" is better than \"苏堤春晓\". The tool will use these keywords to search for specific POIs and query their detailed data, such as latitude and longitude, location photos, etc. For example, [\"西安钟楼\", \"西安大唐不夜城\", \"西安大雁塔\"]."
+              "description": "A list of keywords for the names of points of interest (POIs) in Chinese. These POIs usually contain a group of places with similar locations, so the names should be more descriptive, must adding attributives to indicate that they are different places in the same area, such as \"\u5317\u4eac\u5e02\" is better than \"\u5317\u4eac\", \"\u676d\u5dde\u897f\u6e56\" is better than \"\u897f\u6e56\"; in addition, if you can determine that a location may appear in multiple areas, you can be more specific, such as \"\u676d\u5dde\u897f\u6e56\u7684\u82cf\u5824\u6625\u6653\" is better than \"\u82cf\u5824\u6625\u6653\". The tool will use these keywords to search for specific POIs and query their detailed data, such as latitude and longitude, location photos, etc. For example, [\"\u897f\u5b89\u949f\u697c\", \"\u897f\u5b89\u5927\u5510\u4e0d\u591c\u57ce\", \"\u897f\u5b89\u5927\u96c1\u5854\"]."
             }
           },
           "required": ["data"],
           "description": "The route and places along it."
         },
         "minItems": 1,
-        "description": "Routes, each group represents all POIs along a route. For example, [{ \"data\": [\"西安钟楼\", \"西安大唐不夜城\", \"西安大雁塔\"] }, { \"data\": [\"西安曲江池公园\", \"西安回民街\"] }]"
+        "description": "Routes, each group represents all POIs along a route. For example, [{ \"data\": [\"\u897f\u5b89\u949f\u697c\", \"\u897f\u5b89\u5927\u5510\u4e0d\u591c\u57ce\", \"\u897f\u5b89\u5927\u96c1\u5854\"] }, { \"data\": [\"\u897f\u5b89\u66f2\u6c5f\u6c60\u516c\u56ed\", \"\u897f\u5b89\u56de\u6c11\u8857\"] }]"
       },
       "width": {
         "type": "number",
@@ -41,5 +41,9 @@
     },
     "required": ["title", "data"],
     "$schema": "http://json-schema.org/draft-07/schema#"
+  },
+  "annotations": {
+    "title": "Generate Path Map",
+    "readOnlyHint": true
   }
 }

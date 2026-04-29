@@ -11,7 +11,7 @@
           "properties": {
             "category": {
               "type": "string",
-              "description": "Category of the data point, such as '分类一'."
+              "description": "Category of the data point, such as '\u5206\u7c7b\u4e00'."
             },
             "value": {
               "type": "number",
@@ -25,7 +25,7 @@
           "required": ["category", "value"]
         },
         "minItems": 1,
-        "description": "Data for violin chart, such as, [{ category: '分类一', value: 10 }] or [{ category: '分类二', value: 20, group: '组别一' }]."
+        "description": "Data for violin chart, such as, [{ category: 'Category A', value: 10 }], when the data is grouped, the 'group' field is required, such as, [{ category: 'Category B', value: 20, group: 'Group A' }]."
       },
       "theme": {
         "type": "string",
@@ -34,7 +34,7 @@
         "description": "Set the theme for the chart, optional, default is 'default'."
       },
       "style": {
-        "description": "Custom style configuration for the chart.",
+        "description": "Style configuration for the chart with a JSON object, optional.",
         "properties": {
           "backgroundColor": {
             "description": "Background color of the chart, such as, '#fff'.",
@@ -52,6 +52,11 @@
             "description": "Set the texture for the chart, optional, default is 'default'. 'rough' refers to hand-drawn style.",
             "enum": ["default", "rough"],
             "type": "string"
+          },
+          "startAtZero": {
+            "type": "boolean",
+            "description": "Whether to start the axis at zero, optional, default is false.",
+            "default": false
           }
         },
         "type": "object"
@@ -84,5 +89,9 @@
     },
     "required": ["data"],
     "$schema": "http://json-schema.org/draft-07/schema#"
+  },
+  "annotations": {
+    "title": "Generate Violin Chart",
+    "readOnlyHint": true
   }
 }

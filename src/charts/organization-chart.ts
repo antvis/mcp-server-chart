@@ -49,7 +49,9 @@ const schema = {
       texture: TextureSchema,
     })
     .optional()
-    .describe("Custom style configuration for the chart."),
+    .describe(
+      "Style configuration for the chart with a JSON object, optional.",
+    ),
   theme: ThemeSchema,
   width: WidthSchema,
   height: HeightSchema,
@@ -60,6 +62,10 @@ const tool = {
   description:
     "Generate an organization chart to visualize the hierarchical structure of an organization, such as, a diagram showing the relationship between a CEO and their direct reports.",
   inputSchema: zodToJsonSchema(schema),
+  annotations: {
+    title: "Generate Organization Chart",
+    readOnlyHint: true,
+  },
 };
 
 export const organizationChart = {

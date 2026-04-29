@@ -16,13 +16,16 @@ import {
 const data = z.object({
   x: z.number(),
   y: z.number(),
+  group: z.string().optional().describe("Group name for the data point."),
 });
 
 // Scatter chart input schema
 const schema = {
   data: z
     .array(data)
-    .describe("Data for scatter chart, such as, [{ x: 10, y: 15 }].")
+    .describe(
+      "Data for scatter chart, such as, [{ x: 10, y: 15 }], when the data is grouped, the group name can be specified in the `group` field, such as, [{ x: 10, y: 15, group: 'Group A' }].",
+    )
     .nonempty({ message: "Scatter chart data cannot be empty." }),
   style: z
     .object({
@@ -31,7 +34,9 @@ const schema = {
       texture: TextureSchema,
     })
     .optional()
-    .describe("Custom style configuration for the chart."),
+    .describe(
+      "Style configuration for the chart with a JSON object, optional.",
+    ),
   theme: ThemeSchema,
   width: WidthSchema,
   height: HeightSchema,
@@ -46,6 +51,10 @@ const tool = {
   description:
     "Generate a scatter chart to show the relationship between two variables, helps discover their relationship or trends, such as, the strength of correlation, data distribution patterns.",
   inputSchema: zodToJsonSchema(schema),
+  annotations: {
+    title: "Generate Scatter Chart",
+    readOnlyHint: true,
+  },
 };
 
 export const scatter = {

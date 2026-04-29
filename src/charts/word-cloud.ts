@@ -31,7 +31,9 @@ const schema = {
       texture: TextureSchema,
     })
     .optional()
-    .describe("Custom style configuration for the chart."),
+    .describe(
+      "Style configuration for the chart with a JSON object, optional.",
+    ),
   theme: ThemeSchema,
   width: WidthSchema,
   height: HeightSchema,
@@ -44,6 +46,10 @@ const tool = {
   description:
     "Generate a word cloud chart to show word frequency or weight through text size variation, such as, analyzing common words in social media, reviews, or feedback.",
   inputSchema: zodToJsonSchema(schema),
+  annotations: {
+    title: "Generate Word Cloud Chart",
+    readOnlyHint: true,
+  },
 };
 
 export const wordCloud = {

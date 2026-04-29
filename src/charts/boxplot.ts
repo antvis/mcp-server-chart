@@ -6,6 +6,7 @@ import {
   BackgroundColorSchema,
   HeightSchema,
   PaletteSchema,
+  StartAtZeroSchema,
   TextureSchema,
   ThemeSchema,
   TitleSchema,
@@ -36,10 +37,13 @@ const schema = {
     .object({
       backgroundColor: BackgroundColorSchema,
       palette: PaletteSchema,
+      startAtZero: StartAtZeroSchema,
       texture: TextureSchema,
     })
     .optional()
-    .describe("Custom style configuration for the chart."),
+    .describe(
+      "Style configuration for the chart with a JSON object, optional.",
+    ),
   theme: ThemeSchema,
   width: WidthSchema,
   height: HeightSchema,
@@ -53,6 +57,10 @@ const tool = {
   description:
     "Generate a boxplot chart to show data for statistical summaries among different categories, such as, comparing the distribution of data points across categories.",
   inputSchema: zodToJsonSchema(schema),
+  annotations: {
+    title: "Generate Boxplot Chart",
+    readOnlyHint: true,
+  },
 };
 
 export const boxplot = {

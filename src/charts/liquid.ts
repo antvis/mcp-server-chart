@@ -36,7 +36,9 @@ const schema = {
         ),
     })
     .optional()
-    .describe("Custom style configuration for the chart."),
+    .describe(
+      "Style configuration for the chart with a JSON object, optional.",
+    ),
   theme: ThemeSchema,
   width: WidthSchema,
   height: HeightSchema,
@@ -48,6 +50,10 @@ const tool = {
   description:
     "Generate a liquid chart to visualize a single value as a percentage, such as, the current occupancy rate of a reservoir or the completion percentage of a project.",
   inputSchema: zodToJsonSchema(schema),
+  annotations: {
+    title: "Generate Liquid Chart",
+    readOnlyHint: true,
+  },
 };
 
 export const liquid = {

@@ -13,7 +13,7 @@
         "properties": {
           "name": {
             "type": "string",
-            "description": "Keywords for the Chinese name of an administrative region (must be within China), and must be one of China, province, city, district, or county. The name should be more specific and add attributive descriptions, for example, \"西安市\" is better than \"西安\", \"杭州西湖区\" is better than \"西湖区\". It cannot be a specific place name or a vague name, such as \"其它\"."
+            "description": "Keywords for the Chinese name of an administrative region (must be within China), and must be one of China, province, city, district, or county. The name should be more specific and add attributive descriptions, for example, \"\u897f\u5b89\u5e02\" is better than \"\u897f\u5b89\", \"\u676d\u5dde\u897f\u6e56\u533a\" is better than \"\u897f\u6e56\u533a\". It cannot be a specific place name or a vague name, such as \"\u5176\u5b83\"."
           },
           "style": {
             "type": "object",
@@ -59,7 +59,7 @@
           },
           "dataValueUnit": {
             "type": "string",
-            "description": "Data unit, such as \"万亿\""
+            "description": "Data unit, such as \"\u4e07\u4ebf\""
           },
           "showAllSubdistricts": {
             "type": "boolean",
@@ -72,7 +72,7 @@
               "type": "object",
               "properties": {
                 "name": {
-                  "description": "Keywords for the Chinese name of an administrative region (must be within China), and must be one of China, province, city, district, or county. The name should be more specific and add attributive descriptions, for example, \"西安市\" is better than \"西安\", \"杭州西湖区\" is better than \"西湖区\". It cannot be a specific place name or a vague name, such as \"其它\".",
+                  "description": "Keywords for the Chinese name of an administrative region (must be within China), and must be one of China, province, city, district, or county. The name should be more specific and add attributive descriptions, for example, \"\u897f\u5b89\u5e02\" is better than \"\u897f\u5b89\", \"\u676d\u5dde\u897f\u6e56\u533a\" is better than \"\u897f\u6e56\u533a\". It cannot be a specific place name or a vague name, such as \"\u5176\u5b83\".",
                   "type": "string"
                 },
                 "dataValue": {
@@ -96,7 +96,7 @@
           }
         },
         "required": ["name"],
-        "description": "Administrative division data, lower-level administrative divisions are optional. There are usually two scenarios: one is to simply display the regional composition, only `fillColor` needs to be configured, and all administrative divisions are consistent, representing that all blocks are connected as one; the other is the regional data distribution scenario, first determine the `dataType`, `dataValueUnit` and `dataLabel` configurations, `dataValue` should be a meaningful value and consistent with the meaning of dataType, and then determine the style configuration. The `fillColor` configuration represents the default fill color for areas without data. Lower-level administrative divisions do not need `fillColor` configuration, and their fill colors are determined by the `colors` configuration (If `dataType` is \"number\", only one base color (warm color) is needed in the list to calculate the continuous data mapping color band; if `dataType` is \"enum\", the number of color values in the list is equal to the number of enumeration values (contrast colors)). If `subdistricts` has a value, `showAllSubdistricts` must be set to true. For example, {\"title\": \"陕西省地级市分布图\", \"data\": {\"name\": \"陕西省\", \"showAllSubdistricts\": true, \"dataLabel\": \"城市\", \"dataType\": \"enum\", \"colors\": [\"#4ECDC4\", \"#A5D8FF\"], \"subdistricts\": [{\"name\": \"西安市\", \"dataValue\": \"省会\"}, {\"name\": \"宝鸡市\", \"dataValue\": \"地级市\"}, {\"name\": \"咸阳市\", \"dataValue\": \"地级市\"}, {\"name\": \"铜川市\", \"dataValue\": \"地级市\"}, {\"name\": \"渭南市\", \"dataValue\": \"地级市\"}, {\"name\": \"延安市\", \"dataValue\": \"地级市\"}, {\"name\": \"榆林市\", \"dataValue\": \"地级市\"}, {\"name\": \"汉中市\", \"dataValue\": \"地级市\"}, {\"name\": \"安康市\", \"dataValue\": \"地级市\"}, {\"name\": \"商洛市\", \"dataValue\": \"地级市\"}]}, \"width\": 1000, \"height\": 1000}."
+        "description": "Administrative division data, lower-level administrative divisions are optional. There are usually two scenarios: one is to simply display the regional composition, only `fillColor` needs to be configured, and all administrative divisions are consistent, representing that all blocks are connected as one; the other is the regional data distribution scenario, first determine the `dataType`, `dataValueUnit` and `dataLabel` configurations, `dataValue` should be a meaningful value and consistent with the meaning of dataType, and then determine the style configuration. The `fillColor` configuration represents the default fill color for areas without data. Lower-level administrative divisions do not need `fillColor` configuration, and their fill colors are determined by the `colors` configuration (If `dataType` is \"number\", only one base color (warm color) is needed in the list to calculate the continuous data mapping color band; if `dataType` is \"enum\", the number of color values in the list is equal to the number of enumeration values (contrast colors)). If `subdistricts` has a value, `showAllSubdistricts` must be set to true. For example, {\"title\": \"\u9655\u897f\u7701\u5730\u7ea7\u5e02\u5206\u5e03\u56fe\", \"data\": {\"name\": \"\u9655\u897f\u7701\", \"showAllSubdistricts\": true, \"dataLabel\": \"\u57ce\u5e02\", \"dataType\": \"enum\", \"colors\": [\"#4ECDC4\", \"#A5D8FF\"], \"subdistricts\": [{\"name\": \"\u897f\u5b89\u5e02\", \"dataValue\": \"\u7701\u4f1a\"}, {\"name\": \"\u5b9d\u9e21\u5e02\", \"dataValue\": \"\u5730\u7ea7\u5e02\"}, {\"name\": \"\u54b8\u9633\u5e02\", \"dataValue\": \"\u5730\u7ea7\u5e02\"}, {\"name\": \"\u94dc\u5ddd\u5e02\", \"dataValue\": \"\u5730\u7ea7\u5e02\"}, {\"name\": \"\u6e2d\u5357\u5e02\", \"dataValue\": \"\u5730\u7ea7\u5e02\"}, {\"name\": \"\u5ef6\u5b89\u5e02\", \"dataValue\": \"\u5730\u7ea7\u5e02\"}, {\"name\": \"\u6986\u6797\u5e02\", \"dataValue\": \"\u5730\u7ea7\u5e02\"}, {\"name\": \"\u6c49\u4e2d\u5e02\", \"dataValue\": \"\u5730\u7ea7\u5e02\"}, {\"name\": \"\u5b89\u5eb7\u5e02\", \"dataValue\": \"\u5730\u7ea7\u5e02\"}, {\"name\": \"\u5546\u6d1b\u5e02\", \"dataValue\": \"\u5730\u7ea7\u5e02\"}]}, \"width\": 1000, \"height\": 1000}."
       },
       "width": {
         "type": "number",
@@ -111,5 +111,9 @@
     },
     "required": ["title", "data"],
     "$schema": "http://json-schema.org/draft-07/schema#"
+  },
+  "annotations": {
+    "title": "Generate District Map",
+    "readOnlyHint": true
   }
 }

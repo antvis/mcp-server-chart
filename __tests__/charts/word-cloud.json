@@ -20,7 +20,7 @@
           },
           "required": ["text", "value"]
         },
-        "description": "Data for word cloud chart, it should be an array of objects, each object contains a `text` field and a `value` field, such as, [{ value: 4.272, text: '形成' }]."
+        "description": "Data for word cloud chart, it should be an array of objects, each object contains a `text` field and a `value` field, such as, [{ value: 4.272, text: '\u5f62\u6210' }]."
       },
       "theme": {
         "default": "default",
@@ -29,7 +29,7 @@
         "type": "string"
       },
       "style": {
-        "description": "Custom style configuration for the chart.",
+        "description": "Style configuration for the chart with a JSON object, optional.",
         "properties": {
           "backgroundColor": {
             "description": "Background color of the chart, such as, '#fff'.",
@@ -68,5 +68,9 @@
       }
     },
     "required": ["data"]
+  },
+  "annotations": {
+    "title": "Generate Word Cloud Chart",
+    "readOnlyHint": true
   }
 }

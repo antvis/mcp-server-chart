@@ -23,7 +23,9 @@ const schema = {
       texture: TextureSchema,
     })
     .optional()
-    .describe("Custom style configuration for the chart."),
+    .describe(
+      "Style configuration for the chart with a JSON object, optional.",
+    ),
   theme: ThemeSchema,
   width: WidthSchema,
   height: HeightSchema,
@@ -35,6 +37,10 @@ const tool = {
   description:
     "Generate a mind map chart to organizes and presents information in a hierarchical structure with branches radiating from a central topic, such as, a diagram showing the relationship between a main topic and its subtopics.",
   inputSchema: zodToJsonSchema(schema),
+  annotations: {
+    title: "Generate Mind Map",
+    readOnlyHint: true,
+  },
 };
 
 export const mindMap = {

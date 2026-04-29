@@ -50,7 +50,9 @@ const schema = {
       texture: TextureSchema,
     })
     .optional()
-    .describe("Custom style configuration for the chart."),
+    .describe(
+      "Style configuration for the chart with a JSON object, optional.",
+    ),
   theme: ThemeSchema,
   width: WidthSchema,
   height: HeightSchema,
@@ -63,6 +65,10 @@ const tool = {
   description:
     "Generate a treemap chart to display hierarchical data and can intuitively show comparisons between items at the same level, such as, show disk space usage with treemap.",
   inputSchema: zodToJsonSchema(schema),
+  annotations: {
+    title: "Generate Treemap Chart",
+    readOnlyHint: true,
+  },
 };
 
 export const treemap = {

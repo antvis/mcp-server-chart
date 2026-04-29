@@ -37,7 +37,9 @@ const schema = {
       texture: TextureSchema,
     })
     .optional()
-    .describe("Custom style configuration for the chart."),
+    .describe(
+      "Style configuration for the chart with a JSON object, optional.",
+    ),
   theme: ThemeSchema,
   width: WidthSchema,
   height: HeightSchema,
@@ -50,6 +52,10 @@ const tool = {
   description:
     "Generate a pie chart to show the proportion of parts, such as, market share and budget allocation.",
   inputSchema: zodToJsonSchema(schema),
+  annotations: {
+    title: "Generate Pie Chart",
+    readOnlyHint: true,
+  },
 };
 
 export const pie = {

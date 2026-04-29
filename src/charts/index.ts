@@ -25,4 +25,6 @@ export { scatter } from "./scatter";
 export { treemap } from "./treemap";
 export { venn } from "./venn";
 export { violin } from "./violin";
+export { waterfall } from "./waterfall";
 export { wordCloud as "word-cloud" } from "./word-cloud";
+export { spreadsheet } from "./spreadsheet";

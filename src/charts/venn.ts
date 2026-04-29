@@ -39,7 +39,9 @@ const schema = {
       texture: TextureSchema,
     })
     .optional()
-    .describe("Custom style configuration for the chart."),
+    .describe(
+      "Style configuration for the chart with a JSON object, optional.",
+    ),
   theme: ThemeSchema,
   width: WidthSchema,
   height: HeightSchema,
@@ -51,6 +53,10 @@ const tool = {
   description:
     "Generate a Venn diagram to visualize the relationships between different sets, showing how they intersect and overlap, such as the commonalities and differences between various groups.",
   inputSchema: zodToJsonSchema(schema),
+  annotations: {
+    title: "Generate Venn Chart",
+    readOnlyHint: true,
+  },
 };
 
 export const venn = {

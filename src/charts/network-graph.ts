@@ -31,7 +31,9 @@ const schema = {
       texture: TextureSchema,
     })
     .optional()
-    .describe("Custom style configuration for the chart."),
+    .describe(
+      "Style configuration for the chart with a JSON object, optional.",
+    ),
   theme: ThemeSchema,
   width: WidthSchema,
   height: HeightSchema,
@@ -43,6 +45,10 @@ const tool = {
   description:
     "Generate a network graph chart to show relationships (edges) between entities (nodes), such as, relationships between people in social networks.",
   inputSchema: zodToJsonSchema(schema),
+  annotations: {
+    title: "Generate Network Graph",
+    readOnlyHint: true,
+  },
 };
 
 export const networkGraph = {

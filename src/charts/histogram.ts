@@ -33,7 +33,9 @@ const schema = {
       texture: TextureSchema,
     })
     .optional()
-    .describe("Custom style configuration for the chart."),
+    .describe(
+      "Style configuration for the chart with a JSON object, optional.",
+    ),
   theme: ThemeSchema,
   width: WidthSchema,
   height: HeightSchema,
@@ -48,6 +50,10 @@ const tool = {
   description:
     "Generate a histogram chart to show the frequency of data points within a certain range. It can observe data distribution, such as, normal and skewed distributions, and identify data concentration areas and extreme points.",
   inputSchema: zodToJsonSchema(schema),
+  annotations: {
+    title: "Generate Histogram Chart",
+    readOnlyHint: true,
+  },
 };
 
 export const histogram = {

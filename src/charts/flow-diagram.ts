@@ -31,7 +31,9 @@ const schema = {
       texture: TextureSchema,
     })
     .optional()
-    .describe("Custom style configuration for the chart."),
+    .describe(
+      "Style configuration for the chart with a JSON object, optional.",
+    ),
   theme: ThemeSchema,
   width: WidthSchema,
   height: HeightSchema,
@@ -43,6 +45,10 @@ const tool = {
   description:
     "Generate a flow diagram chart to show the steps and decision points of a process or system, such as, scenarios requiring linear process presentation.",
   inputSchema: zodToJsonSchema(schema),
+  annotations: {
+    title: "Generate Flow Diagram",
+    readOnlyHint: true,
+  },
 };
 
 export const flowDiagram = {

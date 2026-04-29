@@ -48,7 +48,9 @@ const schema = {
       texture: TextureSchema,
     })
     .optional()
-    .describe("Custom style configuration for the chart."),
+    .describe(
+      "Style configuration for the chart with a JSON object, optional.",
+    ),
   theme: ThemeSchema,
   width: WidthSchema,
   height: HeightSchema,
@@ -63,6 +65,10 @@ const tool = {
   description:
     "Generate a horizontal bar chart to show data for numerical comparisons among different categories, such as, comparing categorical data and for horizontal comparisons.",
   inputSchema: zodToJsonSchema(schema),
+  annotations: {
+    title: "Generate Bar Chart",
+    readOnlyHint: true,
+  },
 };
 
 export const bar = {

@@ -5,6 +5,7 @@ import {
   BackgroundColorSchema,
   HeightSchema,
   PaletteSchema,
+  StartAtZeroSchema,
   TextureSchema,
   ThemeSchema,
   TitleSchema,
@@ -48,10 +49,13 @@ const schema = {
     .object({
       backgroundColor: BackgroundColorSchema,
       palette: PaletteSchema,
+      startAtZero: StartAtZeroSchema,
       texture: TextureSchema,
     })
     .optional()
-    .describe("Custom style configuration for the chart."),
+    .describe(
+      "Style configuration for the chart with a JSON object, optional.",
+    ),
   theme: ThemeSchema,
   width: WidthSchema,
   height: HeightSchema,
@@ -65,6 +69,10 @@ const tool = {
   description:
     "Generate a dual axes chart which is a combination chart that integrates two different chart types, typically combining a bar chart with a line chart to display both the trend and comparison of data, such as, the trend of sales and profit over time.",
   inputSchema: zodToJsonSchema(schema),
+  annotations: {
+    title: "Generate Dual Axes Chart",
+    readOnlyHint: true,
+  },
 };
 
 export const dualAxes = {

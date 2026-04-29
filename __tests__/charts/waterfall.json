@@ -1,0 +1,102 @@
+{
+  "name": "generate_waterfall_chart",
+  "description": "Generate a waterfall chart to visualize the cumulative effect of sequentially introduced positive or negative values, such as showing how an initial value is affected by a series of intermediate positive or negative values leading to a final result. Waterfall charts are ideal for financial analysis, budget tracking, profit and loss statements, and understanding the composition of changes over time or categories.",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "category": {
+              "type": "string"
+            },
+            "value": {
+              "type": "number"
+            },
+            "isIntermediateTotal": {
+              "type": "boolean"
+            },
+            "isTotal": {
+              "type": "boolean"
+            }
+          },
+          "required": ["category"]
+        },
+        "minItems": 1,
+        "description": "Data for waterfall chart, it should be an array of objects. Each object must contain a `category` field. For regular items, a `value` field is also required. The `isIntermediateTotal` field marks intermediate subtotals, and the `isTotal` field marks the final total. For example, [{ category: 'Initial', value: 100 }, { category: 'Increase', value: 50 }, { category: 'Subtotal', isIntermediateTotal: true }, { category: 'Decrease', value: -30 }, { category: 'Total', isTotal: true }]."
+      },
+      "style": {
+        "type": "object",
+        "properties": {
+          "backgroundColor": {
+            "type": "string",
+            "description": "Background color of the chart, such as, '#fff'."
+          },
+          "texture": {
+            "type": "string",
+            "enum": ["default", "rough"],
+            "default": "default",
+            "description": "Set the texture for the chart, optional, default is 'default'. 'rough' refers to hand-drawn style."
+          },
+          "palette": {
+            "type": "object",
+            "properties": {
+              "positiveColor": {
+                "type": "string",
+                "description": "Color for positive values (increases). Default is '#FF4D4F'."
+              },
+              "negativeColor": {
+                "type": "string",
+                "description": "Color for negative values (decreases). Default is '#2EBB59'."
+              },
+              "totalColor": {
+                "type": "string",
+                "description": "Color for total and intermediate total bars. Default is '#1783FF'."
+              }
+            }
+          }
+        },
+        "description": "Style configuration for the chart with a JSON object, optional."
+      },
+      "theme": {
+        "type": "string",
+        "enum": ["default", "academy", "dark"],
+        "default": "default",
+        "description": "Set the theme for the chart, optional, default is 'default'."
+      },
+      "width": {
+        "type": "number",
+        "default": 600,
+        "description": "Set the width of chart, default is 600."
+      },
+      "height": {
+        "type": "number",
+        "default": 400,
+        "description": "Set the height of chart, default is 400."
+      },
+      "title": {
+        "type": "string",
+        "default": "",
+        "description": "Set the title of chart."
+      },
+      "axisXTitle": {
+        "type": "string",
+        "default": "",
+        "description": "Set the x-axis title of chart."
+      },
+      "axisYTitle": {
+        "type": "string",
+        "default": "",
+        "description": "Set the y-axis title of chart."
+      }
+    },
+    "required": ["data"],
+    "$schema": "http://json-schema.org/draft-07/schema#"
+  },
+  "annotations": {
+    "title": "Generate Waterfall Chart",
+    "readOnlyHint": true
+  }
+}

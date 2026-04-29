@@ -22,7 +22,7 @@ const schema = {
   data: z
     .array(data)
     .describe(
-      "Data for radar chart, it should be an array of objects, each object contains a `name` field and a `value` field, such as, [{ name: 'Design', value: 70 }].",
+      "Data for radar chart, it should be an array of objects, each object contains a `name` field and a `value` field, such as, [{ name: 'Design', value: 70 }], when the data is grouped by `group`, the `group` field is required, such as, [{ name: 'Design', value: 70, group: 'Huawei' }].",
     )
     .nonempty({ message: "Radar chart data cannot be empty." }),
   style: z
@@ -30,9 +30,15 @@ const schema = {
       backgroundColor: BackgroundColorSchema,
       palette: PaletteSchema,
       texture: TextureSchema,
+      lineWidth: z
+        .number()
+        .optional()
+        .describe("Line width for the lines of chart, such as 4."),
     })
     .optional()
-    .describe("Custom style configuration for the chart."),
+    .describe(
+      "Style configuration for the chart with a JSON object, optional.",
+    ),
   theme: ThemeSchema,
   width: WidthSchema,
   height: HeightSchema,
@@ -45,6 +51,10 @@ const tool = {
   description:
     "Generate a radar chart to display multidimensional data (four dimensions or more), such as, evaluate Huawei and Apple phones in terms of five dimensions: ease of use, functionality, camera, benchmark scores, and battery life.",
   inputSchema: zodToJsonSchema(schema),
+  annotations: {
+    title: "Generate Radar Chart",
+    readOnlyHint: true,
+  },
 };
 
 export const radar = {

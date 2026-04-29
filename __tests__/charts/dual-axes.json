@@ -12,7 +12,7 @@
         "type": "string"
       },
       "style": {
-        "description": "Custom style configuration for the chart.",
+        "description": "Style configuration for the chart with a JSON object, optional.",
         "properties": {
           "backgroundColor": {
             "description": "Background color of the chart, such as, '#fff'.",
@@ -30,6 +30,11 @@
             "description": "Set the texture for the chart, optional, default is 'default'. 'rough' refers to hand-drawn style.",
             "enum": ["default", "rough"],
             "type": "string"
+          },
+          "startAtZero": {
+            "type": "boolean",
+            "description": "Whether to start the axis at zero, optional, default is false.",
+            "default": false
           }
         },
         "type": "object"
@@ -83,14 +88,18 @@
             "axisYTitle": {
               "type": "string",
               "default": "",
-              "description": "Set the y-axis title of the chart series, such as, axisYTitle: '销售额'."
+              "description": "Set the y-axis title of the chart series, such as, axisYTitle: '\u9500\u552e\u989d'."
             }
           },
           "required": ["type", "data"]
         },
-        "description": "Series for dual axes chart, such as, [{ type: 'column', data: [91.9, 99.1, 101.6, 114.4, 121], axisYTitle: '销售额' }, { type: 'line', data: [0.055, 0.06, 0.062, 0.07, 0.075], 'axisYTitle': '利润率' }]."
+        "description": "Series for dual axes chart, such as, [{ type: 'column', data: [91.9, 99.1, 101.6, 114.4, 121], axisYTitle: '\u9500\u552e\u989d' }, { type: 'line', data: [0.055, 0.06, 0.062, 0.07, 0.075], 'axisYTitle': '\u5229\u6da6\u7387' }]."
       }
     },
     "required": ["categories", "series"]
+  },
+  "annotations": {
+    "title": "Generate Dual Axes Chart",
+    "readOnlyHint": true
   }
 }

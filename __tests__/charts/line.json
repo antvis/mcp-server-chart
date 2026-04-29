@@ -16,16 +16,14 @@
             },
             "value": {
               "type": "number"
+            },
+            "group": {
+              "type": "string"
             }
           },
           "required": ["time", "value"]
         },
-        "description": "Data for line chart, it should be an array of objects, each object contains a `time` field and a `value` field, such as, [{ time: '2015', value: 23 }, { time: '2016', value: 32 }]."
-      },
-      "stack": {
-        "type": "boolean",
-        "default": false,
-        "description": "Whether stacking is enabled. When enabled, line charts require a 'group' field in the data."
+        "description": "Data for line chart, it should be an array of objects, each object contains a `time` field and a `value` field, such as, [{ time: '2015', value: 23 }, { time: '2016', value: 32 }], when the data is grouped by time, the `group` field should be used to specify the group, such as, [{ time: '2015', value: 23, group: 'A' }, { time: '2015', value: 32, group: 'B' }]."
       },
       "theme": {
         "default": "default",
@@ -34,7 +32,7 @@
         "type": "string"
       },
       "style": {
-        "description": "Custom style configuration for the chart.",
+        "description": "Style configuration for the chart with a JSON object, optional.",
         "properties": {
           "lineWidth": {
             "description": "Line width for the lines of chart, such as 4.",
@@ -56,6 +54,11 @@
             "description": "Set the texture for the chart, optional, default is 'default'. 'rough' refers to hand-drawn style.",
             "enum": ["default", "rough"],
             "type": "string"
+          },
+          "startAtZero": {
+            "type": "boolean",
+            "description": "Whether to start the axis at zero, optional, default is false.",
+            "default": false
           }
         },
         "type": "object"
@@ -87,5 +90,9 @@
       }
     },
     "required": ["data"]
+  },
+  "annotations": {
+    "title": "Generate Line Chart",
+    "readOnlyHint": true
   }
 }

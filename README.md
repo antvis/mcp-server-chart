@@ -1,10 +1,10 @@
-# MCP Server Chart  ![](https://badge.mcpx.dev?type=server 'MCP Server')  [![build](https://github.com/antvis/mcp-server-chart/actions/workflows/build.yml/badge.svg)](https://github.com/antvis/mcp-server-chart/actions/workflows/build.yml) [![npm Version](https://img.shields.io/npm/v/@antv/mcp-server-chart.svg)](https://www.npmjs.com/package/@antv/mcp-server-chart) [![smithery badge](https://smithery.ai/badge/@antvis/mcp-server-chart)](https://smithery.ai/server/@antvis/mcp-server-chart) [![npm License](https://img.shields.io/npm/l/@antv/mcp-server-chart.svg)](https://www.npmjs.com/package/@antv/mcp-server-chart)
+# MCP Server Chart 
 
 A Model Context Protocol server for generating charts using [AntV](https://github.com/antvis/). We can use this mcp server for _chart generation_ and _data analysis_.
 
-<a href="https://www.star-history.com/#antvis/mcp-server-chart&Date">
-  <img width="512" src="https://api.star-history.com/svg?repos=antvis/mcp-server-chart&type=Date" />
-</a>
+![](https://badge.mcpx.dev?type=server "MCP Server") [![build](https://github.com/antvis/mcp-server-chart/actions/workflows/build.yml/badge.svg)](https://github.com/antvis/mcp-server-chart/actions/workflows/build.yml) [![npm Version](https://img.shields.io/npm/v/@antv/mcp-server-chart.svg)](https://www.npmjs.com/package/@antv/mcp-server-chart) [![npm License](https://img.shields.io/npm/l/@antv/mcp-server-chart.svg)](https://www.npmjs.com/package/@antv/mcp-server-chart) [![codecov](https://codecov.io/gh/antvis/mcp-server-chart/graph/badge.svg?token=7R98VGO5GL)](https://codecov.io/gh/antvis/mcp-server-chart) [![smithery installations badge](https://smithery.ai/badge/antvis/mcp-server-chart)](https://smithery.ai/servers/antvis/mcp-server-chart) ![Visitors](https://hitscounter.dev/api/hit?url=https://github.com/antvis/mcp-server-chart&label=Visitors&icon=graph-up&color=%23dc3545&message=&style=flat&tz=UTC)
+
+<img width="768" alt="mcp-server-chart technical digram" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*XVH-Srg-b9UAAAAAgGAAAAgAemJ7AQ/fmt.avif" />
 
 This is a TypeScript-based MCP server that provides chart generation capabilities. It allows you to create various types of charts through MCP tools. You can also use it in [Dify](https://marketplace.dify.ai/plugins/antv/visualization).
 
@@ -12,6 +12,7 @@ This is a TypeScript-based MCP server that provides chart generation capabilitie
 
 - [✨ Features](#-features)
 - [🤖 Usage](#-usage)
+- [🎨 Skill Usage](#-skill-usage)
 - [🚰 Run with SSE or Streamable transport](#-run-with-sse-or-streamable-transport)
 - [🎮 CLI Options](#-cli-options)
 - [⚙️ Environment Variables](#%EF%B8%8F-environment-variables)
@@ -26,7 +27,7 @@ This is a TypeScript-based MCP server that provides chart generation capabilitie
 
 ## ✨ Features
 
-Now 25+ charts supported.
+Now 26+ charts supported.
 
 <img width="768" alt="mcp-server-chart preview" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*IyIRQIQHyKYAAAAAgCAAAAgAemJ7AQ/fmt.avif" />
 
@@ -55,6 +56,7 @@ Now 25+ charts supported.
 1. `generate_venn_chart`: Generate a `venn` diagram, used to display relationships between sets, including intersections, unions, and differences.
 1. `generate_violin_chart`: Generate a `violin` plot, used to display the distribution of data, combining features of boxplots and density plots to provide a more detailed view of the data distribution.
 1. `generate_word_cloud_chart`: Generate a `word-cloud`, used to display the frequency of words in textual data, with font sizes indicating the frequency of each word.
+1. `generate_spreadsheet`: Generate a `spreadsheet` or pivot table for displaying tabular data. When 'rows' or 'values' fields are provided, it renders as a pivot table (cross-tabulation); otherwise, it renders as a regular table.
 
 > [!NOTE]
 > The above geographic visualization chart generation tool uses [AMap service](https://lbs.amap.com/) and currently only supports map generation within China.
@@ -68,10 +70,7 @@ To use with `Desktop APP`, such as Claude, VSCode, [Cline](https://cline.bot/mcp
   "mcpServers": {
     "mcp-server-chart": {
       "command": "npx",
-      "args": [
-        "-y",
-        "@antv/mcp-server-chart"
-      ]
+      "args": ["-y", "@antv/mcp-server-chart"]
     }
   }
 }
@@ -84,18 +83,25 @@ On Window system:
   "mcpServers": {
     "mcp-server-chart": {
       "command": "cmd",
-      "args": [
-        "/c",
-        "npx",
-        "-y",
-        "@antv/mcp-server-chart"
-      ]
+      "args": ["/c", "npx", "-y", "@antv/mcp-server-chart"]
     }
   }
 }
 ```
 
-Also, you can use it on [aliyun](https://bailian.console.aliyun.com/?tab=mcp#/mcp-market/detail/antv-visualization-chart), [modelscope](https://www.modelscope.cn/mcp/servers/@antvis/mcp-server-chart), [glama.ai](https://glama.ai/mcp/servers/@antvis/mcp-server-chart), [smithery.ai](https://smithery.ai/server/@antvis/mcp-server-chart) or others with HTTP, SSE Protocol.
+Also, you can use it on [aliyun](https://bailian.console.aliyun.com/?tab=mcp#/mcp-market/detail/antv-visualization-chart), [modelscope](https://www.modelscope.cn/mcp/servers/@antvis/mcp-server-chart), [glama.ai](https://glama.ai/mcp/servers/@antvis/mcp-server-chart), [smithery.ai](https://smithery.ai/servers/@antvis/mcp-server-chart) or others with HTTP, SSE Protocol.
+
+## 🎨 Skill Usage
+
+If you are using an AI IDE with skill support (like **Claude Code**), you can use the `chart-visualization` skill to automatically select the best chart type and generate visualizations.
+
+You can add the skill from [https://github.com/antvis/chart-visualization-skills](https://github.com/antvis/chart-visualization-skills) using:
+
+```bash
+npx skills add antvis/chart-visualization-skills
+```
+
+Then provide your data or describe the visualization you want. The skill will intelligently choose from 25+ chart types and generate the chart for you.
 
 ## 🚰 Run with SSE or Streamable transport
 
@@ -143,28 +149,28 @@ Then you can access the server at:
 
 ## 🎮 CLI Options
 
-You can also use the following CLI options when running the MCP server. Command options by run cli with `-h`.
+You can also use the following CLI options when running the MCP server. Command options by run cli with `-H`.
 
 ```plain
 MCP Server Chart CLI
 
 Options:
   --transport, -t  Specify the transport protocol: "stdio", "sse", or "streamable" (default: "stdio")
+  --host, -h       Specify the host for SSE or streamable transport (default: localhost)
   --port, -p       Specify the port for SSE or streamable transport (default: 1122)
   --endpoint, -e   Specify the endpoint for the transport:
                    - For SSE: default is "/sse"
                    - For streamable: default is "/mcp"
-  --help, -h       Show this help message
+  --help, -H       Show this help message
 ```
 
 ## ⚙️ Environment Variables
 
-| Variable | Description | Default | Example |
-|----------|:------------|---------|---------|
-| `VIS_REQUEST_SERVER` | Custom chart generation service URL for private deployment | `https://antv-studio.alipay.com/api/gpt-vis` | `https://your-server.com/api/chart` |
-| `SERVICE_ID` | Service identifier for chart generation records | - | `your-service-id-123` |
-| `DISABLED_TOOLS` | Comma-separated list of tool names to disable | - | `generate_fishbone_diagram,generate_mind_map` |
-
+| Variable             | Description                                                | Default                                      | Example                                       |
+| -------------------- | :--------------------------------------------------------- | -------------------------------------------- | --------------------------------------------- |
+| `VIS_REQUEST_SERVER` | Custom chart generation service URL for private deployment | `https://antv-studio.alipay.com/api/gpt-vis` | `https://your-server.com/api/chart`           |
+| `SERVICE_ID`         | Service identifier for chart generation records            | -                                            | `your-service-id-123`                         |
+| `DISABLED_TOOLS`     | Comma-separated list of tool names to disable              | -                                            | `generate_fishbone_diagram,generate_mind_map` |
 
 ### 📠 Private Deployment
 
@@ -175,10 +181,7 @@ Options:
   "mcpServers": {
     "mcp-server-chart": {
       "command": "npx",
-      "args": [
-        "-y",
-        "@antv/mcp-server-chart"
-      ],
+      "args": ["-y", "@antv/mcp-server-chart"],
       "env": {
         "VIS_REQUEST_SERVER": "<YOUR_VIS_REQUEST_SERVER>"
       }
@@ -214,10 +217,7 @@ Next, you need to add the `SERVICE_ID` environment variable to the MCP server co
   "mcpServers": {
     "AntV Map": {
       "command": "npx",
-      "args": [
-        "-y",
-        "@antv/mcp-server-chart"
-      ],
+      "args": ["-y", "@antv/mcp-server-chart"],
       "env": {
         "SERVICE_ID": "***********************************"
       }
@@ -239,10 +239,7 @@ You can disable specific chart generation tools using the `DISABLED_TOOLS` envir
   "mcpServers": {
     "mcp-server-chart": {
       "command": "npx",
-      "args": [
-        "-y",
-        "@antv/mcp-server-chart"
-      ],
+      "args": ["-y", "@antv/mcp-server-chart"],
       "env": {
         "DISABLED_TOOLS": "generate_fishbone_diagram,generate_mind_map"
       }
@@ -271,6 +268,18 @@ Start the MCP server:
 
 ```bash
 npm run start
+```
+
+Start the MCP server with SSE transport:
+
+```bash
+node build/index.js -t sse
+```
+
+Start the MCP server with Streamable transport:
+
+```bash
+node build/index.js -t streamable
 ```
 
 ## 📄 License

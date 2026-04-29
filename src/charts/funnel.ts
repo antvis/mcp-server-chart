@@ -29,7 +29,9 @@ const schema = {
       texture: TextureSchema,
     })
     .optional()
-    .describe("Custom style configuration for the chart."),
+    .describe(
+      "Style configuration for the chart with a JSON object, optional.",
+    ),
   theme: ThemeSchema,
   width: WidthSchema,
   height: HeightSchema,
@@ -41,6 +43,10 @@ const tool = {
   description:
     "Generate a funnel chart to visualize the progressive reduction of data as it passes through stages, such as, the conversion rates of users from visiting a website to completing a purchase.",
   inputSchema: zodToJsonSchema(schema),
+  annotations: {
+    title: "Generate Funnel Chart",
+    readOnlyHint: true,
+  },
 };
 
 export const funnel = {

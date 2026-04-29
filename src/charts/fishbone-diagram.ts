@@ -45,7 +45,9 @@ const schema = {
       texture: TextureSchema,
     })
     .optional()
-    .describe("Custom style configuration for the chart."),
+    .describe(
+      "Style configuration for the chart with a JSON object, optional.",
+    ),
   theme: ThemeSchema,
   width: WidthSchema,
   height: HeightSchema,
@@ -57,6 +59,10 @@ const tool = {
   description:
     "Generate a fishbone diagram chart to uses a fish skeleton, like structure to display the causes or effects of a core problem, with the problem as the fish head and the causes/effects as the fish bones. It suits problems that can be split into multiple related factors.",
   inputSchema: zodToJsonSchema(schema),
+  annotations: {
+    title: "Generate Fishbone Diagram",
+    readOnlyHint: true,
+  },
 };
 
 export const fishboneDiagram = {

@@ -91,11 +91,16 @@ export async function callTool(tool: string, args: object = {}) {
       // Use safeParse instead of parse and try-catch.
       const result = compiledSchema.safeParse(args);
       if (!result.success) {
-        logger.error(`Invalid parameters: ${result.error.message}`);
-        throw new McpError(
-          ErrorCode.InvalidParams,
-          `Invalid parameters: ${result.error.message}`,
-        );
+        // ZodError.message includes stack trace in Zod v4; use issues for clean messages
+        const cleanMessage = result.error.issues
+          .map((issue) =>
+            issue.path.length > 0
+              ? `${issue.path.join(".")}: ${issue.message}`
+              : issue.message,
+          )
+          .join("; ");
+        logger.error(`Invalid parameters: ${cleanMessage}`);
+        throw new McpError(ErrorCode.InvalidParams, cleanMessage);
       }
     }
 
@@ -129,24 +134,11 @@ export async function callTool(tool: string, args: object = {}) {
       _meta: {
         description:
           "The content returned by MCP is the remote image URL of the visualization chart, which can be rendered using Markdown or HTML image tags. The _meta.spec content corresponds to the chart's configuration and spec, which can be rendered using AntV GPT-Vis chart components.",
-        spec: { type: chartType, ...args },
+        spec: { type: chartType, ...sortedArgs },
       },
     };
     // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   } catch (error: any) {
-    // ZodError.message includes stack trace in Zod v4; use issues for clean messages
-    if (error instanceof z.ZodError) {
-      const cleanMessage = error.issues
-        // biome-ignore lint/suspicious/noExplicitAny: ZodIssue type is complex; using any for brevity
-        .map((issue: any) =>
-          issue.path.length > 0
-            ? `${issue.path.join(".")}: ${issue.message}`
-            : issue.message,
-        )
-        .join("; ");
-      logger.error(`Invalid parameters: ${cleanMessage}`);
-      throw new McpError(ErrorCode.InvalidParams, cleanMessage);
-    }
     logger.error(
       `Failed to generate chart: ${error.message || "Unknown error"}.`,
     );

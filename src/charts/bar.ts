@@ -46,7 +46,7 @@ const schema = {
     .optional()
     .default(true)
     .describe(
-      "Whether the bar chart is horizontal. When true (default), category is on Y-axis and value is on X-axis (standard bar chart orientation). When false, category is on X-axis and value is on Y-axis (column chart orientation, useful when user specifies 'Y-axis as Category').",
+      "Whether the bar chart is horizontal. When true (default), category is on Y-axis and value is on X-axis (standard bar chart orientation). When false, category is on X-axis and value is on Y-axis (column chart orientation, useful when user specifies 'X-axis as Category').",
     ),
   style: z
     .object({
@@ -70,7 +70,7 @@ const schema = {
 const tool = {
   name: "generate_bar_chart",
   description:
-    "Generate a bar chart to show data for numerical comparisons among different categories. Use the 'horizontal' parameter to control orientation: horizontal (default, category on Y-axis) for traditional bar charts, or horizontal=false (category on X-axis) when user specifies 'Y-axis as Category'.",
+    "Generate a bar chart to show data for numerical comparisons among different categories. Use the 'horizontal' parameter to control orientation: horizontal (default, category on Y-axis) for traditional bar charts, or horizontal=false (category on X-axis) when user specifies 'X-axis as Category'.",
   inputSchema: zodToJsonSchema(schema),
   annotations: {
     title: "Generate Bar Chart",

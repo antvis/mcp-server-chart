@@ -122,14 +122,19 @@ export async function callTool(tool: string, args: object = {}) {
       throw new McpError(ErrorCode.InvalidParams, cleanMessage);
     }
     logger.error(
-      `Failed to generate chart: ${error.message || "Unknown error"}.`,
+      `Failed to generate chart: ${error?.message || "Unknown error"}.`,
     );
     if (error instanceof McpError) throw error;
     if (error instanceof ValidateError)
       throw new McpError(ErrorCode.InvalidParams, error.message);
-    throw new McpError(
-      ErrorCode.InternalError,
-      `Failed to generate chart: ${error?.message || "Unknown error."}`,
-    );
+    return {
+      content: [
+        {
+          type: "text",
+          text: `Failed to generate chart: ${error?.message || "Unknown error"}. Please check that the data matches the expected format for this chart type.`,
+        },
+      ],
+      isError: true,
+    };
   }
 }

@@ -36,6 +36,27 @@ const CHART_TYPE_MAP = {
   generate_spreadsheet: "spreadsheet",
 } as const;
 
+// Line/area charts use time-based x-axis that needs chronological sorting
+const TIME_BASED_CHARTS = ["generate_line_chart", "generate_area_chart"];
+
+/**
+ * Sort line/area chart data by time field to ensure x-axis labels are chronological.
+ * ISO-8601 date strings (e.g., "2026-01", "2026-03") sort correctly as strings.
+ */
+function sortTimeBasedData(
+  args: Record<string, unknown>,
+): Record<string, unknown> {
+  if (!Array.isArray(args.data)) {
+    return args;
+  }
+  const sortedData = [...args.data].sort((a, b) => {
+    const timeA = (a as { time?: string }).time ?? "";
+    const timeB = (b as { time?: string }).time ?? "";
+    return timeA.localeCompare(timeB);
+  });
+  return { ...args, data: sortedData };
+}
+
 // Pre-compile Zod schemas at module load time to avoid recompiling on every request.
 // biome-ignore lint/suspicious/noExplicitAny: schema types vary per chart
 const COMPILED_SCHEMA_CACHE = new Map<string, z.ZodObject<any>>();
@@ -84,13 +105,18 @@ export async function callTool(tool: string, args: object = {}) {
       "generate_pin_map",
     ].includes(tool);
 
+    // Sort time-based chart data to ensure x-axis labels are chronological
+    const sortedArgs = TIME_BASED_CHARTS.includes(tool)
+      ? sortTimeBasedData(args as Record<string, unknown>)
+      : (args as Record<string, unknown>);
+
     if (isMapChartTool) {
       // For map charts, we use the generateMap function, and return the mcp result.
-      const { metadata, ...result } = await generateMap(tool, args);
+      const { metadata, ...result } = await generateMap(tool, sortedArgs);
       return result;
     }
 
-    const url = await generateChartUrl(chartType, args);
+    const url = await generateChartUrl(chartType, sortedArgs);
     logger.info(`Generated chart URL: ${url}`);
 
     return {

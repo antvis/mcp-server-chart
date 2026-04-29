@@ -250,6 +250,17 @@ You can disable specific chart generation tools using the `DISABLED_TOOLS` envir
 
 **Available tool names for filtering** See the [✨ Features](#-features).
 
+## ⚠️ Security Considerations
+
+When using chart data from external sources (APIs, databases, CSV files), be aware of **Prompt Injection** risks. Malicious data in field values, labels, or titles can potentially affect AI assistant behavior.
+
+**Recommendations:**
+- Validate and sanitize external data before use
+- Set reasonable length limits on text fields
+- Do not blindly trust chart outputs from untrusted data sources
+
+For more details, see [Security Advisory #279](https://github.com/antvis/mcp-server-chart/issues/279).
+
 ## 🔨 Development
 
 Install dependencies:

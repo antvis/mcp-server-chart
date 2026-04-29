@@ -91,11 +91,16 @@ export async function callTool(tool: string, args: object = {}) {
       // Use safeParse instead of parse and try-catch.
       const result = compiledSchema.safeParse(args);
       if (!result.success) {
-        logger.error(`Invalid parameters: ${result.error.message}`);
-        throw new McpError(
-          ErrorCode.InvalidParams,
-          `Invalid parameters: ${result.error.message}`,
-        );
+        const cleanMessage = result.error.issues
+          // biome-ignore lint/suspicious/noExplicitAny: ZodIssue type is complex; using any for brevity
+          .map((issue: any) =>
+            issue.path.length > 0
+              ? `${issue.path.join(".")}: ${issue.message}`
+              : issue.message,
+          )
+          .join("; ");
+        logger.error(`Invalid parameters: ${cleanMessage}`);
+        throw new McpError(ErrorCode.InvalidParams, cleanMessage);
       }
     }
 
@@ -106,17 +111,17 @@ export async function callTool(tool: string, args: object = {}) {
     ].includes(tool);
 
     // Sort time-based chart data to ensure x-axis labels are chronological
-    const sortedArgs = TIME_BASED_CHARTS.includes(tool)
-      ? sortTimeBasedData(args as Record<string, unknown>)
-      : (args as Record<string, unknown>);
+    if (TIME_BASED_CHARTS.includes(tool)) {
+      args = sortTimeBasedData(args as Record<string, unknown>);
+    }
 
     if (isMapChartTool) {
       // For map charts, we use the generateMap function, and return the mcp result.
-      const { metadata, ...result } = await generateMap(tool, sortedArgs);
+      const { metadata, ...result } = await generateMap(tool, args);
       return result;
     }
 
-    const url = await generateChartUrl(chartType, sortedArgs);
+    const url = await generateChartUrl(chartType, args);
     logger.info(`Generated chart URL: ${url}`);
 
     return {

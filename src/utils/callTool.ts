@@ -139,6 +139,7 @@ export async function callTool(tool: string, args: object = {}) {
     };
     // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   } catch (error: any) {
+    const message = error?.message || "Unknown error";
     // ZodError.message includes stack trace in Zod v4; use issues for clean messages
     if (error instanceof z.ZodError) {
       const cleanMessage = error.issues
@@ -150,17 +151,36 @@ export async function callTool(tool: string, args: object = {}) {
         )
         .join("; ");
       logger.error(`Invalid parameters: ${cleanMessage}`);
-      throw new McpError(ErrorCode.InvalidParams, cleanMessage);
+      // Return isError content instead of throwing InternalError (-32603).
+      // InternalError is treated as a server crash by MCP clients; agents
+      // cannot recover from it. Returning isError: true with a descriptive
+      // message lets agents self-correct (e.g., fix their input and retry).
+      return {
+        content: [
+          {
+            type: "text",
+            text: `Invalid parameters: ${cleanMessage}. Please check that the data matches the expected format for this chart type.`,
+          },
+        ],
+        isError: true,
+      };
     }
-    logger.error(
-      `Failed to generate chart: ${error.message || "Unknown error"}.`,
-    );
+    logger.error(`Failed to generate chart: ${message}.`);
     if (error instanceof McpError) throw error;
     if (error instanceof ValidateError)
       throw new McpError(ErrorCode.InvalidParams, error.message);
-    throw new McpError(
-      ErrorCode.InternalError,
-      `Failed to generate chart: ${error?.message || "Unknown error."}`,
-    );
+    // Return isError content instead of throwing InternalError (-32603).
+    // InternalError is treated as a server crash by MCP clients; agents
+    // cannot recover from it. Returning isError: true with a descriptive
+    // message lets agents self-correct (e.g., fix their input and retry).
+    return {
+      content: [
+        {
+          type: "text",
+          text: `Failed to generate chart: ${message}. Please check that the data matches the expected format for this chart type.`,
+        },
+      ],
+      isError: true,
+    };
   }
 }

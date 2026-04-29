@@ -50,8 +50,8 @@ function sortTimeBasedData(
     return args;
   }
   const sortedData = [...args.data].sort((a, b) => {
-    const timeA = (a as { time?: string }).time ?? "";
-    const timeB = (b as { time?: string }).time ?? "";
+    const timeA = String((a as { time?: unknown }).time ?? "");
+    const timeB = String((b as { time?: unknown }).time ?? "");
     return timeA.localeCompare(timeB);
   });
   return { ...args, data: sortedData };

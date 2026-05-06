@@ -44,7 +44,7 @@ const schema = {
     .optional()
     .default(false)
     .describe(
-      "Whether to align the scale of all dimensions. When true, all dimensions share the same scale (aligned to the maximum value), making it easier to compare absolute values; when false, each dimension scales independently, suitable for highlighting relative differences within each dimension.",
+      "Whether to align the scale for all dimensions. If true, all dimensions share a scale (aligned to the max value), making absolute values comparable. If false, each dimension scales independently to highlight relative differences.",
     ),
   theme: ThemeSchema,
   width: WidthSchema,

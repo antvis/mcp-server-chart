@@ -52,6 +52,11 @@
         },
         "type": "object"
       },
+      "align": {
+        "default": false,
+        "description": "Whether to align the scale of all dimensions. When true, all dimensions share the same scale (aligned to the maximum value), making it easier to compare absolute values; when false, each dimension scales independently, suitable for highlighting relative differences within each dimension.",
+        "type": "boolean"
+      },
       "theme": {
         "default": "default",
         "description": "Set the theme for the chart, optional, default is 'default'.",

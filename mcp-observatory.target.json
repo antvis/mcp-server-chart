@@ -1,0 +1,13 @@
+{
+  "targetId": "mcp-server",
+  "adapter": "local-process",
+  "command": "npx",
+  "args": [
+    "-y",
+    "@antv/mcp-server-chart"
+  ],
+  "timeoutMs": 15000,
+  "metadata": {
+    "observatory": "generated-by-init-ci"
+  }
+}

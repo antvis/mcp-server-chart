@@ -89,6 +89,14 @@ On Window system:
 }
 ```
 
+For Autohand Code, add the same npm server from the command line:
+
+```bash
+autohand mcp add mcp-server-chart npx -y @antv/mcp-server-chart
+```
+
+Add `--scope project` after `add` to keep the server configuration in the current project. See [Autohand Code](https://github.com/autohandai/code-cli/) for current installation and CLI details.
+
 Also, you can use it on [aliyun](https://bailian.console.aliyun.com/?tab=mcp#/mcp-market/detail/antv-visualization-chart), [modelscope](https://www.modelscope.cn/mcp/servers/@antvis/mcp-server-chart), [glama.ai](https://glama.ai/mcp/servers/@antvis/mcp-server-chart), [smithery.ai](https://smithery.ai/servers/@antvis/mcp-server-chart) or others with HTTP, SSE Protocol.
 
 ## 🎨 Skill Usage

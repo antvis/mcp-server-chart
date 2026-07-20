@@ -58,7 +58,7 @@ export const validatedNodeEdgeDataSchema = (data: NodeEdgeDataType) => {
   // 3. valid edge source edge target pair are unique
   const edgePairs = new Set();
   for (const edge of data.edges) {
-    const pairKey = JSON.stringify([edge.source, edge.target]);
+    const pairKey = `${edge.source}\0${edge.target}`;
     if (edgePairs.has(pairKey)) {
       throw new ValidateError(
         `Invalid parameters: edge pair '${edge.source}-${edge.target}' should be unique.`,

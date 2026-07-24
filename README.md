@@ -1,3 +1,5 @@
+[![mcpindex](https://mcpindex.ai/api/v1/badge/io-github-antvis-mcp-server-chart)](https://mcpindex.ai/server/io-github-antvis-mcp-server-chart)
+
 # MCP Server Chart 
 
 A Model Context Protocol server for generating charts using [AntV](https://github.com/antvis/). We can use this mcp server for _chart generation_ and _data analysis_.

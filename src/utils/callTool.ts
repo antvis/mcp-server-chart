@@ -102,21 +102,29 @@ export async function callTool(tool: string, args: object = {}) {
       ],
       _meta: {
         description:
-          "This is the chart's spec and configuration, which can be renderred to corresponding chart by AntV GPT-Vis chart components.",
+          "The content returned by MCP is the remote image URL of the visualization chart, which can be rendered using Markdown or HTML image tags. The _meta.spec content corresponds to the chart's configuration and spec, which can be rendered using AntV GPT-Vis chart components.",
         spec: { type: chartType, ...args },
       },
     };
     // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   } catch (error: any) {
-    logger.error(
-      `Failed to generate chart: ${error.message || "Unknown error"}.`,
-    );
+    const message = error?.message || "Unknown error";
+    logger.error(`Failed to generate chart: ${message}.`);
     if (error instanceof McpError) throw error;
     if (error instanceof ValidateError)
       throw new McpError(ErrorCode.InvalidParams, error.message);
-    throw new McpError(
-      ErrorCode.InternalError,
-      `Failed to generate chart: ${error?.message || "Unknown error."}`,
-    );
+    // Return isError content instead of throwing InternalError (-32603).
+    // InternalError is treated as a server crash by MCP clients; agents
+    // cannot recover from it. Returning isError: true with a descriptive
+    // message lets agents self-correct (e.g., fix their input and retry).
+    return {
+      content: [
+        {
+          type: "text",
+          text: `Failed to generate chart: ${message}. Please check that the data matches the expected format for this chart type.`,
+        },
+      ],
+      isError: true,
+    };
   }
 }

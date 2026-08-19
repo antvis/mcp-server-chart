@@ -39,6 +39,13 @@ const schema = {
     .describe(
       "Style configuration for the chart with a JSON object, optional.",
     ),
+  align: z
+    .boolean()
+    .optional()
+    .default(false)
+    .describe(
+      "Whether to align the scale for all dimensions. If true, all dimensions share a scale (aligned to the max value), making absolute values comparable. If false, each dimension scales independently to highlight relative differences.",
+    ),
   theme: ThemeSchema,
   width: WidthSchema,
   height: HeightSchema,
